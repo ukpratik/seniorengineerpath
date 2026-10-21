@@ -1,0 +1,4 @@
+id: least-privilege
+term: least privilege
+forms: [principle of least privilege]
+short: Giving each user, service or token only the access it needs for its job, and nothing more. A leak or bug then does less harm.

@@ -1,0 +1,4 @@
+id: refresh-token
+term: refresh token
+forms: [refresh tokens]
+short: A longer-lived token that an app uses only to get new short-lived access tokens. The server can revoke it to end the login.

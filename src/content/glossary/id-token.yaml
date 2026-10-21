@@ -1,0 +1,4 @@
+id: id-token
+term: ID token
+forms: [ID tokens]
+short: A signed JWT from an OpenID Connect provider that says who logged in. The app must check its issuer, audience, expiry and, in most cases, its signature.

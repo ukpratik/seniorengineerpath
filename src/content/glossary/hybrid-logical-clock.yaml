@@ -1,0 +1,4 @@
+id: hybrid-logical-clock
+term: "hybrid logical clock"
+forms: ["hybrid logical clocks", "HLC", "HLCs"]
+short: "A timestamp that follows the happens-before order like a Lamport clock, but stays close to real clock time. It fits in 64 bits."

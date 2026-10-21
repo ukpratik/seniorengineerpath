@@ -1,0 +1,4 @@
+id: bola
+term: broken object level authorization
+forms: [BOLA, IDOR, insecure direct object reference]
+short: A bug where an API takes an object ID from the client, like an order number, and uses it without checking that the caller may see that object.

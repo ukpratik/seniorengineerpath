@@ -1,0 +1,3 @@
+id: clock-skew
+term: "clock skew"
+short: "The difference between the times shown by two clocks at the same moment, for example on two servers."

@@ -1,0 +1,4 @@
+id: severity-level
+term: severity level
+forms: [severity levels, SEV-1, SEV-2, SEV-3]
+short: A number that says how bad an incident is, often SEV-1 for the worst. It decides who gets paged and how fast the team must act.

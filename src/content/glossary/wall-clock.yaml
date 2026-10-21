@@ -1,0 +1,4 @@
+id: wall-clock
+term: "wall clock"
+forms: ["wall clocks", "wall-clock"]
+short: "The clock that shows the real date and time. It can jump when someone sets it, and NTP changes its speed, so it is unsafe for measuring how long something takes."

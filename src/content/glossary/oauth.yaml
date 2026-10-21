@@ -1,0 +1,4 @@
+id: oauth
+term: OAuth 2.0
+forms: [OAuth]
+short: A standard that lets an app get limited access to an API on a user's behalf, through a token, without the user's password. It is about delegation, not login.

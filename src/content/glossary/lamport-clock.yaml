@@ -1,0 +1,4 @@
+id: lamport-clock
+term: "Lamport clock"
+forms: ["Lamport clocks", "Lamport timestamp", "Lamport timestamps"]
+short: "A counter on each process that goes up with every event and jumps past any counter it receives in a message. If a happens-before b, a gets the smaller number."

@@ -1,0 +1,19 @@
+id: incident-lifecycle
+title: "Running an incident: from the first alert to tracked action items"
+viewBox: 0 0 340 436
+svg: |
+  <g class="f" data-f="1"><rect class="note" x="22" y="10" width="186" height="40" rx="10"/><text class="note-t" x="115" y="35">1 · Detect</text><text class="sub badt" x="276" y="27">alert or</text><text class="sub badt" x="276" y="43">customer ticket</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="115" y1="52" x2="115" y2="68"/><rect class="box" x="22" y="72" width="186" height="40" rx="10"/><text class="bt" x="115" y="97">2 · Declare + name IC</text><text class="sub" x="276" y="89">severity, channel,</text><text class="sub" x="276" y="105">roles, timeline</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="115" y1="114" x2="115" y2="130"/><rect class="box" x="22" y="134" width="186" height="40" rx="10"/><text class="bt" x="115" y="159">3 · Update on a clock</text><text class="sub" x="276" y="151">30 min to leaders,</text><text class="sub" x="276" y="167">even "no news yet"</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="115" y1="176" x2="115" y2="192"/><rect class="box" x="22" y="196" width="186" height="40" rx="10"/><text class="bt" x="115" y="221">4 · Mitigate</text><text class="sub" x="276" y="213">ops lead changes</text><text class="sub" x="276" y="229">the system, IC leads</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="115" y1="238" x2="115" y2="254"/><rect class="okb" x="22" y="258" width="186" height="40" rx="10"/><text class="ok-t" x="115" y="283">5 · Resolve</text><text class="sub" x="276" y="275">impact has ended,</text><text class="sub" x="276" y="291">final update sent</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="115" y1="300" x2="115" y2="316"/><rect class="rec" x="22" y="320" width="186" height="40" rx="10"/><text class="rec-t" x="115" y="345">6 · Postmortem</text><text class="sub" x="276" y="337">blameless, many</text><text class="sub" x="276" y="353">contributing factors</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="115" y1="362" x2="115" y2="378"/><rect class="okb" x="22" y="382" width="186" height="40" rx="10"/><text class="ok-t" x="115" y="407">7 · Actions tracked</text><text class="sub" x="276" y="399">owner, ticket,</text><text class="sub" x="276" y="415">priority, due date</text></g>
+captions:
+  - "Something looks wrong. An alert fires, or a customer opens a support ticket. You do not know yet how big it is."
+  - "Declare an incident now, not later. Pick a severity, open one channel, and name one incident commander. Someone starts writing the timeline."
+  - "Updates go out on a fixed clock. At PagerDuty, the internal liaison updates the executive team roughly every 30 minutes. Each update says what you know, what you do not know yet, and when the next update comes."
+  - "The operations lead and the experts work to stop the harm. Only they change the system. The incident commander keeps the big picture and makes the decisions."
+  - "The incident ends when the business impact has ended. The incident commander says so clearly, and the last update tells everyone it is over."
+  - "Within days, the team meets and writes a blameless postmortem. It looks for the many factors that came together, not for one person to blame."
+  - "Every follow-up action becomes a ticket with one owner, a priority and a due date. Someone checks that they close, so the lesson is not lost."

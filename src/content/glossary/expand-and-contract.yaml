@@ -1,0 +1,4 @@
+id: expand-and-contract
+term: expand and contract
+forms: [expand-and-contract, parallel change]
+short: Making a breaking change in steps. First add the new thing next to the old, then move every user over, then remove the old thing.

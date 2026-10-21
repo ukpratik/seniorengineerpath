@@ -1,0 +1,4 @@
+id: openid-connect
+term: OpenID Connect
+forms: [OIDC]
+short: A login layer on top of OAuth 2.0. It adds an ID token that tells the app who the user is, as checked by a provider such as Google or Okta.

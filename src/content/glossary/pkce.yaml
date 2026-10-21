@@ -1,0 +1,4 @@
+id: pkce
+term: PKCE
+forms: [Proof Key for Code Exchange]
+short: An OAuth add-on where the app sends a hash of a random secret at the start and the secret itself at the end. A stolen authorization code is then useless without the secret.

@@ -1,0 +1,15 @@
+id: rename-column-steps
+title: "Renaming a column in five safe steps across several deploys"
+viewBox: 0 0 340 476
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="8" y="8" width="324" height="74" rx="10"/><text class="bt" x="170" y="30">1 · Expand</text><text class="sub" x="170" y="51">ADD COLUMN full_name (empty)</text><text class="sub" x="170" y="69">app v1 still uses only name</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="84" x2="170" y2="94"/><rect class="box" x="8" y="96" width="324" height="74" rx="10"/><text class="bt" x="170" y="118">2 · Write both</text><text class="sub" x="170" y="139">app v2 writes name and full_name</text><text class="sub" x="170" y="157">it still reads name</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="172" x2="170" y2="182"/><rect class="rec" x="8" y="184" width="324" height="74" rx="10"/><text class="rec-t" x="170" y="206">3 · Backfill</text><text class="sub" x="170" y="227">copy old rows in small batches</text><text class="sub" x="170" y="245">then check: no row differs</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="260" x2="170" y2="270"/><rect class="box" x="8" y="272" width="324" height="74" rx="10"/><text class="bt" x="170" y="294">4 · Read new</text><text class="sub" x="170" y="315">app v3 reads full_name, writes both</text><text class="sub" x="170" y="333">going back to v2 is still safe</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="348" x2="170" y2="358"/><rect class="note" x="8" y="360" width="324" height="74" rx="10"/><text class="note-t" x="170" y="382">5 · Contract</text><text class="sub" x="170" y="403">app v4 stops writing name</text><text class="sub" x="170" y="421">days later: DROP COLUMN name</text><rect class="okb" x="40" y="440" width="260" height="30" rx="8"/><text class="ok-t" x="170" y="460">✓ every running version works</text></g>
+captions:
+  - "Goal: rename users.name to full_name with no downtime. Step 1 adds the new column with no default and no NOT NULL. It is a quick metadata change, but it still needs a short lock, so set lock_timeout. Old code ignores the new column."
+  - "Deploy app v2. It writes every change to both columns but still reads name. During the rolling deploy, v1 and v2 run side by side, and both work."
+  - "Run a backfill job. It copies name into full_name for old rows, a small batch at a time, with a pause between batches. Start it only after every v1 pod is gone, so no new row misses full_name. Then check that no row differs."
+  - "Deploy app v3. It reads full_name and still writes both columns. If v3 has a bug, you can roll back to v2, because name is still up to date."
+  - "When v3 is stable, deploy v4, which stops writing name. If name is NOT NULL, drop that constraint first, or v4 inserts fail. Wait until no code, report or job reads name. Then drop it. Each step was a small change you could undo."

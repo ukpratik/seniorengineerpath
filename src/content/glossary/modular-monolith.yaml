@@ -1,0 +1,4 @@
+id: modular-monolith
+term: "modular monolith"
+forms: ["modular monoliths"]
+short: "One application, deployed as one unit, whose code is split into parts with strictly enforced boundaries between business areas."

@@ -1,0 +1,4 @@
+id: happens-before
+term: "happens-before"
+forms: ["happened-before"]
+short: "Lamport's rule for ordering events without clocks. Event a happens-before b if they are in one process and a comes first, if a sends a message that b receives, or through a chain of these."

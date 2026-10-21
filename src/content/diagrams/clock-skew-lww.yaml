@@ -1,0 +1,21 @@
+id: clock-skew-lww
+title: "Skewed clocks make last write wins keep the wrong value; a Lamport counter fixes the order"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="85" y1="54" x2="85" y2="456"/><line class="life" x1="255" y1="54" x2="255" y2="456"/>
+  <rect class="box" x="25" y="10" width="120" height="44" rx="10"/><text class="bt" x="85" y="37">Server A</text>
+  <rect class="box" x="195" y="10" width="120" height="44" rx="10"/><text class="bt" x="255" y="37">Server B</text>
+  <g class="f" data-f="1"><rect class="note" x="30" y="64" width="110" height="26" rx="7"/><text class="note-t" x="85" y="81">clock 10:00:05</text><rect class="note" x="200" y="64" width="110" height="26" rx="7"/><text class="note-t" x="255" y="81">clock 10:00:02</text><text class="sub badt" x="255" y="106">3 s behind</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="25" y="118" width="120" height="26" rx="7"/><text class="rec-t" x="85" y="135">₹500 · 10:00:05</text><text class="sub" x="85" y="160">first write</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="195" y="172" width="120" height="26" rx="7"/><text class="rec-t" x="255" y="189">₹450 · 10:00:03</text><text class="sub" x="255" y="214">1 s later, real time</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="87" y1="236" x2="251" y2="236"/><line class="ln" x1="253" y1="250" x2="89" y2="250"/><text class="lb" x="170" y="228">sync</text><text class="lb" x="170" y="272">last write wins: 10:00:05 is bigger</text><path class="xm" d="M248 278l14 14M262 278l-14 14"/><text class="sub badt" x="170" y="290">both keep ₹500</text></g>
+  <text class="lb" x="170" y="320">Same writes, with a Lamport counter</text>
+  <g class="f" data-f="5"><rect class="rec" x="25" y="332" width="120" height="26" rx="7"/><text class="rec-t" x="85" y="349">₹500 · L=7</text><line class="ln" x1="87" y1="376" x2="251" y2="376"/><text class="lb" x="170" y="368">B reads it, sees 7</text></g>
+  <g class="f" data-f="6"><rect class="rec" x="195" y="390" width="120" height="26" rx="7"/><text class="rec-t" x="255" y="407">₹450 · L=8</text><rect class="okb" x="25" y="426" width="290" height="30" rx="8"/><text class="ok-t" x="170" y="446">✓ 8 &gt; 7, so both keep ₹450</text></g>
+captions:
+  - "Two servers both accept writes. NTP keeps their clocks close, but not equal. Right now, Server B's clock is 3 seconds behind Server A's."
+  - "A shop owner sets a price of ₹500 through Server A. Server A stamps the write with its own clock: 10:00:05."
+  - "One second later, the owner fixes the price to ₹450. This request lands on Server B. Its slow clock stamps the newer write 10:00:03."
+  - "The servers sync and use last write wins. The older write has the bigger timestamp, so both keep ₹500. The newer price is lost, and no error is raised."
+  - "Now replay it with Lamport counters. Server A's write gets counter 7. Server B reads the price before it changes it, so it sees 7."
+  - "Server B's own counter was lower, so it jumps past 7 and stamps its write 8. The counter follows what B saw, not B's clock. Both servers keep ₹450. This works only because B saw A's write first."

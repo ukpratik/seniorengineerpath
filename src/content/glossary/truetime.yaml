@@ -1,0 +1,3 @@
+id: truetime
+term: "TrueTime"
+short: "Google's clock API used by Spanner. It returns a time interval that is sure to contain the true time, instead of a single time."

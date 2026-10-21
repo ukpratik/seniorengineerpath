@@ -1,0 +1,4 @@
+id: rolling-deploy
+term: rolling deploy
+forms: [rolling deploys, rolling update, rolling updates]
+short: A deploy that replaces old servers or pods with new ones a few at a time. For a while, old and new versions run side by side.

@@ -1,0 +1,3 @@
+id: external-consistency
+term: "external consistency"
+short: "A guarantee that if transaction T1 commits before T2 starts, T1 gets the smaller timestamp. Spanner's paper treats it as the same as linearizability."

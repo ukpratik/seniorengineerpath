@@ -1,0 +1,4 @@
+id: leap-smear
+term: "leap smear"
+forms: ["leap smearing", "leap smears"]
+short: "A way to add a leap second without a jump. Time servers make each second slightly longer over many hours, so the extra second is spread out."

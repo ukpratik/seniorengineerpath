@@ -1,0 +1,27 @@
+id: monolith-vs-services-request
+title: "One order request: inside a modular monolith, then across four services"
+viewBox: 0 0 340 470
+svg: |
+  <text class="lb" x="170" y="20">Modular monolith: one process</text>
+  <rect class="box" x="5" y="30" width="330" height="128" rx="12"/>
+  <rect class="rec" x="13" y="40" width="72" height="26" rx="7"/><text class="rec-t" x="49" y="57">Orders</text>
+  <rect class="rec" x="95" y="40" width="72" height="26" rx="7"/><text class="rec-t" x="131" y="57">Stock</text>
+  <rect class="rec" x="177" y="40" width="72" height="26" rx="7"/><text class="rec-t" x="213" y="57">Payments</text>
+  <rect class="rec" x="259" y="40" width="72" height="26" rx="7"/><text class="rec-t" x="295" y="57">Email</text>
+  <g class="f" data-f="1"><line class="ln" x1="49" y1="84" x2="127" y2="84"/><line class="ln" x1="49" y1="102" x2="209" y2="102"/><line class="ln" x1="49" y1="120" x2="291" y2="120"/><text class="sub" x="170" y="146">3 function calls · 1 database</text></g>
+  <g class="f" data-f="2"><rect class="okb" x="40" y="164" width="260" height="28" rx="8"/><text class="ok-t" x="170" y="183">✓ one transaction: all or nothing</text></g>
+  <text class="lb" x="170" y="214">Microservices: four processes</text>
+  <rect class="box" x="5" y="224" width="75" height="40" rx="10"/><text class="bt" x="42" y="249">Orders</text>
+  <rect class="box" x="90" y="224" width="75" height="40" rx="10"/><text class="bt" x="127" y="249">Stock</text>
+  <rect class="box" x="175" y="224" width="75" height="40" rx="10"/><text class="bt" x="212" y="249">Payments</text>
+  <rect class="box" x="260" y="224" width="75" height="40" rx="10"/><text class="bt" x="297" y="249">Email</text>
+  <line class="life" x1="42" y1="264" x2="42" y2="420"/><line class="life" x1="127" y1="264" x2="127" y2="420"/><line class="life" x1="212" y1="264" x2="212" y2="420"/><line class="life" x1="297" y1="264" x2="297" y2="420"/>
+  <g class="f" data-f="3"><line class="ln" x1="44" y1="296" x2="123" y2="296"/><text class="lb" x="85" y="288">reserve</text><line class="ln" x1="44" y1="328" x2="208" y2="328"/><text class="lb" x="160" y="320">charge</text><line class="ln" x1="44" y1="360" x2="293" y2="360"/><text class="lb" x="250" y="352">notify</text></g>
+  <g class="f" data-f="4"><path class="xm" d="M188 321l14 14M202 321l-14 14"/><text class="sub badt" x="170" y="384">timeout: was the card charged?</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="12" y="398" width="60" height="22" rx="6"/><text class="rec-t" x="42" y="413">DB</text><rect class="rec" x="97" y="398" width="60" height="22" rx="6"/><text class="rec-t" x="127" y="413">DB</text><rect class="rec" x="182" y="398" width="60" height="22" rx="6"/><text class="rec-t" x="212" y="413">DB</text><rect class="rec" x="267" y="398" width="60" height="22" rx="6"/><text class="rec-t" x="297" y="413">DB</text><rect class="note" x="20" y="432" width="300" height="28" rx="8"/><text class="note-t" x="170" y="451">3 hops · 4 DBs · no shared transaction</text></g>
+captions:
+  - "In a modular monolith, an order request reaches the Orders module. It calls Stock, Payments and Email as plain function calls, inside one process, with one database."
+  - "All the writes go in one database transaction. If the payment fails, the stock change rolls back too. A stack trace shows the whole path."
+  - "Now the same request with four services. Orders must call Stock, Payments and Email over the network. Each call adds a hop, and its own wait."
+  - "Any hop can fail or time out. If the charge call times out, Orders does not know if the card was charged. It needs timeouts, retries and idempotency keys."
+  - "Each service owns its database, so there is no single transaction. To undo the stock hold, you need a saga. To see the whole path, you need distributed tracing."

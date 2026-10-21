@@ -1,0 +1,4 @@
+id: last-write-wins
+term: "last write wins"
+forms: ["last-write-wins", "LWW"]
+short: "A rule for conflicting writes: keep the one with the biggest timestamp and drop the rest. With skewed clocks, it can silently drop the newer write."

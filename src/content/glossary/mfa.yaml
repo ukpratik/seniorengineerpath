@@ -1,0 +1,4 @@
+id: mfa
+term: multi-factor authentication
+forms: [MFA, two-factor authentication, 2FA]
+short: Login that needs more than a password, such as a code from an app or a security key. A stolen password alone is then not enough.

@@ -1,0 +1,4 @@
+id: leap-second
+term: "leap second"
+forms: ["leap seconds"]
+short: "An extra second sometimes added to UTC. Code that assumes time never goes backwards can break when one is added."

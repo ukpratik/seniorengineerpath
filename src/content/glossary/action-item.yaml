@@ -1,0 +1,4 @@
+id: action-item
+term: action item
+forms: [action items]
+short: A follow-up task from a postmortem, such as adding an alert or a safety check. A good one has an owner, a priority and a due date.

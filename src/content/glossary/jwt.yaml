@@ -1,0 +1,4 @@
+id: jwt
+term: JSON Web Token
+forms: [JWT, JWTs, JSON Web Tokens]
+short: A compact string that carries claims, such as a user ID and an expiry time, often signed so changes are detected. A signed JWT is not secret, because anyone can read its payload.

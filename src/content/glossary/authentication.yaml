@@ -1,0 +1,4 @@
+id: authentication
+term: authentication
+forms: [authenticate, authenticates, authenticated, authn]
+short: Checking who a user or service is, for example with a password, a second factor or a login at another provider. It answers "who are you?", not "what may you do?".

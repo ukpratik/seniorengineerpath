@@ -1,0 +1,4 @@
+id: vector-clock
+term: "vector clock"
+forms: ["vector clocks"]
+short: "A list of (node, counter) pairs kept with each version of data. Comparing two lists shows whether one version came from the other, or whether they are in conflict."

@@ -1,0 +1,19 @@
+id: authn-order-check
+title: "Log in, then every request is checked: who are you, and may you see this order?"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="456"/><line class="life" x1="170" y1="54" x2="170" y2="456"/><line class="life" x1="285" y1="54" x2="285" y2="456"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Browser</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Orders API</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Database</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="90" x2="166" y2="90"/><text class="lb" x="112" y="81">POST /login</text><text class="sub" x="112" y="107">email + password</text><line class="ln" x1="172" y1="128" x2="281" y2="128"/><text class="lb" x="227" y="119">check hash</text><rect class="okb" x="240" y="138" width="90" height="26" rx="7"/><text class="ok-t" x="285" y="155">✓ Asha</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="168" y1="190" x2="59" y2="190"/><text class="lb" x="112" y="181">Set-Cookie: sid</text><text class="sub" x="112" y="207">HttpOnly · Secure</text><rect class="note" x="8" y="216" width="94" height="26" rx="7"/><text class="note-t" x="55" y="233">cookie saved</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="270" x2="166" y2="270"/><text class="lb" x="112" y="261">GET /orders/123</text><text class="sub" x="112" y="287">cookie sent</text><rect class="rec" x="122" y="296" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="313">sid → Asha</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="172" y1="345" x2="281" y2="345"/><text class="lb" x="227" y="336">order 123?</text><line class="ln" x1="283" y1="372" x2="174" y2="372"/><text class="lb" x="227" y="364">owner: Ravi</text><line class="ln" x1="168" y1="400" x2="59" y2="400"/><text class="lb" x="112" y="391">404 Not Found</text><text class="sub badt" x="112" y="417">Asha is not Ravi</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="130" y="424" width="200" height="30" rx="8"/><text class="ok-t" x="230" y="444">✓ owner checked every time</text></g>
+captions:
+  - "Asha logs in. The API finds her account and compares a hash of the password she typed with the stored hash. It never stores or decrypts her real password."
+  - "Authentication worked. The API creates a session and sends its random ID in a cookie. HttpOnly hides it from JavaScript, and Secure sends it only over HTTPS."
+  - "Asha's browser asks for order 123 and sends the cookie on its own. The API looks up the session ID and learns who is asking: Asha. This is authentication, again, on every request."
+  - "Now authorization. The API loads order 123 and sees that it belongs to Ravi, not Asha. It refuses. A 404 also hides that order 123 exists."
+  - "The check runs on every request, for the exact object asked for. Changing 123 to 124 in the URL gets Asha nothing she does not own."

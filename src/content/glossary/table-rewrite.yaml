@@ -1,0 +1,4 @@
+id: table-rewrite
+term: table rewrite
+forms: [table rewrites]
+short: When a schema change makes the database copy every row of a table, and often rebuild its indexes. On a big table this can take a long time and lock it.

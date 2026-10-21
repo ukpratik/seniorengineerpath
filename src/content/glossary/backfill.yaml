@@ -1,0 +1,4 @@
+id: backfill
+term: backfill
+forms: [backfills, backfilling, backfilled]
+short: A job that fills in or fixes data in rows that already exist, for example copying a value into a new column. On a live database, run it in small batches.

@@ -1,0 +1,4 @@
+id: salt
+term: salt
+forms: [salts, salted]
+short: A random value added to each password before hashing, so two users with the same password get different hashes. Good libraries create and store it for you.

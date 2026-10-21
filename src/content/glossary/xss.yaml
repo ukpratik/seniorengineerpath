@@ -1,0 +1,4 @@
+id: xss
+term: cross-site scripting
+forms: [XSS]
+short: An attack where someone gets their JavaScript to run on your site in another user's browser. It can then read the page and act as that user.

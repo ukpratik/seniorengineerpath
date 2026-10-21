@@ -1,0 +1,4 @@
+id: monotonic-clock
+term: "monotonic clock"
+forms: ["monotonic clocks"]
+short: "A clock that only moves forward and cannot be set. Its value means nothing on its own, but the difference between two readings on one machine is a safe way to measure time."

@@ -1,0 +1,4 @@
+id: microservices
+term: "microservices"
+forms: ["microservice"]
+short: "A style that builds one application as many small services. Each runs on its own, talks over the network, and can be deployed and scaled on its own."

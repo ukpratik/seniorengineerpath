@@ -1,0 +1,11 @@
+id: cloudflare-2017-01-leap-second
+title: "Cloudflare DNS outage: a leap second made a time difference negative"
+date: 2017-01-01
+company: "Cloudflare"
+broke: "From midnight UTC until 06:45 UTC, some DNS lookups for customers using CNAME records failed. At peak, about 0.2% of DNS queries were affected."
+why: "RRDNS measured upstream response times with Go's time.Now(). When time went backwards at the leap second, the value went negative, and rand.Int63n panicked on it."
+lesson: "Measure durations with a monotonic clock, and never assume one wall-clock reading is later than an earlier one."
+url: https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/
+tags: [time, dns]
+lessons: [clocks-ordering]
+verified: true

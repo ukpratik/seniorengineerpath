@@ -1,0 +1,4 @@
+id: strangler-fig
+term: "strangler fig"
+forms: ["strangler fig pattern", "strangler fig application"]
+short: "A way to replace an old system bit by bit. You build new parts next to it and move behaviour across one piece at a time, instead of one big rewrite."

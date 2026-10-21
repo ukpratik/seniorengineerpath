@@ -1,0 +1,4 @@
+id: authorization
+term: authorization
+forms: [authorisation, authz]
+short: Checking what a known user or service may do, such as reading one order or deleting a project. It must run on the server for every request.

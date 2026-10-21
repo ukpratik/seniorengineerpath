@@ -1,0 +1,3 @@
+id: commit-wait
+term: "commit wait"
+short: "In Spanner, the short wait after a write picks its timestamp. Nobody can see the data until that timestamp has surely passed, given the clock uncertainty."

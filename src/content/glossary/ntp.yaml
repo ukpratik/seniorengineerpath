@@ -1,0 +1,4 @@
+id: ntp
+term: "NTP"
+forms: ["Network Time Protocol"]
+short: "Network Time Protocol. Servers use it to keep their clocks close to a reference time. It makes clocks close, not equal."

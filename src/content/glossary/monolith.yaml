@@ -1,0 +1,4 @@
+id: monolith
+term: "monolith"
+forms: ["monoliths"]
+short: "An application that is built and deployed as one unit. A change to any part means deploying the whole thing."

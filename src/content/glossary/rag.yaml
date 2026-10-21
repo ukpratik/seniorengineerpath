@@ -1,0 +1,4 @@
+id: rag
+term: RAG
+forms: [retrieval-augmented generation]
+short: Retrieval-augmented generation. The app first searches your own documents for text that matches the question, then gives that text to the model so it can answer from it.

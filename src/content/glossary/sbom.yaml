@@ -1,0 +1,4 @@
+id: sbom
+term: software bill of materials
+forms: [SBOM, SBOMs]
+short: A list of every component and version inside your software, including dependencies of dependencies. It tells you fast whether a newly found flaw affects you.

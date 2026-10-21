@@ -1,0 +1,4 @@
+id: cache-purge
+term: cache purge
+forms: [cache purges, CDN purge, CDN purges]
+short: Telling a CDN to drop or mark stale its stored copies, by URL, tag or everything, so the next request fetches a fresh copy.

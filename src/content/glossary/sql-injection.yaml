@@ -1,0 +1,4 @@
+id: sql-injection
+term: SQL injection
+forms: []
+short: An attack where user input changes the meaning of a SQL query, because the code glued the input into the query text. Parameterized queries stop it.

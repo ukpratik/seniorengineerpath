@@ -1,0 +1,4 @@
+id: knowledge-cutoff
+term: knowledge cutoff
+forms: [knowledge cutoffs]
+short: The date up to which a model's knowledge is most complete and reliable. It may know little or nothing correct about later events.

@@ -1,0 +1,4 @@
+id: chargeback
+term: chargeback
+forms: [chargebacks]
+short: When a cardholder disputes a payment with their card issuer. The money is pulled back from the merchant, often with a fee, and the issuer later decides who is right.

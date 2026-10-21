@@ -1,0 +1,4 @@
+id: acquiring-bank
+term: acquiring bank
+forms: [acquirer, acquirers]
+short: The bank that processes card payments for a merchant. It sends each payment to the card network and collects the money for the merchant.

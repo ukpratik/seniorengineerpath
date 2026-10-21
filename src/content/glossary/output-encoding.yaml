@@ -1,0 +1,4 @@
+id: output-encoding
+term: output encoding
+forms: []
+short: Changing data just before you show it, so the browser displays it as text and does not run it as code. HTML, JavaScript and URLs each need their own encoder.

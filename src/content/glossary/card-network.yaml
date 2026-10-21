@@ -1,0 +1,4 @@
+id: card-network
+term: card network
+forms: [card networks, card scheme, card schemes]
+short: The network of a card brand, such as Visa or Mastercard, that carries payment messages and money between the merchant's bank and the card's bank.

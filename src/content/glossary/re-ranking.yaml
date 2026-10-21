@@ -1,0 +1,4 @@
+id: re-ranking
+term: re-ranking
+forms: [reranking, re-ranker, re-rankers, reranker, rerankers, re-rank]
+short: A second step after search. A separate model scores the top results again, and only the best few go to the language model.

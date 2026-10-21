@@ -1,0 +1,4 @@
+id: text-analyzer
+term: analyzer
+forms: [analyzers, text analysis]
+short: The rules a search engine uses to turn text into terms, for example split into words, lowercase them and cut them to a root form. Documents and queries must use the same rules.

@@ -1,0 +1,4 @@
+id: embedding
+term: embedding
+forms: [embeddings, embedding model, embedding models]
+short: A list of numbers (a vector) that a model makes from a piece of text. Texts with similar meaning get vectors that are close together, so you can search by meaning.

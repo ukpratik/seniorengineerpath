@@ -1,0 +1,4 @@
+id: hosted-fields
+term: hosted fields
+forms: []
+short: Card input fields served by the payment processor inside your page, so the card number goes straight to the processor and never reaches your servers.

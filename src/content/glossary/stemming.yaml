@@ -1,0 +1,4 @@
+id: stemming
+term: stemming
+forms: [stemmed, stemmer]
+short: Cutting a word to a root form, so "running" and "run" or "foxes" and "fox" match the same search term.

@@ -1,0 +1,4 @@
+id: three-d-secure
+term: 3-D Secure
+forms: [3D Secure, 3DS]
+short: An extra check during a card payment, where the card's bank asks the customer to prove it is them, for example with a one-time code.

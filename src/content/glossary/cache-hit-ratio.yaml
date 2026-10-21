@@ -1,0 +1,4 @@
+id: cache-hit-ratio
+term: cache hit ratio
+forms: [hit ratio, cache hit ratios]
+short: The share of requests a cache answers from its own copy. A ratio of 0.9 means the cache answers 9 of 10 requests from its own copy.

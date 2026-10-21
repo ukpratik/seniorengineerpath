@@ -1,0 +1,19 @@
+id: cdn-edge-cache
+title: "A CDN edge: a miss, a hit, and a new file name after a deploy"
+viewBox: 0 0 340 480
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="466"/><line class="life" x1="170" y1="54" x2="170" y2="466"/><line class="life" x1="285" y1="54" x2="285" y2="466"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Users</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Edge (near)</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Origin</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="92" x2="166" y2="92"/><text class="lb" x="112" y="83">GET app.a1b2.js</text><text class="sub" x="112" y="109">user A</text><rect class="note" x="128" y="118" width="84" height="24" rx="7"/><text class="note-t" x="170" y="135">miss</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="172" y1="166" x2="281" y2="166"/><text class="lb" x="227" y="157">fetch</text><line class="ln" x1="283" y1="196" x2="174" y2="196"/><text class="lb" x="227" y="188">200 · keep 1 year</text><rect class="rec" x="122" y="206" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="223">app.a1b2.js</text><line class="ln" x1="168" y1="250" x2="59" y2="250"/><text class="lb" x="112" y="243">200 OK</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="288" x2="166" y2="288"/><text class="lb" x="112" y="279">same URL</text><text class="sub" x="112" y="305">user B</text><line class="ln" x1="168" y1="320" x2="59" y2="320"/><text class="lb" x="112" y="314">hit</text><text class="sub" x="285" y="314">not asked</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="338" x2="332" y2="338"/><text class="lb" x="170" y="358">after a deploy</text><line class="ln" x1="57" y1="384" x2="166" y2="384"/><text class="lb" x="112" y="376">GET app.c3d4.js</text><line class="ln" x1="172" y1="404" x2="281" y2="404"/><text class="sub" x="227" y="398">new key: miss</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="40" y="424" width="260" height="30" rx="8"/><text class="ok-t" x="170" y="444">✓ new file everywhere, no purge</text></g>
+captions:
+  - "User A asks for app.a1b2.js. The CDN sends the request to the nearest edge location. The edge has no copy yet, so it is a miss."
+  - "The edge fetches the file from your origin server. The answer says it may be cached for a year. The edge stores it and returns it to user A."
+  - "User B asks for the same URL from the same area. The edge already has a fresh copy, so it answers at once. Your origin does not see this request."
+  - "You deploy new code. Your HTML now points to app.c3d4.js, a new file name. A new URL is a new cache key, so the edge misses and fetches it once."
+  - "Users get the new file as soon as they load the new HTML. You did not purge anything. Nobody asks for the old file name any more."

@@ -1,0 +1,4 @@
+id: edge-location
+term: edge location
+forms: [edge locations, edge server, edge servers]
+short: One CDN data center near users. It answers requests from its own cache and asks the origin server only when it has no fresh copy.

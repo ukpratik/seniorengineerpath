@@ -1,0 +1,4 @@
+id: bm25
+term: BM25
+forms: []
+short: A classic ranking function for keyword search. It scores documents by how well their exact words match the words in the query.

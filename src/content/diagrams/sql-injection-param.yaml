@@ -1,0 +1,16 @@
+id: sql-injection-param
+title: "The same attack, two queries: string join versus a parameterized query"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="85" y1="54" x2="85" y2="456"/><line class="life" x1="255" y1="54" x2="255" y2="456"/>
+  <rect class="box" x="20" y="10" width="130" height="44" rx="10"/><text class="bt" x="85" y="37">Accounts API</text>
+  <rect class="box" x="190" y="10" width="130" height="44" rx="10"/><text class="bt" x="255" y="37">Database</text>
+  <g class="f" data-f="1"><rect class="note" x="10" y="66" width="320" height="26" rx="7"/><text class="note-t" x="170" y="84">id = ' OR '1'='1</text><text class="sub" x="170" y="112">an attacker sends this as the id</text></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="138">A · join strings</text><rect class="rec" x="10" y="146" width="320" height="26" rx="7"/><text class="rec-t" x="170" y="164">… WHERE id = '' OR '1'='1'</text><text class="sub" x="170" y="190">one SQL string</text><line class="ln" x1="87" y1="198" x2="251" y2="198"/><line class="ln" x1="253" y1="220" x2="89" y2="220"/><path class="xm" d="M60 230l14 14M74 230l-14 14"/><text class="sub badt" x="185" y="242">every account comes back</text></g>
+  <g class="f" data-f="3"><text class="lb" x="170" y="276">B · parameterized</text><rect class="rec" x="10" y="284" width="320" height="26" rx="7"/><text class="rec-t" x="170" y="302">… WHERE id = ?</text><text class="sub" x="170" y="328">value sent apart from the SQL</text><line class="ln" x1="87" y1="338" x2="251" y2="338"/></g>
+  <g class="f" data-f="4"><line class="ln" x1="253" y1="362" x2="89" y2="362"/><text class="sub" x="170" y="384">no id equals that text</text><rect class="okb" x="40" y="400" width="260" height="30" rx="8"/><text class="ok-t" x="170" y="420">✓ 0 rows · input stayed data</text></g>
+captions:
+  - "An attacker calls the accounts API. Instead of a real account id, they send the text ' OR '1'='1."
+  - "Code A glues the input into the SQL text. The quote ends the string early, and OR '1'='1' becomes part of the query. It is always true, so the database returns every account."
+  - "Code B sends the SQL with a placeholder, ?, and sends the input as a separate value. The SQL is fixed before the input arrives."
+  - "The database treats the whole input as one value. No account has that id, so it returns zero rows. The input could not change the query."

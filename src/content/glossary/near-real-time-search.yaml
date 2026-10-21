@@ -1,0 +1,4 @@
+id: near-real-time-search
+term: near real-time
+forms: [near real-time search]
+short: New documents become searchable after a short delay, not at once. In Elasticsearch, a refresh makes them visible, by default every second for indices that are being searched.

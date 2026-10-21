@@ -1,0 +1,4 @@
+id: origin-server
+term: origin server
+forms: [origin servers]
+short: Your own server that holds the real content. A CDN fetches from it when its cache has no fresh copy.

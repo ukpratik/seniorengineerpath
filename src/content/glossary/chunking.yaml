@@ -1,0 +1,4 @@
+id: chunking
+term: chunking
+forms: []
+short: Splitting long documents into smaller pieces (chunks) before you index them for search. The size and borders of each piece change what search can find.

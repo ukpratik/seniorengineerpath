@@ -1,0 +1,4 @@
+id: hallucination
+term: hallucination
+forms: [hallucinations, hallucinate, hallucinates, hallucinated]
+short: When a language model writes text that is false, or that does not match the context it was given, as if it were a fact.

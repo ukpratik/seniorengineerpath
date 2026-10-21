@@ -1,0 +1,4 @@
+id: cache-key
+term: cache key
+forms: [cache keys]
+short: The value a cache uses to decide which requests share one stored copy. In HTTP it is at least the method and the URL.

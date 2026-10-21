@@ -1,0 +1,4 @@
+id: hybrid-search
+term: hybrid search
+forms: [hybrid retrieval]
+short: Running keyword search and vector search for the same query and merging the two result lists, so you get both exact matches and matches by meaning.

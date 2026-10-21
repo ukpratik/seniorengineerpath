@@ -1,0 +1,4 @@
+id: recall-at-k
+term: recall@k
+forms: [recall@20, recall@5]
+short: A search metric. Of the documents that should be found for a question, the share that appear in the top k results.

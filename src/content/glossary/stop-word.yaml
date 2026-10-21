@@ -1,0 +1,4 @@
+id: stop-word
+term: stop word
+forms: [stop words]
+short: A very common word, like "the" or "for", that a search engine often drops because it does not help find documents.

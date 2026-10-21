@@ -1,0 +1,4 @@
+id: etag
+term: ETag
+forms: [ETags]
+short: An HTTP response header with a short ID for one version of the content. A client sends it back to ask "has this changed?" and may get a 304 Not Modified answer.

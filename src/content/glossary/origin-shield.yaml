@@ -1,0 +1,4 @@
+id: origin-shield
+term: origin shield
+forms: [origin shields, shield POP, shield POPs]
+short: An extra cache layer between a CDN's edge locations and your origin server. Edges ask the shield, and only the shield asks the origin.

@@ -1,0 +1,4 @@
+id: pci-dss
+term: PCI DSS
+forms: [PCI-DSS]
+short: The security standard for any business that stores, processes or sends card data. The less card data touches your systems, the less of it applies to you.

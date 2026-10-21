@@ -1,0 +1,4 @@
+id: ssrf
+term: server-side request forgery
+forms: [SSRF]
+short: An attack that tricks your server into sending requests to places the attacker picks, such as internal services or a cloud metadata address.

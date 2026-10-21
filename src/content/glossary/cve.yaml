@@ -1,0 +1,4 @@
+id: cve
+term: CVE
+forms: [CVEs]
+short: A public ID for one known security flaw, like CVE-2021-44228. Scanners use these IDs to tell you which of your package versions are affected.

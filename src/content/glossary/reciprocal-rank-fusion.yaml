@@ -1,0 +1,4 @@
+id: reciprocal-rank-fusion
+term: reciprocal rank fusion
+forms: [RRF]
+short: A simple way to merge several ranked result lists. Each document gets 1 / (k + rank) points from each list, and the points are added up. It needs no tuning.

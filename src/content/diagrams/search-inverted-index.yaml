@@ -1,0 +1,16 @@
+id: search-inverted-index
+title: "Three documents become an inverted index, and a query joins two lists"
+viewBox: 0 0 340 470
+svg: |
+  <text class="bt" x="170" y="24">Product titles</text>
+  <g class="f" data-f="1"><rect class="rec" x="20" y="38" width="300" height="24" rx="7"/><text class="rec-t" x="170" y="54">1 · Red Running Shoes</text><rect class="rec" x="20" y="68" width="300" height="24" rx="7"/><text class="rec-t" x="170" y="84">2 · Blue Shoes for Kids</text><rect class="rec" x="20" y="98" width="300" height="24" rx="7"/><text class="rec-t" x="170" y="114">3 · Red Kids Jacket</text></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="148">analyze: lowercase, stem, drop “for”</text><text class="sub" x="170" y="170">1 → red, run, shoe</text><text class="sub" x="170" y="190">2 → blue, shoe, kid</text><text class="sub" x="170" y="210">3 → red, kid, jacket</text></g>
+  <g class="f" data-f="3"><line class="life" x1="8" y1="226" x2="332" y2="226"/><text class="lb" x="170" y="248">inverted index: term → documents</text><rect class="box" x="20" y="260" width="140" height="78" rx="10"/><rect class="box" x="180" y="260" width="140" height="78" rx="10"/><text class="sub" x="90" y="282">red → 1, 3</text><text class="sub" x="90" y="304">run → 1</text><text class="sub" x="90" y="326">shoe → 1, 2</text><text class="sub" x="250" y="282">blue → 2</text><text class="sub" x="250" y="304">kid → 2, 3</text><text class="sub" x="250" y="326">jacket → 3</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="354" x2="332" y2="354"/><text class="lb" x="170" y="376">query “RED kids” → red, kid</text><rect class="note" x="30" y="388" width="120" height="26" rx="7"/><text class="note-t" x="90" y="405">red: 1, 3</text><rect class="note" x="190" y="388" width="120" height="26" rx="7"/><text class="note-t" x="250" y="405">kid: 2, 3</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="40" y="426" width="260" height="30" rx="8"/><text class="ok-t" x="170" y="446">✓ both lists share document 3</text></g>
+captions:
+  - "Three product titles are sent to the search engine. Each one gets a document ID: 1, 2 and 3."
+  - "An analyzer turns each title into terms. It makes words lowercase, cuts them to a root form (running → run, kids → kid), and drops the common word “for”."
+  - "The engine builds an inverted index. For each term, it keeps the list of documents that contain it. It does not scan the titles again."
+  - "A user searches for “RED kids”. The query goes through the same analyzer, so it becomes the terms red and kid. The engine reads just these two lists."
+  - "For an AND search, the engine keeps the IDs that appear in both lists: only document 3. If many documents match, a score such as BM25 decides their order."

@@ -1,0 +1,4 @@
+id: cdn
+term: CDN
+forms: [CDNs, content delivery network, content delivery networks]
+short: A content delivery network. Many data centers around the world that keep copies of your content close to users, so pages load faster and your servers get less traffic.

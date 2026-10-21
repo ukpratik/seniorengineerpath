@@ -1,0 +1,4 @@
+id: tf-idf
+term: TF-IDF
+forms: [term frequency, inverse document frequency]
+short: A way to score search matches. A term counts more if it appears often in the document and appears in few documents overall.

@@ -1,0 +1,4 @@
+id: inverted-index
+term: inverted index
+forms: [inverted indexes, inverted indices]
+short: A map from each term to the list of documents that contain it, like the index at the back of a book. Search engines use it to find matches without scanning every document.

@@ -1,0 +1,16 @@
+id: rag-permission-filter
+title: "One RAG request: search, filter by permission, then answer with citations"
+viewBox: 0 0 340 470
+svg: |
+  <rect class="box" x="5" y="10" width="330" height="44" rx="10"/><text class="bt" x="170" y="37">“Can I get a refund after my trip?”</text>
+  <g class="f" data-f="1"><line class="ln" x1="170" y1="56" x2="170" y2="84"/><text class="lb" x="225" y="75">embed</text><rect class="rec" x="70" y="88" width="200" height="26" rx="7"/><text class="rec-t" x="170" y="105">[0.12, −0.48, 0.91, …]</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="116" x2="170" y2="140"/><text class="lb" x="240" y="132">top 3 nearest</text><rect class="rec" x="20" y="146" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="163">#1 Refund policy · public</text><rect class="rec" x="20" y="176" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="193">#2 Bereavement fares · public</text><rect class="rec" x="20" y="206" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="223">#3 Staff override notes · staff only</text></g>
+  <g class="f" data-f="3"><path class="xm" d="M296 212l14 14M310 212l-14 14"/><rect class="note" x="20" y="238" width="300" height="26" rx="7"/><text class="note-t" x="170" y="255">user is a customer → drop #3</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="266" x2="170" y2="290"/><text class="lb" x="235" y="282">build prompt</text><rect class="box" x="5" y="294" width="330" height="96" rx="10"/><text class="bt" x="170" y="314">Prompt</text><text class="sub" x="170" y="336">Use only these sources. Cite them.</text><text class="sub" x="170" y="354">If they do not answer, say “I don't know”.</text><text class="sub" x="170" y="376">[1] Refund policy · [2] Bereavement fares</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="392" x2="170" y2="414"/><rect class="okb" x="20" y="418" width="300" height="40" rx="8"/><text class="ok-t" x="170" y="443">✓ Answer with citations [1] [2]</text></g>
+captions:
+  - The question goes to an embedding model. It turns the text into a vector, a long list of numbers that captures its meaning.
+  - Vector search finds the 3 stored chunks whose vectors are nearest to the question. One of them is an internal note for staff.
+  - A permission filter checks each chunk against what this user may read. The user is a customer, so the staff note is dropped before the model ever sees it.
+  - The app builds the prompt. It holds the rules, the question and the 2 allowed chunks, each with a number the model can cite.
+  - The model answers from the 2 chunks and cites them. The user can open [1] and [2] to check the answer against the real policy.

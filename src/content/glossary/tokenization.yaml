@@ -1,0 +1,4 @@
+id: tokenization
+term: tokenization
+forms: [tokenize, tokenizes, tokenized, tokenizer]
+short: Splitting text into small pieces, usually words, before they are cleaned and indexed for search.

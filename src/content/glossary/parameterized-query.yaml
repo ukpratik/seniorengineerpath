@@ -1,0 +1,4 @@
+id: parameterized-query
+term: parameterized query
+forms: [parameterized queries, prepared statement, prepared statements]
+short: A SQL query with placeholders, like "WHERE id = ?", where the values are sent separately. The database never treats those values as code.

@@ -1,0 +1,4 @@
+id: payment-capture
+term: authorize and capture
+forms: [authorise and capture, manual capture]
+short: Taking a card payment in two steps. Authorization holds the money on the card. Capture, done later, actually takes it. A hold expires if you wait too long.

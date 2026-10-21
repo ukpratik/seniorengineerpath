@@ -1,0 +1,4 @@
+id: lexeme
+term: lexeme
+forms: [lexemes]
+short: A word after it has been normalized for search, for example lowercased and cut to its root. Postgres full-text search stores lexemes.

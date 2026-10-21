@@ -1,0 +1,4 @@
+id: payout
+term: payout
+forms: []
+short: A transfer from your balance at a payment processor to your own bank account, usually on a schedule. One payout can contain many payments, refunds and fees.

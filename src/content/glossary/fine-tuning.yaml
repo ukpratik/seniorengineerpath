@@ -1,0 +1,4 @@
+id: fine-tuning
+term: fine-tuning
+forms: [fine-tuned model, fine-tuned models]
+short: Training an existing model further on your own examples, so its weights change. It shapes how the model behaves, but facts stored in weights are hard to update or trace to a source.

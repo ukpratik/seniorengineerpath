@@ -1,0 +1,4 @@
+id: issuing-bank
+term: issuing bank
+forms: [card issuer, card issuers]
+short: The bank that gave the customer their card. It approves or declines each payment and holds the money during authorization.

@@ -1,0 +1,4 @@
+id: postings
+term: postings
+forms: [posting list, posting lists, postings list]
+short: In an inverted index, the list of documents (and often positions) that contain one term.

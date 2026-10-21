@@ -1,0 +1,4 @@
+id: cache-busting
+term: cache busting
+forms: [cache-busting]
+short: Putting a version or content hash in a file name, so each new version gets a new URL and caches can never serve an old copy.

@@ -71,7 +71,13 @@ function check<T>(schema: z.ZodType<T>, raw: unknown, file: string, errors: Load
 function yamlDir<T>(dir: string, schema: z.ZodType<T>, errors: LoadError[]): T[] {
   const out: T[] = [];
   for (const f of files(dir, '.yaml')) {
-    const raw = parseYaml(readFileSync(f, 'utf8'));
+    let raw: unknown;
+    try {
+      raw = parseYaml(readFileSync(f, 'utf8'));
+    } catch (e) {
+      errors.push({ file: f, message: `not valid YAML: ${(e as Error).message.split('\n')[0]}` });
+      continue;
+    }
     const v = check(schema, raw, f, errors);
     if (v) {
       const fileId = basename(f, '.yaml');
@@ -93,7 +99,15 @@ export function loadContent(): Content {
 
   const lessons: LessonFile[] = [];
   for (const f of files('lessons', '.md')) {
-    const { data, body, bodyLine } = splitFrontmatter(readFileSync(f, 'utf8'));
+    let parsed: ReturnType<typeof splitFrontmatter>;
+    try {
+      parsed = splitFrontmatter(readFileSync(f, 'utf8'));
+    } catch (e) {
+      // Broken YAML in one file is an error for that file, not a crash of the whole gate.
+      errors.push({ file: f, message: `front matter is not valid YAML: ${(e as Error).message.split('\n')[0]}` });
+      continue;
+    }
+    const { data, body, bodyLine } = parsed;
     const v = check(lessonSchema, data, f, errors);
     if (v) lessons.push({ file: f, id: basename(f, '.md'), data: v, body, bodyLine });
   }

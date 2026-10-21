@@ -1,0 +1,4 @@
+id: integration-test
+term: integration test
+forms: [integration tests]
+short: A test that checks that a few parts work together, for example your code with a real database.

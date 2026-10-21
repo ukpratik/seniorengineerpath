@@ -1,0 +1,4 @@
+id: mutation-testing
+term: mutation testing
+forms: [mutation test, mutation tests]
+short: A tool makes small changes (mutants) to your code, such as turning > into >=, and runs your tests. If no test fails, your tests missed that bug.

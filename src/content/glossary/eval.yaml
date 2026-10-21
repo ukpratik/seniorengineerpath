@@ -1,0 +1,4 @@
+id: eval
+term: eval
+forms: [evals, eval set, eval sets]
+short: A repeatable test for an LLM feature. It is a set of test cases, a grader that scores each output, and a score you track over time.

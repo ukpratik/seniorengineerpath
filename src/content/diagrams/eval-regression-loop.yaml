@@ -1,0 +1,20 @@
+id: eval-regression-loop
+title: "A prompt change goes through the eval set before it ships"
+viewBox: 0 0 340 470
+svg: |
+  <rect class="box" x="5" y="10" width="330" height="44" rx="10"/><text class="bt" x="170" y="37">Support bot · prompt v7</text>
+  <g class="f" data-f="1"><rect class="rec" x="20" y="64" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="81">+ “Always give a direct answer.”</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="92" x2="170" y2="116"/><text class="lb" x="235" y="108">run in CI</text><rect class="box" x="5" y="120" width="330" height="44" rx="10"/><text class="bt" x="170" y="140">Eval set · 40 cases</text><text class="sub" x="170" y="157">real tickets · edge cases · attacks</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="166" x2="170" y2="190"/><text class="lb" x="235" y="182">grade</text><rect class="rec" x="20" y="194" width="145" height="26" rx="7"/><text class="rec-t" x="92" y="211">code checks</text><rect class="rec" x="175" y="194" width="145" height="26" rx="7"/><text class="rec-t" x="247" y="211">model grader</text></g>
+  <g class="f" data-f="4"><rect class="note" x="20" y="232" width="300" height="26" rx="7"/><text class="note-t" x="170" y="249">baseline v6: 37 / 40 → v7: 34 / 40</text></g>
+  <g class="f" data-f="5"><path class="xm" d="M24 272l14 14M38 272l-14 14"/><text class="lb badt" x="185" y="284">4 “I don't know” cases now invent a rule</text><text class="sub" x="170" y="306">merge blocked</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="170" y1="316" x2="170" y2="340"/><text class="lb" x="235" y="332">fix, run again</text><rect class="rec" x="20" y="344" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="361">v8: 38 / 40 · cost and latency same</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="170" y1="372" x2="170" y2="396"/><rect class="okb" x="20" y="400" width="300" height="56" rx="8"/><text class="ok-t" x="170" y="422">✓ ship to 5% of users</text><text class="sub" x="170" y="444">grade a sample of live answers</text></g>
+captions:
+  - You add one line to a support bot's prompt to fix a customer complaint. Trying three examples by hand is not enough. The change must pass the eval set first.
+  - The CI job runs the new prompt on all 40 saved test cases. They are real tickets, edge cases, and a few prompt injection attacks.
+  - Graders score every output. Code checks test the format and banned words. A model grader with a rubric checks if the answer is correct and grounded.
+  - The job compares the new score with the baseline, the score of the prompt that is live now. The total went down from 37 to 34.
+  - "The diff by case shows the problem: one case was fixed, but four cases that should say \"I don't know\" now invent a policy. The job blocks the merge."
+  - You change the line to "Give a direct answer when the sources cover the question." You run the set again. The score is 38, and cost and latency did not change.
+  - The change ships to a small share of users first. A sample of live answers is graded every day, so new kinds of failure show up as new test cases.

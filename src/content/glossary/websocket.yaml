@@ -1,0 +1,4 @@
+id: websocket
+term: WebSocket
+forms: [WebSockets]
+short: A protocol that starts as an HTTP request and then keeps one connection open, so the client and the server can both send messages at any time.

@@ -1,0 +1,4 @@
+id: unit-test
+term: unit test
+forms: [unit tests]
+short: A test of one small piece of code, such as a function or a class, on its own. It runs fast, often in milliseconds.

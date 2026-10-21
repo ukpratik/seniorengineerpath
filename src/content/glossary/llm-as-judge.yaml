@@ -1,0 +1,4 @@
+id: llm-as-judge
+term: LLM-as-judge
+forms: [LLM-as-a-judge, LLM judge, LLM judges, model grader, model graders]
+short: Using a language model to grade the output of another model, usually with a written rubric. It is fast and scales, but it has biases you must check.

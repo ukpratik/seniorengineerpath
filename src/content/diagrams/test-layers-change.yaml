@@ -1,0 +1,21 @@
+id: test-layers-change
+title: "One change, four checks: what unit, integration, end-to-end and canary each catch"
+viewBox: 0 0 340 470
+svg: |
+  <rect class="box" x="95" y="8" width="150" height="34" rx="9"/><text class="bt" x="170" y="30">Change: new discount</text>
+  <rect class="box" x="8" y="62" width="112" height="44" rx="9"/><text class="bt" x="64" y="81">Unit</text><text class="sub" x="64" y="97">small · limit 60 s</text>
+  <rect class="box" x="8" y="152" width="112" height="44" rx="9"/><text class="bt" x="64" y="171">Integration</text><text class="sub" x="64" y="187">medium · limit 300 s</text>
+  <rect class="box" x="8" y="242" width="112" height="44" rx="9"/><text class="bt" x="64" y="261">End-to-end</text><text class="sub" x="64" y="277">large · 900+ s</text>
+  <rect class="box" x="8" y="332" width="112" height="44" rx="9"/><text class="bt" x="64" y="351">Canary</text><text class="sub" x="64" y="367">real users (example)</text>
+  <line class="ln" x1="64" y1="108" x2="64" y2="148"/><line class="ln" x1="64" y1="198" x2="64" y2="238"/><line class="ln" x1="64" y1="288" x2="64" y2="328"/>
+  <g class="f" data-f="1"><line class="ln" x1="122" y1="84" x2="150" y2="84"/><rect class="note" x="152" y="62" width="182" height="44" rx="8"/><text class="note-t" x="243" y="81">caught: 10% off ₹999</text><text class="note-t" x="243" y="97">rounds to ₹899.09</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="122" y1="174" x2="150" y2="174"/><rect class="note" x="152" y="152" width="182" height="44" rx="8"/><text class="note-t" x="243" y="171">caught: SQL uses a</text><text class="note-t" x="243" y="187">column that is not there</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="122" y1="264" x2="150" y2="264"/><rect class="note" x="152" y="242" width="182" height="44" rx="8"/><text class="note-t" x="243" y="261">caught: checkout page</text><text class="note-t" x="243" y="277">hides the discount</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="122" y1="354" x2="150" y2="354"/><rect class="note" x="152" y="332" width="182" height="44" rx="8"/><text class="note-t" x="243" y="351">caught: slow query on</text><text class="note-t" x="243" y="367">real data · rolled back</text></g>
+  <g class="f" data-f="5"><text class="lb" x="170" y="402">earlier = faster and cheaper to fix</text><rect class="okb" x="20" y="418" width="300" height="34" rx="8"/><text class="ok-t" x="170" y="440">✓ Each layer catches what the one before cannot</text></g>
+captions:
+  - "In this example, a developer changes how discounts work. Unit tests run first, on her laptop and in CI. Here they are also what Google calls small tests: one process, no network, a 60-second limit. One catches a rounding bug."
+  - "Integration tests run the code with a real database on the same machine. In Google's terms these are medium tests, with a 300-second limit. A unit test with a fake database could not see that the SQL names a column that does not exist."
+  - "A few end-to-end tests click through checkout in a real browser, against the whole system. They are slow and can be flaky, so you keep them few. One finds that the page does not show the discount."
+  - "After the merge, the change goes to a canary: a small share of servers with real users. Canary analysis compares its health with the rest of production. A query that was fast on test data is slow on real data. Latency goes up on the canary, so the rollout stops and rolls back."
+  - "The bugs here are examples. Higher layers are slower and cost more, but they see more of the real system. Push each check as low as it can go, and keep the top layers small."

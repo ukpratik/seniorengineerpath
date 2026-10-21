@@ -1,0 +1,27 @@
+id: realtime-new-message
+title: "One new message, three ways to deliver it: long polling, SSE and WebSocket"
+viewBox: 0 0 340 530
+svg: |
+  <text class="lb" x="170" y="16">A · Long polling</text>
+  <rect class="box" x="5" y="24" width="58" height="26" rx="7"/><text class="bt" x="34" y="42">App</text>
+  <rect class="box" x="277" y="24" width="58" height="26" rx="7"/><text class="bt" x="306" y="42">Server</text>
+  <line class="life" x1="34" y1="50" x2="34" y2="170"/><line class="life" x1="306" y1="50" x2="306" y2="170"/>
+  <line class="life" x1="5" y1="174" x2="335" y2="174"/>
+  <text class="lb" x="170" y="191">B · Server-Sent Events</text>
+  <rect class="box" x="5" y="199" width="58" height="26" rx="7"/><text class="bt" x="34" y="217">App</text>
+  <rect class="box" x="277" y="199" width="58" height="26" rx="7"/><text class="bt" x="306" y="217">Server</text>
+  <line class="life" x1="34" y1="225" x2="34" y2="345"/><line class="life" x1="306" y1="225" x2="306" y2="345"/>
+  <line class="life" x1="5" y1="349" x2="335" y2="349"/>
+  <text class="lb" x="170" y="366">C · WebSocket</text>
+  <rect class="box" x="5" y="374" width="58" height="26" rx="7"/><text class="bt" x="34" y="392">App</text>
+  <rect class="box" x="277" y="374" width="58" height="26" rx="7"/><text class="bt" x="306" y="392">Server</text>
+  <line class="life" x1="34" y1="400" x2="34" y2="520"/><line class="life" x1="306" y1="400" x2="306" y2="520"/>
+  <g class="f" data-f="1"><line class="ln" x1="36" y1="70" x2="302" y2="70"/><text class="lb" x="170" y="64">GET /poll</text><text class="sub" x="170" y="84">server holds the request</text><line class="ln" x1="36" y1="245" x2="302" y2="245"/><text class="lb" x="170" y="239">GET /events</text><text class="sub" x="170" y="259">response stays open</text><line class="ln" x1="36" y1="420" x2="302" y2="420"/><text class="lb" x="170" y="414">Upgrade → 101</text><text class="sub" x="170" y="434">one open connection</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="232" y="94" width="100" height="20" rx="6"/><text class="rec-t" x="282" y="108">new message</text><rect class="rec" x="232" y="269" width="100" height="20" rx="6"/><text class="rec-t" x="282" y="283">new message</text><rect class="rec" x="232" y="444" width="100" height="20" rx="6"/><text class="rec-t" x="282" y="458">new message</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="304" y1="132" x2="38" y2="132"/><text class="lb" x="140" y="126">200 + message</text><text class="sub badt" x="170" y="146">request is finished</text><line class="ln" x1="304" y1="307" x2="38" y2="307"/><text class="lb" x="140" y="301">data: message</text><text class="sub" x="170" y="321">same response, still open</text><line class="ln" x1="304" y1="482" x2="38" y2="482"/><text class="lb" x="140" y="476">frame: message</text><text class="sub" x="170" y="496">same connection</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="36" y1="164" x2="302" y2="164"/><text class="lb" x="170" y="158">GET /poll again</text><text class="sub" x="170" y="339">to send: a normal POST</text><line class="ln" x1="36" y1="514" x2="302" y2="514"/><text class="lb" x="170" y="508">frame: "typing…"</text></g>
+captions:
+  - "Before the event. A, long polling: the app asks for news and the server holds the request open. B, SSE: the app opens one response that never ends. C, WebSocket: an HTTP Upgrade request gets 101, and the connection stays open."
+  - "Someone sends a chat message. The server has it now. It must reach the app in each of the three set-ups."
+  - "A answers the waiting request with the message, and that request is finished. B writes one more event into the open response. C sends one WebSocket frame on the open connection."
+  - "A must send a new request, or the server has no open request to answer with the next message. B can only receive, so the app sends with a normal POST. C can send on the same connection, for example a typing signal."

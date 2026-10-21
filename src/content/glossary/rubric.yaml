@@ -1,0 +1,4 @@
+id: rubric
+term: rubric
+forms: [rubrics]
+short: A written list of rules for grading an answer, such as "must mention the refund deadline" or "must not promise a refund".

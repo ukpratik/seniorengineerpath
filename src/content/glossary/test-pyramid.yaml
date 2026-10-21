@@ -1,0 +1,4 @@
+id: test-pyramid
+term: test pyramid
+forms: [testing pyramid]
+short: A picture of a healthy test suite. Many fast unit tests at the bottom, fewer integration tests, and a few slow end-to-end tests at the top.

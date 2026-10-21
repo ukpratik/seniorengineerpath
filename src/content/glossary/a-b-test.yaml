@@ -1,0 +1,4 @@
+id: a-b-test
+term: A/B test
+forms: [A/B tests, A/B testing]
+short: An experiment where some real users get version A and others get version B at the same time. You compare a metric to see which version works better.

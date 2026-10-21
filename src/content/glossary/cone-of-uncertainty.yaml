@@ -1,0 +1,4 @@
+id: cone-of-uncertainty
+term: Cone of Uncertainty
+forms: []
+short: A model by Steve McConnell. Early estimates can be far too high or too low. The possible error shrinks only as the team makes decisions and removes unknowns. It shows the best case.

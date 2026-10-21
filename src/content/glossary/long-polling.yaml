@@ -1,0 +1,4 @@
+id: long-polling
+term: long polling
+forms: [long poll, long-poll]
+short: The client sends a request, and the server holds it open until it has new data or a timeout. Then the client sends the next request at once.

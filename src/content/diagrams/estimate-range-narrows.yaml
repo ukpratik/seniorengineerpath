@@ -1,0 +1,25 @@
+id: estimate-range-narrows
+title: "An estimate range that narrows as unknowns are removed"
+viewBox: 0 0 340 490
+svg: |
+  <line class="life" x1="30" y1="440" x2="310" y2="440"/>
+  <line class="life" x1="30" y1="436" x2="30" y2="444"/><text class="sub" x="30" y="460">0</text>
+  <line class="life" x1="70" y1="436" x2="70" y2="444"/><text class="sub" x="70" y="460">2</text>
+  <line class="life" x1="110" y1="436" x2="110" y2="444"/><text class="sub" x="110" y="460">4</text>
+  <line class="life" x1="150" y1="436" x2="150" y2="444"/><text class="sub" x="150" y="460">6</text>
+  <line class="life" x1="190" y1="436" x2="190" y2="444"/><text class="sub" x="190" y="460">8</text>
+  <line class="life" x1="230" y1="436" x2="230" y2="444"/><text class="sub" x="230" y="460">10</text>
+  <line class="life" x1="270" y1="436" x2="270" y2="444"/><text class="sub" x="270" y="460">12</text>
+  <line class="life" x1="310" y1="436" x2="310" y2="444"/><text class="sub" x="310" y="460">14</text>
+  <text class="sub" x="170" y="480">weeks from start</text>
+  <g class="f" data-f="1"><text class="lb" x="170" y="32">1 · Idea only: 3–12 weeks</text><rect class="box" x="90" y="42" width="180" height="30" rx="7"/></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="127">2 · After a spike: 5–10 weeks</text><rect class="box" x="130" y="137" width="100" height="30" rx="7"/></g>
+  <g class="f" data-f="3"><text class="lb" x="170" y="222">3 · After a prototype: 6–9 weeks</text><rect class="rec" x="150" y="232" width="60" height="30" rx="7"/></g>
+  <g class="f" data-f="4"><text class="lb" x="170" y="317">4 · After milestone 1: 6.5–8 weeks</text><rect class="okb" x="160" y="327" width="30" height="30" rx="7"/></g>
+  <g class="f" data-f="5"><line class="ln" x1="180" y1="366" x2="180" y2="432"/><rect class="note" x="186" y="392" width="112" height="26" rx="7"/><text class="note-t" x="242" y="409">shipped: 7.5 wk</text></g>
+captions:
+  - "At the first idea, the honest range is wide: 3 to 12 weeks. The team does not know if the vendor's API supports partial refunds."
+  - "A 3-day spike answers the refunds question. Some of the slow cases are now ruled out, and the range shrinks to 5 to 10 weeks."
+  - "A rough prototype sends one test payment from start to end. The finance report is the main open question left. The range is 6 to 9 weeks."
+  - "The first milestone is live for staff only. Most unknowns are gone. Now the team can make a commitment: 6.5 to 8 weeks."
+  - "The feature ships in 7.5 weeks, inside every range the team gave. The range shrank only because the team did work to remove unknowns. Waiting alone would not have shrunk it."

@@ -1,0 +1,4 @@
+id: pub-sub
+term: pub/sub
+forms: [publish/subscribe]
+short: Publish/subscribe. Senders publish messages to a named topic or channel, and every subscriber of that topic gets a copy. Senders do not need to know who listens.

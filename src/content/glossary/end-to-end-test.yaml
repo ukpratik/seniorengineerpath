@@ -1,0 +1,4 @@
+id: end-to-end-test
+term: end-to-end test
+forms: [end-to-end tests, e2e test, e2e tests]
+short: A test that runs the whole system the way a user does, for example by clicking through a checkout in a real browser.

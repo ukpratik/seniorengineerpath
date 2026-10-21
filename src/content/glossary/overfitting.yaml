@@ -1,0 +1,4 @@
+id: overfitting
+term: overfitting
+forms: [overfit, overfits]
+short: Tuning a system so closely to one set of test cases that it scores well on them but does worse on new, real inputs.

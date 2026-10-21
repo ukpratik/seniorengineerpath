@@ -1,0 +1,4 @@
+id: test-double
+term: test double
+forms: [test doubles]
+short: A fake object that stands in for a real one in a test, such as a fake payment service that always says "paid".

@@ -1,0 +1,4 @@
+id: contract-test
+term: contract test
+forms: [contract tests, contract testing]
+short: A test that checks two services agree on the requests and responses between them, without starting both services together.

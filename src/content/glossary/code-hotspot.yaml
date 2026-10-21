@@ -1,0 +1,4 @@
+id: code-hotspot
+term: code hotspot
+forms: [code hotspots]
+short: A part of the code that changes often and is hard to work with. Tools like CodeScene suggest improving hotspots first, because you pay the extra cost on every change.

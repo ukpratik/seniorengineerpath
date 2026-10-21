@@ -1,0 +1,4 @@
+id: server-sent-events
+term: Server-Sent Events
+forms: [SSE]
+short: A web standard where the browser opens one long HTTP response and the server keeps writing events into it. Data flows one way, from server to client.

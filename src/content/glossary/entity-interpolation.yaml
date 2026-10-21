@@ -1,0 +1,4 @@
+id: entity-interpolation
+term: entity interpolation
+forms: []
+short: Drawing other players smoothly between the last two real server updates. They appear a little in the past, often about 100 ms, but based only on real positions.

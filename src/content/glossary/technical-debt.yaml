@@ -1,0 +1,4 @@
+id: technical-debt
+term: technical debt
+forms: [tech debt]
+short: Weak spots in code or design that make future changes to that code slower. The extra effort is the "interest"; cleaning up is paying back the debt.

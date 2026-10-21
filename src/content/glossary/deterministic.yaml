@@ -1,0 +1,4 @@
+id: deterministic
+term: deterministic
+forms: [determinism]
+short: Code is deterministic when the same starting state and the same inputs always give exactly the same result, on every machine.

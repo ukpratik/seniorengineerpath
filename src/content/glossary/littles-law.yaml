@@ -1,0 +1,4 @@
+id: littles-law
+term: Little's law
+forms: [L = λW]
+short: "On average, items inside a system = arrival rate × time each item spends inside. For example, 2,000 requests a second × 0.05 s = 100 requests in flight."

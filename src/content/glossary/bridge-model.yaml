@@ -1,0 +1,4 @@
+id: bridge-model
+term: bridge model
+forms: []
+short: A SaaS design that mixes silo and pool, for example a shared app with a separate database for some tenants or services.

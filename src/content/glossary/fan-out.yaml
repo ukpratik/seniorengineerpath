@@ -1,0 +1,4 @@
+id: fan-out
+term: fan-out
+forms: [fans out, fanning out]
+short: One request that calls many servers or services at once, then waits for their answers.

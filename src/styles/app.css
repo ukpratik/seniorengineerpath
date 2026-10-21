@@ -450,3 +450,12 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 .anim-compare .cmp{display:flex;flex-direction:column;gap:2px;padding:12px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--border);font-size:var(--fs-sm)}
 .anim-compare .cmp b{font-size:28px;line-height:1.1}
 .anim-compare .cmp.bad b{color:var(--bad)}.anim-compare .cmp.ok b{color:var(--done)}
+
+/* ---------- Code in lessons: never widen the page on phones ---------- */
+.card pre{max-width:100%;overflow-x:auto;padding:12px 14px;border-radius:var(--r-md);font-size:14px;line-height:1.5}
+.card pre:focus-visible{outline-offset:2px}
+:not(pre)>code{font-family:var(--font-mono);font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:5px;overflow-wrap:anywhere}
+.sec>.card{min-width:0}
+.prose,.ai,.to{min-width:0}
+.ai>div{min-width:0}
+.prompt,.checks span{overflow-wrap:anywhere}

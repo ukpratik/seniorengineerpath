@@ -1,0 +1,4 @@
+id: noisy-neighbour
+term: noisy neighbour
+forms: [noisy neighbours, noisy neighbor, noisy neighbors]
+short: One user or tenant that puts so much load on shared resources that others sharing them become slow.

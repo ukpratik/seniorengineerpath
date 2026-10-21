@@ -1,0 +1,4 @@
+id: rollback-netcode
+term: rollback netcode
+forms: [rollback networking]
+short: Each player's game guesses the other player's inputs and keeps running. When the real inputs differ, it goes back and re-runs the game from that point.

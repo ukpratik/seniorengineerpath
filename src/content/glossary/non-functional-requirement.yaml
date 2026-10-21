@@ -1,0 +1,4 @@
+id: non-functional-requirement
+term: non-functional requirement
+forms: [non-functional requirements, NFR, NFRs]
+short: A quality the system must have, such as speed, scale, availability or "never sell a seat twice". It shapes how you build, not what users can do.

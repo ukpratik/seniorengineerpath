@@ -1,0 +1,4 @@
+id: row-level-security
+term: row-level security
+forms: [RLS]
+short: A database feature that adds a filter, such as "only this tenant's rows", to every query on a table, so one missed WHERE clause cannot leak data. Superusers, and usually table owners, skip it.

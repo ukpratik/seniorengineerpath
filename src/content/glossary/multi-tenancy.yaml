@@ -1,0 +1,4 @@
+id: multi-tenancy
+term: multi-tenancy
+forms: [multi-tenant]
+short: One running system serving many customer organisations (tenants), which share code, servers and often databases.

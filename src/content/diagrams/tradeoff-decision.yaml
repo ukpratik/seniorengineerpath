@@ -1,0 +1,17 @@
+id: tradeoff-decision
+title: "From options to a written decision with a revisit trigger"
+viewBox: 0 0 340 500
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">1 · Options</text><text class="sub" x="170" y="51">A Postgres table · B managed queue · C Kafka</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="64" x2="170" y2="88"/><rect class="box" x="20" y="92" width="300" height="52" rx="10"/><text class="bt" x="170" y="114">2 · Criteria</text><text class="sub" x="170" y="133">fits load · team knows it · ops work · undo</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="146" x2="170" y2="170"/><rect class="box" x="20" y="174" width="300" height="70" rx="10"/><text class="bt" x="170" y="196">3 · Example scores (0 to 3 each)</text><text class="sub" x="170" y="215">A = 11 · B = 10 · C = 6</text><text class="sub" x="170" y="233">C is strong on load, weak on everything else</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="246" x2="170" y2="270"/><rect class="rec" x="20" y="274" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="296">4 · Decision: A, for now</text><text class="sub" x="170" y="315">a two-way door · cheap to leave</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="328" x2="170" y2="352"/><rect class="note" x="20" y="356" width="300" height="52" rx="10"/><text class="note-t" x="170" y="378">5 · ADR-021 in the repo</text><text class="sub" x="170" y="397">context · decision · what we give up</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="170" y1="410" x2="170" y2="434"/><rect class="okb" x="20" y="438" width="300" height="52" rx="10"/><text class="ok-t" x="170" y="460">6 · Revisit when…</text><text class="sub" x="170" y="479">over 1,000 jobs/s, or the main DB slows</text></g>
+captions:
+  - "This example is made up. A team of three needs a job queue for about 200 jobs a second. They write down three real options."
+  - "Before they score anything, they agree what matters: does it handle the load, does the team know it, how much work it is to run, and how easy it is to undo."
+  - "These scores are only an example. Each option gets 0 to 3 points per criterion. The table is a tool for talking, not a machine that decides. C wins on load but loses on everything the team must live with."
+  - "They choose A, a table in the Postgres database they already run. It is easy to move away from later, so they decide fast."
+  - "They write a one-page ADR. It says what they chose, why, and what they give up: A will not grow forever."
+  - "The ADR names a clear signal to look again: more than 1,000 jobs a second, or the queue slowing the main database. Then they compare A and B again."

@@ -1,0 +1,17 @@
+id: design-method-steps
+title: "The design method: each step leaves something on the board"
+viewBox: 0 0 340 560
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="88" rx="10"/><text class="bt" x="170" y="32">1 · Requirements · ~5 min</text><text class="sub" x="170" y="51">view events · search · book</text><text class="sub" x="170" y="69">no double booking · search &lt; 500 ms</text><text class="sub" x="170" y="87">10 M users for one event · reads 100:1</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="100" x2="170" y2="122"/><rect class="box" x="20" y="126" width="300" height="52" rx="10"/><text class="bt" x="170" y="148">2 · Core entities · ~2 min</text><text class="sub" x="170" y="167">Event · Venue · Performer · Ticket · Booking</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="180" x2="170" y2="202"/><rect class="box" x="20" y="206" width="300" height="88" rx="10"/><text class="bt" x="170" y="228">3 · API · ~5 min</text><text class="sub" x="170" y="247">GET /events/search?keyword=…</text><text class="sub" x="170" y="265">GET /events/:id → seats</text><text class="sub" x="170" y="283">POST /bookings/:eventId</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="296" x2="170" y2="318"/><rect class="rec" x="20" y="322" width="300" height="70" rx="10"/><text class="rec-t" x="170" y="344">4 · High-level design · 10–15 min</text><text class="sub" x="170" y="363">gateway → event, search, booking</text><text class="sub" x="170" y="381">Postgres · search index · payments</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="394" x2="170" y2="416"/><rect class="note" x="20" y="420" width="300" height="88" rx="10"/><text class="note-t" x="170" y="442">5 · Deep dives · ~10 min</text><text class="sub" x="170" y="461">seat hold with a 10-min TTL</text><text class="sub" x="170" y="479">waiting room for the surge</text><text class="sub" x="170" y="497">fast search · cache the seat map</text></g>
+  <g class="f" data-f="6"><rect class="okb" x="20" y="520" width="300" height="32" rx="8"/><text class="ok-t" x="170" y="541">✓ every requirement has an answer</text></g>
+captions:
+  - "Requirements first. Pick the top three things users do, then the qualities that matter most: no double booking, fast search and a huge surge. Write them on the board."
+  - "Name the core entities in two minutes. These are the nouns your API and database will use. Do not design every column yet."
+  - "Write the API. One endpoint per main user action is enough. The user comes from the login token, not from the request body."
+  - "Draw a simple design that meets the functional requirements. Stay simple here, and say out loud what you will improve later."
+  - "Now go deep where the hard parts are: holding a seat, surviving the surge and fast search. Each deep dive answers one non-functional requirement."
+  - "Check the board against your first list. Every requirement should map to a part of the design."

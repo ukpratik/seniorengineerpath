@@ -1,0 +1,4 @@
+id: distributed-lock
+term: distributed lock
+forms: [distributed locks]
+short: A lock that many servers share, often kept in a store like Redis. Only one server or user can hold it at a time, usually until it expires.

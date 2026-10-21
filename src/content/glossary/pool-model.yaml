@@ -1,0 +1,4 @@
+id: pool-model
+term: pool model
+forms: []
+short: A SaaS design where tenants share the same resources. Cheap and simple to run, but needs tenant ids and limits to keep tenants apart.

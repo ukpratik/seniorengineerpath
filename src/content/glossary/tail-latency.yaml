@@ -1,0 +1,4 @@
+id: tail-latency
+term: tail latency
+forms: [latency tail]
+short: The latency of the slowest requests, such as the p99 or p99.9. It is what your unluckiest users feel.

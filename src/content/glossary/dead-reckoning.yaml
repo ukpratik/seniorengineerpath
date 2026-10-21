@@ -1,0 +1,4 @@
+id: dead-reckoning
+term: dead reckoning
+forms: []
+short: Guessing where something is now by assuming it kept its last known speed and direction. Works for cars and ships, but not for players who turn suddenly.

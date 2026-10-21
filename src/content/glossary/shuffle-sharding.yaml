@@ -1,0 +1,4 @@
+id: shuffle-sharding
+term: shuffle sharding
+forms: [shuffle shard, shuffle shards, shuffle-sharding]
+short: Giving each customer a random small set of workers, so two customers rarely share the exact same set and one bad customer fully hurts very few others.

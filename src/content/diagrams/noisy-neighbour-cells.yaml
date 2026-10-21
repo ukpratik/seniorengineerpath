@@ -1,0 +1,24 @@
+id: noisy-neighbour-cells
+title: "One big tenant's spike: a shared pool slows everyone, shuffle sharding contains it"
+viewBox: 0 0 340 470
+svg: |
+  <text class="sub" x="170" y="22">8 shared workers</text>
+  <rect class="box" x="12" y="32" width="36" height="36" rx="7"/><text class="bt" x="30" y="55">W1</text>
+  <rect class="box" x="52" y="32" width="36" height="36" rx="7"/><text class="bt" x="70" y="55">W2</text>
+  <rect class="box" x="92" y="32" width="36" height="36" rx="7"/><text class="bt" x="110" y="55">W3</text>
+  <rect class="box" x="132" y="32" width="36" height="36" rx="7"/><text class="bt" x="150" y="55">W4</text>
+  <rect class="box" x="172" y="32" width="36" height="36" rx="7"/><text class="bt" x="190" y="55">W5</text>
+  <rect class="box" x="212" y="32" width="36" height="36" rx="7"/><text class="bt" x="230" y="55">W6</text>
+  <rect class="box" x="252" y="32" width="36" height="36" rx="7"/><text class="bt" x="270" y="55">W7</text>
+  <rect class="box" x="292" y="32" width="36" height="36" rx="7"/><text class="bt" x="310" y="55">W8</text>
+  <g class="f" data-f="1"><text class="lb" x="170" y="94">A · pool: every tenant uses every worker</text><text class="sub" x="170" y="114">Big, Rose, Sun and 397 more</text></g>
+  <g class="f" data-f="2"><rect class="note" x="12" y="124" width="316" height="26" rx="7"/><text class="note-t" x="170" y="141">Big runs a huge export · all 8 busy</text></g>
+  <g class="f" data-f="3"><path class="xm" d="M100 158l12 12M112 158l-12 12"/><path class="xm" d="M164 158l12 12M176 158l-12 12"/><path class="xm" d="M228 158l12 12M240 158l-12 12"/><text class="sub badt" x="170" y="190">Rose, Sun and everyone else wait</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="204" x2="332" y2="204"/><text class="lb" x="170" y="228">B · shuffle sharding: 2 workers each</text><rect class="rec" x="20" y="242" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="259">Big → W1 + W4</text><rect class="rec" x="20" y="276" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="293">Rose → W1 + W8</text><rect class="rec" x="20" y="310" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="327">Sun → W4 + W6</text><text class="sub" x="170" y="356">8 workers give 28 possible pairs</text></g>
+  <g class="f" data-f="5"><rect class="note" x="20" y="370" width="300" height="26" rx="7"/><text class="note-t" x="170" y="387">Big's spike fills only W1 and W4</text><rect class="okb" x="20" y="406" width="300" height="30" rx="8"/><text class="ok-t" x="170" y="426">✓ Rose uses W8, Sun uses W6</text><text class="sub" x="170" y="456">only Big's exact pair (1 in 28) is down</text></g>
+captions:
+  - "Path A, a shared pool. Eight workers serve 400 tenants. Every tenant's requests can land on any worker. This is cheap, because no worker sits idle."
+  - "The biggest tenant, Big, starts a huge export. Its heavy requests spread over all eight workers and fill every one of them."
+  - "Every other tenant now waits behind Big's work. Rose and Sun did nothing wrong, but their pages time out. One tenant's spike became everyone's outage."
+  - "Path B, shuffle sharding. Each tenant gets its own random pair of workers. Big has W1 and W4, Rose has W1 and W8, and Sun has W4 and W6. Eight workers give 28 different pairs."
+  - "Big's spike now fills only W1 and W4. Rose shares W1 but still has W8. Sun shares W4 but still has W6. If their clients retry on the other worker, they keep working. Only a tenant with Big's exact pair is hurt."

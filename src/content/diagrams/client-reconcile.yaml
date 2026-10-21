@@ -1,0 +1,18 @@
+id: client-reconcile
+title: "Client prediction and server reconciliation: move now, fix quietly later"
+viewBox: 0 0 340 500
+svg: |
+  <line class="life" x1="70" y1="54" x2="70" y2="490"/><line class="life" x1="270" y1="54" x2="270" y2="490"/>
+  <rect class="box" x="10" y="10" width="120" height="44" rx="10"/><text class="bt" x="70" y="37">Your game</text>
+  <rect class="box" x="210" y="10" width="120" height="44" rx="10"/><text class="bt" x="270" y="37">Server</text>
+  <g class="f" data-f="1"><rect class="rec" x="12" y="66" width="116" height="26" rx="7"/><text class="rec-t" x="70" y="83">x = 11 (guess)</text><line class="ln" x1="72" y1="100" x2="266" y2="150"/><text class="lb" x="160" y="110">input #1</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="12" y="110" width="116" height="26" rx="7"/><text class="rec-t" x="70" y="127">x = 12 (guess)</text><line class="ln" x1="72" y1="144" x2="266" y2="194"/><text class="lb" x="160" y="154">input #2</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="212" y="160" width="116" height="26" rx="7"/><text class="rec-t" x="270" y="177">x = 11 · did #1</text><line class="ln" x1="268" y1="204" x2="74" y2="270"/><text class="lb" x="190" y="220">x = 11, last #1</text><rect class="note" x="8" y="280" width="124" height="26" rx="7"/><text class="note-t" x="70" y="297">arrives at 250 ms</text></g>
+  <g class="f" data-f="4"><rect class="rec" x="12" y="318" width="116" height="26" rx="7"/><text class="rec-t" x="70" y="335">reset to x = 11</text><rect class="okb" x="12" y="352" width="116" height="26" rx="7"/><text class="ok-t" x="70" y="369">replay #2 → 12</text><text class="sub badt" x="262" y="350">no replay: jumps to 11</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="212" y="226" width="116" height="26" rx="7"/><text class="rec-t" x="270" y="243">x = 12 · did #2</text><line class="ln" x1="268" y1="262" x2="74" y2="440"/><text class="lb" x="222" y="292">x = 12, last #2</text><rect class="okb" x="12" y="452" width="210" height="30" rx="8"/><text class="ok-t" x="117" y="472">✓ matches · nothing to replay</text></g>
+captions:
+  - "You press the right arrow. Your game does not wait. It moves you from x = 10 to x = 11 at once, as a guess, and sends input #1 to the server."
+  - "You press right again. Your game guesses x = 12 and sends input #2. The server has not answered yet, because the network is slow."
+  - "The server runs input #1 and says: you are at x = 11, and the last input I used was #1. This answer reaches you 250 ms after you pressed."
+  - "x = 11 is old news. If you just copied it, your character would jump back. Instead, your game resets to 11, keeps input #2, which the server has not seen yet, and replays it. You stay at 12."
+  - "Later the server runs input #2 and says x = 12, last #2. This matches your guess, and no inputs are left to replay. You never saw a jump."

@@ -1,0 +1,4 @@
+id: server-reconciliation
+term: server reconciliation
+forms: []
+short: When an old server state arrives, the client resets to it and replays the inputs the server has not processed yet, so the player does not jump back.

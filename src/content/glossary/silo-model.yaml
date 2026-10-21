@@ -1,0 +1,4 @@
+id: silo-model
+term: silo model
+forms: []
+short: A SaaS design where a tenant gets its own resources, such as its own database or full stack. Strong isolation, higher cost.

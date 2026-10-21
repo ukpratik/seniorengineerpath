@@ -1,0 +1,4 @@
+id: hedged-request
+term: hedged request
+forms: [hedged requests]
+short: Sending a backup copy of a request to another replica when the first has not answered after a short delay, then using whichever answer comes first.

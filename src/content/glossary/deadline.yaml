@@ -1,0 +1,4 @@
+id: deadline
+term: deadline
+forms: [deadlines, deadline propagation]
+short: The time by which a request must finish. Passing the time left down to every call lets servers drop work nobody waits for.

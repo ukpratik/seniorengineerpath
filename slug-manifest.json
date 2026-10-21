@@ -2,13 +2,16 @@
   "btree-vs-lsm-tree",
   "caching-and-cache-stampedes",
   "cap-pacelc-consistency-models",
+  "client-prediction-lag-compensation",
   "database-replication",
   "design-docs-and-rfcs",
   "idempotency-retries-timeouts",
   "inventory-overselling-flash-sales",
   "latency-numbers-and-estimation",
   "load-balancing",
+  "making-architecture-trade-offs",
   "money-and-double-entry-ledgers",
+  "multi-tenancy-noisy-neighbours",
   "observability-slos-error-budgets",
   "queues-vs-logs-delivery-guarantees",
   "rate-limiting",
@@ -16,7 +19,10 @@
   "safe-deploys-config-changes",
   "sagas-outbox-and-cdc",
   "sharding-and-consistent-hashing",
+  "system-design-interview-method",
+  "tail-latency-and-queueing",
   "transactions-and-isolation-levels",
   "what-senior-really-means",
-  "working-with-coding-agents"
+  "working-with-coding-agents",
+  "working-with-pms-and-the-business"
 ]

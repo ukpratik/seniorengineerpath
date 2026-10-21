@@ -1,0 +1,22 @@
+id: fan-out-tail
+title: "Fan-out to 100 servers: a 1% slow chance each makes 63% of requests slow"
+viewBox: 0 0 340 470
+svg: |
+  <rect class="box" x="110" y="10" width="120" height="40" rx="10"/><text class="bt" x="170" y="35">Search request</text>
+  <line class="ln" x1="170" y1="52" x2="25" y2="88"/><line class="ln" x1="170" y1="52" x2="98" y2="88"/><line class="ln" x1="170" y1="52" x2="170" y2="88"/><line class="ln" x1="170" y1="52" x2="242" y2="88"/><line class="ln" x1="170" y1="52" x2="315" y2="88"/>
+  <rect class="box" x="5" y="92" width="40" height="34" rx="7"/><text class="bt" x="25" y="114">1</text>
+  <rect class="box" x="78" y="92" width="40" height="34" rx="7"/><text class="bt" x="98" y="114">2</text>
+  <rect class="box" x="150" y="92" width="40" height="34" rx="7"/><text class="bt" x="170" y="114">…</text>
+  <rect class="box" x="222" y="92" width="40" height="34" rx="7"/><text class="bt" x="242" y="114">99</text>
+  <rect class="box" x="295" y="92" width="40" height="34" rx="7"/><text class="bt" x="315" y="114">100</text>
+  <g class="f" data-f="1"><text class="lb" x="170" y="152">waits for all 100 answers</text><text class="sub" x="170" y="172">each server: usually 10 ms</text></g>
+  <g class="f" data-f="2"><rect class="note" x="20" y="186" width="300" height="26" rx="7"/><text class="note-t" x="170" y="203">each server: 1 call in 100 takes 1 s</text><text class="sub" x="170" y="230">one server alone: 1% of requests slow</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="20" y="246" width="300" height="26" rx="7"/><text class="rec-t" x="170" y="263">all 100 fast: 0.99^100 ≈ 0.366</text></g>
+  <g class="f" data-f="4"><path class="xm" d="M302 132l12 12M314 132l-12 12"/><rect class="note" x="20" y="284" width="300" height="26" rx="7"/><text class="note-t" x="170" y="301">at least one slow: 1 − 0.366 ≈ 63%</text><text class="sub badt" x="170" y="330">most searches now take 1 s</text></g>
+  <g class="f" data-f="5"><line class="life" x1="8" y1="346" x2="332" y2="346"/><text class="lb" x="170" y="370">Fix · hedge: no answer after a short delay?</text><text class="sub" x="170" y="390">send a backup to another replica, use the first reply</text><rect class="okb" x="20" y="404" width="300" height="30" rx="8"/><text class="ok-t" x="170" y="424">✓ Google test: p99.9 1,800 → 74 ms</text><text class="sub" x="170" y="456">for just 2% more requests</text></g>
+captions:
+  - "One search request is sent to 100 servers at once. The page can show results only when all 100 have answered. Each server usually answers in 10 ms."
+  - "Each server has rare slow moments, such as a garbage collection pause. 1 call in 100 takes a full second. If a request used only one server, just 1% of requests would be slow."
+  - "The request is fast only if all 100 servers are fast. Each is fast with chance 0.99. All 100 together: 0.99 multiplied by itself 100 times, which is about 0.366."
+  - "So about 1 − 0.366 ≈ 0.63 of requests wait for at least one slow server. A 1% problem on each server has become a 63% problem for users."
+  - "One fix is a hedged request. If a server has not answered after a short delay, send the same request to another replica and use whichever answers first. In a Google test over 100 BigTable servers, this cut the p99.9 from 1,800 ms to 74 ms, with just 2% more requests."

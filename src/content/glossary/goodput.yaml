@@ -1,0 +1,4 @@
+id: goodput
+term: goodput
+forms: []
+short: The part of throughput that is handled without errors and in time to be useful.

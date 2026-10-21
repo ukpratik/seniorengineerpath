@@ -1,0 +1,4 @@
+id: client-side-prediction
+term: client-side prediction
+forms: [client prediction]
+short: The player's game shows the result of their own input at once, as a guess, instead of waiting for the server. The server's answer later confirms or corrects it.

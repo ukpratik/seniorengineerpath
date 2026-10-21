@@ -1,0 +1,4 @@
+id: tied-request
+term: tied request
+forms: [tied requests]
+short: Sending a request to two servers at once; the first server to start work on it tells the other to cancel.

@@ -1,0 +1,4 @@
+id: tick-rate
+term: tick rate
+forms: [tick rates, tickrate]
+short: How many times per second a game server updates the world. Each update is one tick. A 15 ms tick means about 66 ticks per second.

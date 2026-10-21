@@ -1,0 +1,4 @@
+id: deep-dive
+term: deep dive
+forms: [deep dives]
+short: The part of a design discussion where you take one hard piece, such as locking or scaling, and work it out in detail with its trade-offs.

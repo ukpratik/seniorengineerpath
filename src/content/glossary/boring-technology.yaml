@@ -1,0 +1,4 @@
+id: boring-technology
+term: boring technology
+forms: []
+short: Well-known, mature tools like Postgres or cron. Not bad, just old enough that their limits and failure modes are well understood. The idea is from Dan McKinley's essay "Choose Boring Technology".

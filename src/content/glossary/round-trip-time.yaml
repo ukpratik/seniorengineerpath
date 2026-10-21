@@ -1,0 +1,4 @@
+id: round-trip-time
+term: round-trip time
+forms: [round-trip times, RTT, ping]
+short: The time for a message to go from your computer to the server and for the answer to come back. Games often call it ping.

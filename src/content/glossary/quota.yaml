@@ -1,0 +1,4 @@
+id: quota
+term: quota
+forms: [quotas]
+short: The most of something one customer may use, such as requests per second, storage or running jobs.

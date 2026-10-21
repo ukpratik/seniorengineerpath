@@ -1,0 +1,4 @@
+id: functional-requirement
+term: functional requirement
+forms: [functional requirements]
+short: Something a user can do with the system, such as "search for events" or "book a seat".

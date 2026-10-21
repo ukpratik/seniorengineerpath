@@ -1,0 +1,4 @@
+id: tenant
+term: tenant
+forms: [tenants, tenant id, tenant_id]
+short: One customer organisation, such as one company, in a system that serves many customers. Its data and load must stay separate from other tenants.

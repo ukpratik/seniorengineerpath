@@ -1,0 +1,4 @@
+id: authoritative-server
+term: authoritative server
+forms: [authoritative servers, server-authoritative]
+short: A game server that owns the true state of the game. Players' games only send inputs, and the server decides what really happened, which makes cheating harder.

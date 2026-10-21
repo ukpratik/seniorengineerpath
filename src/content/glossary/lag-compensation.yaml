@@ -1,0 +1,4 @@
+id: lag-compensation
+term: lag compensation
+forms: []
+short: The game server rewinds other players to where the shooter saw them, checks the hit there, then moves them back. Shots hit where you aimed despite delay.

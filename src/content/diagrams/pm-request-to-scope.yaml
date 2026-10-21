@@ -1,0 +1,15 @@
+id: pm-request-to-scope
+title: "From “the business wants X” to an agreed plan"
+viewBox: 0 0 340 520
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">1 · The request</text><text class="sub" x="170" y="51">"Let customers reschedule by 1 March"</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="64" x2="170" y2="86"/><rect class="box" x="20" y="90" width="300" height="70" rx="10"/><text class="bt" x="170" y="112">2 · Questions</text><text class="sub" x="170" y="131">Why now? Who asks? How many?</text><text class="sub" x="170" y="149">How will we know it worked?</text><rect class="note" x="175" y="166" width="155" height="26" rx="7"/><text class="note-t" x="252" y="183">goal: 30% fewer calls</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="162" x2="170" y2="198"/><rect class="box" x="20" y="202" width="300" height="88" rx="10"/><text class="bt" x="170" y="224">3 · Options with costs</text><text class="sub" x="170" y="243">A · any day, any slot · 6–10 weeks</text><text class="sub" x="170" y="261">B · next 3 days only · 2–4 weeks</text><text class="sub" x="170" y="279">C · "call me back" button · 1 week</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="292" x2="170" y2="316"/><rect class="rec" x="20" y="320" width="300" height="70" rx="10"/><text class="rec-t" x="170" y="342">4 · Agreed scope: option B</text><text class="sub" x="170" y="361">non-goal: changing the address</text><text class="sub" x="170" y="379">risk: warehouse API, check in week 1</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="392" x2="170" y2="416"/><rect class="okb" x="20" y="420" width="300" height="88" rx="10"/><text class="ok-t" x="170" y="442">5 · Weekly check-ins</text><text class="sub" x="170" y="461">week 1: risk is real, said the same day</text><text class="sub" x="170" y="479">cut "3 days" to "2 days", date holds</text><text class="sub" x="170" y="497">after launch: calls down 24%</text></g>
+captions:
+  - "The PM brings a request from the business. It names a solution and a date, but not the problem or the goal."
+  - "You ask why, for whom, how many, and how you will measure success. The real goal appears: fewer calls to the support team."
+  - "You offer three options. Each has a cost as a range of weeks and a different amount of value. You do not just say yes or no."
+  - "You and the PM choose option B together. You write down one non-goal and the biggest risk, with a date to check it."
+  - "Every week you share progress and risks. When the risk turns out to be real, you say so at once and cut scope to keep the date."

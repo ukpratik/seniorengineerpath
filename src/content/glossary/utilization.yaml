@@ -1,0 +1,4 @@
+id: utilization
+term: utilization
+forms: [utilisation]
+short: How busy a resource is, as a share of its capacity. A server at 90% utilization is busy 9 tenths of the time.

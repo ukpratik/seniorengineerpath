@@ -1,0 +1,4 @@
+id: cell
+term: cell
+forms: [cells]
+short: A full, independent copy of a workload that serves only some customers. A router sends each customer to its cell, so one failure stays inside one cell.

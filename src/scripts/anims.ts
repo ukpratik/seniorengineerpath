@@ -79,7 +79,8 @@ function bars(values: number[], opts: { max: number; label: string; peak: string
     Object.entries({ x1: String(x), x2: String(x), y1: '4', y2: String(H - pad), class: 'mark' }).forEach(([k, v]) => m.setAttribute(k, v));
     svg.appendChild(m);
     const t = document.createElementNS(NS, 'text');
-    Object.entries({ x: String(x + 4), y: '14', class: 'lbl' }).forEach(([k, v]) => t.setAttribute(k, v));
+    const nearRight = x > W - 90;
+    Object.entries({ x: String(nearRight ? x - 4 : x + 4), y: '30', class: 'lbl', 'text-anchor': nearRight ? 'end' : 'start' }).forEach(([k, v]) => t.setAttribute(k, v));
     t.textContent = opts.markLabel ?? '';
     svg.appendChild(t);
   }
@@ -125,11 +126,13 @@ function replicationLag(body: HTMLElement, used: () => void): void {
   const res = result();
   const draw = () => {
     const r = simulateRead({ lagMs: lag.value(), readAfterMs: after.value(), readYourWrites: ryw.on(), rywWindowMs: 1000 });
-    const pct = (ms: number) => `${Math.min(100, (ms / 2000) * 100)}%`;
+    const at = (ms: number) => Math.min(100, (ms / 2000) * 100);
+    // Past the middle, anchor the label by its right edge so it stays inside the lane on phones.
+    const pos = (ms: number) => (at(ms) > 55 ? `left:auto;right:${100 - at(ms)}%` : `left:${at(ms)}%`);
     lanes.innerHTML = `
       <div class="lane"><span class="who">Leader</span><div class="tl"><i class="ev w" style="left:0%">write: name = "Asha"</i></div></div>
-      <div class="lane"><span class="who">Follower</span><div class="tl"><i class="ev a" style="left:${pct(lag.value())}">gets the write</i></div></div>
-      <div class="lane"><span class="who">You</span><div class="tl"><i class="ev r ${r.stale ? 'bad' : 'ok'}" style="left:${pct(after.value())}">read from ${r.readFrom}</i></div></div>`;
+      <div class="lane"><span class="who">Follower</span><div class="tl"><i class="ev a" style="${pos(lag.value())}">gets the write</i></div></div>
+      <div class="lane"><span class="who">You</span><div class="tl"><i class="ev r ${r.stale ? 'bad' : 'ok'}" style="${pos(after.value())}">read from ${r.readFrom}</i></div></div>`;
     res.textContent = r.stale
       ? `Stale read: the follower still shows the old name. You just changed it, so it looks like your change was lost.`
       : `Fresh read from the ${r.readFrom}: you see "Asha".`;
@@ -193,7 +196,9 @@ function tokenBucket(body: HTMLElement, used: () => void): void {
     );
     res.textContent = rejected
       ? `${allowed} requests allowed, ${rejected} rejected with “429 Too Many Requests”. A bigger bucket allows bigger bursts; a faster refill allows more requests over time.`
-      : `All ${allowed} requests allowed. The bucket was big enough for the burst.`;
+      : burst.value() > 0
+        ? `All ${allowed} requests allowed. The bucket was big enough for the burst.`
+        : `All ${allowed} requests allowed. Steady traffic stays under the refill rate.`;
     res.className = `anim-result ${rejected ? 'bad' : 'ok'}`;
   };
   for (const c of [cap, rate, burst]) c.input.addEventListener('input', () => (used(), draw()));
@@ -222,7 +227,7 @@ function hashRing(body: HTMLElement, used: () => void): void {
     chart.replaceChildren(
       bars(load.map((x) => x.share * 100), { max: Math.max(...load.map((x) => x.share * 100)) * 1.1, label: `Share of keys per server on the ring (${after.length} servers)`, peak: `${pct(Math.min(...load.map((x) => x.share)))}–${pct(Math.max(...load.map((x) => x.share)))}`, cls: 'abar' }),
     );
-    res.textContent = `Adding server ${after.length}: the ring moves about 1 in ${after.length} keys, all to the new server. ${v.value() < 10 ? 'With few virtual nodes, the load per server is uneven.' : 'With many virtual nodes, each server gets a similar share.'}`;
+    res.textContent = `Adding server ${after.length}: the ring moved ${pct(rng)} of the keys, all to the new server (about 1 in ${after.length} on average). ${v.value() < 10 ? 'With few virtual nodes, shares and moves are uneven.' : 'With many virtual nodes, each server gets a similar share.'}`;
   };
   for (const c of [n, v]) c.input.addEventListener('input', () => (used(), draw()));
   const ctrls = el('div', { class: 'anim-ctrls' });

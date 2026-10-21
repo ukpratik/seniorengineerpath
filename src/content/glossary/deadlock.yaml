@@ -1,0 +1,4 @@
+id: deadlock
+term: deadlock
+forms: [deadlocks]
+short: Two transactions each wait for a lock the other one holds, so neither can go on. The database usually cancels one of them with an error.

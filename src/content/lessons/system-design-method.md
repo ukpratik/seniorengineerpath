@@ -59,6 +59,9 @@ claims_checked:
   - claim: "10M users in 10 minutes ≈ 17,000/s; 10 reads each ≈ 170,000 reads/s; 70,000 seats."
     source: hi-ticketmaster
     note: "Only the 10M figure is from the source. The 10 minutes, 10 reloads and 70,000 seats are the lesson's labelled guesses. Arithmetic re-checked: 10,000,000/600 = 16,667; x10 = 166,667."
+  - claim: "Quiz Q3: a long database lock also blocks other buyers, but long locks strain the database and risk lock contention and deadlocks, so a hold that expires is the one best answer."
+    source: hi-ticketmaster
+    note: "QC1-01. The breakdown rejects long locks for resource strain, lock contention and deadlocks, not because they fail to block. The question now asks for the best way that does not tie up the database."
 
 quiz:
   - q: The interviewer says "Design Ticketmaster." What should you do in the first five minutes?
@@ -75,7 +78,7 @@ quiz:
       - The system is read-heavy.
     answer: 1
     why: Search can show slightly old data, but a seat sold twice is a real failure. So booking chooses consistency and search chooses availability.
-  - q: A user picks a seat and starts paying. What stops another user from buying it during payment?
+  - q: A user picks a seat and starts paying, which can take minutes. What is the best way to stop another user from buying it, without tying up the database?
     options:
       - A hold on the seat that expires after a set time, such as 10 minutes.
       - A database lock held until payment finishes.
@@ -116,7 +119,7 @@ Hello Interview has a full worked answer for "design Ticketmaster". [@hi-ticketm
 
 A system design interview is a conversation of about 45 minutes about a big, vague problem. [@xu-framework] There is no single right answer. The interviewer wants to see how you think: how you clarify the problem, choose a design and explain trade-offs.
 
-Without a method, people jump to drawing boxes. Twenty minutes later, they find they solved the wrong problem. A method gives you a path, and it lets you drive the conversation.
+Without a method, people start drawing the parts of the system right away. Twenty minutes later, they find they solved the wrong problem. A method gives you a path, and it lets you lead the conversation.
 
 Hello Interview's framework has five main steps, plus an optional data flow step that we skip here. [@hi-delivery] Alex Xu's book uses four steps that cover the same ground: understand the problem, propose a high-level design, deep dive, and wrap up. [@xu-framework]
 
@@ -157,7 +160,7 @@ List the main nouns. Do not design every column yet. [@hi-delivery] For Ticketma
 
 ### Step 3. API (about 5 minutes)
 
-Write one endpoint per main user action. Hello Interview suggests REST unless you have a reason not to. Take the user from the login token, not from the request body. [@hi-delivery]
+Write one endpoint per main user action. Hello Interview suggests REST, plain HTTP endpoints such as `GET /events/{id}`, unless you have a reason not to. Take the user from the login token, not from the request body. [@hi-delivery]
 
 ```
 GET  /events/search?keyword=&start=&end=&page=   → Event[]
@@ -189,7 +192,7 @@ Two warnings make a senior answer. The Redis docs discourage this simple lock pa
 
 Keep a clock in view. If requirements take 15 minutes, you will have no time for deep dives. Talk while you think. Xu warns: "Don't think in silence." [@xu-framework]
 
-Drive the conversation, but check in. Say "I plan to go deep on the seat hold next. Is that where you want to spend time?" Hello Interview says senior candidates should find the hard parts and lead the deep dives. It also says to give the interviewer room to ask questions. [@hi-delivery] Its breakdown expects a senior to go deep on topics such as a distributed lock for holds, and to explain trade-offs. A mid-level answer can use a simpler fix, such as a ticket status with a timeout. [@hi-ticketmaster]
+Lead the conversation, but check with the interviewer. Say "I plan to go deep on the seat hold next. Is that where you want to spend time?" Hello Interview says senior candidates should find the hard parts and lead the deep dives. It also says to give the interviewer room to ask questions. [@hi-delivery] Its breakdown expects a senior to go deep on topics such as a distributed lock for holds, and to explain trade-offs. A mid-level answer can use a simpler fix, such as a ticket status with a timeout. [@hi-ticketmaster]
 
 ## Trade-offs
 
@@ -201,7 +204,7 @@ Drive the conversation, but check in. Say "I plan to go deep on the seat hold ne
 | Virtual waiting room | Not directly. It limits load. | Fans wait, and you must keep the queue fair. | Known surges, such as a big presale. |
 | Showing live seat maps to everyone | No. It only shows state. | Heavy reads, and maps go stale in seconds. | Normal events. Hide them behind the queue for huge ones. |
 
-**Rule of thumb:** make the database the final judge of who gets a seat. Use holds and the waiting room to keep the database calm.
+**Simple rule:** make the database the final judge of who gets a seat. Use holds and the waiting room to keep the load on the database low.
 
 ## At work: how a senior uses this
 

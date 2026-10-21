@@ -27,6 +27,12 @@ sources:
     url: https://slack.engineering/slacks-outage-on-january-4th-2021/
     note: A real postmortem where the first work day of the year brought a sudden peak of traffic.
 claims_checked:
+  - claim: "Xu: memory is fast but the disk is slow."
+    source: xu
+    note: "QC1-15: \"Memory is fast but the disk is slow.\" The RAM-cache advice that follows is the lesson's own and is no longer cited to Xu."
+  - claim: "In the Slack outage of 4 January 2021, the AWS Transit Gateways that Slack used as hubs to link its VPCs did not scale fast enough."
+    source: slack
+    note: "QC1-15: \"We use AWS Transit Gateways (TGWs) as hubs to link our VPCs.\" \"However, our TGWs did not scale fast enough.\""
   - claim: "Main memory read about 100 ns, SSD random read about 16 µs, same-data-centre round trip about 0.5 ms, California–Netherlands round trip about 150 ms."
     source: scott
     note: "Interactive page JS: memory 100 ns (flat after 2000), SSD 16,000 ns (flat after 2014), DC round trip 500,000 ns and CA–NL 150,000,000 ns (constants). Values are extrapolated estimates; L1 is about 1 ns there, while Norvig and Xu (Dean 2010) give 0.5 ns."
@@ -90,7 +96,7 @@ A **back-of-envelope estimate** gets you there in a few minutes. It uses two too
 1. **The latency ladder.** How long common operations take, from a CPU cache read to a call across the ocean.
 2. **Simple traffic maths.** Users → requests per second (QPS) → servers, storage and bandwidth.
 
-> [!key] **The key idea.** Round hard and write down your assumptions. Then size for the peak, not the average. A system that is fine on an average day can still fall over in its busiest hour.
+> [!key] **The key idea.** Round hard and write down your assumptions. Then size for the peak, not the average. A system that is fine on an average day can still crash in its busiest hour.
 
 ## How it works
 
@@ -108,7 +114,7 @@ To make them feel real, pretend that 1 nanosecond (ns) is 1 second:
 
 Three lessons come from this ladder:
 
-- Memory is fast. A cache in RAM can save you a lot of time [@xu].
+- Memory is fast, but disk is slow [@xu]. So a cache in RAM can save you a lot of time.
 - A network call costs far more than local work. Avoid calls in a loop.
 - A call across an ocean costs about 300 calls inside the data centre. A page that makes five such calls, one after another, waits about 750 ms for the network alone.
 
@@ -148,14 +154,14 @@ Averages hide problems in latency as well as traffic. Google's SRE book gives an
 | Autoscale from the average | Partly. New servers take minutes to start, and sudden spikes arrive faster. | Lower cost when traffic is calm. | Traffic rises slowly and you keep a minimum number of servers running. |
 | Load test with real traffic shapes | Yes. You test the real peak, not a guess. | Takes days to build and run well. | Big launches, sales events and systems that move money. |
 
-**Rule of thumb:** a quick estimate tells you which design to choose. A load test tells you if the design really works.
+**Simple rule:** a quick estimate tells you which design to choose. A load test tells you if the design really works.
 
 ## At work: how a senior uses this
 
 - When someone proposes a design, ask: **"How many requests per second at the peak, and how much data per year?"** If nobody knows, do the five-minute estimate together.
 - Write the assumptions in the design doc: users, requests per user, peak factor, sizes [@xu]. Others can then correct one number instead of arguing about the result.
 - Find the peak in real data. Look at the busiest minute of the busiest day, not a daily average. Watch for special days, like a sale, a holiday or a big match.
-- Remember that the peak can arrive overnight. On 4 January 2021, Slack went from its quietest time of the year to one of its busiest days. Its cloud network links did not scale fast enough [@slack].
+- Remember that the peak can arrive overnight. On 4 January 2021, Slack went from its quietest time of the year to one of its busiest days. Its cloud network hubs (AWS Transit Gateways) did not scale fast enough [@slack].
 - Count network calls per request. Each call inside the data centre costs about 0.5 ms. Each call across an ocean, such as California to the Netherlands, costs about 150 ms [@scott].
 - Plan for servers to run well below 100% CPU at the peak. Many systems slow down before they reach 100% [@sre-monitoring]. Agree on a target with your team.
 

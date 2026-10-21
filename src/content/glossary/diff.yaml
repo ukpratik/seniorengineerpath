@@ -1,0 +1,4 @@
+id: diff
+term: diff
+forms: [diffs]
+short: The list of lines added, changed and removed between two versions of code. A pull request shows its diff for review.

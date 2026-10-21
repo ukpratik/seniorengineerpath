@@ -49,6 +49,9 @@ sources:
     url: https://shopify.engineering/a-pods-architecture-to-allow-shopify-to-scale
     note: Groups of shops on their own datastores, with a routing layer in front.
 claims_checked:
+  - claim: "SaaS Architecture Fundamentals (published 3 August 2022, now for historical reference only) says every full-stack silo must run the same configuration and software version as the pool, with no one-off variation."
+    source: aws-fullstack
+    note: "QC1-06: the page says \"each of these stacks should be running the same configuration of the stack, with the same version of the software\"; the paper's landing page gives the 2022 date. So it is not \"older\" than the 2020 whitepaper."
   - claim: Crossing the tenant isolation boundary is "a significant and potentially un-recoverable event" for a SaaS business.
     source: aws-isolation
     note: Exact quote from the introduction. The whitepaper (August 2020) is marked historical, so the lesson dates it.
@@ -129,10 +132,10 @@ A **tenant** is one customer organisation, such as one company. **Multi-tenancy*
 
 You must keep tenants apart in two ways:
 
-1. **Data.** A tenant must never see another tenant's data. A 2020 AWS whitepaper calls crossing this line "a significant and potentially un-recoverable event" for a SaaS business. [@aws-isolation]
+1. **Data.** A tenant must never see another tenant's data. A 2020 AWS whitepaper calls crossing this line "a significant and potentially un-recoverable event" for a SaaS (software as a service) business. [@aws-isolation]
 2. **Performance.** One tenant must not make the system slow for the rest. This is the **noisy neighbour** problem: one user puts so much load on shared resources that other users suffer. [@saas-noisy]
 
-> [!key] **The key idea.** Sharing makes SaaS cheap. Every shared thing is also a path for a leak or a slowdown. Decide what to share on purpose, and put a wall around each shared thing.
+> [!key] **The key idea.** Sharing makes SaaS cheap. Every shared thing is also a path for a leak or a slowdown. Decide what to share on purpose, and isolate each shared thing.
 
 ## How it works
 
@@ -141,12 +144,12 @@ You must keep tenants apart in two ways:
 AWS names three models. [@saas-lens]
 
 - **Silo model.** Each tenant gets its own resources, such as its own database or even its own full stack.
-- **Pool model.** Tenants share resources. This is classic multi-tenancy, and it gives economies of scale.
+- **Pool model.** Tenants share resources. This is classic multi-tenancy, and it lowers the cost per tenant as you grow.
 - **Bridge model.** A mix. Some services are siloed and others are pooled. Strict data rules or noisy load can push one service to silo. Cost and agility can push another to pool.
 
 The pool is cheapest, because it scales with the real load of all tenants. The same 2020 whitepaper lists its costs too: noisy neighbours, harder cost tracking per tenant, and a bigger blast radius. One outage will likely hit every tenant. [@aws-pool]
 
-You can mix models by price tier. Basic tenants share a pool, and premium tenants pay for their own stack. An older AWS whitepaper adds a warning: every silo should run the same version and setup as the pool, with no one-off changes. [@aws-fullstack] If you skip this, you end up running many different products.
+You can mix models by price tier. Basic tenants share a pool, and premium tenants pay for their own stack. A 2022 AWS whitepaper (now archived) adds a warning: every silo should run the same version and setup as the pool, with no one-off changes. [@aws-fullstack] If you skip this, you end up running many different products.
 
 ### Tenant id everywhere
 
@@ -156,7 +159,7 @@ In a pool, the tenant id is the only thing that keeps data apart. Our advice:
 - Read the tenant from the login token once, at the edge. Pass it down in a request context. Never trust a tenant id from the request body.
 - Put the tenant id in every log line, metric label, cache key, queue message and file path.
 
-A cache key like `invoice:991` is a leak waiting to happen. Use `tenant:42:invoice:991`.
+A cache key like `invoice:991` can leak data between tenants. Use `tenant:42:invoice:991`.
 
 ### Row-level security
 
@@ -175,7 +178,7 @@ The app sets `app.current_tenant` at the start of each request. Now the database
 Know the traps:
 
 - Superusers and roles with `BYPASSRLS` always skip the policies. The table owner usually skips them too, unless you use `FORCE ROW LEVEL SECURITY`. [@pg-rls] So the app must connect as a role that does not own the tables. [@aws-rls]
-- Session settings may not work with a server-side pool like PgBouncer, which can share session state. [@aws-rls] Our advice: set the tenant inside each transaction, for example with `SET LOCAL`, and test it.
+- Session settings may not work with a connection pooler such as PgBouncer, which can share session state. [@aws-rls] Our advice: set the tenant inside each transaction, for example with `SET LOCAL`, and test it.
 
 ### Noisy neighbours and per-tenant limits
 
@@ -197,9 +200,9 @@ Shopify does this with **pods**. Each pod is a set of shops on its own fully iso
 
 Shuffle sharding goes one step further. Amazon's example has 8 workers. [@shuffle]
 
-- With no sharding, a bad customer can take out all 8 workers. Everyone is down.
-- With 4 fixed shards of 2 workers, a bad customer takes out one shard. That is 25% of customers. [@shuffle]
-- With shuffle sharding, each customer gets a random pair of workers. There are 28 possible pairs. A bad customer takes out its own pair. Only customers with that exact pair lose everything. The impact drops to 1/28, which Amazon calls 7 times better than plain sharding. [@shuffle]
+- With no sharding, a bad customer can crash all 8 workers. Everyone is down.
+- With 4 fixed shards of 2 workers, a bad customer crashes one shard. That is 25% of customers. [@shuffle]
+- With shuffle sharding, each customer gets a random pair of workers. There are 28 possible pairs. A bad customer crashes its own pair. Only customers with that exact pair lose everything. The impact drops to 1/28, which Amazon calls 7 times better than plain sharding. [@shuffle]
 
 Every other customer shares at most one worker with the bad customer. They keep working if their clients retry on the other worker. [@shuffle] Route 53 uses 2,048 virtual name servers and gives each domain 4 of them. That makes about 730 billion possible shuffle shards. [@shuffle]
 
@@ -220,10 +223,10 @@ Amazon puts the throttle key and the rate limit in its request log on every requ
 | Silo | Yes. Separate resources. | No. Its resources are its own. | High. Idle capacity, many copies to run. | Strict data rules, or big tenants who pay for it. |
 | Pool | Only by tenant id and RLS. | Yes. Needs per-tenant limits. | Low. Scales with real load. | Many small tenants. |
 | Bridge | Mixed, per service. | Mixed. | Medium. | Some data or services need a silo, the rest do not. |
-| Cells | Yes, between cells. | Only inside one cell. | Medium. Needs a router and a control plane. | You must limit how many tenants one failure can hit. |
+| Cells | Yes, between cells. | Only inside one cell. | Medium. Needs a router and a system to manage the cells. | You must limit how many tenants one failure can hit. |
 | Shuffle sharding | Not by itself. | Rarely shared fully. | Low to medium. | Many tenants, and clients that can retry on another worker. |
 
-**Our rule of thumb:** start with a pool, RLS and per-tenant limits. Add cells when one failure would hurt too many tenants. Give the biggest tenants a silo as a paid tier.
+**Our simple rule:** start with a pool, RLS and per-tenant limits. Add cells when one failure would hurt too many tenants. Give the biggest tenants a silo as a paid tier.
 
 ## At work: how a senior uses this
 
@@ -232,7 +235,7 @@ Amazon puts the throttle key and the rate limit in its request log on every requ
 - Ask: **"What is the most one tenant can use?"** Check requests, connections, jobs, storage and export size.
 - Put tenant id on every log line and metric, so on-call can see who is noisy and who is hurt.
 - Keep a list of your largest tenants and their growth. Plan their move to a bigger tier early.
-- Keep every silo on the same version as the pool. Treat a "special build for one customer" as a red flag.
+- Keep every silo on the same version as the pool. Treat a "special build for one customer" as a warning sign.
 - Before an incident, know your blast radius: how many tenants share each database, cell and queue.
 
 ## With AI

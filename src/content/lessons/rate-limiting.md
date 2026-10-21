@@ -43,6 +43,9 @@ sources:
     url: https://blog.cloudflare.com/how-cloudflare-erroneously-throttled-a-customers-web-traffic/
     note: A manual throttle that made one customer's site unusable, and the process fixes that followed.
 claims_checked:
+  - claim: "Stripe advises failing open if the limiter has bugs or Redis goes down, by catching exceptions at all levels."
+    source: stripe
+    note: "QC1-11: \"if there were bugs in the rate limiting code (or if Redis were to go down), requests wouldn't be affected. This means catching exceptions at all levels so that any coding or operational errors would fail open\". The blog does name Redis, so quiz Q5 stays; the text now covers any limiter failure."
   - claim: "Stripe uses a token bucket in Redis, runs 4 kinds of limiters (request rate, concurrent requests with an example of 20, two load shedders), dark launches limits, keeps a kill switch and fails open if Redis goes down."
     source: stripe
     note: "Paul Tarjan, 30 Mar 2017. Post says 'catching exceptions at all levels so that any coding or operational errors would fail open'. Load shedder wording changed from 'whole fleet' to 'the whole system'."
@@ -171,7 +174,7 @@ So most teams keep counters in a shared store like Redis. Be careful with races.
 
 A shared store adds a network call to every request, so it can become a bottleneck. Envoy's answer is a separate rate limit service, plus a local token bucket on each proxy. Its reference service uses Redis. The local limit absorbs large bursts and cuts the load on the shared service. [@envoy-global]
 
-What if Redis goes down? Stripe's advice is to fail open: catch the error and let the request through. [@stripe] The limiter should never become the outage.
+What if the limiter itself fails, because of a bug or because Redis goes down? Stripe's advice is to fail open: catch errors at all levels and let the request through. [@stripe] The limiter should never become the outage.
 
 ### Where to enforce it
 
@@ -202,7 +205,7 @@ Tell clients their budget too. GitHub's REST API sends headers like `x-ratelimit
 | Sliding window log | Up to the limit, never more in any window. | One entry per request. | Exact. | Low limits where exactness matters, like login attempts. |
 | Sliding window counter | Up to about the limit. | Two counters. | Close estimate. | High traffic, many clients. |
 
-**Our rule of thumb:** use a token bucket per API key in a shared store, plus a coarse limit at the gateway.
+**Our simple rule:** use a token bucket per API key in a shared store, plus a coarse limit at the gateway.
 
 ## At work: how a senior uses this
 

@@ -91,7 +91,7 @@ quiz:
       - A few very slow requests can hide inside a low average. You need p99 or p99.9 to see the users who wait.
       - Latency should be measured in seconds.
     answer: 1
-    why: Most requests can be fast while a long tail is much slower. A high percentile shows a plausible worst case.
+    why: Most requests can be fast while a long tail is much slower. A high percentile shows how slow the slowest requests are. For example, only 1 in 100 requests is slower than p99.
 incidents: []
 cases: [google-tail-at-scale, amazon-queue-backlogs, netflix-adaptive-concurrency]
 related: [latency-estimation, load-shedding, backpressure, backoff-jitter, fan-out, load-testing, observability-slos, gc-tuning]
@@ -111,7 +111,7 @@ But every search waits for all 100 servers. So most searches hit at least one sl
 
 **Latency** is how long a request takes. It is never one number. Some requests are fast and a few are very slow. The slow end of this spread is called the **tail**.
 
-A **percentile** describes the spread. The p50 (median) is the typical request. The p99 is the time that 99% of requests beat. The p999 (p99.9) is the time that 999 in 1,000 beat.
+A **percentile** describes the spread. The p50 (median) is the typical request. The p99 is the time that 99% of requests are faster than. The p999 (p99.9) is the time that 999 in 1,000 requests are faster than.
 
 Google's SRE book says latency is better seen as a distribution than as an average. A simple average "can obscure these tail latencies". In one of its examples, a typical request takes about 50 ms, but 5% of requests are 20 times slower. [@sre-slo]
 
@@ -142,7 +142,7 @@ Where does the slowness come from? The paper lists shared machines, background d
 
 ### Little's law
 
-Little's law links three long-run averages for any stable queue or system: **L = λW**. L is the number of items inside, λ (lambda) is the arrival rate, and W is the time each item spends inside. [@little] It does not depend on the order of service, FIFO or LIFO. [@little]
+Little's law links three long-run averages for any stable queue or system: **L = λW**. L is the number of items inside, λ (lambda) is the arrival rate, and W is the time each item spends inside. [@little] It does not depend on the order of service, such as first in, first out (FIFO) or last in, first out (LIFO). [@little]
 
 For a server, it means: requests in flight = requests per second × seconds per request. At 2,000 requests a second and 50 ms each, about 100 requests are in flight at any moment.
 
@@ -164,7 +164,7 @@ Take a service time of 10 ms:
 
 Going from 50% to 95% busy makes each request about 10 times slower. Real systems are not this simple model, but the shape holds. Little writes that as arrivals approach the service rate, the queue and the wait "increase, slowly at first and then rapidly". [@little] In one load test he reports, the queue grew about linearly with load and then climbed steeply. Past about 18 requests a second, further requests were mostly dropped. [@little]
 
-Our advice: do not plan to run latency-sensitive services near 100% busy. The last 10% of capacity is where the tail lives.
+Our advice: do not plan to run latency-sensitive services near 100% busy. In the last 10% of capacity, the slowest requests get much slower.
 
 ### Backpressure and load shedding
 
@@ -204,16 +204,16 @@ Pass the remaining time down the call chain. Each server should check it before 
 | Backpressure | Yes, by keeping queues short. | Senders must slow down or buffer. | Pipelines and queues between your own services. |
 | Bigger queues | No. It hides overload and adds wait. | Memory, and stale work. | Short, rare bursts only. |
 
-**Our rule of thumb:** measure p99 per call, keep queues short, set deadlines, and hedge only safe reads.
+**Our simple rule:** measure p99 per call, keep queues short, set deadlines, and hedge only safe reads.
 
 ## At work: how a senior uses this
 
 - Ask for p50, p99 and p99.9, never only the average. Ask: **"p99 of what, over what time window?"**
-- Draw the fan-out of a request. Count how many calls it waits for, and multiply out the tail.
+- Draw the fan-out of a request. Count how many calls it waits for, and work out how often at least one of them is slow.
 - Use Little's law to size pools: requests per second × latency = requests in flight. Size threads and connections from it.
 - Set alerts on queue length and the age of the oldest item, not only on CPU.
 - Set a timeout on every outbound call, below the caller's own deadline.
-- In load tests, push past the knee of the curve on purpose. Write down the load where latency jumps.
+- In load tests, push on purpose past the point where latency starts to rise steeply. Write down the load where latency jumps.
 - Read [latency numbers and estimation](/learn/latency-numbers-and-estimation) to get the base numbers right first.
 
 ## With AI

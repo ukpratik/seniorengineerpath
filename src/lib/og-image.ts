@@ -1,9 +1,12 @@
 // Share image per lesson (US-015): 1200×630 PNG drawn from an SVG template at build time.
 import { Resvg } from '@resvg/resvg-js';
-import { fileURLToPath } from 'node:url';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { escapeHtml } from './html.ts';
 
-const FONT = fileURLToPath(new URL('../og/PlusJakartaSans-wght.ttf', import.meta.url));
+// Resolved from the project root: the build bundles this module elsewhere, so a
+// path relative to import.meta.url breaks and resvg silently drops all text (BUG-001).
+export const FONT = join(process.cwd(), 'src', 'og', 'PlusJakartaSans-wght.ttf');
 
 // Greedy word wrap by an average character width; good enough for titles.
 export function wrap(text: string, maxChars: number, maxLines: number): string[] {
@@ -43,6 +46,7 @@ ${t}${s}
 }
 
 export function ogPng(o: Parameters<typeof ogSvg>[0]): Buffer {
+  if (!existsSync(FONT)) throw new Error(`OG image font not found: ${FONT}`);
   const r = new Resvg(ogSvg(o), { font: { fontFiles: [FONT], loadSystemFonts: false, defaultFontFamily: 'Plus Jakarta Sans' } });
   return r.render().asPng();
 }

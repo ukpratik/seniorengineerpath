@@ -1,0 +1,4 @@
+id: stack-trace
+term: stack trace
+forms: [stack traces]
+short: The list of function calls that were running when an error happened, printed with the error. It shows where in the code the error came from.

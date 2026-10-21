@@ -84,7 +84,7 @@ Ravi changes his delivery city from Pune to Delhi in a shopping app. He taps Sav
 
 He taps Save again. Same result. He writes to support: "Your app does not save my address." Five seconds later he refreshes once more, and now it says Delhi.
 
-Nothing was lost. The write went to the main database. The page read came from a copy that was 3 seconds behind. The team had added copies last month to handle more reads. Nobody had asked what users would see while a copy catches up.
+Nothing was lost. The write went to the leader, the one database that takes writes. The page read came from a copy that was 3 seconds behind. The team had added copies last month to handle more reads. Nobody had asked what users would see while a copy catches up.
 
 This bug is common, hard to reproduce on a laptop, and easy to prevent once you know its name.
 
@@ -96,7 +96,7 @@ The most common setup has one leader and some followers. All writes go to the le
 
 > [!key] **The key idea.** A follower is a copy of the past. How far in the past is the replication lag. Every read from a follower must be fine with seeing that past.
 
-Most of the time the lag is small. Postgres says it is typically under one second when the standby can keep up. [@pg-repl] But under heavy load, a long query, or a network problem, it can grow to seconds or minutes.
+Most of the time the lag is small. Postgres says it is typically under one second when the standby can keep up. [@pg-repl] But that is not a promise. Our advice: plan for the lag to grow much larger under heavy load, a long query, or a network problem.
 
 ## How it works
 
@@ -141,7 +141,7 @@ GitHub chose to keep user data correct over coming back fast. The site was degra
 
 ### Two other shapes, briefly
 
-**Multi-leader.** Each data center has its own leader, and the leaders copy to each other. Writes are fast everywhere. But two people can change the same row in two places, and you must resolve the conflict. [@ddia]
+**Multi-leader.** Each data centre has its own leader, and the leaders copy to each other. Writes are fast everywhere. But two people can change the same row in two places, and you must resolve the conflict. [@ddia]
 
 **Leaderless.** The client writes to several copies and reads from several copies. Amazon's Dynamo made this popular, and Cassandra works this way. With n copies, you write to w of them and read from r. If w + r > n, at least one copy you read has the latest write. With 3 copies, w = 2 and r = 2 is a common quorum. [@ddia]
 
@@ -154,7 +154,7 @@ GitHub chose to keep user data correct over coming back fast. The site was degra
 | Multi-leader | Yes. Conflicts can drop one side's change. | You must design conflict rules. | Several regions must accept writes, or apps must work offline. |
 | Leaderless with quorums | Depends on w and r. | More copies per request. Edge cases with lag still exist. | Very high write volume, and you can live with some stale reads. |
 
-**Rule of thumb:** start with one leader and async followers. Then decide, for each read, whether it may see stale data.
+**Simple rule:** start with one leader and async followers. Then decide, for each read, whether it may see stale data.
 
 ## At work: how a senior uses this
 
@@ -178,7 +178,7 @@ GitHub chose to keep user data correct over coming back fast. The site was degra
 ### What to check yourself
 
 - The "read from leader" window really covers your worst normal lag, not just the average.
-- A connection pool or ORM did not quietly send writes, or reads inside a transaction, to the replica.
+- A connection pool or ORM (a library that maps code objects to database rows) did not quietly send writes, or reads inside a transaction, to the replica.
 - Reads that check a rule before a write, like "is the coupon still unused?", go to the leader.
 - The test really pauses or slows replication. A test with zero lag proves nothing.
 - Failover scripts stop the old leader from taking writes before they promote a new one.

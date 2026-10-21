@@ -459,3 +459,11 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 .prose,.ai,.to{min-width:0}
 .ai>div{min-width:0}
 .prompt,.checks span{overflow-wrap:anywhere}
+
+/* ---------- Without JavaScript (NFR-009, BUG QA1-04) ---------- */
+.ans{margin:4px 0 0;font-size:var(--fs-md)}
+.ans summary{cursor:pointer;font-weight:var(--fw-bold);color:var(--accent-ink);min-height:var(--tap);display:flex;align-items:center}
+.ans p{margin:6px 0 0}
+.js .ans{display:none}
+html:not(.js) [data-toc-open],html:not(.js) [data-done],html:not(.js) [data-clarity],html:not(.js) [data-export-prompt]{display:none!important}
+.review .ai-note{display:inline;font-size:var(--fs-sm)}

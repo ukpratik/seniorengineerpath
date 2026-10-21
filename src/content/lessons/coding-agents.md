@@ -57,6 +57,9 @@ claims_checked:
   - claim: "Compaction clears older tool outputs first, then summarizes; early instructions may be lost. Checkpoints undo file edits, not databases, APIs or deployments."
     source: cc-how
     note: "'When context fills up' and 'Undo changes with checkpoints' sections. /context and '/compact focus on the API changes' also confirmed there."
+  - claim: "Checkpoints only track edits made with the agent's file-edit tools; shell (Bash) commands and external processes are not captured, so use git as well."
+    source: cc-best
+    note: "QC1-03. 'Rewind with checkpoints' warning: 'Checkpoints only track changes made through Claude's file editing tools. Changes made through Bash commands or external processes are not captured. This isn't a replacement for git.'"
   - claim: "CLAUDE.md is context, not enforced configuration; keep it under 200 lines; a rule that must hold every time belongs in a hook (e.g. a PreToolUse hook blocking .env edits)."
     source: cc-features
     note: "Features overview: 'Keep CLAUDE.md under 200 lines', 'If a rule must hold every time, make it a hook', '.env' example. Memory page says 'context, not enforced configuration'. Skills load descriptions first, full content on use; plugins bundle skills, hooks, subagents and MCP servers."
@@ -72,6 +75,9 @@ claims_checked:
   - claim: "MCP is an open standard that connects AI applications to external systems such as files, databases and tools."
     source: mcp
     note: "modelcontextprotocol.io home page. 'Issue trackers and design tools' were not on this page, so the lesson and glossary now say 'files, databases and other tools'."
+  - claim: "Claude Code's recommended workflow has four phases: explore, plan, implement, commit."
+    source: cc-best
+    note: "QC1-20: Best practices page: 'The recommended workflow has four phases': Explore, Plan, Implement, Commit. Trade-offs table row fixed from 'verify' to 'commit'."
 quiz:
   - q: Your session has run for two hours across three different tasks. The agent starts to ignore rules you gave it at the start. What is the most likely cause?
     options:
@@ -114,7 +120,7 @@ related: [project-memory, agent-extensions, skill-atrophy]
 
 ## What broke
 
-This story is made up, but you may have lived it. Arjun has a flaky checkout test. His agent session is already long: a CSS fix, a question about logs, a big stack trace.
+This story is made up, but it may have happened to you. Arjun has a flaky checkout test. His agent session is already long: a CSS fix, a question about logs, a big stack trace.
 
 He types: "fix the flaky checkout test". The agent reads forty files. It finds a timing problem and adds a two-second sleep to the test. On the way, it "cleans up" a helper in the payment code. It reports: "Fixed. The test should pass now."
 
@@ -187,7 +193,7 @@ Keep it short. The docs suggest under 200 lines. [@cc-features] For each line, a
 
 - **The change is faster to type than to explain.**
 - **You are learning something new.** Doing it yourself first builds the skill. See "With AI" below.
-- **The action touches live systems.** Checkpoints undo file edits, but not changes to databases, APIs or deployments. [@cc-how] Run those steps yourself, on purpose.
+- **The action touches live systems.** Checkpoints undo edits made with the agent's file-edit tools. They do not undo shell commands, or changes to databases, APIs or deployments. Use git as well. [@cc-best] Run those live steps yourself, on purpose.
 - **You cannot check the result.** The guide says it plainly: if you can't verify it, don't ship it. [@cc-best]
 
 ### What the evidence says
@@ -204,10 +210,10 @@ The lesson: do not trust how fast it feels. Measure it.
 |---|---|---|---|
 | Write it yourself | Yes. You understand every line. | Slower for large or boring changes. | Small fixes, new topics you are learning, risky code. |
 | One vague prompt, no check | No. It may solve the wrong problem. | Feels fast. Review and rework come later. | Quick experiments you will throw away. |
-| Explore → plan → implement → verify | Yes, if the check is good. | A few minutes of planning and setup. | Most real tasks across several files. |
+| Explore → plan → implement → commit | Yes, if the check is good. | A few minutes of planning and setup. | Most real tasks across several files. |
 | Add subagents for research and review | Yes. Your main context stays clean. | More tokens in total, and more output to read. | Large codebases, or work you want checked with fresh eyes. |
 
-**Rule of thumb:** the less you watch the agent, the stronger its checks must be.
+**Simple rule:** the less you watch the agent, the stronger its checks must be.
 
 ## At work: how a senior uses this
 

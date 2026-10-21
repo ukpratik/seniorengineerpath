@@ -28,8 +28,11 @@ const lesson = lessons.find((l) => l.id === topicId);
 const paths = await getCollection('paths');
 const path = paths.find((p) => p.data.default)?.data;
 const stepIndex = path ? path.steps.indexOf(topicId) : -1;
-const prevId = stepIndex > 0 ? path!.steps[stepIndex - 1] : undefined;
-const nextId = path && stepIndex >= 0 && stepIndex < path.steps.length - 1 ? path.steps[stepIndex + 1] : undefined;
+// Previous / next skip unwritten steps, so readers never land on a coming-soon page.
+const writtenSteps = path ? path.steps.filter((id) => written.has(id)) : [];
+const wi = writtenSteps.indexOf(topicId);
+const prevId = wi > 0 ? writtenSteps[wi - 1] : undefined;
+const nextId = wi >= 0 && wi < writtenSteps.length - 1 ? writtenSteps[wi + 1] : undefined;
 const prev = prevId ? topicById.get(prevId) : undefined;
 const next = nextId ? topicById.get(nextId) : undefined;
 
@@ -103,7 +106,7 @@ const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
           </div>
           <div class="review" data-pagefind-ignore>
             <svg class="i" aria-hidden="true"><use href="/icons.svg#i-shield"></use></svg>
-            <div><strong>{lesson.data.status === 'published' ? reviewLabel : 'Draft: not fact-checked yet'}</strong>{lesson.data.reviewed_on && <>Last reviewed {formatDay(lesson.data.reviewed_on)} · </>}<a href="/about#checks">How we check content</a></div>
+            <div><strong>{lesson.data.status === 'published' ? reviewLabel : 'Draft: not fact-checked yet'}</strong>{lesson.data.reviewed_on && <>Last reviewed {formatDay(lesson.data.reviewed_on)} · </>}<a href="/about#checks">How we check content</a>{track.id === 'ai-native' && <span class="ai-note"><br />AI tools change fast: we review this lesson every quarter{lesson.data.review_by && <> (next by {formatDay(lesson.data.review_by)})</>}.</span>}</div>
           </div>
           {path && (
             <div class="pathline" hidden={stepIndex < 0} data-pagefind-ignore><span>{path.title} · lesson {stepIndex + 1} of {path.steps.length}</span><div class="bar" aria-hidden="true"><i style={`width:${Math.round(((stepIndex + 1) / path.steps.length) * 100)}%`}></i></div></div>

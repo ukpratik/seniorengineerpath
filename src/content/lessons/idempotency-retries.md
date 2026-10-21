@@ -18,6 +18,12 @@ sources:
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 claims_checked:
+  - claim: "Stripe's v1 API lets keys be removed after they are at least 24 hours old."
+    source: stripe
+    note: "QC1-10: \"For API v1, you can remove keys from the system automatically after they're at least 24 hours old.\" Stated for v1 only."
+  - claim: "If a request conflicts with a concurrent request using the same key, Stripe v1 does not save a result, and the client can retry."
+    source: stripe
+    note: "QC1-10: \"the request conflicts with another request that's executing concurrently, we don't save the idempotent result ... You can retry these requests.\" The page does not say \"returns an error\"."
   - claim: "Stripe keeps idempotency keys for at least 24 hours."
     source: stripe
     note: "Idempotent requests page: for API v1, keys can be removed once they are at least 24 hours old; a reused key after pruning makes a new request. Wording kept as 'at least 24 hours'."
@@ -33,6 +39,9 @@ claims_checked:
   - claim: "A timeout does not tell you whether the work happened (DDIA ch 8); end-to-end request IDs stop duplicates (ch 12)."
     source: ddia
     note: "Checked via secondary sources (chapter lists and reader notes): ch 8 'The Trouble with Distributed Systems' covers unreliable networks and timeouts; ch 12 'The Future of Data Systems' covers end-to-end operation IDs. O'Reilly TOC page returned 403."
+  - claim: "When you retry, add backoff with jitter so retries do not hit a struggling service at the same moment; also limit the number of retries."
+    source: brooker
+    note: "QA1-19 fix. Section 'Jitter': failed calls that back off to the same time 'cause contention or overload again'; section 'Retries and backoff': 'limit the number of times that the client retries'. Replaced 'every retry loop', which overstated the source."
 
 quiz:
   - q: The app's Pay request times out. What do you know for sure?
@@ -49,7 +58,7 @@ quiz:
       - The server creates it after charging.
     answer: 0
     why: Every retry must carry the same key, or the server can't tell it is a repeat.
-  - q: The app, the gateway and the payment service each try up to 3 times. How many charge calls can reach the bank from one tap?
+  - q: The app, the gateway and the payment service each make up to 3 attempts in total. How many charge calls can reach the bank from one tap?
     options: ["3", "9", "27"]
     answer: 2
     why: 3 × 3 × 3 = 27. Retries multiply across layers, so retry in one layer only.
@@ -81,7 +90,7 @@ Step through what happens when the answer is lost. Use Next and Back, or the ←
 
 [[diagram:idempotency-retry]]
 
-Two details matter in real systems. If a second request with the same key arrives while the first is still running, the server must not start a second charge. Stripe returns an error, and the app can retry later. And if the same key arrives with a different amount, the server should reject it: that is a bug in the app. [@stripe]
+Two details matter in real systems. If a second request with the same key arrives while the first is still running, the server must not start a second charge. Stripe's v1 API does not run it or save a result for it, and the app can retry later. And if the same key arrives with a different amount, the server should reject it: that is a bug in the app. [@stripe]
 
 ## Trade-offs
 
@@ -92,7 +101,7 @@ Two details matter in real systems. If a second request with the same key arrive
 | Retry with an idempotency key | Yes. Repeats get the saved result. | You store keys, handle "still running", and delete old keys. | Payments, orders, anything that creates something. |
 | Key + backoff with jitter | Yes. And retries are spread out. | One user may wait a little longer. | Many clients may retry at the same moment, for example after an outage. |
 
-**Rule of thumb:** add a key to every call that creates or moves something. Add backoff with jitter to every retry loop. [@brooker]
+**Simple rule:** add a key to every call that creates or moves something. When you retry, add backoff with jitter, so retries do not hit a struggling service at the same moment. Also limit the number of retries. [@brooker]
 
 ## At work: how a senior uses this
 
@@ -100,7 +109,7 @@ Two details matter in real systems. If a second request with the same key arrive
 - Put a timeout on every network call. A call without one can wait forever and hold a thread or a connection. [@brooker]
 - Retry in one layer only. If the app, the gateway and the service each try 3 times, one tap can become 3 × 3 × 3 = 27 calls. [@brooker]
 - Wait longer between tries with exponential backoff and jitter, so clients don't all retry in the same second.
-- Keep keys long enough to cover every retry. Stripe's API, for example, keeps them for at least 24 hours. [@stripe]
+- Keep keys long enough to cover every retry. Stripe's v1 API, for example, keeps them for at least 24 hours. [@stripe]
 
 ## With AI
 

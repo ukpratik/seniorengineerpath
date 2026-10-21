@@ -51,6 +51,9 @@ claims_checked:
   - claim: "Gambetta calls lag compensation \"somewhat unfair\" but \"the most agreeable solution for everyone involved\"."
     source: gambetta-lag
     note: Exact quotes. Earlier wording "best choice overall" was not in the source and was replaced.
+  - claim: "Prediction works well only if the game world is deterministic enough."
+    source: gambetta-predict
+    note: "QC1-16: Gambetta says 'If the game world is deterministic enough'. Lesson no longer says 'only if ... deterministic'."
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 quiz:
@@ -123,7 +126,7 @@ So games use three tricks, one for each kind of thing on your screen:
 
 ## How it works
 
-### Tick rate: the server's heartbeat
+### Tick rate: how often the server updates
 
 The server runs the game in small, fixed steps called ticks. In each tick it reads player inputs, moves everything and checks the rules. In Valve's Source engine, the default tick is 15 ms, about 66 ticks per second. [@valve] A higher tick rate is more exact, but it needs more CPU and bandwidth. [@valve] VALORANT runs movement at exactly 128 steps per second, on both client and server. [@riot-peek]
 
@@ -133,7 +136,7 @@ The server does not send every tick to every player. It sends snapshots of the w
 
 Without prediction, you press forward and see nothing until the server answers. Valve's example: with 150 ms of latency, you see your own move 150 ms late. [@valve]
 
-With prediction, your game runs the same movement code as the server, at once. You move now. The server still has the final word. [@valve] This works only if the game is deterministic: the same state plus the same inputs must always give the same result. [@gambetta-predict]
+With prediction, your game runs the same movement code as the server, at once. You move now. The server still has the final word. [@valve] This works well only if the game is deterministic enough: the same state plus the same inputs should give the same result. [@gambetta-predict]
 
 ### Server reconciliation
 
@@ -180,7 +183,7 @@ So games limit the rewind. Riot writes that without limits, a player with 500 ms
 
 The same delays help the attacker. When you step around a corner, you see the defender at once, thanks to prediction. The defender sees you only after your move goes to the server and on to them, plus buffering. [@riot-peek]
 
-Riot added up these delays. With its model's assumptions, the peeker had about 141 ms longer to react. Lower network latency, with a target of 35 ms ping, and 128-tick servers cut about 40 ms of that. With those changes, a client running at 144 FPS brings it down to about 71 ms. [@riot-peek] Small numbers matter. In Riot's blind tests, skilled players noticed changes of about 10 ms. [@riot-peek]
+Riot added up these delays. With its model's assumptions, the peeker had about 141 ms longer to react. Lower network latency, with a target of 35 ms ping, and 128-tick servers cut about 40 ms of that. With those changes, a client running at 144 frames per second (FPS) brings it down to about 71 ms. [@riot-peek] Small numbers matter. In Riot's blind tests, skilled players noticed changes of about 10 ms. [@riot-peek]
 
 ### A glimpse of rollback netcode
 
@@ -201,7 +204,7 @@ Some fast games are peer-to-peer, with no central server. Each player's machine 
 
 - Ask first: **"Who is the authority for this piece of state?"** Health, money, hits and inventory belong to the server.
 - Write a latency budget. List network, buffering, tick and frame time in milliseconds, like Riot's peeker's advantage sum.
-- Test with fake lag and packet loss from day one. Prediction bugs hide on a fast office network.
+- Test with fake lag and packet loss (network data that never arrives) from day one. Prediction bugs hide on a fast office network.
 - Keep movement code shared and deterministic, with a fixed time step.
 - Log every correction. A rise in corrections after a release means client and server code have drifted apart.
 - Set a maximum rewind time for lag compensation, and write down who it is unfair to.

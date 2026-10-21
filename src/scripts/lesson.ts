@@ -23,6 +23,8 @@ if (page) {
       const p = m?.paths[active];
       if (!m || !p) return;
       const i = p.steps.indexOf(id);
+      const written = p.steps.filter((sid) => m.topics[sid]?.w);
+      const wi = written.indexOf(id);
       const line = document.querySelector<HTMLElement>('.pathline');
       const nav = document.querySelector<HTMLElement>('nav.pn');
       if (i < 0) {
@@ -43,12 +45,12 @@ if (page) {
         a.append(t.t);
         return a.outerHTML;
       };
-      const html = link(p.steps[i - 1], '← Previous') + link(p.steps[i + 1], 'Next →');
+      const html = link(written[wi - 1], '← Previous') + link(written[wi + 1], 'Next →');
       if (nav) {
         nav.innerHTML = html;
         nav.setAttribute('aria-label', `Previous and next lesson in ${p.t}`);
       }
-      page.dataset.nextTitle = p.steps[i + 1] ? m.topics[p.steps[i + 1]]?.t ?? '' : '';
+      page.dataset.nextTitle = written[wi + 1] ? m.topics[written[wi + 1]].t : '';
     });
   }
 
@@ -138,6 +140,7 @@ if (page) {
   if (document.querySelector('[data-anim]')) void import('./anims.ts').then((m) => m.initAnims(id));
 
   // ---- Quiz: instant feedback, nothing stored ----
+  document.querySelector('form.quiz')?.addEventListener('submit', (e) => e.preventDefault());
   document.querySelectorAll<HTMLFieldSetElement>('fieldset.q').forEach((q, qi) => {
     let answered = false;
     q.addEventListener('change', (e) => {

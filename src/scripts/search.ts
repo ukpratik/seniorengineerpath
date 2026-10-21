@@ -16,6 +16,18 @@ const LABEL: Record<string, string> = { Lesson: 'Lessons', Glossary: 'Glossary t
 // Pagefind reports file paths; the site uses clean URLs.
 const clean = (url: string) => url.replace(/\.html(?=#|$)/, '').replace(/\/index(?=#|$)/, '/');
 
+// Pagefind lists a page's entries in page order. Put entries whose title matches
+// the query first (exact, then starts-with, then contains), then by highlighted words.
+export function rankEntries<T extends { title: string; excerpt: string }>(items: T[], q: string): T[] {
+  const query = q.trim().toLowerCase();
+  const score = (it: T) => {
+    const t = it.title.toLowerCase();
+    const marks = (it.excerpt.match(/<mark>/g) ?? []).length;
+    return (t === query ? 1000 : t.startsWith(query) ? 500 : t.includes(query) ? 250 : 0) + marks;
+  };
+  return items.map((it, i) => ({ it, i, s: score(it) })).sort((a, b) => b.s - a.s || a.i - b.i).map((x) => x.it);
+}
+
 function bucket(n: number): string {
   return n === 0 ? '0' : n <= 3 ? '1-3' : n <= 10 ? '4-10' : '11+';
 }
@@ -57,13 +69,17 @@ export function initSearch(): void {
       return;
     }
     if (!pf) out.innerHTML = '<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
+    out.setAttribute('aria-busy', 'true');
     const m = await load();
+    out.removeAttribute('aria-busy');
     if (!m) {
       out.innerHTML = '<div class="notice warn">' + icon('alert') + '<p>Search could not load. Check your connection, or browse the <a href="/map">map</a>.</p></div>';
       return;
     }
+    out.setAttribute('aria-busy', 'true');
     const res = await m.debouncedSearch(q, {}, 200);
     if (!res) return; // a newer query replaced this one
+    out.removeAttribute('aria-busy');
     const data = await Promise.all(res.results.slice(0, 30).map((r) => r.data()));
     if (!data.length) {
       showNone(q);
@@ -73,7 +89,10 @@ export function initSearch(): void {
     for (const d of data) {
       const type = d.filters.type?.[0] ?? 'Lesson';
       // Glossary and incident pages hold many entries: list the matching entries.
-      const entries = (type === 'Glossary' || type === 'Incident' || type === 'Case study') && d.sub_results ? d.sub_results.filter((x) => x.url.includes('#')).slice(0, 8) : [];
+      const entries =
+        (type === 'Glossary' || type === 'Incident' || type === 'Case study') && d.sub_results
+          ? rankEntries(d.sub_results.filter((x) => x.url.includes('#')), q).slice(0, 8)
+          : [];
       const items = entries.length ? entries : [{ url: d.url, title: d.meta.title ?? d.url, excerpt: d.excerpt }];
       for (const it of items) {
         const li = `<li><a href="${clean(it.url)}">${icon(ICON[type] ?? 'book')}<span><b>${it.title.replace(/[<>&]/g, '')}</b><span>${safeExcerpt(it.excerpt)}</span></span></a></li>`;

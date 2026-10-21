@@ -121,9 +121,9 @@ It has three jobs:
 
 1. **Pick a server.** Follow a rule, such as "next in turn" or "least busy".
 2. **Skip bad servers.** Use health checks to stop sending traffic to servers that fail.
-3. **Change the pool safely.** Add and remove servers without breaking requests in flight.
+3. **Change the pool safely.** Add and remove servers without breaking requests that are still running.
 
-> [!key] **The key idea.** The goal is not to spread requests evenly. The goal is that no server is overloaded and no user waits on a sick server. Equal counts are not equal work.
+> [!key] **The key idea.** The goal is not to spread requests evenly. The goal is that no server is overloaded and no user waits on a failing server. Equal counts are not equal work.
 
 ## How it works
 
@@ -155,7 +155,7 @@ The load balancer tests each server on a schedule. On an AWS Application Load Ba
 
 With those defaults, a dead server fails two checks 30 seconds apart. So it can get traffic for about a minute before it is removed. Our advice: shorten the interval for important services.
 
-What should the check test? A shallow check ("the process is up") misses the slow disk in our story. A deep check that calls the database can mark every server unhealthy at once when the database blips. Our advice is a middle path: check the server's own parts, and watch latency and errors with alerts.
+What should the check test? A shallow check ("the process is up") misses the slow disk in our story. A deep check that calls the database can mark every server unhealthy at once when the database has a short problem. Our advice is a middle path: check the server's own parts, and watch latency and errors with alerts.
 
 Health checks can also hurt you. If every target fails, an Application Load Balancer "fails open" and sends traffic to all of them anyway. [@alb-health] In October 2025, health checks for AWS's Network Load Balancer in us-east-1 kept flipping between failing and healthy. Healthy capacity was removed, and customers saw connection errors. Engineers turned off automatic health check failover to stop it. [@aws-oct2025]
 
@@ -191,15 +191,15 @@ To spread users across regions, you balance before traffic reaches any one data 
 | Least connections | Yes. Busy servers get less. | Must track open requests. Watch for fast-failing sinkholes. | Request cost varies a lot. |
 | Power of two choices | Yes, mostly. | Checks only two servers per request. | Many load balancers or proxies, each with its own view. |
 | Consistent hashing | No. The key decides, not the load. | Hot keys can overload one server. | Each server caches data per key. |
-| Sticky sessions | No. Users stay put even when a server is busy. | Lost sessions when a server dies. Uneven load. | Old apps that keep state in memory, while you move it out. |
+| Sticky sessions | No. Users stay on the same server even when it is busy. | Lost sessions when a server dies. Uneven load. | Old apps that keep state in memory, while you move it out. |
 
-**Rule of thumb:** start with least connections or P2C for HTTP services. Use hashing only when local data needs it.
+**Simple rule:** start with least connections or P2C for HTTP services. Use hashing only when local data needs it.
 
 ## At work: how a senior uses this
 
 - Ask: **"What does our health check really test?"** A check that passes while users wait is not a health check.
 - Watch p99 latency and errors per server, not just the average. One bad server hides inside a good average.
-- Set the draining time longer than your slowest normal request. Make sure the app stops cleanly on SIGTERM.
+- Set the draining time longer than your slowest normal request. Make sure the app stops cleanly on SIGTERM, the signal that asks a process to shut down.
 - Know what happens when every server fails its check. Does the load balancer fail open, or send nothing?
 - Remove sticky sessions when you touch old code. Move session data to a shared store.
 - For long-lived connections, like gRPC or WebSockets, check that load is spread by request, not just by connection.

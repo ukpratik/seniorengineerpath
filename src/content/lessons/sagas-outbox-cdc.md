@@ -6,6 +6,10 @@ reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: true
 sources:
+  - id: pg-logical
+    title: "PostgreSQL documentation, “Logical Decoding Concepts”"
+    url: https://www.postgresql.org/docs/current/logicaldecoding-explanation.html
+    note: What logical decoding and replication slots are, and how a slot keeps changes until the client has read them.
   - id: sagas-paper
     title: "Hector Garcia-Molina and Kenneth Salem, “Sagas”, Princeton University technical report TR-070-87 (1987); also in the ACM SIGMOD 1987 proceedings"
     url: https://www.cs.princeton.edu/research/techreps/598
@@ -152,7 +156,7 @@ A relay then moves outbox rows to the broker. There are two common ways. [@ms-ou
 
 ### Change data capture
 
-Log tailing is a kind of **change data capture**, or CDC. Most databases keep a log of changes so it can recover from a crash. In Postgres this is the WAL. The Debezium Postgres connector reads it through logical decoding and a replication slot. After a restart, it carries on from where it stopped. [@dbz-pg]
+Log tailing is a kind of **change data capture**, or CDC. Most databases keep a log of changes so it can recover from a crash. In Postgres this is the WAL. The Debezium Postgres connector reads it through logical decoding and a replication slot. Logical decoding turns the WAL into plain row changes. A slot is a stream of those changes that Postgres keeps until the reader has them [@pg-logical]. After a restart, it carries on from where it stopped. [@dbz-pg]
 
 Debezium lists the benefits over polling. It captures every change, with very low delay. It needs no "last updated" column. It can also see deletes. [@dbz-features] With CDC, you can even delete each outbox row right after you insert it. The insert is already in the log, so the table stays empty. [@dbz-blog]
 
@@ -175,7 +179,7 @@ Order matters too. By default, Debezium uses the outbox row's aggregate ID as th
 | Outbox with CDC (Debezium) | n/a | More systems to run and watch. | High volume, low delay, a team that can run Kafka Connect. |
 | Dual write (DB, then broker) | n/a | Lost or phantom events after a crash. | Never for events that matter. |
 
-**Rule of thumb:** start with an orchestrated saga and an outbox. Move to choreography only for short flows where each team owns its part.
+**Simple rule:** start with an orchestrated saga and an outbox. Move to choreography only for short flows where each team owns its part.
 
 ## At work: how a senior uses this
 

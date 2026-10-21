@@ -27,10 +27,11 @@ export function quizHtml(quiz: Lesson['quiz'], reportUrl: string): string {
     .map(
       (q, qi) => `<fieldset class="q" data-ok="${letters[q.answer]}"><legend>${qi + 1}. ${e(q.q)}</legend>
 ${q.options.map((o, oi) => `<label class="opt"><input type="radio" name="q${qi + 1}" value="${letters[oi]}">${e(o)}</label>`).join('\n')}
-<p class="fb" aria-live="polite" data-why="${e(q.why)}"></p></fieldset>`,
+<p class="fb" aria-live="polite" data-why="${e(q.why)}"></p>
+<details class="ans"><summary>Show answer</summary><p><strong>${e(q.options[q.answer])}</strong> ${e(q.why)}</p></details></fieldset>`,
     )
     .join('\n');
-  return `<form class="quiz" onsubmit="return false">${qs}</form>
+  return `<form class="quiz">${qs}</form>
 <div class="done-row">
 <button type="button" class="btn btn-primary done-btn" data-done>${ico('check-circle')}<span>Mark as done</span></button>
 <p class="sr" data-done-live aria-live="polite"></p>

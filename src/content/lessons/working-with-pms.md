@@ -109,7 +109,7 @@ Kavya does exactly that. She builds a screen to pick any day and any time slot i
 
 In week 2 she finds a problem. The warehouse system can only change orders up to 48 hours before delivery. Fixing that needs work from another team. Kavya does not tell anyone. She hopes to find a workaround.
 
-She does not find one. The launch slips by three weeks. When it finally ships, only 3% of customers use it. Most people who called support did not want a new day. They wanted to know where their order was.
+She does not find one. The launch is three weeks late. When it finally ships, only 3% of customers use it. Most people who called support did not want a new day. They wanted to know where their order was.
 
 Nobody asked why the business wanted the feature. Nobody raised the risk while there was still time to act. Kavya's code was good. The way she worked with her PM was not.
 
@@ -151,11 +151,11 @@ Shape Up, Basecamp's book on product work, calls the time you are willing to spe
 
 Early in a project, nobody knows the real size of the work. Steve McConnell's "Cone of Uncertainty" shows that estimates made at the first idea can be 4 times too high or 4 times too low. [@mcconnell-cone] The range narrows only as you make decisions, such as writing down what you will not do. [@mcconnell-cone]
 
-So say "4 to 8 weeks", not "6 weeks". Then add what will narrow the range: "After the warehouse API spike on Friday, I can give you 5 to 6 weeks." McConnell advises waiting to commit until the range has narrowed. [@mcconnell-cone]
+So say "4 to 8 weeks", not "6 weeks". Then add what will narrow the range: "After I test the warehouse API on Friday, I can give you 5 to 6 weeks." McConnell advises waiting to commit until the range has narrowed. [@mcconnell-cone]
 
 ### 4. Cut scope, not quality
 
-When time is short, you can move the date, add people or cut scope. Shape Up fixes the time and lets scope change. [@shapeup-appetite] It also says "Variable scope is not about sacrificing quality." [@shapeup-stop] Its test for a cut is useful: compare the result with what customers do today, not with a perfect version. [@shapeup-stop]
+Here, scope means the list of features in the project. When time is short, you can move the date, add people or cut scope. Shape Up fixes the time and lets scope change. [@shapeup-appetite] It also says "Variable scope is not about sacrificing quality." [@shapeup-stop] Its test for a cut is useful: compare the result with what customers do today, not with a perfect version. [@shapeup-stop]
 
 Good cuts are parts that few users need, cases you can handle by hand at first, or a second phase after launch.
 
@@ -167,13 +167,13 @@ His example: a feature takes 4 days on clean code but 6 days on messy code. The 
 
 ### 6. Raise risks early
 
-Bad news gets worse with age. In week 2, the PM can still cut scope, move the date or warn sales. In week 8, the only choice left is to slip.
+Share bad news early. It costs more the longer you wait. In week 2, the PM can still cut scope, move the date or warn sales. In week 8, the only choice left is to miss the date.
 
 Use a simple format: what you found, what it could cost, what you are doing next, and when you will know more. Say it the same day, even if you are not sure yet.
 
 ### 7. Take part in discovery
 
-**Product discovery** is the work of finding out what to build before you build it. Join it. Talk to users and read support tickets. Sit in on the meetings where ideas are judged. Feasibility is your risk. [@cagan-risks] If you join early, you can raise a feasibility problem before the team commits to a plan.
+**Product discovery** is the work of finding out what to build before you build it. Join it. Talk to users and read support tickets. Attend the meetings where ideas are judged. Feasibility is your risk. [@cagan-risks] If you join early, you can raise a feasibility problem before the team commits to a plan.
 
 ### 8. Write for people who are not engineers
 
@@ -183,14 +183,14 @@ When you write to the PM, sales or leaders, lead with the decision you need and 
 
 | Way to respond | Keeps trust? | Cost | Use it when |
 |---|---|---|---|
-| Say yes to everything | No. Dates slip and quality drops. | Hidden: overtime, bugs, debt. | Never as a habit. |
-| Flat "no" | No. You look like a blocker. | The business goal stays unsolved. | Only for unsafe or illegal requests, with a reason. |
+| Say yes to everything | No. Dates are missed and quality drops. | Hidden: overtime, bugs, debt. | Never as a habit. |
+| Flat "no" | No. People see you as the one who stops work. | The business goal stays unsolved. | Only for unsafe or illegal requests, with a reason. |
 | "No, but…" with options and costs | Yes. The PM can make a real choice. | An hour or two of thinking. | Most requests that do not fit the time. |
 | Fixed date, cut scope | Yes, if cuts are agreed early. | Some features wait for phase 2. | Hard dates, such as a sale or a law. |
 | Fixed scope, move the date | Yes, if you say so early. | Others who planned around the date must adjust. | Every part is a must-have, such as a compliance rule. |
-| One exact estimate early | No. It will likely be wrong. | Lost trust when it slips. | Avoid. Give a range and a date to narrow it. |
+| One exact estimate early | No. It will likely be wrong. | Lost trust when the date is missed. | Avoid. Give a range and a date to narrow it. |
 
-**Rule of thumb:** bring options, costs and risks early. The PM decides the trade-off with you, not after you.
+**Simple rule:** bring options, costs and risks early. The PM decides the trade-off with you, not after you.
 
 ## At work: how a senior uses this
 

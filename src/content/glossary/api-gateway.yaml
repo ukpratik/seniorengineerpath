@@ -1,0 +1,4 @@
+id: api-gateway
+term: API gateway
+forms: [API gateways]
+short: A server in front of your services that receives every API request. It does shared jobs such as checking logins, rate limits and sending each request to the right service.

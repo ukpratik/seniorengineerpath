@@ -1,5 +1,6 @@
 ---
 // Incident library (US-019): short, verified cards that link to the official postmortem.
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import TopBar from '../components/TopBar.astro';
 import Footer from '../components/Footer.astro';
@@ -9,7 +10,12 @@ import { formatDay } from '../lib/lesson-parts.ts';
 
 const d = await siteData();
 const tags = [...new Set(d.incidents.flatMap((i) => i.tags))].sort();
-const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t) => t && t.written);
+const lessons = await getCollection('lessons');
+// Backlinks: lessons that list the incident, plus the incident's own `lessons`.
+const lessonsFor = (incidentId: string, own: string[]) =>
+  [...new Set([...own, ...lessons.filter((l) => l.data.incidents.includes(incidentId)).map((l) => l.id)])]
+    .map((id) => d.byId.get(id))
+    .filter((t) => t && t.written);
 ---
 <Base title="Incident library" description={`${d.incidents.length} famous production outages explained in simple English for software engineers: what broke, why, and the lesson, with links to each official postmortem.`} current="search">
   <TopBar />
@@ -24,7 +30,7 @@ const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t)
     <p class="small count" aria-live="polite" data-count-inc>{d.incidents.length} incidents</p>
     <ul class="grid3">
       {d.incidents.map((i) => {
-        const ls = lessonsFor(i.lessons);
+        const ls = lessonsFor(i.id, i.lessons);
         return (
           <li class="card inc" data-tags={i.tags.join(' ')}>
             <span class="when" data-pagefind-ignore><Icon name="alert" />{i.company} · {formatDay(i.date)}</span>

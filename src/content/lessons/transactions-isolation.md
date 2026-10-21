@@ -44,6 +44,9 @@ claims_checked:
   - claim: ACID, lost update, write skew (on-call doctors) and FOR UPDATE as a write-skew fix are described in DDIA chapter 7.
     source: ddia
     note: Book not opened; matches widely cited summaries of chapter 7. Wording kept general.
+  - claim: "Under MySQL SERIALIZABLE, plain SELECTs become SELECT ... FOR SHARE only when autocommit is disabled."
+    source: mysql-iso
+    note: "QC1-23: InnoDB isolation levels page: 'converts all plain SELECT statements to SELECT ... FOR SHARE if autocommit is disabled'. Citation and the autocommit condition added."
 quiz:
   - q: What is the default isolation level in PostgreSQL?
     options: [Read uncommitted, Read committed, Repeatable read, Serializable]
@@ -151,9 +154,9 @@ This is write skew. Repeatable Read does not stop it, in Postgres or in MySQL. S
 | Read committed (Postgres default) | No. Use atomic updates or FOR UPDATE. | No. | Cheapest. Few aborts. |
 | Repeatable read, Postgres (snapshot) | Yes. One transaction fails and must retry. | No. | The app must retry on errors. |
 | Repeatable read, MySQL (default) | No, Hermitage says. | No. | Cheap. But it does not catch the conflict for you. |
-| Serializable | Yes. | Yes. | More aborts and retries under contention. In MySQL, plain reads inside a transaction take shared locks. |
+| Serializable | Yes. | Yes. | More aborts and retries under contention. In MySQL, plain reads take shared locks when autocommit is off. [@mysql-iso] |
 
-**Rule of thumb:** keep the default level. Make every read-change-write either one atomic statement or a `FOR UPDATE` read. Use Serializable for rules that span several rows, like the on-call check.
+**Simple rule:** keep the default level. Make every read-change-write either one atomic statement or a `FOR UPDATE` read. Use Serializable for rules that span several rows, like the on-call check.
 
 ## At work: how a senior uses this
 
@@ -161,7 +164,7 @@ This is write skew. Repeatable Read does not stop it, in Postgres or in MySQL. S
 - Know your database's default level, and write it in the service README. Don't assume "repeatable read" means the same thing in MySQL and Postgres.
 - Prefer `SET x = x + 1` over reading and writing the value in app code.
 - Turn business rules into constraints when you can: `UNIQUE`, `CHECK (stock >= 0)`. The database then enforces them for every caller.
-- If you use Repeatable Read or Serializable, wrap transactions in a retry helper. Postgres marks these failures with SQLSTATE `40001`. [@pg-iso]
+- If you use Repeatable Read or Serializable, wrap transactions in a retry helper. Postgres marks these failures with the error code (SQLSTATE) `40001`. [@pg-iso]
 - Keep transactions short. Never wait for a user or a slow network call while holding a row lock.
 - Write a concurrency test. Run the same request 50 times in parallel and check the final count.
 

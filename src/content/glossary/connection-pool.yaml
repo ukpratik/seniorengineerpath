@@ -1,0 +1,4 @@
+id: connection-pool
+term: connection pool
+forms: [connection pools, connection pooler, connection poolers]
+short: A set of open database connections that an app reuses, so it does not open a new connection for every request.

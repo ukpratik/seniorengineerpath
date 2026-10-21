@@ -1,0 +1,4 @@
+id: atomic
+term: atomic
+forms: [atomically]
+short: An atomic operation happens completely or not at all. Nobody can see it half done.

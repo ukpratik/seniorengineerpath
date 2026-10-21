@@ -114,7 +114,7 @@ There was a second problem. During the first minute, checkout pages took 20 seco
 
 The fix is simple: do not check in your app code. Ask the database to check and change the number in one step. If the number is already zero, the database changes nothing, and you show "sold out".
 
-A flash sale adds a second problem: everyone wants the same row. The row lock that keeps you correct also forms a single line. So you also need ways to spread the work, and to let fewer people in at once.
+A flash sale adds a second problem: everyone wants the same row. The row lock that keeps you correct also makes buyers wait one at a time. So you also need ways to spread the work, and to let fewer people in at once.
 
 > [!key] **The key idea.** Correct stock is a single number that only the database may change, in one atomic step. Speed comes from splitting that number, and from controlling who reaches checkout. It never comes from skipping the check.
 
@@ -156,7 +156,7 @@ Pick the expiry from real data, like how long most people take to pay. A short e
 
 In a flash sale, every buyer updates the same row. A transaction holds the row lock until it commits. So, as Alibaba's PolarDB docs explain, updates to one hot row run one at a time. The docs say sharding the database or tables gives limited gains here. [@polardb-hot] Alibaba calls this the "inventory hotspot" problem. A researcher from its database team says it solved the problem in time for Double Eleven in 2013. [@alibaba-decade]
 
-You cannot remove the line, but you can make each turn shorter. Do only the stock UPDATE inside the transaction. Do the rest of the order, like the address and the email, outside it.
+You cannot remove this waiting, but you can make each turn shorter. Do only the stock UPDATE inside the transaction. Do the rest of the order, like the address and the email, outside it.
 
 ### Splitting stock into buckets
 
@@ -166,7 +166,7 @@ When a bucket is empty, try another. Near the end, a buyer may see "sold out" wh
 
 ### Queues and virtual waiting rooms
 
-Even a fast database has a limit. So control how many people reach checkout. Shopify learned this in its flash sales. Checkout writes were taking down parts of the platform. [@shopify-flash-1] It added a throttle in its load balancers. Buyers over the limit saw a cached queue page that checked again from time to time. [@shopify-flash-1]
+Even a fast database has a limit. So control how many people reach checkout. Shopify learned this in its flash sales. Checkout writes were taking down parts of the platform. [@shopify-flash-1] It added a throttle, a limit on how many buyers get through, in its load balancers. Buyers over the limit saw a cached queue page that checked again from time to time. [@shopify-flash-1]
 
 The first version picked people at random. Some customers waited up to 40 minutes for a sale that lasted 40 minutes. [@shopify-flash-1] The fix stored each buyer's first attempt time in a signed cookie, so earlier buyers would not lose out to later ones. [@shopify-flash-2]
 
@@ -194,7 +194,7 @@ Tell people where they stand. Show their place in the queue or an estimated wait
 | Waiting room in front | Indirectly. It limits load. | Protects everything behind it. | Planned big sales and ticket drops. |
 | Cached availability | No. It is only a hint. | Very fast reads. | Product and list pages. |
 
-**Rule of thumb:** make the conditional UPDATE the only way stock goes down. Add buckets and a waiting room when one product gets a planned rush.
+**Simple rule:** make the conditional UPDATE the only way stock goes down. Add buckets and a waiting room when one product gets a planned rush.
 
 ## At work: how a senior uses this
 

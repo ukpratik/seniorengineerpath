@@ -74,6 +74,9 @@ claims_checked:
   - claim: "Round half to even sends ties to the nearest even digit and is Python Decimal's default."
     source: python-decimal
     note: "decimal docs: ROUND_HALF_EVEN 'Round to nearest with ties going to nearest even integer'; DefaultContext rounding = ROUND_HALF_EVEN."
+  - claim: "Modern Treasury processes hot-account entries asynchronously in batches; the balance cache catches up later (target 60 s, p90 about 1 s)."
+    source: mt-hot
+    note: "QC1-19: 'can be asynchronously batch processed'; 'All Entries eventually make it to the balance caches'; 'We target processing all Entries within 60s, and in practice, our p90 time to process is 1s.' Lesson now says this breaks the same-transaction rule on purpose."
 glossary_optout: [transaction]
 quiz:
   - q: A wallet app stores balances as a float. Why is this a problem?
@@ -189,9 +192,9 @@ Integers do not remove rounding. They make it visible. Split ₹100.00 between t
 | One balance column, updated in place | No history, so you cannot prove it. | Cheap to build. | Toy projects only. |
 | Double-entry ledger, balances derived | Yes, and every change is explained. | More rows, more design work, and busy accounts can slow writes. | Any system that holds or moves real money. |
 
-**Rule of thumb:** integers in minor units with a currency code, in an append-only, double-entry ledger. Add a cached balance only when reads get slow.
+**Simple rule:** integers in minor units with a currency code, in an append-only, double-entry ledger. Add a cached balance only when reads get slow.
 
-One cost needs a warning. Some accounts, like the platform's own fee account, appear in almost every transaction. Many writes then wait on the same balance row. Modern Treasury calls this the "hot account" problem, and handles it by batching entries for that account. [@mt-hot]
+One cost needs a warning. Some accounts, like the platform's own fee account, appear in almost every transaction. Many writes then wait on the same balance row. Modern Treasury calls this the "hot account" problem, and handles it by batching entries for that account. [@mt-hot] This breaks the same-transaction rule on purpose. The cached balance can be a little behind: Modern Treasury targets 60 seconds, and nine in ten entries take about 1 second. [@mt-hot]
 
 ## At work: how a senior uses this
 

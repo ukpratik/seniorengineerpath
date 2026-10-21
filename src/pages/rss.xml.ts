@@ -13,6 +13,7 @@ export async function GET(context: APIContext) {
     title: 'SeniorPath: lessons for software engineers',
     description: 'New lessons on SeniorPath: how real systems are built, broken and fixed, in simple English.',
     site: context.site!,
+    trailingSlash: false,
     items: lessons.map((l) => {
       const t = d.byId.get(l.id)!;
       return { title: t.title, description: l.data.subtitle, link: `/learn/${t.slug}`, pubDate: new Date(`${l.data.reviewed_on}T00:00:00Z`) };

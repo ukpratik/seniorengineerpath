@@ -82,6 +82,9 @@ claims_checked:
   - claim: "Indirect prompt injection happens when a model takes input from external sources such as websites or files; the user is responsible for reviewing proposed code."
     source: owasp-llm01
     note: "OWASP LLM01:2025 definition; Claude Code security page: 'You're responsible for reviewing proposed code and commands for safety before approval.'"
+  - claim: "Google's example first line is 'Delete the FizzBuzz RPC and replace it with the new system.'"
+    source: g-desc
+    note: "QC1-24: CL descriptions page gives this full sentence as the imperative example. Lesson quote no longer cut short."
 
 quiz:
   - q: A pull request has a clear design and good tests. You would name one variable differently. What should you do?
@@ -122,11 +125,11 @@ This story is made up, but each part of it has happened to real teams.
 
 Ravi asked his coding agent to add signature checks to the payment webhook. Ten minutes later he had a 600-line pull request. The code looked clean. There were twelve new tests, and all of them passed.
 
-His teammate Lina was busy. She skimmed the main file, saw green checks, and wrote "LGTM". She did not open `package.json`. One new line there added a package called `webhook-signature-verify`.
+His teammate Lina was busy. She skimmed the main file, saw green checks, and wrote "LGTM" ("looks good to me"). She did not open `package.json`. One new line there added a package called `webhook-signature-verify`.
 
 The agent had invented that name. No such package existed when the model learned to code. But someone had since published a package with that exact name. It had an install script. When CI installed it, the script read the environment variables and sent the payment API key to a server outside the company.
 
-The twelve tests did not catch it. Each one mocked the new package, so the real code never ran. One `catch` block also swallowed every error and returned `true`. So a webhook with a broken signature would have been accepted too.
+The twelve tests did not catch it. Each one mocked the new package: it replaced the package with a fake version. So the real code never ran. One `catch` block also swallowed every error and returned `true`. So a webhook with a broken signature would have been accepted too.
 
 The team rotated the key, removed the package and added a dependency check to CI. The code had passed review. The review had not really happened.
 
@@ -136,7 +139,7 @@ Code review means someone other than the author reads the code before it is merg
 
 Review has three jobs:
 
-1. **Correctness.** Does the code do what it should? Does it break on edge cases?
+1. **Correctness.** Does the code do what it should? Does it break on edge cases, such as empty or very large inputs?
 2. **Design.** Does the change fit the system? Will the next person understand it? Google calls design the most important thing to cover. [@g-looking]
 3. **Shared understanding.** After review, at least two people know how this code works. That helps the team on a bad night months later.
 
@@ -157,7 +160,7 @@ A good review has layers. Each one catches different problems. Step through them
 Your job is to make the review easy.
 
 - **Keep it small.** Small changes are reviewed faster and more carefully, and they cause fewer bugs. Google suggests about 100 lines is usually fine and 1,000 lines is usually too large. [@g-small] A 200-line change in one file may be fine. Spread across 50 files, it is usually too large. [@g-small]
-- **Write a clear description.** The first line says what the change does, as a short order: "Delete the FizzBuzz RPC". The body says why, and what the known weak points are. [@g-desc] "Fix bug" is not a description. [@g-desc]
+- **Write a clear description.** The first line says what the change does, as a short order: "Delete the FizzBuzz RPC and replace it with the new system." The body says why, and what the known weak points are. [@g-desc] "Fix bug" is not a description. [@g-desc]
 - **Add tests in the same change.** [@g-small]
 - **Review it yourself first.** Read your own diff before you ask anyone else. GitHub's docs say this catches mistakes early. [@gh-help] Tell the reviewer where to look first. [@gh-help]
 
@@ -222,7 +225,7 @@ You can also run `/code-review` before you open the pull request. It reviews the
 | Add an AI second pass | Yes, as an extra layer. Can be noisy or miss things. | Tokens or a paid service, and more comments to read. | Larger diffs, and all AI-written code. |
 | AI review only, no human | No. Nobody owns the decision. | Cheapest. | Never as the final check. |
 
-**Rule of thumb:** the less you wrote yourself, the more carefully you read.
+**Simple rule:** the less you wrote yourself, the more carefully you read.
 
 ## At work: how a senior uses this
 
@@ -232,7 +235,7 @@ You can also run `/code-review` before you open the pull request. It reviews the
 - Ask: "What is the worst thing this change can do in production?" Review that part first.
 - For every new dependency, open its page in the registry yourself. Check the owner, age and downloads.
 - Search the diff for `catch`, `except`, `TODO`, `mock` and `skip` before you read the rest.
-- Mark every optional comment with `Nit:` and approve. Do not hold a good change hostage to your taste. [@g-standard]
+- Mark every optional comment with `Nit:` and approve. Do not block a good change because of your personal taste. [@g-standard]
 
 ## With AI
 

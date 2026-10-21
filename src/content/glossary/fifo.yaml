@@ -1,0 +1,4 @@
+id: fifo
+term: FIFO
+forms: [first in, first out]
+short: First in, first out. Items are handled in the order they arrived. LIFO (last in, first out) handles the newest item first.

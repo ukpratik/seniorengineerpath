@@ -1,0 +1,3 @@
+id: stateless
+term: stateless
+short: A stateless server keeps no user data in its own memory between requests. Any server can handle any request, so you can add or remove servers easily.

@@ -60,6 +60,9 @@ claims_checked:
   - claim: "An ADR has title, context, decision, status and consequences, is one or two pages, lives in the project repo, and reversed decisions are kept and marked superseded; the set of ADRs is the decision log."
     source: nygard
     note: "Nygard 15 Nov 2011 matches; 'blindly accept or blindly reverse' wording aligned. Decision log definition from adr.github.io (adr-site)."
+  - claim: "The overhead of writing and reviewing a design doc may not fit prototyping and rapid iteration."
+    source: ubl
+    note: "QC1-21: 'When not to write a design doc': 'the overhead of creating and reviewing a design doc may not be compatible with prototyping and rapid iteration.' Lesson no longer says a prototype teaches more."
 quiz:
   - q: You need to rename one field in an internal API. Only your team uses it, and the fix is clear. Do you need a design doc?
     options:
@@ -124,7 +127,7 @@ An RFC (request for comments) is the same idea with a more formal process. Many 
 
 **When to write one.** Will Larson suggests a design doc for any work that takes more than a month of engineering time. He also suggests one for work that other projects will build on, or that strongly affects users. [@larson]
 
-**When not to.** If the right solution is clear, a doc adds little value. If you are still exploring, a quick prototype may teach you more. [@ubl] Our advice: fixing a bug or adding a field needs a clear ticket, not a design doc.
+**When not to.** If the right solution is clear, a doc adds little value. If you are still prototyping and changing things fast, writing and reviewing a doc may slow you down. [@ubl] Our advice: fixing a bug or adding a field needs a clear ticket, not a design doc.
 
 ## How it works
 
@@ -183,7 +186,7 @@ Some processes are more formal. Oxide keeps each RFD (its name for an RFC) in a 
 
 A design doc covers a whole project. An ADR (architecture decision record) covers one decision. Michael Nygard proposed them in a 2011 blog post. Each ADR has a title, context, decision, status and consequences. It is one or two pages, and it lives in the code repo. [@nygard]
 
-Nygard's reason is simple. Without the "why", a new person can only blindly accept an old decision, or blindly reverse it. Both can hurt the project. [@nygard] When you reverse a decision, you do not delete the old ADR. You mark it as superseded and link to the new one. [@nygard] The set of ADRs in a project becomes its decision log. [@adr-site]
+Nygard's reason is simple. Without the "why", a new person can only blindly accept an old decision, or blindly reverse it. Both can hurt the project. [@nygard] When you reverse a decision, you do not delete the old ADR. You mark it as superseded (replaced by a newer decision) and link to the new one. [@nygard] The set of ADRs in a project becomes its decision log. [@adr-site]
 
 ### Common mistakes
 
@@ -206,7 +209,7 @@ Many of your readers do not speak English as a first language. They read on a ph
 | Design doc | Your team and the teams around you. | Days. | More than a month of work, many teams, or the right answer is unclear. |
 | Formal RFC process | The whole company or community. | Days to weeks, plus review time. | Changes that affect many teams or public users, like a new API or language feature. |
 
-**Rule of thumb:** match the weight of the document to the cost of being wrong. Ubl warns that heavy reviews can turn into overhead. [@ubl]
+**Simple rule:** match the weight of the document to the cost of being wrong. Ubl warns that heavy reviews can turn into overhead. [@ubl]
 
 ## At work: how a senior uses this
 
@@ -234,7 +237,7 @@ Many of your readers do not speak English as a first language. They read on a ph
 ### What to check yourself
 
 - Every fact about your system is true. The agent may invent APIs, limits or numbers.
-- The alternatives are real options your team could choose, not straw men.
+- The alternatives are real options your team could choose, not weak options added only to be rejected.
 - The constraints come from people and systems, not only from the code. The agent cannot know what was said in a meeting.
 - The decision and the trade-offs are yours. You must be able to defend them in review without the agent.
 - The doc is short. Agents tend to write too much. Cut it.

@@ -125,10 +125,12 @@ const first = d.defaultPath.topics.find((t) => t.written);
       const f = imp.files?.[0];
       imp.value = '';
       if (!f) return;
-      const r = store.importJson(await f.text());
+      const m = await manifest();
+      const r = store.importJson(await f.text(), m ? new Set(Object.keys(m.topics).filter((id) => m.topics[id].w)) : undefined);
       track('progress_import', { result: r.ok ? 'ok' : r.reason });
       if (r.ok) {
-        say('ok', 'Imported.', r.added ? `${r.added} lesson${r.added === 1 ? '' : 's'} added. Nothing was removed.` : 'Nothing new: every lesson in the file was already here.');
+        const skipped = r.ignored ? ` ${r.ignored} unknown lesson${r.ignored === 1 ? ' was' : 's were'} skipped.` : '';
+        say('ok', 'Imported.', (r.added ? `${r.added} lesson${r.added === 1 ? '' : 's'} added. Nothing was removed.` : 'Nothing new: every lesson in the file was already here.') + skipped);
         void paint();
       } else {
         const why = {

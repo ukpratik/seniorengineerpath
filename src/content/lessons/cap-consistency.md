@@ -47,6 +47,9 @@ sources:
     url: https://github.blog/2018-10-30-oct21-post-incident-analysis/
     note: A 43-second network cut left writes in two data centres. In recovery, GitHub chose data integrity over a fast recovery.
 claims_checked:
+  - claim: "PNUTS (PC/EL) refuses updates only to data whose master node is cut off by a partition."
+    source: abadi
+    note: "QC1-07: \"where the master node becomes unavailable inside a minority partition, the system by default makes the data item unavailable for updates\"."
   - claim: "CAP (Gilbert and Lynch 2002): during a partition, a system cannot guarantee both linearizable consistency and availability, where availability means every request to a non-failing node gets a response."
     source: gilbert-lynch
     note: "The 2002 PDF opens but its text layer is not machine-readable here. Definitions checked through exact quotes in Kleppmann (availability) and Abadi p. 38 (atomic/linearizable consistency). Added those citations."
@@ -83,7 +86,7 @@ quiz:
       - Availability over consistency (AP).
       - Low latency over consistency (EL).
     answer: 0
-    why: It stayed correct by not answering. In CAP, a node that is up but does not answer is not available.
+    why: It stayed correct by refusing the write. In CAP, a node that is up but returns an error instead of doing the work is not available.
   - q: What does the "ELC" part of PACELC describe?
     options:
       - What the system does during a partition.
@@ -167,7 +170,7 @@ Abadi classified well-known systems by their original default settings: [@abadi]
 
 - **PA/EL:** Dynamo, Cassandra and Riak. They give up consistency during a partition, and for lower latency in normal running.
 - **PC/EC:** VoltDB/H-Store, Megastore, BigTable and HBase. They pay in availability and latency to stay consistent.
-- **PC/EL:** Yahoo's PNUTS. Fast and less consistent normally, but it refuses updates during a partition.
+- **PC/EL:** Yahoo's PNUTS. Fast and less consistent normally, but it refuses updates to data whose master node is cut off by a partition.
 - **PA/EC:** MongoDB, as it worked in 2012.
 
 Many of these systems let you change the trade. In Cassandra-style stores, you can ask more replicas to answer each read and write. You get more consistency, though still not linearizability, and pay with latency. [@abadi]
@@ -184,7 +187,7 @@ GitHub saw the cost of a short partition in 2018. A 43-second network cut caused
 4. **Read-your-writes.** After you save something, your own later reads show it. Other users may see it later. [@jepsen-ryw] [@vogels]
 5. **Eventual.** If writes stop for a while, all replicas end up the same. The basic promise says nothing about when, or what you see before that. [@vogels]
 
-Causal consistency and read-your-writes can stay available during a partition, if each client keeps talking to the same server. [@jepsen-causal] [@jepsen-ryw] That makes them a useful middle ground for feeds, comments and profiles.
+Causal consistency and read-your-writes can stay available during a partition, if each client keeps talking to the same server. [@jepsen-causal] [@jepsen-ryw] That makes them useful for feeds, comments and profiles.
 
 ## Trade-offs
 
@@ -196,15 +199,15 @@ Causal consistency and read-your-writes can stay available during a partition, i
 | Read-your-writes | Yes, if each client stays on one server. | Low. | Profiles and settings a user just changed. |
 | Eventual | Yes. | Lowest. | Like counts, view counts, caches, search indexes. |
 
-**Rule of thumb:** decide per operation, not per database. Ask what a wrong answer costs and what an error costs, then pick the weakest model the business can live with.
+**Simple rule:** decide per operation, not per database. Ask what a wrong answer costs and what an error costs, then pick the weakest model the business can live with.
 
 ## At work: how a senior uses this
 
 - For each write path, ask: **"If the network splits right now, should this fail or should it accept and fix later?"** Write the answer in the design doc.
 - Treat "CP" and "AP" in vendor docs as a hint, not a fact. Read which operations wait, which refuse, and what the default settings are. [@kleppmann-cap]
-- Price the latency. A consistent read in another region costs a round trip on every request, partition or not. [@abadi]
+- Measure the latency cost. A consistent read in another region costs a round trip on every request, partition or not. [@abadi]
 - If you choose AP, design the repair before launch: how to detect conflicts, which side wins, and who tells the customer. Brewer calls this partition recovery. [@brewer-2012]
-- Use stronger models only where they pay. A stock count may need linearizable writes. The product description next to it does not.
+- Use stronger models only where they are worth the cost. A stock count may need linearizable writes. The product description next to it does not.
 - Test with a real partition. Cut the network between replicas in a test environment, and watch what your app does.
 
 ## With AI

@@ -38,6 +38,10 @@ sources:
     title: "MySQL 8.4 Reference Manual: The Physical Structure of an InnoDB Index"
     url: https://dev.mysql.com/doc/refman/8.4/en/innodb-physical-structure.html
     note: InnoDB indexes are B-trees with 16 KB pages by default. How full pages get with ordered and random inserts.
+  - id: innodb-clustered
+    title: "MySQL 8.4 Reference Manual: Clustered and Secondary Indexes"
+    url: https://dev.mysql.com/doc/refman/8.4/en/innodb-index-types.html
+    note: The InnoDB clustered (primary key) index stores the row data. Secondary indexes store the primary key.
   - id: cassandra-storage
     title: "Apache Cassandra documentation: Storage Engine"
     url: https://cassandra.apache.org/doc/latest/cassandra/architecture/storage-engine.html
@@ -67,6 +71,15 @@ sources:
     url: https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter
     note: What the filter answers, and a table of bits per key against false positive rate.
 claims_checked:
+  - claim: "In Postgres, B-tree leaf pages hold tuples that point to table rows, and usually over 99% of pages are leaf pages."
+    source: pg-btree
+    note: "QC1-08: \"Each leaf page contains tuples that point to table rows.\" \"Typically, over 99% of all pages are leaf pages.\""
+  - claim: "The InnoDB clustered (primary key) index stores the row data itself."
+    source: innodb-clustered
+    note: "QC1-08: \"Each InnoDB table has a special index called the clustered index that stores row data.\""
+  - claim: "A B-tree index by account ID on a History table, with keys arriving in random order, can double each transaction's I/O cost."
+    source: oneil
+    note: "QC1-09: abstract, \"will effectively double the I/O cost of the transaction to maintain an index such as this\"; Example 1.2 uses an Acct-ID||Timestamp index with randomly chosen Acct-ID values. The lesson now names this example instead of applying it to UUIDs."
   - claim: "Discord's Cassandra cluster grew from 12 nodes (2017) to 177 nodes (early 2022), often fell behind on compactions, and needed a \"gossip dance\" to catch up."
     source: discord
     note: "Matches the post: \"In 2017, we ran 12 Cassandra nodes\", \"177 nodes with trillions of messages\", \"prone to falling behind on compactions\", and the gossip dance description."
@@ -85,6 +98,12 @@ claims_checked:
   - claim: "About 10 bits per key gives about 1% false positives in a RocksDB Bloom filter, and \"not here\" is never wrong."
     source: rocksdb-bloom
     note: Table row is 9.9 bits per key for 1%.
+  - claim: "The LSM-tree is most useful when you add entries to an index more often than you look them up."
+    source: oneil
+    note: "QA1-18 rewording, re-checked in the abstract: 'the LSM-tree is most useful in applications where index inserts are more common than finds that retrieve the entries.'"
+  - claim: "UCS is the Unified Compaction Strategy, suggested for new workloads."
+    source: cassandra-compaction
+    note: "QC1-30 fix. Compaction overview lists 'Unified Compaction Strategy (UCS)' and says it 'is recommended for new workloads.'"
 quiz:
   - q: Why is a write cheap in an LSM-tree?
     options:
@@ -120,7 +139,7 @@ quiz:
       - Compaction. Reads got more expensive and busy nodes got slow.
       - Bloom filter memory.
     answer: 1
-    why: Discord says they were "prone to falling behind on compactions", and took nodes out of rotation to let them compact.
+    why: Discord says they were "prone to falling behind on compactions", and stopped sending traffic to nodes to let them compact.
 incidents: []
 cases: [discord-trillions-messages]
 related: [storage-internals, secondary-indexes, cassandra, postgres, choosing-database]
@@ -134,9 +153,9 @@ Writes were cheap. In Cassandra, a write is added to a commit log and to a table
 
 Those files must be merged in the background. This is called compaction. Discord's nodes often fell behind on it. Then reads got more expensive. When a node tried to compact, Discord saw latency that cascaded to other parts of the system. [@discord]
 
-So the team did what they called a "gossip dance". They took a node out of rotation, let it compact without traffic, brought it back, and repeated this until the backlog was empty. [@discord]
+So the team did what they called a "gossip dance". They stopped sending traffic to one node, let it compact, brought it back, and repeated this until the backlog was empty. [@discord]
 
-This is not a Cassandra bug. It is the price of the design that makes its writes cheap. In this lesson you will see where each storage engine pays, so you can choose the bill you can afford.
+This is not a Cassandra bug. It is the price of the design that makes its writes cheap. In this lesson you will see where each storage engine pays, so you can choose the costs you can accept.
 
 ## The idea in simple words
 
@@ -148,7 +167,7 @@ An **LSM-tree** never changes a file after writing it. It collects new writes in
 
 > [!key] **The key idea.** A B-tree does the sorting work when you write, in place. An LSM-tree puts that work off and does it later in big batches. Batched work is cheaper per write, but you still pay for it: in background disk work and in slower reads.
 
-The LSM-tree paper says it is most useful when inserts are more common than reads that need a fast answer. [@oneil] The real answer for your data comes from your own load test.
+The LSM-tree paper says it is most useful when you add entries to an index more often than you look them up. [@oneil] The real answer for your data comes from your own load test.
 
 ## How it works
 
@@ -158,7 +177,7 @@ Step through one write in an LSM-tree, then one insert in a B-tree. Use Next and
 
 ### B-tree: pages and page splits
 
-Disks are read in blocks, so a B-tree is built from pages. In InnoDB a page is 16 KB by default. [@innodb] Leaf pages hold the keys and point to the rows. Pages above them hold keys that guide you down to the right leaf. In Postgres, usually over 99% of all pages are leaf pages. [@pg-btree]
+Disks are read in blocks, so a B-tree is built from pages. In InnoDB a page is 16 KB by default. [@innodb] In Postgres, leaf pages hold keys that point to the table rows. [@pg-btree] In InnoDB, the primary key index stores the rows themselves. [@innodb-clustered] Pages above the leaves hold keys that guide you down to the right leaf. In Postgres, usually over 99% of all pages are leaf pages. [@pg-btree]
 
 A lookup starts at the root and goes down one page per level. Trees stay shallow. Here is a rough example. Say each page is 4 KB and points to 500 pages below it.
 
@@ -168,7 +187,7 @@ When a new key does not fit in its leaf page, the page splits. Some keys move to
 
 The order of your keys matters. InnoDB tries to leave 1/16 of each page free. If you insert keys in order, pages end up about 15/16 full. If you insert them in random order, pages are between 1/2 and 15/16 full. [@innodb]
 
-Random keys, like random UUIDs, cause a second problem. Each insert lands on a different page. When the index is too big for memory, each insert may need a page read and a page write on disk. The LSM-tree paper says such a B-tree index can double the disk I/O of each transaction. [@oneil]
+Random keys, like random UUIDs, cause a second problem. Each insert lands on a different page. When the index is too big for memory, each insert may need a page read and a page write on disk. The LSM-tree paper shows the same effect for an index whose keys arrive in random order. Its example is an index by account ID on a fast-growing History table. A B-tree there can double the disk input and output (I/O) of each transaction. [@oneil]
 
 ### The write-ahead log
 
@@ -219,17 +238,17 @@ Also, the first change to a page after a checkpoint writes the whole page to the
 | LSM, size-tiered | Cheapest. Data is rewritten less often. | Slower. One key can be spread over many SSTables. | Needs free disk for old and new files during a compaction. | Compaction backlog. Slow reads after a burst of writes. |
 | LSM, leveled | More rewriting. Often over 10x in RocksDB. | Better. One SSTable per level. | Low. About 10% spare in Cassandra. | Heavy compaction I/O and CPU under many writes. |
 
-**Rule of thumb:** start with a B-tree database like Postgres or MySQL. Choose an LSM store when writes clearly dominate, for example events, logs, metrics or chat messages, and plan for compaction from day one.
+**Simple rule:** start with a B-tree database like Postgres or MySQL. Choose an LSM store when writes clearly dominate, for example events, logs, metrics or chat messages, and plan for compaction from day one.
 
 ## At work: how a senior uses this
 
 - Before you pick a store, write down the read/write ratio, and whether reads are by one key or by a range. That decides more than any benchmark blog.
-- On an LSM store, put pending compactions and SSTables per read on a dashboard. Alert when they keep growing. A growing backlog is a slow incident.
+- On an LSM store, put pending compactions and SSTables per read on a dashboard. Alert when they keep growing. A backlog that keeps growing is a problem, even before anything fails.
 - Keep enough free disk for compaction to write new files before it deletes the old ones. Put this in the capacity plan.
-- Pick the compaction strategy for the data. The Cassandra docs suggest leveled for read-heavy tables or tables with many updates and deletes. They suggest time window for time-series data with a TTL, and UCS for new workloads. [@cassandra-compaction]
+- Pick the compaction strategy for the data. The Cassandra docs suggest leveled for read-heavy tables or tables with many updates and deletes. They suggest time window for time-series data with a TTL, and UCS (Unified Compaction Strategy) for new workloads. [@cassandra-compaction]
 - For B-tree tables with heavy inserts, prefer keys that grow over time, like time-ordered IDs. Random keys spread writes over many pages. [@innodb]
 - Treat deletes on an LSM store as writes. A mass delete creates many tombstones, and they stay until compaction removes them.
-- Load test long enough. A B-tree slows down most when the index outgrows memory. Compaction debt shows only after hours of writes.
+- Load test long enough. A B-tree slows down most when the index outgrows memory. A compaction backlog shows only after hours of writes.
 
 ## With AI
 

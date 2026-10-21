@@ -17,7 +17,12 @@ for (const l of lessons) {
   for (const g of used) usedBy.set(g, [...(usedBy.get(g) ?? []), { title: t.title, slug: t.slug }]);
 }
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-const groups = letters.map((L) => ({ L, terms: d.glossary.filter((g) => g.term[0].toUpperCase() === L) }));
+const isLetter = (t: string) => /[a-z]/i.test(t[0]);
+// Terms like "429 Too Many Requests" start with a digit: they go in a "#" group.
+const groups = [
+  { L: '#', terms: d.glossary.filter((g) => !isLetter(g.term)) },
+  ...letters.map((L) => ({ L, terms: d.glossary.filter((g) => g.term[0].toUpperCase() === L) })),
+];
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 <Base title="Glossary" description={`${d.glossary.length} software engineering terms explained in plain English, for engineers who read English as a second language.`} current="search">
@@ -28,13 +33,13 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     <p class="plede">Every technical word our lessons use, explained in one or two short sentences. Lessons link here the first time they use a word.</p>
     <label class="field gfilter" for="gq"><Icon name="search" /><span class="sr">Filter terms</span><input id="gq" type="search" placeholder="Filter terms" autocomplete="off" data-gq /></label>
     <ul class="az" aria-label="Jump to a letter" data-pagefind-ignore>
-      {groups.map((g) => (g.terms.length ? <li><a href={`#letter-${g.L}`}>{g.L}</a></li> : <li><span aria-hidden="true">{g.L}</span></li>))}
+      {groups.map((g) => (g.terms.length ? <li><a href={`#letter-${g.L === '#' ? 'num' : g.L}`}>{g.L}</a></li> : g.L === '#' ? null : <li><span aria-hidden="true">{g.L}</span></li>))}
     </ul>
     <p class="sr" aria-live="polite" data-glive></p>
     <div class="gl">
       {groups.filter((g) => g.terms.length).map((g) => (
         <>
-          <h2 class="letter" id={`letter-${g.L}`} data-pagefind-ignore>{g.L}</h2>
+          <h2 class="letter" id={`letter-${g.L === '#' ? 'num' : g.L}`} data-pagefind-ignore>{g.L === '#' ? '0–9' : g.L}</h2>
           {g.terms.map((t) => (
             <div class="gentry" data-term-row={`${t.term} ${t.forms.join(' ')}`.toLowerCase()}>
               <h3 class="gt" id={t.id}>{cap(t.term)}</h3>

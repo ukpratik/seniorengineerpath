@@ -1,0 +1,4 @@
+id: flaky-test
+term: flaky test
+forms: [flaky tests, flaky]
+short: A test that sometimes passes and sometimes fails on the same code, often because of timing, order or shared state.

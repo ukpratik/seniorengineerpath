@@ -10,7 +10,11 @@ import { siteData } from '../lib/site-data.ts';
 const d = await siteData();
 const cases = (await getCollection('cases', (c) => c.data.verified)).map((c) => c.data).sort((a, b) => a.company.localeCompare(b.company) || a.title.localeCompare(b.title));
 const tags = [...new Set(cases.flatMap((c) => c.tags))].sort();
-const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t) => t && t.written);
+const lessons = await getCollection('lessons');
+const lessonsFor = (caseId: string, own: string[]) =>
+  [...new Set([...own, ...lessons.filter((l) => l.data.cases.includes(caseId)).map((l) => l.id)])]
+    .map((id) => d.byId.get(id))
+    .filter((t) => t && t.written);
 ---
 <Base title="Case studies" description={`${cases.length} short case studies for software engineers: how real companies built and scaled their systems, in simple English, with links to each company's own write-up.`} current="search">
   <TopBar />
@@ -25,7 +29,7 @@ const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t)
     <p class="small count" aria-live="polite" data-count-inc>{cases.length} case studies</p>
     <ul class="grid3">
       {cases.map((c) => {
-        const ls = lessonsFor(c.lessons);
+        const ls = lessonsFor(c.id, c.lessons);
         return (
           <li class="card inc" data-tags={c.tags.join(' ')}>
             <span class="when" data-pagefind-ignore><Icon name="briefcase" />{c.company}</span>

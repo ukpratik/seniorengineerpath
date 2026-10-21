@@ -103,7 +103,7 @@ This story is made up, but many teams will know it.
 
 A team of four builds a new booking service. In the kickoff, someone says, "Let's do it properly." They choose six microservices, a self-hosted Kafka cluster and a new database nobody on the team has used. Each tool is good. Each one wins a blog post comparison.
 
-The product launches with 300 bookings a day. One Postgres database could hold that many easily. But now the team runs nine moving parts. On-call pages come at night for problems nobody understands. A small feature touches four services and takes three weeks.
+The product launches with 300 bookings a day. One Postgres database could hold that many easily. But now the team runs nine separate systems. On-call pages come at night for problems nobody understands. A small feature touches four services and takes three weeks.
 
 A year later, the team spends a full quarter moving back to one service and one database. Nobody wrote down why they chose the first design, so nobody could say when it stopped making sense.
 
@@ -145,7 +145,7 @@ Step through how a team turns options into a written decision. Use Next and Back
 
 [[diagram:tradeoff-decision]]
 
-A decision table is useful because it forces you to agree on what matters before you argue about tools. But do not trust the total blindly. If one option scores 0 on something you cannot live without, such as security, it is out, whatever its total. Treat the scores as a way to start a conversation, not to end it.
+A decision table is useful because it forces you to agree on what matters before you argue about tools. But do not trust the total blindly. If one option scores 0 on something you must have, such as security, it is out, whatever its total. Treat the scores as a way to start a conversation, not to end it.
 
 ### Step 5: Build or buy
 
@@ -157,7 +157,7 @@ When people still disagree, Bezos suggests the phrase "disagree and commit". In 
 
 Then write the decision down. For a big change, write a [design doc](/learn/design-docs-and-rfcs). For one decision, write an ADR. Michael Nygard's format has a title, context, decision, status and consequences. Consequences should list all the effects, not only the good ones. [@nygard]
 
-Good ADRs make it clear when to revisit. Nygard says the time to change an old decision becomes clear from changes in the project's context. [@nygard] Help that happen. Write a revisit trigger, such as "if load passes 1,000 jobs a second". When you reverse a decision, keep the old ADR and mark it as superseded. [@nygard]
+Good ADRs make it clear when to revisit. Nygard says the time to change an old decision becomes clear from changes in the project's context. [@nygard] Help that happen. Write a revisit trigger, such as "if load passes 1,000 jobs a second". When you reverse a decision, keep the old ADR and mark it as superseded, which means replaced by a newer decision. [@nygard]
 
 ## Trade-offs
 

@@ -88,6 +88,7 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
   <script>
     import { initUi, store, icon } from '../scripts/ui.ts';
     import { track } from '../scripts/analytics.ts';
+    import { manifest } from '../scripts/manifest.ts';
     initUi();
     const html = document.documentElement;
     const wo = document.querySelector<HTMLButtonElement>('[data-wo]')!;
@@ -140,11 +141,21 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
       if (s.lastOpened || done) {
         document.querySelector('[data-you-count]')!.textContent = `${done} of ${written} lessons done`;
         document.querySelector<HTMLElement>('.you.p-only .bar > i')!.style.width = `${written ? Math.round((done / written) * 100) : 0}%`;
+        const link = document.querySelector<HTMLAnchorElement>('[data-you-link]')!;
         const here = document.querySelector<HTMLAnchorElement>('.stn.is-here a');
         if (here) {
-          const link = document.querySelector<HTMLAnchorElement>('[data-you-link]')!;
           link.href = here.href;
           link.querySelector('span')!.textContent = `Continue: ${here.querySelector('.st-title')!.textContent}`;
+        } else {
+          // The last lesson is done: offer the next written lesson on the reader's path.
+          void manifest().then((m) => {
+            if (!m) return;
+            const path = m.paths[s.activePath && m.paths[s.activePath] ? s.activePath : m.defaultPath];
+            const nextId = path.steps.find((id) => m.topics[id]?.w && !s.done[id]);
+            if (!nextId) return;
+            link.href = `/learn/${m.topics[nextId].s}`;
+            link.querySelector('span')!.textContent = `Next: ${m.topics[nextId].t}`;
+          });
         }
       }
     }

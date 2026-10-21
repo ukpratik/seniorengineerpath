@@ -53,7 +53,7 @@ quiz:
       - None. Old keys stay where they are.
     answer: 1
     why: With mod N, a key stays only if both remainders match. Going from 4 to 5 servers keeps about 1 key in 5, so about 4 in 5 move.
-  - q: On a consistent hash ring, you add one server. Which keys move?
+  - q: On a consistent hash ring with one point per server, you add one server. Which keys move?
     options:
       - Every key, because the ring changes.
       - Only the keys in the arc the new server takes over, from its one neighbour.
@@ -89,7 +89,7 @@ related: [replication, quorums-leaderless, dynamodb, cassandra, caching-stampede
 
 A food delivery app keeps menus in a cache cluster with 3 servers. To find the right server, the code runs `hash(key) mod 3`. It worked well for a year.
 
-On a Friday evening, traffic grows and the cache servers run hot. An engineer adds a fourth server and changes the code to `mod 4`. The deploy takes two minutes.
+On a Friday evening, traffic grows and the cache servers become overloaded. An engineer adds a fourth server and changes the code to `mod 4`. The deploy takes two minutes.
 
 Within seconds, the cache hit rate drops from 95% to about 25%. Almost every request now looks for its menu on a different server than before. The menus are still in the cache, but on the wrong machines. Every miss goes to the database, which was sized for 5% of the traffic. The database slows down, then times out. The app is down for 40 minutes at dinner time.
 
@@ -109,9 +109,9 @@ Sharding is not the same as replication. Replication keeps full copies of the sa
 
 ### Two ways to split the data
 
-**Key-range partitioning.** Each shard owns a range of keys, like the volumes of a paper encyclopedia: A–F, G–M, and so on. Range queries are cheap, because nearby keys sit together. The risk is uneven load. If the key is a timestamp, every new write goes to the shard that holds "today". [@ddia]
+**Key-range partitioning.** Each shard owns a range of keys, like the volumes of a paper encyclopedia: A–F, G–M, and so on. Range queries, such as "all keys from A to C", are cheap, because nearby keys sit together. The risk is uneven load. If the key is a timestamp, every new write goes to the shard that holds "today". [@ddia]
 
-**Hash partitioning.** You run the key through a hash function and use the hash to pick the shard. A good hash spreads keys evenly, even keys that look alike. The cost: range queries no longer work well, because nearby keys land on different shards. [@ddia]
+**Hash partitioning.** You run the key through a hash function, code that turns any key into a number that looks random. Then you use the hash to pick the shard. A good hash spreads keys evenly, even keys that look alike. The cost: range queries no longer work well, because nearby keys land on different shards. [@ddia]
 
 ### Why hash mod N breaks
 
@@ -149,7 +149,7 @@ Moving data between machines is called rebalancing. A common pattern is to creat
 
 Some databases rebalance on their own. Kleppmann suggests it can be good to keep a human in the loop. Moving data uses a lot of disk and network. If a node is only slow, an automatic system may think it is dead and start moving data. That adds even more load. [@ddia]
 
-Something must also know which machine holds which shard. There are three common choices. A client can ask any node, which forwards the request. A routing layer can sit in front of all nodes. Or the client can know the map itself. [@ddia] Some systems keep this map in a coordination service. Apache Helix, for example, stores which node holds each partition in ZooKeeper. [@helix]
+Something must also know which machine holds which shard. There are three common choices. A client can ask any node, which forwards the request. A routing layer can sit in front of all nodes. Or the client can know the map itself. [@ddia] Some systems keep this map in a coordination service: a small, very reliable store that many machines share. Apache Helix, for example, stores which node holds each partition in ZooKeeper. [@helix]
 
 ### Secondary indexes
 
@@ -169,11 +169,11 @@ DynamoDB's global secondary indexes work this way. The docs say updates usually 
 | Hash ring with virtual nodes | Yes, more even with more virtual nodes. | No. | Only about 1/(N + 1) of the keys move. |
 | Fixed number of shards (many per machine) | Yes, if shards are similar in size. | Depends on the hash or range inside. | Whole shards move. You must pick the count up front. |
 
-**Rule of thumb:** don't shard until one machine and its replicas truly cannot cope. When you must, pick the shard key from your top queries, and never use plain `mod N` for a cluster that will grow.
+**Simple rule:** don't shard until one machine and its replicas truly cannot cope. When you must, pick the shard key from your top queries, and never use plain `mod N` for a cluster that will grow.
 
 ## At work: how a senior uses this
 
-- Before sharding, ask: **"Can a bigger machine, read replicas or a cache buy us another year?"** Sharding adds cost to every future feature.
+- Before sharding, ask: **"Can a bigger machine, read replicas or a cache give us another year of room to grow?"** Sharding adds cost to every future feature.
 - Choose the shard key from the queries you run most. If most requests are "for one user", shard by user ID, so one request touches one shard.
 - List every query that will not include the shard key. Each one is a scatter/gather or a global index. Decide which, on purpose.
 - Look for hot keys before launch: big customers, celebrity accounts, "today" timestamps. Plan how to split them.

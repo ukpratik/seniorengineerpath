@@ -43,6 +43,15 @@ sources:
     url: https://slack.engineering/slacks-outage-on-january-4th-2021/
     note: Dashboards and alerts failed during the outage because they depended on the broken network.
 claims_checked:
+  - claim: "An SLI is best written as good events divided by total events."
+    source: srew-implementing
+    note: "QC1-13: \"the number of good events divided by the total number of events\". Leaving out invalid events such as health checks is the lesson's own advice."
+  - claim: "OpenTelemetry lists more signals than traces, metrics and logs, including baggage."
+    source: otel
+    note: "QC1-13: \"OpenTelemetry currently supports\" traces, metrics, logs and baggage; baggage is \"Contextual information that is passed between signals\"."
+  - claim: "The burn-rate examples use an SLO of 99.9% over a 30-day window, while the implementing chapter suggests a four-week window."
+    source: srew-alerting
+    note: "QC1-14: alerting chapter: \"With an SLO of 99.9% over a time window of 30 days\"; implementing chapter: \"a four-week rolling window\". The lesson now says which window is which."
   - claim: "The Workbook's recommended alerts for a 99.9% SLO: page at burn rate 14.4 over 1 h and 5 min (2% of budget), page at 6 over 6 h and 30 min (5%), ticket at 1 over 3 days and 6 h (10%)."
     source: srew-alerting
     note: Matches Table 5-8 exactly. Burn rate 10 at 99.9% empties a 30-day budget in 3 days. 14.4 × 0.1% = 1.44% error rate.
@@ -83,7 +92,7 @@ quiz:
       - The error budget is burning 14.4 times too fast over both the last hour and the last 5 minutes.
       - Any single 500 error.
     answer: 1
-    why: It measures what users feel, and the two windows stop it from firing on short blips or long after the problem ends.
+    why: It measures what users feel, and the two windows stop it from firing on short problems or long after the problem ends.
   - q: About how much downtime does 99.9% availability allow in a 30-day month?
     options: ["About 4 minutes", "About 43 minutes", "About 7 hours"]
     answer: 1
@@ -104,7 +113,7 @@ The team had a lot of data, but no clear answer to one question: **"Are our user
 
 ## The idea in simple words
 
-**Observability** means you can understand what your system is doing from the data it sends out. That data comes in three main kinds [@otel]:
+**Observability** means you can understand what your system is doing from the data it sends out. Most of that data comes in three kinds. OpenTelemetry lists these three, plus other signals such as baggage, which carries context between them [@otel]:
 
 - **Metrics:** numbers measured over time, like requests per second or error rate. Cheap to keep, good for graphs and alerts.
 - **Logs:** a record of one event, like "payment 7f3a failed: card declined". Rich in detail, but large.
@@ -112,13 +121,13 @@ The team had a lot of data, but no clear answer to one question: **"Are our user
 
 Data alone does not tell you when to act. For that you need a target that matches what users feel:
 
-- An **SLI** (service level indicator) is a measure of service, best written as *good events ÷ valid events* [@srew-implementing]. For example: the share of checkout requests that succeed in under 500 ms.
-- An **SLO** (service level objective) is the target for that SLI over a time window. For example: 99.9% over a rolling 4 weeks [@srew-implementing].
+- An **SLI** (service level indicator) is a measure of service, best written as *good events ÷ total events* [@srew-implementing]. In practice, count only valid events: leave out calls like health checks. For example: the share of checkout requests that succeed in under 500 ms.
+- An **SLO** (service level objective) is the target for that SLI over a time window. For example: 99.9% over a rolling 4 weeks [@srew-implementing]. The alerting maths below uses a 30-day window instead, as the alerting chapter does [@srew-alerting].
 - An **SLA** (service level agreement) is a contract with customers that has a penalty, often money, if you miss it [@sre-slo].
 
 The **error budget** is the part you are allowed to fail: 100% minus the SLO [@srew-implementing]. With a 99.9% SLO and 1 million requests, you can fail 1,000 of them.
 
-> [!key] **The key idea.** Never aim for 100%. It is not realistic [@sre-slo]. A user on a phone that works 99% of the time cannot tell 99.99% from 99.999% [@sre-risk]. Pick a target, then spend the error budget on purpose. When the budget is left, ship. When it is gone, fix reliability first [@sre-risk].
+> [!key] **The key idea.** Never aim for 100%. It is not realistic [@sre-slo]. A user on a phone that works 99% of the time cannot tell 99.99% from 99.999% [@sre-risk]. Pick a target, then spend the error budget on purpose. When some budget is left, ship. When it is gone, fix reliability first [@sre-risk].
 
 ## How it works
 
@@ -158,11 +167,11 @@ The long window proves the problem is real. The short window makes the alert sto
 | Approach | Catches real user pain? | Noise | Use it when |
 |---|---|---|---|
 | Alert on causes (CPU, disk, memory) | No. Users can suffer while CPU is fine. | High. Many alerts need no action. | Only as tickets or dashboards, to help find a cause. |
-| Alert on any error | Yes, but too early. | Very high. Every blip pages someone. | Almost never for paging. |
+| Alert on any error | Yes, but too early. | Very high. Every short error pages someone. | Almost never for paging. |
 | Simple SLO threshold (error rate above 0.1% for 10 minutes) | Yes. | Medium. Short spikes can still page. | A first step, while you learn your traffic. |
-| Multiwindow, multi-burn-rate SLO alerts | Yes. Fast for big outages, slower for small leaks. | Low. | Most user-facing services, once SLOs exist. |
+| Multiwindow, multi-burn-rate SLO alerts | Yes. Fast for big outages, slower for small, steady error rates. | Low. | Most user-facing services, once SLOs exist. |
 
-**Rule of thumb:** page a human only for symptoms that users feel. Keep cause metrics for debugging [@sre-monitoring].
+**Simple rule:** page a human only for symptoms that users feel. Keep cause metrics for debugging [@sre-monitoring].
 
 ## At work: how a senior uses this
 

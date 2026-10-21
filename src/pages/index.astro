@@ -106,9 +106,10 @@ const featured = d.incidents.slice(0, 3);
     import { manifest, LEVEL } from '../scripts/manifest.ts';
     initUi();
     const s = store.load();
+    const showFirstVisit = () => document.documentElement.removeAttribute('data-visitor');
     if (s && (s.lastOpened || Object.keys(s.done).length)) {
       manifest().then((m) => {
-        if (!m) return;
+        if (!m) return showFirstVisit();
         const doneIn = (steps: string[]) => steps.filter((id) => s.done[id]).length;
         document.querySelectorAll<HTMLElement>('[data-path-card]').forEach((card) => {
           const p = m.paths[card.dataset.pathCard!];
@@ -118,7 +119,7 @@ const featured = d.incidents.slice(0, 3);
           card.querySelector<HTMLElement>('.bar > i')!.style.width = `${Math.round((n / p.steps.length) * 100)}%`;
         });
         const t = s.lastOpened ? m.topics[s.lastOpened] : undefined;
-        if (!t) return; // the lesson was removed: hide the card silently
+        if (!t) return showFirstVisit(); // the lesson was removed: show the normal start instead
         const pathId = s.activePath && m.paths[s.activePath] ? s.activePath : m.defaultPath;
         const path = m.paths[pathId];
         const card = document.querySelector<HTMLElement>('[data-continue]')!;

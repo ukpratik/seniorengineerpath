@@ -31,6 +31,9 @@ sources:
     url: https://pkg.go.dev/golang.org/x/sync/singleflight
     note: A tiny, real request-coalescing library you can read in a few minutes.
 claims_checked:
+  - claim: "stale-while-revalidate lets a cache serve a stale response for the given seconds while it revalidates in the background."
+    source: rfc5861
+    note: "QC1-12: section 3 says caches \"SHOULD attempt to revalidate it while still serving stale responses (i.e., without blocking)\". It says nothing about how many revalidations run, so the lesson now adds coalescing for the one-request claim."
   - claim: "Facebook uses memcache as a look-aside cache, and deletes keys on writes because deletes are idempotent."
     source: fb-memcache
     note: "Section 2 and Figure 1: 'demand-filled look-aside cache'; write path is UPDATE then delete k; 'deletes are idempotent'."
@@ -52,6 +55,9 @@ claims_checked:
   - claim: "Go singleflight runs only one execution per key; duplicate callers wait and get the same result."
     source: singleflight
     note: "Group.Do documentation."
+  - claim: "'Thundering herd' (Facebook memcache): writes keep invalidating a hot key, so many reads take the costly database path."
+    source: fb-memcache
+    note: "QA1-19 fix. Section 3.2.1: 'A thundering herd happens when a specific key undergoes heavy read and write activity. As the write activity repeatedly invalidates the recently set values, many reads default to the more costly path.' The xfetch abstract defines 'cache stampede' (expiry, many misses regenerate at once). The term is now cited to fb-memcache, not xfetch."
 quiz:
   - q: In cache-aside, what does the app do on a cache miss?
     options:
@@ -89,11 +95,11 @@ related: [distributed-cache, cdn-http-caching, redis, load-shedding]
 
 This story is made up, but it is common. A shopping app runs a flash sale at 8 pm. The product page for one phone gets 5,000 requests a second.
 
-The page data sits in Redis with a TTL of 60 seconds. The database is sized for the normal load: a few hundred queries a second. Life is fine while the cache answers almost every read.
+The page data sits in Redis with a TTL of 60 seconds. The database is sized for the normal load: a few hundred queries a second. This works while the cache answers almost every read.
 
 At 8:01 pm the key expires. In the next 200 ms, about a thousand requests find nothing in the cache. Each one runs the same heavy query against the database.
 
-The database slows down, so the queries take longer. More requests miss while they wait, and they pile on too. The product page times out, and the sale page shows errors for ten minutes.
+The database slows down, so the queries take longer. More requests miss while they wait, and they also go to the database. The product page times out, and the sale page shows errors for ten minutes.
 
 Nothing was wrong with the code or the cache. One popular key expired at the worst moment.
 
@@ -109,7 +115,7 @@ Every cache has to answer three questions:
 
 > [!key] **The key idea.** A cache does not just make reads faster. It hides load. When a hot key expires, all that hidden load hits the database at once. Design for that moment.
 
-That moment is called a cache stampede, or thundering herd. A popular item expires, and many requests miss and rebuild the same item at the same time. [@xfetch]
+That moment is called a cache stampede. A popular item expires, and many requests miss and rebuild the same item at the same time. [@xfetch] The Facebook memcache paper calls a similar problem a thundering herd: writes keep deleting a hot key, so many reads go to the database. [@fb-memcache]
 
 ## How it works
 
@@ -148,7 +154,7 @@ Now try it yourself. Turn request coalescing on and off, and change the traffic.
 
 **3. Refresh early, with randomness.** Refresh a hot key a little before it expires, so it never goes missing. If every server refreshes at the same moment, you get a smaller stampede. So each request decides at random, and the chance rises as expiry gets closer. [@xfetch] Also add jitter to TTLs, so keys loaded together do not all expire together.
 
-**4. Serve stale while you refresh.** Keep the old value a little longer and return it while one request fetches the new value. HTTP has a header for this: `stale-while-revalidate`. With `max-age=600, stale-while-revalidate=30`, a response is fresh for 600 seconds. A cache may then serve it stale for 30 more seconds while it checks for a new copy. [@rfc5861] AWS describes a similar idea: refresh after a "soft" TTL, and keep using the old value until a "hard" TTL if the source fails. [@aws-caching]
+**4. Serve stale while you refresh.** Keep the old value a little longer and return it while a refresh runs in the background. Serving stale data does not by itself limit the refresh to one request. Add coalescing or a lock, so only one request fetches the new value. HTTP has a header for this: `stale-while-revalidate`. With `max-age=600, stale-while-revalidate=30`, a response is fresh for 600 seconds. A cache may then serve it stale for 30 more seconds while it checks for a new copy. [@rfc5861] AWS describes a similar idea: refresh after a "soft" TTL, and keep using the old value until a "hard" TTL if the source fails. [@aws-caching]
 
 ## Trade-offs
 
@@ -157,14 +163,14 @@ Now try it yourself. Turn request coalescing on and off, and change the traffic.
 | Request coalescing in each server | Partly. One query per server, not one in total. | Small code change. | Always, as a first step. |
 | Lock or lease in the shared cache | Yes. One query in total. | Waiting clients add latency. Lost locks need a timeout. | Many servers and very hot keys. |
 | Early refresh with jitter | Yes, for keys that are read often. | Some extra loads before they are needed. | Hot keys you can predict. |
-| Stale-while-revalidate | Yes. Users get the old value fast. | Users may see data a few seconds old. | Data where a little staleness is fine, like product pages. |
+| Stale-while-revalidate | Yes, with coalescing. Users get the old value fast. | Users may see data a few seconds old. | Data where a little staleness is fine, like product pages. |
 | Longer TTL only | No. It only makes stampedes rarer. | More stale data. | Data that rarely changes. |
 
-**Rule of thumb:** add coalescing everywhere. For your top keys, add stale-while-revalidate or a lease too.
+**Simple rule:** add coalescing everywhere. For your top keys, add stale-while-revalidate or a lease too.
 
 ## At work: how a senior uses this
 
-- Ask in design reviews: **"What happens to the database if the cache is empty?"** If the answer is "it falls over", you depend on the cache. Plan for a cold start. [@aws-caching]
+- Ask in design reviews: **"What happens to the database if the cache is empty?"** If the answer is "it crashes", you depend on the cache. Plan for a cold start. [@aws-caching]
 - Know your hot keys. Track the top keys by reads. A sale, a viral post or a homepage banner creates new ones.
 - Decide how stale each kind of data may be. Write it down: "prices: 5 seconds, product text: 10 minutes".
 - Watch hit rate, evictions and database load on the same dashboard. A falling hit rate is an early warning.

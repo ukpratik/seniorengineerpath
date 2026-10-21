@@ -1,4 +1,4 @@
 id: ttl
 term: TTL
 forms: [TTLs, time to live]
-short: Time to live. How long a cached value is kept before it expires and must be loaded again.
+short: Time to live. How long a stored value, such as a cache entry, a lock or a seat hold, lives before it expires.

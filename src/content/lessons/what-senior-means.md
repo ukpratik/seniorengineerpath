@@ -38,6 +38,10 @@ sources:
     title: "DORA (Google Cloud), State of AI-assisted Software Development 2025"
     url: https://dora.dev/research/2025/dora-report/
     note: A large survey on how teams use AI. Its main finding is that AI amplifies what a team already is.
+  - id: dora-research
+    title: "DeBellis, Storer, Harvey et al., DORA 2025 State of AI-assisted Software Development Report, Google Research"
+    url: https://research.google/pubs/dora-2025-state-of-ai-assisted-software-development-report/
+    note: The report's abstract, with the survey size and the main finding.
 claims_checked:
   - claim: "At Dropbox, IC2 solves \"defined problems\", IC3 solves \"ambiguous, open-ended problems\", and IC5 (staff) delivers \"multi-year, multi-team\" goals."
     source: dropbox
@@ -57,6 +61,12 @@ claims_checked:
   - claim: "DORA 2025 finds AI acts as an amplifier of a team's existing strengths and weaknesses; it is survey data."
     source: dora-2025
     note: "Report page: 'AI's primary role is as an amplifier, magnifying an organization's existing strengths and weaknesses.' Survey size (nearly 5,000) is from Google Research's page for the report, not the cited page."
+  - claim: "The DORA 2025 survey had responses from nearly 5,000 technology professionals."
+    source: dora-research
+    note: "QC1-22: Google Research page: 'survey responses from nearly 5,000 technology professionals from around the world'. Number now cited to this page, not dora.dev."
+  - claim: "Larson's Right Hand helps a senior leader run a large, complex part of the company."
+    source: larson-archetypes
+    note: "QA1-18 fix. Staff archetypes page: 'The Right Hand extends an executive's attention, borrowing their scope and authority to operate particularly complex organizations.'"
 quiz:
   - q: Which of these is the clearest sign that someone works at senior level?
     options:
@@ -104,7 +114,7 @@ His code was good. The project failed anyway. He solved the problem he was given
 
 ## The idea in simple words
 
-Being senior is not about writing harder code. It is about the size and shape of the problems you can be trusted with. Many company career ladders describe this with a few ideas:
+Being senior is not about writing harder code. It is about which problems people trust you to solve: how big they are and how unclear. Many company career ladders describe this with a few ideas:
 
 - **Scope:** how big the piece of work is that you own.
 - **Ambiguity:** how unclear the problem is when it reaches you.
@@ -112,7 +122,7 @@ Being senior is not about writing harder code. It is about the size and shape of
 - **Impact:** what changed for users or the business because of your work.
 - **Judgement:** how well you choose, for example what to build, what to skip and what to cut.
 
-You can see this in a real, public ladder. At Dropbox, an IC2 engineer solves "defined problems" for team-level goals. At IC3, the engineer solves "ambiguous, open-ended problems". At IC5, the staff level, the engineer delivers "multi-year, multi-team" goals. [@dropbox]
+You can see this in a real, public ladder. Dropbox names its levels IC2, IC3 and so on. IC means individual contributor: an engineer who does not manage people. At Dropbox, an IC2 engineer solves "defined problems" for team-level goals. At IC3, the engineer solves "ambiguous, open-ended problems". At IC5, the staff level, the engineer delivers "multi-year, multi-team" goals. [@dropbox]
 
 > [!key] **The key idea.** A mid-level engineer solves the problem well. A senior engineer first makes sure it is the right problem, then owns the result until it works.
 
@@ -122,7 +132,7 @@ Senior is also **not** some things people often think:
 - **Not being the best coder.** Strong coding is the base, not the goal. Rahul was a great coder.
 - **Not knowing every tool.** Seniors learn tools when they need them. They know which questions to ask about any tool.
 
-Above senior is the staff engineer. Will Larson describes four common shapes of this role: Tech Lead, Architect, Solver and Right Hand. [@larson-archetypes] Tanya Reilly splits staff work into three parts: big-picture thinking, executing projects, and helping other people grow. [@reilly]
+Above senior is the staff engineer. Will Larson describes four common shapes of this role: Tech Lead, Architect, Solver and Right Hand. The Right Hand helps a senior leader run a large, complex part of the company. [@larson-archetypes] Tanya Reilly splits staff work into three parts: big-picture thinking, executing projects, and helping other people grow. [@reilly]
 
 ## How it works
 
@@ -154,9 +164,9 @@ There is more than one way to grow. Each one has a cost.
 | Go deep on one technology | Yes. You become the person others ask. | You may get stuck as "the database person". | Depth without ownership of results is still mid-level work. |
 | Go broad across the stack | Yes. You see how parts connect. | You may feel you know nothing deeply. | Learning many tools is not the same as using judgement. |
 | Take ownership of a project | Yes. This is the clearest signal on most ladders. | More stress, more meetings, less coding time. | Do not take on so much that you finish nothing. |
-| Chase the title | No. A title alone does not change your skills. | You may switch jobs for a title you cannot yet do. | Titles mean different things at different companies. |
+| Aim only for the title | No. A title alone does not change your skills. | You may switch jobs for a title you cannot yet do. | Titles mean different things at different companies. |
 
-**Rule of thumb:** go deep enough to be trusted, then take ownership of something real. That mix grows judgement fastest.
+**Simple rule:** go deep enough to be trusted, then take ownership of something real. That mix grows judgement fastest.
 
 ## At work: how a senior uses this
 
@@ -174,7 +184,7 @@ AI agents can now write a lot of code quickly. So writing code is no longer the 
 
 The evidence is mixed, so read it carefully. In a 2025 randomized study by METR, 16 experienced developers did real tasks in large open-source projects they knew well. With early-2025 AI tools, tasks took about 19% longer. Yet the developers believed AI had made them about 20% faster. [@metr] METR says the result may not apply to all kinds of work, and that these results are now out of date. [@metr] Its 2026 update says developers are probably faster with newer tools, but the data is too weak to say by how much. [@metr-2026]
 
-A 2025 survey of nearly 5,000 tech workers by Google's DORA team found that AI acts as "an amplifier". It makes a team's existing strengths and weaknesses bigger. [@dora-2025] This is survey data, so it shows what people report, not a measured cause.
+In 2025, Google's DORA team surveyed nearly 5,000 tech workers. [@dora-research] It found that AI acts as "an amplifier". It makes a team's existing strengths and weaknesses bigger. [@dora-2025] This is survey data, so it shows what people report, not a measured cause.
 
 The lesson for you: speed feels good but can mislead you. Your judgement is what makes the speed safe.
 
@@ -198,6 +208,6 @@ The lesson for you: speed feels good but can mislead you. Your judgement is what
 
 ## Go deeper
 
-How to use this curriculum: start with the lessons marked L1. Each lesson starts with a failure, explains the idea, then shows the trade-offs and how seniors use it at work. Do the quiz at the end. Then try one "At work" habit in your real job that week. Reading builds knowledge. Practice builds judgement.
+How to use this curriculum: start with the lessons marked L1 (level 1, the first level). Each lesson starts with a failure, explains the idea, then shows the trade-offs and how seniors use it at work. Do the quiz at the end. Then try one "At work" habit in your real job that week. Reading builds knowledge. Practice builds judgement.
 
 A good first technical lesson: [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts).

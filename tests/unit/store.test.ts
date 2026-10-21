@@ -44,7 +44,7 @@ describe('store', () => {
     const b = createStore(memory());
     b.markDone('x', new Date('2026-10-05T00:00:00Z'));
     b.markDone('y');
-    expect(b.importJson(file)).toEqual({ ok: true, added: 0 });
+    expect(b.importJson(file)).toEqual({ ok: true, added: 0, ignored: 0 });
     expect(b.load()!.done.x).toBe('2026-10-01T00:00:00.000Z');
     expect(b.load()!.done.y).toBeDefined();
   });
@@ -73,7 +73,14 @@ describe('store', () => {
   it('ignores bad ids and dates inside an import file', () => {
     const s = createStore(memory());
     const r = s.importJson(JSON.stringify({ schema_version: 1, done: { good: '2026-10-01T00:00:00Z', 'Bad Id': '2026-10-01', worse: 'yesterday' } }));
-    expect(r).toEqual({ ok: true, added: 1 });
+    expect(r).toEqual({ ok: true, added: 1, ignored: 0 });
+  });
+
+  it('skips lesson ids the site does not know (BUG QA1-10)', () => {
+    const s = createStore(memory());
+    const file = JSON.stringify({ schema_version: 1, done: { known: '2026-10-01T00:00:00Z', gone: '2026-10-01T00:00:00Z' } });
+    expect(s.importJson(file, new Set(['known']))).toEqual({ ok: true, added: 1, ignored: 1 });
+    expect(Object.keys(s.load()!.done)).toEqual(['known']);
   });
 
   it('buckets completion counts', () => {

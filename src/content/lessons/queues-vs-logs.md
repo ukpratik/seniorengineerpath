@@ -35,6 +35,10 @@ sources:
     title: "RabbitMQ documentation: Consumer Acknowledgements and Publisher Confirms"
     url: https://www.rabbitmq.com/docs/confirms
     note: Automatic vs manual acks, redelivery after a crash, and prefetch.
+  - id: kafka-topic-config
+    title: "Apache Kafka documentation: Topic Configs (Kafka 4.3)"
+    url: https://kafka.apache.org/43/configuration/topic-configs/
+    note: retention.ms (time limit) and retention.bytes (size limit per partition) for each topic.
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 claims_checked:
@@ -59,6 +63,9 @@ claims_checked:
   - claim: "RabbitMQ requeues unacked deliveries when a channel or connection closes and sets redeliver=true; automatic acks are 'unsafe'; prefetch caps unacked deliveries."
     source: rabbit-ack
     note: "Confirms page: all confirmed. Wording changed from 'connection' to 'channel or connection' and 'a crash loses' to 'a crash can lose'."
+  - claim: "Kafka keeps messages until a time limit (retention.ms); a size limit per partition (retention.bytes) can also be set."
+    source: kafka-topic-config
+    note: "QC1-17: Topic Configs page: retention.bytes is 'the maximum size a partition ... can grow to'; 'By default there is no size limit only a time limit.' Size claim now cited to this page."
 quiz:
   - q: An SQS worker needs 50 seconds for a job. The visibility timeout is 30 seconds. What happens?
     options:
@@ -115,7 +122,7 @@ Both queues and logs let one service hand work to another without waiting. The s
 
 A **queue**, like SQS or RabbitMQ, hands each message to one consumer. When the consumer says "done", the broker deletes the message. Many workers can share the load. [@ddia] [@rabbit-ack]
 
-A **log**, like Kafka, is a file you only add to. Each message gets a number, its offset. Consumers do not delete anything. Each consumer just remembers how far it has read. Messages stay until a time or size limit you set, so you can read them again later. [@kafka-intro] [@kafka-design]
+A **log**, like Kafka, is a file you only add to. Each message gets a number, its offset. Consumers do not delete anything. Each consumer just remembers how far it has read. Messages stay until a time limit you set, so you can read them again later. [@kafka-intro] [@kafka-design] You can also set a size limit for each partition. [@kafka-topic-config]
 
 > [!key] **The key idea.** In a queue, "done" deletes the message. In a log, "done" moves a bookmark. Either way, a crash between doing the work and saying "done" means the work runs again.
 
@@ -169,19 +176,19 @@ On a standard queue, a moved message keeps its first enqueue time. So set the de
 
 ### Backpressure
 
-If producers are faster than consumers, the backlog grows. Kafka consumers pull messages, so a slow consumer just falls behind and catches up later. It is not flooded. [@kafka-design] RabbitMQ's prefetch setting limits how many unacked messages one consumer can hold. [@rabbit-ack] Watch the backlog, or consumer lag in Kafka, and alert when it keeps growing. See [backpressure and flow control](/learn/backpressure-and-flow-control).
+If producers are faster than consumers, the backlog grows. Kafka consumers pull messages, so a slow consumer just falls behind and catches up later. It is not flooded. [@kafka-design] RabbitMQ's prefetch setting limits how many unacked messages one consumer can hold. [@rabbit-ack] Watch the backlog, or consumer lag in Kafka (how far a consumer is behind the newest message), and alert when it keeps growing. See [backpressure and flow control](/learn/backpressure-and-flow-control).
 
 ## Trade-offs
 
 | Option | Replay old messages? | Order | Best for |
 |---|---|---|---|
 | Queue (SQS standard, RabbitMQ) | No. A message is deleted after the ack. | Best effort only. | Jobs: send email, resize an image. Add workers to go faster. |
-| SQS FIFO queue | No. | Yes, inside a message group. | Jobs where order matters per customer or per order, at lower throughput. |
+| SQS FIFO queue | No. | Yes, inside a message group (messages with the same group ID). | Jobs where order matters per customer or per order, at lower throughput. |
 | Log (Kafka) | Yes, until retention ends. | Yes, inside a partition. | Events that many teams read, rebuilding data, audit trails, stream processing. |
-| At-most-once | No retry. | n/a | Metrics or logs where losing a few is fine. |
-| At-least-once + idempotent handler | Yes, it runs again. | n/a | Almost everything else, including payments. |
+| At-most-once | n/a | n/a | Metrics or logs where losing a few is fine. A failed message is not retried. |
+| At-least-once + idempotent handler | n/a | n/a | Almost everything else, including payments. A failed message runs again, so the handler must be safe to repeat. |
 
-**Rule of thumb:** use a queue for "please do this job". Use a log for "this happened", when more than one reader needs it or you may want to replay. Either way, design for at-least-once.
+**Simple rule:** use a queue for "please do this job". Use a log for "this happened", when more than one reader needs it or you may want to replay. Either way, design for at-least-once.
 
 ## At work: how a senior uses this
 

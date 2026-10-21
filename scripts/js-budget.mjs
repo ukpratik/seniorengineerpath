@@ -1,8 +1,9 @@
-// NFR-002: gzip size of the JavaScript each built page loads.
+// NFR-002: gzip size of the JavaScript each built page loads. Also guards that share images differ.
 // ≤ 50 KB per page; ≤ 150 KB on pages with a custom animation (data-anim).
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
+import { createHash } from 'node:crypto';
 
 const dist = 'dist';
 const LIMIT = 50 * 1024;
@@ -35,4 +36,16 @@ for (const page of html(dist)) {
   }
 }
 console.log(`JS budget: largest page ${worst.page} at ${worst.kb.toFixed(1)} KB gzip`);
+// BUG-001 regression guard: share images must differ per lesson (blank cards are identical).
+const ogDir = join(dist, 'og');
+if (existsSync(ogDir)) {
+  const pngs = readdirSync(ogDir).filter((f) => f.endsWith('.png'));
+  const hashes = new Set(pngs.map((f) => createHash('md5').update(readFileSync(join(ogDir, f))).digest('hex')));
+  if (pngs.length > 1 && hashes.size < pngs.length) {
+    console.error(`share images: ${pngs.length - hashes.size + 1} of ${pngs.length} are identical (text not drawn?)`);
+    failed++;
+  }
+  console.log(`share images: ${pngs.length} distinct`);
+}
+
 process.exit(failed ? 1 : 0);

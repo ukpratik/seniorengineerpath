@@ -33,9 +33,9 @@ claims_checked:
   - claim: "WAF rules skipped staged rollout by design; a global WAF terminate at 14:07 restored traffic by 14:09; the fix plan adds staged rule rollouts but keeps emergency global deploys."
     source: cf2019
     note: Matches the postmortem timeline and fix list. Speed tests and the regex engine change were planned (ETA), so the lesson now says planned.
-  - claim: "Google Cloud's June 2025 quota-check code had no feature flag or error handling, policy data with blank fields replicated globally within seconds, and the red-button rollout finished within about 40 minutes."
+  - claim: "Google Cloud's quota-check code, added on 29 May 2025, had no feature flag or error handling; on 12 June 2025 policy data with blank fields replicated globally within seconds, and the red-button rollout finished within about 40 minutes."
     source: gcp2025
-    note: Matches the official incident report, including the remediation on flags disabled by default and incremental data propagation.
+    note: Matches the official incident report, including the remediation on flags disabled by default and incremental data propagation. QC1-02 fixed the date; the report says 'On May 29, 2025, a new feature was added to Service Control' and the policy change was inserted on 12 June.
   - claim: "AWS deploys to one Availability Zone at a time in the first wave, waits at least one hour after each one-box stage and at least 12 hours after the first regional wave, and rolls back automatically on alarms."
     source: aws-deploys
     note: All figures match the Builders' Library article.
@@ -129,7 +129,7 @@ Validation catches simple mistakes. It does not catch every bug, so you still ne
 
 A canary is a small part of the fleet that gets the change first. The rest of the fleet is the control. You compare the two: error rate, latency, CPU. [@sre-canary]
 
-If the canary looks healthy, you go wider in waves. AWS describes a real pipeline: first one box in one zone, then one region, then groups of regions that get bigger each time. [@aws-deploys] In the first wave, AWS deploys to only one Availability Zone at a time. Its top goal is to never hurt more than one region at once. [@aws-deploys]
+If the canary looks healthy, you go wider in waves. AWS describes a real pipeline: first one box in one zone, then one region, then groups of regions that get bigger each time. [@aws-deploys] In the first wave, AWS deploys to only one Availability Zone at a time. An Availability Zone is one of several separate locations inside an AWS region. Its top goal is to never hurt more than one region at once. [@aws-deploys]
 
 A simple percentage rollout follows the same idea: 1%, then 10%, then 50%, then 100% of servers or users.
 
@@ -143,20 +143,20 @@ During bake time, automated health checks watch the metrics. If an alarm fires, 
 
 A feature flag lets you turn code on or off without a new deploy. [@toggles] Ship new code switched off, then turn it on for 1% of users, then more. If it breaks, turn it off in seconds.
 
-Flags also act as kill switches. In June 2025, Google Cloud added new quota-checking code with no feature flag and no proper error handling. A policy with blank fields then spread to every region within seconds. The code crashed on it. The team needed about 40 minutes to finish rolling out its "red button" fix. [@gcp2025] Afterwards, Google said changes to critical binaries must be behind a flag that is off by default. It also said policy data must roll out in steps, with time to check each step. [@gcp2025]
+Flags also act as kill switches. On 29 May 2025, Google Cloud added new quota-checking code with no feature flag and no proper error handling. Nothing used it until 12 June. Then a policy with blank fields spread to every region within seconds. The code crashed on it. The team needed about 40 minutes to finish rolling out its "red button" fix. [@gcp2025] Afterwards, Google said changes to critical binaries must be behind a flag that is off by default. It also said policy data must roll out in steps, with time to check each step. [@gcp2025]
 
 Flags have a cost. Each one adds a branch to test. Remove a flag once the feature is fully on. [@toggles]
 
 ## Trade-offs
 
-| Approach | Blast radius | Speed to reach everyone | Use it when |
+| Approach | Small blast radius? | Speed to reach everyone | Use it when |
 |---|---|---|---|
 | Global push | No. Every user at once. | Seconds. | A real emergency, like an active attack, and you accept the risk. |
 | Canary, then waves | Yes. A small group sees a bad change first. | Hours to days. | Most code and config changes. |
 | Percentage rollout behind a flag | Yes. You choose the share of users. | Minutes to days, your choice. | New features and risky code paths. |
 | Blue-green (two full copies, switch traffic) | No. All traffic moves at once. | Minutes. | You need a very fast undo, and you can pay for two copies. |
 
-**Rule of thumb:** keep a fast global path only for emergencies, and make the slow staged path the default. Cloudflare's planned fix did the same: staged rollouts for rule changes, and a global push kept only for active attacks. [@cf2019]
+**Simple rule:** keep a fast global path only for emergencies, and make the slow staged path the default. Cloudflare's planned fix did the same: staged rollouts for rule changes, and a global push kept only for active attacks. [@cf2019]
 
 ## At work: how a senior uses this
 

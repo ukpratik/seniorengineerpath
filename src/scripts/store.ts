@@ -119,7 +119,10 @@ export function createStore(backend: Storage | null = storage()) {
       );
     },
 
-    importJson(text: string): { ok: true; added: number } | { ok: false; reason: 'invalid' | 'newer' | 'too_big' | 'unavailable' } {
+    importJson(
+      text: string,
+      known?: Set<string>,
+    ): { ok: true; added: number; ignored: number } | { ok: false; reason: 'invalid' | 'newer' | 'too_big' | 'unavailable' } {
       if (text.length > MAX_IMPORT_BYTES) return { ok: false, reason: 'too_big' };
       let data: { schema_version?: unknown; done?: unknown; last_opened?: unknown; last_opened_at?: unknown };
       try {
@@ -130,9 +133,12 @@ export function createStore(backend: Storage | null = storage()) {
       if (typeof data !== 'object' || data === null || typeof data.schema_version !== 'number') return { ok: false, reason: 'invalid' };
       if (data.schema_version > SCHEMA_VERSION) return { ok: false, reason: 'newer' };
       if (typeof data.done !== 'object' || data.done === null || Array.isArray(data.done)) return { ok: false, reason: 'invalid' };
-      const incoming = Object.entries(data.done as Record<string, unknown>).filter(
+      const valid = Object.entries(data.done as Record<string, unknown>).filter(
         ([k, v]) => /^[a-z0-9-]+$/.test(k) && typeof v === 'string' && !Number.isNaN(Date.parse(v)),
       ) as [string, string][];
+      // Ids this site doesn't have (renamed or removed lessons, typos) are skipped.
+      const incoming = known ? valid.filter(([k]) => known.has(k)) : valid;
+      const ignored = valid.length - incoming.length;
       if (!read()) return { ok: false, reason: 'unavailable' };
       let added = 0;
       update((s) => {
@@ -149,7 +155,7 @@ export function createStore(backend: Storage | null = storage()) {
           s.lastOpenedAt = at || s.lastOpenedAt;
         }
       });
-      return { ok: true, added };
+      return { ok: true, added, ignored };
     },
   };
 }

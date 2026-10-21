@@ -1,0 +1,4 @@
+id: garbage-collection
+term: garbage collection
+forms: [garbage collector, garbage collectors]
+short: The language runtime frees memory that the program no longer uses. In many runtimes this can pause the program for a short time.

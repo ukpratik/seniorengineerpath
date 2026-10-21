@@ -1,0 +1,4 @@
+id: consumer-group
+term: consumer group
+forms: [consumer groups]
+short: A set of Kafka consumers that share the work of reading a topic. Each partition is read by only one member of the group at a time.

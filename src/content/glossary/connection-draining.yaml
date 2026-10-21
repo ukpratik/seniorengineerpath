@@ -1,0 +1,4 @@
+id: connection-draining
+term: connection draining
+forms: [draining, deregistration delay]
+short: Stopping new requests to a server you are removing, while letting the requests it already has finish.

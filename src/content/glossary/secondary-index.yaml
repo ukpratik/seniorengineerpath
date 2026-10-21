@@ -1,0 +1,4 @@
+id: secondary-index
+term: secondary index
+forms: [secondary indexes, global secondary index, global secondary indexes, local index, global index]
+short: An extra index that lets you find rows by a field other than the main key, such as orders by customer ID.

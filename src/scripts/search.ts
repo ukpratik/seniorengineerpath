@@ -9,9 +9,9 @@ interface Pagefind {
   debouncedSearch: (q: string, opts?: object, ms?: number) => Promise<{ results: { data: () => Promise<ResultData> }[] } | null>;
 }
 
-const ORDER = ['Lesson', 'Glossary', 'Incident', 'Coming soon'];
-const ICON: Record<string, string> = { Lesson: 'book', Glossary: 'text', Incident: 'alert', 'Coming soon': 'dashed' };
-const LABEL: Record<string, string> = { Lesson: 'Lessons', Glossary: 'Glossary terms', Incident: 'Incidents', 'Coming soon': 'Coming soon' };
+const ORDER = ['Lesson', 'Glossary', 'Incident', 'Case study', 'Coming soon'];
+const ICON: Record<string, string> = { Lesson: 'book', Glossary: 'text', Incident: 'alert', 'Case study': 'briefcase', 'Coming soon': 'dashed' };
+const LABEL: Record<string, string> = { Lesson: 'Lessons', Glossary: 'Glossary terms', Incident: 'Incidents', 'Case study': 'Case studies', 'Coming soon': 'Coming soon' };
 
 // Pagefind reports file paths; the site uses clean URLs.
 const clean = (url: string) => url.replace(/\.html(?=#|$)/, '').replace(/\/index(?=#|$)/, '/');
@@ -73,7 +73,7 @@ export function initSearch(): void {
     for (const d of data) {
       const type = d.filters.type?.[0] ?? 'Lesson';
       // Glossary and incident pages hold many entries: list the matching entries.
-      const entries = (type === 'Glossary' || type === 'Incident') && d.sub_results ? d.sub_results.filter((x) => x.url.includes('#')).slice(0, 8) : [];
+      const entries = (type === 'Glossary' || type === 'Incident' || type === 'Case study') && d.sub_results ? d.sub_results.filter((x) => x.url.includes('#')).slice(0, 8) : [];
       const items = entries.length ? entries : [{ url: d.url, title: d.meta.title ?? d.url, excerpt: d.excerpt }];
       for (const it of items) {
         const li = `<li><a href="${clean(it.url)}">${icon(ICON[type] ?? 'book')}<span><b>${it.title.replace(/[<>&]/g, '')}</b><span>${safeExcerpt(it.excerpt)}</span></span></a></li>`;

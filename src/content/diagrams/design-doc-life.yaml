@@ -1,0 +1,17 @@
+id: design-doc-life
+title: "The life of a design doc: from draft to a record people still use"
+viewBox: 0 0 340 500
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">1 · Draft</text><text class="sub" x="170" y="51">goals, non-goals, 3 options · 4 pages</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="64" x2="170" y2="88"/><rect class="box" x="20" y="92" width="300" height="52" rx="10"/><text class="bt" x="170" y="114">2 · Feedback</text><text class="sub" x="170" y="133">5 reviewers · 18 comments · 1 week</text><rect class="note" x="205" y="150" width="125" height="26" rx="7"/><text class="note-t" x="267" y="167">"what if DB is down?"</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="146" x2="170" y2="182"/><rect class="box" x="20" y="186" width="300" height="52" rx="10"/><text class="bt" x="170" y="208">3 · Revise</text><text class="sub" x="170" y="227">add a risk, drop option C, fix goals</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="240" x2="170" y2="264"/><rect class="rec" x="20" y="268" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="290">4 · Decision</text><text class="sub" x="170" y="309">30-min review · open questions closed</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="322" x2="170" y2="346"/><rect class="note" x="20" y="350" width="300" height="52" rx="10"/><text class="note-t" x="170" y="372">5 · ADR-014 in the repo</text><text class="sub" x="170" y="391">context · decision · consequences</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="170" y1="404" x2="170" y2="428"/><rect class="okb" x="20" y="432" width="300" height="52" rx="10"/><text class="ok-t" x="170" y="454">✓ 6 months later</text><text class="sub" x="170" y="473">a new teammate reads why, not guesses</text></g>
+captions:
+  - "You write a short draft. It says what problem you solve, what you will not solve, and three ways to do it, with the trade-offs."
+  - "You share it. Five people leave 18 comments in one week. One asks what happens when the database is down. You had not thought about that."
+  - "You change the doc. You add the risk and a plan for it. You drop one option that reviewers showed was too costly."
+  - "A short review meeting closes the last open questions. The owner makes the decision and writes it at the top of the doc."
+  - "You copy the decision into a one-page ADR in the code repo. It says what you decided, why, and what it costs."
+  - "Six months later, a new teammate wants to change the design. They read the ADR, see the constraint, and do not break it by accident."

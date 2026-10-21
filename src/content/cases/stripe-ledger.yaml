@@ -1,0 +1,8 @@
+id: stripe-ledger
+company: "Stripe"
+title: "Ledger: checking every money movement with double entry"
+lesson: "Stripe records money flows as an immutable log of double-entry events. Balances that do not clear to zero point to real problems, and data-quality scores track how correct the system is."
+url: https://stripe.dev/blog/ledger-stripe-system-for-tracking-and-validating-money-movement
+tags: [ledgers, payments]
+lessons: [money-ledgers, reconciliation, audit-trails]
+verified: true

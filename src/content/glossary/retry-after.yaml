@@ -1,0 +1,4 @@
+id: retry-after
+term: Retry-After
+forms: []
+short: An HTTP header that tells the client how long to wait, in seconds or until a date, before it sends the next request.

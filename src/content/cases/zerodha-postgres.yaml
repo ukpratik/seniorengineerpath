@@ -1,0 +1,8 @@
+id: zerodha-postgres
+company: "Zerodha"
+title: "Running billions of rows of reports on plain Postgres"
+lesson: "Zerodha denormalises data, uses materialized views, and partitions tables by month. Plain Postgres handles heavy financial reporting when the schema fits the queries."
+url: https://zerodha.tech/blog/working-with-postgresql/
+tags: [databases]
+lessons: [postgres]
+verified: true

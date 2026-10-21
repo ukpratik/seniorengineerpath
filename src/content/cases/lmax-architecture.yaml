@@ -1,0 +1,8 @@
+id: lmax-architecture
+company: "LMAX"
+title: "LMAX: 6 million orders a second on one thread"
+lesson: "LMAX runs all business logic in memory on a single thread, using event sourcing for recovery. Lock-free ring buffers called Disruptors feed it, avoiding the cost of locks and queues."
+url: https://martinfowler.com/articles/lmax.html
+tags: [performance, architecture]
+lessons: [single-writer, mechanical-sympathy, event-sourcing]
+verified: true

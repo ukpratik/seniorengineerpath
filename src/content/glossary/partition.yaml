@@ -1,0 +1,4 @@
+id: partition
+term: partition
+forms: [partitions, partitioning, partitioned]
+short: One piece of a dataset or stream that has been split up. Databases often call it a shard. In Kafka, a partition is one ordered log inside a topic.

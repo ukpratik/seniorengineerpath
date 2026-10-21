@@ -1,0 +1,8 @@
+id: shopify-resilient-payments
+company: "Shopify"
+title: "Ten habits for building payment systems that hold up"
+lesson: "Shopify lists the basics: short timeouts, circuit breakers, idempotency keys, capacity planning and reconciliation. Default HTTP timeouts are often far too long for a waiting customer."
+url: https://shopify.engineering/building-resilient-payment-systems
+tags: [payments, reliability]
+lessons: [resilience-patterns, idempotency-retries, reconciliation]
+verified: true

@@ -1,0 +1,8 @@
+id: pinterest-mysql-sharding
+company: "Pinterest"
+title: "Sharding MySQL with IDs that say where data lives"
+lesson: "Pinterest picked mature MySQL and pre-split data into thousands of shards. Each 64-bit ID holds its shard number, and data never moves between shards."
+url: https://web.archive.org/web/20250114092011/https://medium.com/pinterest-engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f
+tags: [databases, sharding]
+lessons: [sharding, unique-ids]
+verified: true

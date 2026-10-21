@@ -1,0 +1,4 @@
+id: dead-letter-queue
+term: dead-letter queue
+forms: [dead-letter queues, DLQ, DLQs]
+short: A separate queue for messages that failed too many times, so they stop blocking work and you can inspect them.

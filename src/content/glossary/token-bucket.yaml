@@ -1,0 +1,4 @@
+id: token-bucket
+term: token bucket
+forms: [token buckets]
+short: A rate limit where each request takes a token from a bucket that refills at a fixed rate. The bucket size sets the biggest burst.

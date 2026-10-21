@@ -1,0 +1,8 @@
+id: slack-vitess
+company: "Slack"
+title: "Moving from per-workspace shards to Vitess"
+lesson: "Sharding by workspace created hot shards for big customers and wasted the rest. Slack moved to Vitess, which let them shard by other keys like channel and spread the load."
+url: https://slack.engineering/scaling-datastores-at-slack-with-vitess/
+tags: [databases, sharding]
+lessons: [sharding, multi-tenancy]
+verified: true

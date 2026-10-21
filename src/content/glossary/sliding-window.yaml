@@ -1,0 +1,4 @@
+id: sliding-window
+term: sliding window
+forms: [sliding windows, sliding window log, sliding window counter]
+short: A rate limit that counts requests in the last N seconds, measured from now, so there is no reset edge to exploit.

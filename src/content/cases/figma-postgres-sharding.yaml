@@ -1,0 +1,8 @@
+id: figma-postgres-sharding
+company: "Figma"
+title: "Horizontally sharding Postgres behind a query proxy"
+lesson: "After splitting tables into separate databases, Figma sharded large tables horizontally. A proxy routes and runs sharded queries, and logical sharding came before the risky physical move."
+url: https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
+tags: [databases, sharding]
+lessons: [sharding, postgres]
+verified: true

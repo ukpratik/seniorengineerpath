@@ -1,0 +1,8 @@
+id: shopify-flash-sale-throttle
+company: "Shopify"
+title: "Surviving flash sales with a checkout queue at the load balancer"
+lesson: "Checkout writes were overloading the database during flash sales. Shopify added a leaky-bucket throttle in scriptable load balancers and sent extra buyers to a cached waiting page."
+url: https://shopify.engineering/surviving-flashes-of-high-write-traffic-using-scriptable-load-balancers-part-i
+tags: [ecommerce, scaling]
+lessons: [inventory-flash-sales, rate-limiting, load-shedding]
+verified: true

@@ -1,0 +1,4 @@
+id: leaky-bucket
+term: leaky bucket
+forms: [leaky buckets]
+short: A rate limit where requests wait in a queue that drains at a fixed rate. When the queue is full, new requests are rejected.

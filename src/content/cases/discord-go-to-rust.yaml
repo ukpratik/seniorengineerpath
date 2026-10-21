@@ -1,0 +1,8 @@
+id: discord-go-to-rust
+company: "Discord"
+title: "Why Discord rewrote a Go service in Rust"
+lesson: "A Go service showed latency spikes every two minutes because Go forces a garbage collection run. The Rust version has no garbage collector, so the spikes went away."
+url: https://discord.com/blog/why-discord-is-switching-from-go-to-rust
+tags: [performance]
+lessons: [gc-tuning, tail-latency-queueing]
+verified: true

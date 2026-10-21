@@ -1,0 +1,8 @@
+id: ensemble-aoe-lockstep
+company: "Ensemble Studios"
+title: "Age of Empires: thousands of units over a slow modem"
+lesson: "Instead of sending unit positions, each player sends only commands and every machine runs the same simulation in lockstep. Any difference is detected as out of sync, which also blocks many cheats."
+url: https://web.archive.org/web/20241220085423/https://www.gamedeveloper.com/programming/1500-archers-on-a-28-8-network-programming-in-age-of-empires-and-beyond
+tags: [gaming, realtime]
+lessons: [rollback-netcode, game-loop]
+verified: true

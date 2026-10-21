@@ -1,0 +1,4 @@
+id: power-of-two-choices
+term: power of two choices
+forms: [P2C]
+short: A load balancing rule that picks two servers at random and sends the request to the less busy one.

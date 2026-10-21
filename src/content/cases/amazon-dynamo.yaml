@@ -1,0 +1,8 @@
+id: amazon-dynamo
+company: "Amazon"
+title: "How Dynamo kept the shopping cart always writable"
+lesson: "Dynamo chose availability over strict consistency, using consistent hashing, sloppy quorums and vector clocks. The app merges conflicting versions, so a cart never loses an added item."
+url: https://www.allthingsdistributed.com/2007/10/amazons_dynamo.html
+tags: [databases, replication]
+lessons: [quorums-leaderless, replication, cart]
+verified: true

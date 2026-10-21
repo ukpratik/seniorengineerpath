@@ -1,0 +1,8 @@
+id: stripe-rate-limiters
+company: "Stripe"
+title: "Four kinds of rate limiters that protect an API"
+lesson: "Stripe uses request limiters, concurrency limiters and load shedders, built on token buckets in Redis. The limiters fail open, so a bug in them does not take the API down."
+url: https://stripe.com/blog/rate-limiters
+tags: [reliability, api]
+lessons: [rate-limiting, load-shedding]
+verified: true

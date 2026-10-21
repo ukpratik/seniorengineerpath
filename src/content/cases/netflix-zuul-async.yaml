@@ -1,0 +1,8 @@
+id: netflix-zuul-async
+company: "Netflix"
+title: "Moving the Zuul gateway to async I/O: what it really gave"
+lesson: "Netflix moved its gateway from blocking threads to async, non-blocking I/O. It did not gain much CPU efficiency, but connections became cheap, which enabled push and persistent connections."
+url: https://web.archive.org/web/20200623085851/https://netflixtechblog.com/zuul-2-the-netflix-journey-to-asynchronous-non-blocking-systems-45947377fb5c
+tags: [performance, architecture]
+lessons: [io-models, api-gateway]
+verified: true

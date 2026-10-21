@@ -1,0 +1,4 @@
+id: rate-limit
+term: rate limit
+forms: [rate limits, rate limiting, rate limiter, rate limiters]
+short: A rule that caps how many requests a client may make in a period of time, and rejects the extra ones.

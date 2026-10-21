@@ -1,0 +1,8 @@
+id: notion-great-reshard
+company: "Notion"
+title: "Tripling the database fleet with zero downtime"
+lesson: "Notion grew from 32 to 96 Postgres machines while live. They copied data with logical replication, checked results, and moved traffic shard by shard through PgBouncer."
+url: https://www.notion.com/blog/the-great-re-shard
+tags: [databases, migrations]
+lessons: [sharding, migrations, capacity-planning]
+verified: true

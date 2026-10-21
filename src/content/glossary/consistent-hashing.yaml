@@ -1,0 +1,4 @@
+id: consistent-hashing
+term: consistent hashing
+forms: [consistent hash, ring hash]
+short: A way to map keys to servers so that adding or removing one server moves only a small share of the keys.

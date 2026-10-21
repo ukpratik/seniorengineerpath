@@ -1,0 +1,4 @@
+id: shard
+term: shard
+forms: [shards, sharding, sharded]
+short: One piece of a large dataset that has been split across machines. Each shard holds a different part of the data.

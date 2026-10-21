@@ -1,0 +1,8 @@
+id: anthropic-contextual-retrieval
+company: "Anthropic"
+title: "Contextual retrieval: add context to chunks before indexing"
+lesson: "Before indexing, each chunk gets a short note explaining where it fits in its document. With BM25 and embeddings together, failed retrievals dropped by 49 percent, and by 67 percent with reranking."
+url: https://www.anthropic.com/research/contextual-retrieval
+tags: [ai, search]
+lessons: [rag, search-systems]
+verified: true

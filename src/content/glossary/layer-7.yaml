@@ -1,0 +1,4 @@
+id: layer-7
+term: layer 7
+forms: [L7]
+short: The application layer of a network, such as HTTP. A layer 7 load balancer reads each request and can route by path or header.

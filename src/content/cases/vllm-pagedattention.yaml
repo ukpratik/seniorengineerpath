@@ -1,0 +1,8 @@
+id: vllm-pagedattention
+company: "vLLM"
+title: "PagedAttention: paging GPU memory to serve LLMs faster"
+lesson: "vLLM stores the attention key-value cache in small blocks, like virtual memory pages. Less wasted GPU memory means bigger batches and up to 24 times the throughput of a plain baseline."
+url: https://vllm.ai/blog/2023-06-20-vllm
+tags: [ai, performance]
+lessons: [llm-serving]
+verified: true

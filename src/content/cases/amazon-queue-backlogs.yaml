@@ -1,0 +1,8 @@
+id: amazon-queue-backlogs
+company: "Amazon"
+title: "Why queue backlogs can turn a short outage into a long one"
+lesson: "A queue hides overload until the backlog takes hours to drain. Watch message age, add backpressure, move stale or noisy work aside, and plan for backlogs from day one."
+url: https://builder.aws.com/content/3EuRcgkTP1MI0c7zM8W6HL3WIqA/avoiding-insurmountable-queue-backlogs
+tags: [messaging, reliability]
+lessons: [backpressure, load-shedding, queues-vs-logs]
+verified: true

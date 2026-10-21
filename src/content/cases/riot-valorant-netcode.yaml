@@ -1,0 +1,8 @@
+id: riot-valorant-netcode
+company: "Riot Games"
+title: "Shrinking peeker's advantage in VALORANT's netcode"
+lesson: "Peeker's advantage comes from adding up network delay, buffering, frame time and tick rate. Riot cut each piece, such as keeping the movement buffer small, to keep fights fair."
+url: https://web.archive.org/web/20250104022431/https://technology.riotgames.com/news/peeking-valorants-netcode
+tags: [gaming, realtime]
+lessons: [client-prediction, tick-rate]
+verified: true

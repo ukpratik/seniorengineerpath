@@ -1,0 +1,8 @@
+id: netflix-adaptive-concurrency
+company: "Netflix"
+title: "Adaptive concurrency limits instead of hand-tuned limits"
+lesson: "Fixed concurrency limits go stale as code and traffic change. Netflix measures latency and adjusts the limit automatically, like TCP congestion control, to reject extra work before queues explode."
+url: https://web.archive.org/web/20201121161643/https://medium.com/@NetflixTechBlog/performance-under-load-3e6fa9a60581
+tags: [reliability, performance]
+lessons: [load-shedding, backpressure, tail-latency-queueing]
+verified: true

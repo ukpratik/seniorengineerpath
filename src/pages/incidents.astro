@@ -43,26 +43,8 @@ const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t)
   </main>
   <script>
     import { initUi } from '../scripts/ui.ts';
+    import { initTagFilter } from '../scripts/tag-filter.ts';
     initUi();
-    const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-tag]')];
-    const cards = [...document.querySelectorAll<HTMLElement>('li.inc')];
-    const count = document.querySelector<HTMLElement>('[data-count-inc]')!;
-    const apply = (tag: string) => {
-      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.tag === tag)));
-      let n = 0;
-      for (const c of cards) {
-        const show = !tag || c.dataset.tags!.split(' ').includes(tag);
-        c.hidden = !show;
-        if (show) n++;
-      }
-      count.textContent = tag ? `${n} incidents tagged “${tag}”` : `${n} incidents`;
-    };
-    chips.forEach((c) => c.addEventListener('click', () => {
-      apply(c.dataset.tag!);
-      history.replaceState(null, '', c.dataset.tag ? `?tag=${c.dataset.tag}` : location.pathname);
-    }));
-    const t = new URLSearchParams(location.search).get('tag');
-    if (t && chips.some((c) => c.dataset.tag === t)) apply(t);
-    if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.closest('li')?.classList.add('hl');
+    initTagFilter('incidents');
   </script>
 </Base>

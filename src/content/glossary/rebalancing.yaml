@@ -1,0 +1,4 @@
+id: rebalancing
+term: rebalancing
+forms: [rebalance, rebalances, rebalanced]
+short: Moving data or work between machines so each one has a fair share, for example after you add a machine.

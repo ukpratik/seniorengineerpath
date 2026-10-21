@@ -1,7 +1,7 @@
 // HTML for the lesson slots that come from front matter and libraries:
 // incident cards (What broke), quiz + done row (Check yourself), sources (Go deeper).
 import { escapeHtml as e } from './html.ts';
-import type { Incident, Lesson } from '../content-tools/schemas.ts';
+import type { Incident, Lesson, CaseStudy } from '../content-tools/schemas.ts';
 
 const ico = (n: string, sm = false) => `<svg class="i${sm ? ' sm' : ''}" aria-hidden="true"><use href="/icons.svg#i-${n}"/></svg>`;
 
@@ -45,6 +45,7 @@ export function deeperHtml(
   sources: Lesson['sources'],
   incidents: Incident[],
   related: { title: string; slug: string; written: boolean }[],
+  cases: CaseStudy[] = [],
 ): string {
   const items = sources
     .map((s) => {
@@ -58,6 +59,9 @@ export function deeperHtml(
   const inc = incidents
     .map((i) => `<p class="small">Real incident: <a href="/incidents#${i.id}">${e(i.company)}, ${formatDay(i.date)}: ${e(i.title)}</a></p>`)
     .join('');
+  const cs = cases.length
+    ? `<p class="small">Case studies: ${cases.map((c) => `<a href="/cases#${c.id}">${e(c.company)}: ${e(c.title)}</a>`).join(' · ')}</p>`
+    : '';
   const rel = related.length
     ? `<p class="small">Related: ${related
         .map((r) => `<a href="/learn/${r.slug}">${e(r.title)}</a>${r.written ? '' : ' (coming soon)'}`)
@@ -65,7 +69,7 @@ export function deeperHtml(
     : '';
   const n = sources.length;
   return `<details class="deeper"><summary>${ico('chev-down', true)}Show ${n} source${n === 1 ? '' : 's'} and related lessons</summary>
-<ol class="srcs prose">${items}</ol>${inc}${rel}</details>`;
+<ol class="srcs prose">${items}</ol>${inc}${cs}${rel}</details>`;
 }
 
 // Replace the empty slot <div>s that rehypeLesson left in the rendered lesson.

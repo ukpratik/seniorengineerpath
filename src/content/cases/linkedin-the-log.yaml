@@ -1,0 +1,8 @@
+id: linkedin-the-log
+company: "LinkedIn"
+title: "The log: the simple idea under databases and streams"
+lesson: "Jay Kreps shows that an append-only, ordered log sits under replication, data integration and stream processing. Treating the log as the source of truth makes many systems simpler to connect."
+url: https://web.archive.org/web/20240105095933/https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+tags: [messaging, architecture]
+lessons: [queues-vs-logs, stream-processing, derived-data]
+verified: true

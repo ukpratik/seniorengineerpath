@@ -1,0 +1,8 @@
+id: stripe-idempotency-keys
+company: "Stripe"
+title: "Idempotency keys make API retries safe"
+lesson: "The client sends a unique key with each operation, and the server remembers the result for that key. A retry after a network failure then never charges a customer twice."
+url: https://stripe.com/blog/idempotency
+tags: [payments, api]
+lessons: [idempotency-retries, rest-api]
+verified: true

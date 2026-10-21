@@ -1,0 +1,8 @@
+id: slack-flannel-edge-cache
+company: "Slack"
+title: "Flannel: an edge cache so huge teams can start fast"
+lesson: "Clients of very large teams downloaded too much data at startup. Flannel caches users and channels at the edge, serves them on demand, and pushes data the client will likely need next."
+url: https://slack.engineering/flannel-an-application-level-edge-cache-to-make-slack-scale/
+tags: [caching, performance]
+lessons: [scaling-reads, distributed-cache]
+verified: true

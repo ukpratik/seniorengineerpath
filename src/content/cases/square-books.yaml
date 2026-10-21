@@ -1,0 +1,8 @@
+id: square-books
+company: "Square"
+title: "Books: an immutable double-entry accounting service"
+lesson: "Square built one shared ledger service so product teams do not build their own. Entries are insert-only, and mistakes are fixed with a new correcting entry, which gives a full audit trail."
+url: https://developer.squareup.com/blog/books-an-immutable-double-entry-accounting-database-service/
+tags: [ledgers, payments]
+lessons: [money-ledgers, audit-trails]
+verified: true

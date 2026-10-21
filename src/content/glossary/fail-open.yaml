@@ -1,0 +1,4 @@
+id: fail-open
+term: fail open
+forms: [fails open]
+short: When a check breaks, letting traffic through instead of blocking it, so the check itself does not cause an outage.

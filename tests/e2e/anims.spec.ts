@@ -36,3 +36,26 @@ test('cache stampede: coalescing turns many queries into one', async ({ page }) 
   await w.getByRole('switch').click();
   await expect(w.locator('.anim-result')).toContainText('With coalescing: 1 database query from this server');
 });
+
+test('token bucket: a bigger bucket absorbs the burst', async ({ page }) => {
+  await page.goto('/learn/rate-limiting');
+  const w = page.locator('[data-anim="token-bucket"]');
+  await expect(w.locator('.anim-result')).toContainText('rejected');
+  await w.getByLabel(/Bucket size/).fill('100');
+  await expect(w.locator('.anim-result')).toContainText('All');
+});
+
+test('hash ring: a ring moves far fewer keys than hash mod N', async ({ page }) => {
+  await page.goto('/learn/sharding-and-consistent-hashing');
+  const w = page.locator('[data-anim="hash-ring"]');
+  const mod = Number((await w.locator('.cmp.bad b').textContent())!.replace('%', ''));
+  const ring = Number((await w.locator('.cmp.ok b').textContent())!.replace('%', ''));
+  expect(mod).toBeGreaterThan(60);
+  expect(ring).toBeLessThan(30);
+});
+
+test('charts draw real bar heights (not the 8 px progress-bar style)', async ({ page }) => {
+  await page.goto('/learn/caching-and-cache-stampedes');
+  const h = await page.locator('[data-anim="cache-stampede"] rect.abar').evaluateAll((rs) => Math.max(...rs.map((r) => r.getBoundingClientRect().height)));
+  expect(h).toBeGreaterThan(40);
+});

@@ -71,7 +71,7 @@ test('glossary filter narrows the list', async ({ page }) => {
   await expect(page.locator('.gentry:visible')).toHaveCount(1);
 });
 
-for (const path of ['/map', '/glossary', '/incidents', '/progress', '/search', '/about', '/paths/senior-at-work', '/learn/backoff-jitter-retry-budgets']) {
+for (const path of ['/map', '/glossary', '/incidents', '/cases', '/progress', '/search', '/about', '/paths/senior-at-work', '/learn/backoff-jitter-retry-budgets']) {
   test(`axe: ${path}`, async ({ page }) => {
     await page.goto(path);
     const r = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();

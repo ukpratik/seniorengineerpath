@@ -1,0 +1,8 @@
+id: meta-tao
+company: "Meta"
+title: "TAO: a graph cache in front of sharded MySQL"
+lesson: "Facebook hid memcache and MySQL behind a small graph API of objects and links. Two cache tiers serve huge read volume, and the team chose eventual consistency over losing availability."
+url: https://engineering.fb.com/2013/06/25/core-infra/tao-the-power-of-the-graph/
+tags: [caching, databases]
+lessons: [scaling-reads, distributed-cache]
+verified: true

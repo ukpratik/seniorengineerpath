@@ -1,11 +1,13 @@
 // Custom interactive animations (US-007). Each id has a pure model in
 // src/scripts/sims/ and a view in src/scripts/anims.ts.
-export const ANIMS = ['cache-stampede', 'replication-lag', 'rollout'];
+export const ANIMS = ['cache-stampede', 'replication-lag', 'rollout', 'token-bucket', 'hash-ring'];
 
 export const ANIM_TITLES: Record<string, string> = {
   'cache-stampede': 'Try it: what happens when a hot key expires',
   'replication-lag': 'Try it: read from a follower that is behind',
   rollout: 'Try it: push a bad config everywhere, or in stages',
+  'token-bucket': 'Try it: send a burst into a token bucket',
+  'hash-ring': 'Try it: add a server and see how many keys move',
 };
 
 export function renderAnimHost(id: string): string {

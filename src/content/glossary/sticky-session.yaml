@@ -1,0 +1,4 @@
+id: sticky-session
+term: sticky session
+forms: [sticky sessions, session affinity, stickiness]
+short: A load balancer setting that sends every request from one user to the same server, often using a cookie.

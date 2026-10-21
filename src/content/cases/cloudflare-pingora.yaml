@@ -1,0 +1,8 @@
+id: cloudflare-pingora
+company: "Cloudflare"
+title: "Pingora: replacing NGINX with a proxy written in Rust"
+lesson: "NGINX tied each request to one worker and kept connection pools per worker, which hurt reuse. Pingora shares pools across threads and uses a third of the CPU and memory."
+url: https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/
+tags: [performance, networking]
+lessons: [connection-pooling, io-models]
+verified: true

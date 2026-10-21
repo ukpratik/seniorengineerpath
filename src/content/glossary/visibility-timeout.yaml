@@ -1,0 +1,4 @@
+id: visibility-timeout
+term: visibility timeout
+forms: [visibility timeouts]
+short: In Amazon SQS, how long a received message stays hidden from other workers. If it is not deleted in that time, it comes back.

@@ -1,0 +1,8 @@
+id: phonepe-tstore
+company: "PhonePe"
+title: "TStore: one store for every payment's history"
+lesson: "Every change is first written to a Kafka write-ahead log, then to HBase with indexes. Notifications go out only after both writes succeed, so readers never see unsaved changes."
+url: https://tech.phonepe.com/demystifying-tstore-the-backbone-of-billions-of-transactions-at-phonepe/
+tags: [payments, databases]
+lessons: [derived-data, sagas-outbox-cdc]
+verified: true

@@ -1,0 +1,8 @@
+id: uber-schemaless
+company: "Uber"
+title: "Schemaless: an append-only datastore built on MySQL"
+lesson: "Uber built a scalable store on plain MySQL where each cell is immutable and updates write a new version. Simple, well-known parts made it easier to operate than a newer database."
+url: https://web.archive.org/web/20250102111836/https://www.uber.com/blog/schemaless-part-one-mysql-datastore/
+tags: [databases, scaling]
+lessons: [nosql-modelling, choosing-database]
+verified: true

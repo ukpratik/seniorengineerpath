@@ -1,0 +1,4 @@
+id: exactly-once
+term: exactly-once
+forms: [exactly once]
+short: A promise that each message is handled once and only once. In practice it usually means at-least-once delivery plus an idempotent handler.

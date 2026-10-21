@@ -1,0 +1,8 @@
+id: discord-network-disks
+company: "Discord"
+title: "Fast local SSD reads with network-disk durability"
+lesson: "Discord mirrored local SSDs and network disks in a Linux RAID1 array, marking the network disk write-mostly. Reads come from the fast local disk while writes still reach durable storage."
+url: https://discord.com/blog/how-discord-supercharges-network-disks-for-extreme-low-latency
+tags: [performance, storage]
+lessons: [storage-internals]
+verified: true

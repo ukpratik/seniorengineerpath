@@ -1,0 +1,4 @@
+id: offset
+term: offset
+forms: [offsets]
+short: The position number of a message in a log, such as a Kafka partition. A consumer saves its offset to remember how far it has read.

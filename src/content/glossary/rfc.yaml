@@ -1,0 +1,4 @@
+id: rfc
+term: RFC
+forms: [RFCs, request for comments, requests for comments]
+short: Short for "request for comments". A written proposal shared so that others can comment before a decision is made. Many companies use it as another name for a design doc with a formal review.

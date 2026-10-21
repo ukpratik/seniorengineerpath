@@ -1,0 +1,8 @@
+id: shopify-modular-monolith
+company: "Shopify"
+title: "Choosing a modular monolith over microservices"
+lesson: "Shopify kept one codebase but split it into components with clear, checked boundaries. They judged that microservices would bring their own problems and that modularity fixed the real pain."
+url: https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity
+tags: [architecture]
+lessons: [monolith-microservices, solid-coupling]
+verified: true

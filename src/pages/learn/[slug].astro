@@ -41,6 +41,8 @@ let glossary: { id: string; term: string; short: string }[] = [];
 if (lesson) {
   const allIncidents = await getCollection('incidents');
   const incidents = lesson.data.incidents.map((id) => allIncidents.find((i) => i.id === id)!.data);
+  const allCases = await getCollection('cases', (c) => c.data.verified);
+  const cases = allCases.filter((c) => lesson.data.cases.includes(c.id) || c.data.lessons.includes(topicId)).map((c) => c.data);
   const related = lesson.data.related.map((id) => {
     const t = topicById.get(id)!;
     return { title: t.title, slug: t.slug, written: written.has(id) };
@@ -49,7 +51,7 @@ if (lesson) {
   html = fillSlots(lesson.rendered?.html ?? '', {
     incidents: incidentsHtml(incidents),
     quiz: quizHtml(lesson.data.quiz, issueUrl(topicId, pageUrl)),
-    deeper: deeperHtml(lesson.data.sources, incidents, related),
+    deeper: deeperHtml(lesson.data.sources, incidents, related, cases),
   });
   if (lesson.data.illustrative_story) {
     html = html.replace(

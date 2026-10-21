@@ -1,0 +1,8 @@
+id: amazon-timeouts-retries-jitter
+company: "Amazon"
+title: "Timeouts, retries and backoff with jitter done right"
+lesson: "Set timeouts from real latency percentiles, retry at one layer only, and cap retries. Add backoff and jitter so clients do not retry in sync and overload a service that is already struggling."
+url: https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter
+tags: [reliability]
+lessons: [backoff-jitter, idempotency-retries, resilience-patterns]
+verified: true

@@ -1,0 +1,8 @@
+id: discord-elixir-fanout
+company: "Discord"
+title: "Fanning out messages to millions of users with Elixir"
+lesson: "Sending one message to a huge server meant millions of process sends. Discord built Manifold to group sends by remote node, which spread the CPU cost and cut network traffic."
+url: https://discord.com/blog/how-discord-scaled-elixir-to-5-000-000-concurrent-users
+tags: [realtime, scaling]
+lessons: [fan-out, presence-fanout, concurrency-models]
+verified: true

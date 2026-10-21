@@ -1,0 +1,8 @@
+id: dropbox-sync-engine
+company: "Dropbox"
+title: "Rewriting the Dropbox sync engine safely"
+lesson: "The old sync engine had a flawed data model that small fixes could not save. The rewrite used a clean data model, Rust, and seeded random simulation tests that replay any failure."
+url: https://dropbox.tech/infrastructure/rewriting-the-heart-of-our-sync-engine
+tags: [architecture, testing]
+lessons: [legacy-code, property-tests, verifying-correctness]
+verified: true

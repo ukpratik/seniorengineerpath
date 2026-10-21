@@ -1,0 +1,4 @@
+id: scatter-gather
+term: scatter/gather
+forms: [scatter-gather]
+short: Sending one query to every shard and merging the answers. It is as slow as the slowest shard.

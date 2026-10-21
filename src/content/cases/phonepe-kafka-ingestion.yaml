@@ -1,0 +1,8 @@
+id: phonepe-kafka-ingestion
+company: "PhonePe"
+title: "Moving 100 billion events a day into Kafka"
+lesson: "Services write events to local disk through a client library, and a separate process ships them to Kafka. Teams get a simple API while the platform team runs the pipeline."
+url: https://tech.phonepe.com/the-kafka-edge-managing-100-billion-daily-events-at-phonepe/
+tags: [messaging, scaling]
+lessons: [kafka-internals, queues-vs-logs]
+verified: true

@@ -1,0 +1,8 @@
+id: amazon-shuffle-sharding
+company: "Amazon"
+title: "Shuffle sharding: shrink the blast radius of one bad customer"
+lesson: "Give each customer a random mix of workers instead of one fixed shard. A bad customer then hurts only their own mix, and almost no other customer shares all the same workers."
+url: https://builder.aws.com/content/3F06NpJ8YeoIGP8VHTw4n81pFn8/workload-isolation-using-shuffle-sharding
+tags: [reliability, architecture]
+lessons: [cell-architecture, multi-tenancy]
+verified: true

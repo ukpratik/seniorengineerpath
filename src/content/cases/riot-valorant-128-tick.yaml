@@ -1,0 +1,8 @@
+id: riot-valorant-128-tick
+company: "Riot Games"
+title: "Making VALORANT servers 20 times faster for 128 tick"
+lesson: "Riot needed each server frame under 2.34 ms but started at 50 ms. They split the cost by subsystem, gave each a budget, and tuned the OS scheduler to use the CPU better."
+url: https://web.archive.org/web/20250113181153/https://technology.riotgames.com/news/valorants-128-tick-servers
+tags: [gaming, performance]
+lessons: [tick-rate, profiling, mechanical-sympathy]
+verified: true

@@ -1,0 +1,8 @@
+id: slack-realtime-messaging
+company: "Slack"
+title: "How Slack delivers messages in real time"
+lesson: "Stateful channel servers own channels through consistent hashing. Gateway servers in many regions hold user WebSocket connections and pass messages between clients and channel servers."
+url: https://slack.engineering/real-time-messaging/
+tags: [realtime, architecture]
+lessons: [realtime-transports, presence-fanout]
+verified: true

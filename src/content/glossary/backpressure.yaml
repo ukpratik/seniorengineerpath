@@ -1,0 +1,4 @@
+id: backpressure
+term: backpressure
+forms: []
+short: A way for a slow part of a system to make faster parts slow down or wait, instead of being flooded.

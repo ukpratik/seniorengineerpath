@@ -1,0 +1,4 @@
+id: load-balancer
+term: load balancer
+forms: [load balancers]
+short: A service with one address that sits in front of many servers and picks which server gets each connection or request.

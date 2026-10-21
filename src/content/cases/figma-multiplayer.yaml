@@ -1,0 +1,8 @@
+id: figma-multiplayer
+company: "Figma"
+title: "How Figma's multiplayer editing works"
+lesson: "Figma took ideas from CRDTs but kept a central server as the authority. That made the system simpler and faster than full CRDTs or operational transforms."
+url: https://www.figma.com/blog/how-figmas-multiplayer-technology-works/
+tags: [realtime]
+lessons: [crdts, collaborative-editing]
+verified: true

@@ -428,9 +428,9 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 .anim-ctrl input[type=range]{width:100%;min-height:var(--tap);accent-color:var(--accent)}
 .anim .switch{align-self:flex-start;text-align:left;white-space:normal}
 .anim-chart{display:block;width:100%;max-width:520px;height:auto}
-.anim-chart .bar{fill:var(--dg-arrow)}
-.anim-chart .bar.bad{fill:var(--bad)}
-.anim-chart .bar.ok{fill:var(--done)}
+.anim-chart .abar{fill:var(--dg-arrow)}
+.anim-chart .abar.bad{fill:var(--bad)}
+.anim-chart .abar.ok{fill:var(--done)}
 .anim-chart .axis{stroke:var(--border-strong);stroke-width:1.5}
 .anim-chart .mark{stroke:var(--accent);stroke-width:2;stroke-dasharray:4 3}
 .anim-chart .lbl{font-family:var(--font-sans);font-size:11px;fill:var(--text-2);font-weight:600}
@@ -446,3 +446,7 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 @media (min-width:600px){.anim-ctrls{flex-direction:row;flex-wrap:wrap;align-items:flex-end}.anim-ctrl{flex:1;min-width:200px}}
 @media (min-width:900px){.anim{margin:4px -28px 18px;padding:18px 28px}}
 .anim-chart .pk{font-size:12px;font-weight:800;fill:var(--text)}
+.anim-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.anim-compare .cmp{display:flex;flex-direction:column;gap:2px;padding:12px;border-radius:var(--r-md);background:var(--surface);border:1px solid var(--border);font-size:var(--fs-sm)}
+.anim-compare .cmp b{font-size:28px;line-height:1.1}
+.anim-compare .cmp.bad b{color:var(--bad)}.anim-compare .cmp.ok b{color:var(--done)}

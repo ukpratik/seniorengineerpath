@@ -1,0 +1,8 @@
+id: amazon-dynamodb-paper
+company: "Amazon"
+title: "What ten years of running DynamoDB taught its builders"
+lesson: "The DynamoDB paper shows how the team handled fairness, uneven traffic across partitions and automated operations. They kept latency predictable without giving up availability, even at 89 million requests per second."
+url: https://www.usenix.org/conference/atc22/presentation/elhemali
+tags: [databases, scaling]
+lessons: [dynamodb, sharding]
+verified: true

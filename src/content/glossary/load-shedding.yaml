@@ -1,0 +1,4 @@
+id: load-shedding
+term: load shedding
+forms: [load shedder, load shedders]
+short: Rejecting some requests on purpose when a service is overloaded, so it can keep serving the rest.

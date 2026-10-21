@@ -1,0 +1,33 @@
+id: queue-vs-log-crash
+title: "A worker crashes mid-batch: what a queue and a log do next"
+viewBox: 0 0 340 490
+svg: |
+  <text class="lb" x="170" y="18">A · queue (like SQS)</text>
+  <rect class="rec" x="10" y="34" width="40" height="26" rx="7"/><text class="rec-t" x="30" y="52">m1</text>
+  <rect class="rec" x="56" y="34" width="40" height="26" rx="7"/><text class="rec-t" x="76" y="52">m2</text>
+  <rect class="rec" x="102" y="34" width="40" height="26" rx="7"/><text class="rec-t" x="122" y="52">m3</text>
+  <rect class="rec" x="148" y="34" width="40" height="26" rx="7"/><text class="rec-t" x="168" y="52">m4</text>
+  <rect class="box" x="235" y="28" width="95" height="38" rx="10"/><text class="bt" x="282" y="52">Worker 1</text>
+  <g class="f" data-f="1"><line class="ln" x1="192" y1="47" x2="231" y2="47"/><text class="sub" x="100" y="80">hidden for 30 s, not deleted</text></g>
+  <g class="f" data-f="2"><path class="xm" d="M23 40l14 14M37 40l-14 14"/><path class="xm" d="M69 40l14 14M83 40l-14 14"/><path class="xm" d="M275 70l14 14M289 70l-14 14"/><text class="sub badt" x="282" y="102">crash: m3 done,</text><text class="sub badt" x="282" y="117">not deleted</text></g>
+  <g class="f" data-f="3"><rect class="box" x="235" y="150" width="95" height="38" rx="10"/><text class="bt" x="282" y="174">Worker 2</text><line class="ln lost" x1="145" y1="64" x2="231" y2="162"/><text class="lb" x="120" y="150">m3, m4 again</text><text class="sub badt" x="120" y="170">m3 runs twice</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="210" x2="332" y2="210"/><text class="lb" x="170" y="232">B · log (like a Kafka partition)</text>
+  <rect class="rec" x="12" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="35" y="266">0</text>
+  <rect class="rec" x="65" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="88" y="266">1</text>
+  <rect class="rec" x="118" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="141" y="266">2</text>
+  <rect class="rec" x="171" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="194" y="266">3</text>
+  <rect class="rec" x="224" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="247" y="266">4</text>
+  <rect class="rec" x="277" y="248" width="46" height="26" rx="7"/><text class="rec-t" x="300" y="266">5</text>
+  <text class="sub" x="35" y="292">commit: 0</text>
+  <rect class="box" x="20" y="340" width="130" height="38" rx="10"/><text class="bt" x="85" y="364">Worker A</text><line class="ln" x1="85" y1="300" x2="85" y2="336"/><text class="sub" x="125" y="322">read 0–3</text></g>
+  <g class="f" data-f="5"><path class="xm" d="M128 352l14 14M142 352l-14 14"/><text class="sub badt" x="85" y="396">did 0, 1, 2</text><text class="sub badt" x="85" y="411">crash before commit</text></g>
+  <g class="f" data-f="6"><rect class="box" x="190" y="340" width="130" height="38" rx="10"/><text class="bt" x="255" y="364">Worker B</text><line class="ln" x1="255" y1="300" x2="255" y2="336"/><text class="sub" x="290" y="322">from 0</text><text class="sub badt" x="255" y="396">0, 1, 2 run again</text><text class="sub" x="255" y="411">log still has 0–5</text></g>
+  <g class="f" data-f="7"><rect class="okb" x="20" y="440" width="300" height="32" rx="8"/><text class="ok-t" x="170" y="461">✓ Both: at-least-once. Make it idempotent.</text></g>
+captions:
+  - "A queue, like Amazon SQS. Worker 1 receives 4 messages. They stay in the queue, but other workers cannot see them for the visibility timeout: 30 seconds by default."
+  - "Worker 1 handles m1 and m2 and deletes each one. Then it handles m3, but it crashes before it can delete it."
+  - "After 30 seconds, m3 and m4 are visible again. Worker 2 receives them, so m3 runs twice. m1 and m2 are deleted, so they are gone for good."
+  - "A log, like one Kafka partition. Each message has an offset: 0, 1, 2 and so on. The group's committed offset is 0, so Worker A reads from offset 0."
+  - "Worker A handles offsets 0, 1 and 2. It plans to commit after the batch, but it crashes first. The committed offset is still 0."
+  - "Worker B, in the same consumer group, takes over the partition. It starts at the committed offset, so 0, 1 and 2 run again. Nothing was deleted. The log keeps every message until retention ends."
+  - "Both systems lost nothing, and both ran some work twice. That is at-least-once delivery. Your handler must be idempotent."

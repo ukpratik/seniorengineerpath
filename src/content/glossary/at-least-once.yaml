@@ -1,0 +1,4 @@
+id: at-least-once
+term: at-least-once
+forms: [at least once]
+short: A delivery promise. No message is lost, but some may be handled more than once.

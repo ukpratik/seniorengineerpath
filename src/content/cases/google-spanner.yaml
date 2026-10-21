@@ -1,0 +1,8 @@
+id: google-spanner
+company: "Google"
+title: "Spanner: a global database built on known clock error"
+lesson: "Spanner exposes clock uncertainty through its TrueTime API instead of hiding it. That lets it offer externally consistent transactions across the globe, plus lock-free read-only transactions."
+url: https://www.usenix.org/conference/osdi12/technical-sessions/presentation/corbett
+tags: [databases, consistency]
+lessons: [clocks-ordering, distributed-transactions, cap-consistency]
+verified: true

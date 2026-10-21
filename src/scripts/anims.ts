@@ -4,6 +4,8 @@
 import { simulateStampede, summary } from './sims/cache-stampede.ts';
 import { simulateRead } from './sims/replication-lag.ts';
 import { simulateRollout } from './sims/rollout.ts';
+import { simulateBucket, burstTraffic } from './sims/token-bucket.ts';
+import { modN, ring, keys, nodeNames, movedShare, loadShare } from './sims/hash-ring.ts';
 import { track } from './analytics.ts';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -57,7 +59,7 @@ function bars(values: number[], opts: { max: number; label: string; peak: string
     r.setAttribute('y', String(H - pad - h));
     r.setAttribute('width', String(Math.max(1, bw - 1.5)));
     r.setAttribute('height', String(h));
-    r.setAttribute('class', opts.cls ?? 'bar');
+    r.setAttribute('class', opts.cls ?? 'abar');
     svg.appendChild(r);
   });
   const axis = document.createElementNS(NS, 'line');
@@ -100,7 +102,7 @@ function cacheStampede(body: HTMLElement, used: () => void): void {
     chart.replaceChildren(
       bars(
         ticks.map((t) => t.inFlight),
-        { max: 100 * 6, label: 'Queries from one app server (3 seconds)', peak: `peak: ${s.peakInFlight} at once`, markAt: 8, markLabel: 'key expires', cls: coalesce.on() ? 'bar ok' : 'bar bad' },
+        { max: 100 * 6, label: 'Queries from one app server (3 seconds)', peak: `peak: ${s.peakInFlight} at once`, markAt: 8, markLabel: 'key expires', cls: coalesce.on() ? 'abar ok' : 'abar bad' },
       ),
     );
     res.textContent = coalesce.on()
@@ -153,7 +155,7 @@ function rollout(body: HTMLElement, used: () => void): void {
   let strategy: 'global' | 'staged' = 'global';
   const draw = () => {
     const r = simulateRollout({ strategy, stages: [1, 10, 50, 100], bakeMinutes: 10, detectMinutes: detect.value(), rollbackMinutes: 5, minutes: 60 });
-    chart.replaceChildren(bars(r.timeline.map((x) => x.affectedPct), { max: 100, label: 'Users getting errors, per minute (1 hour)', peak: `peak: ${r.peakPct}% of users`, markAt: r.fixedAt, markLabel: 'fixed', cls: strategy === 'global' ? 'bar bad' : 'bar ok' }));
+    chart.replaceChildren(bars(r.timeline.map((x) => x.affectedPct), { max: 100, label: 'Users getting errors, per minute (1 hour)', peak: `peak: ${r.peakPct}% of users`, markAt: r.fixedAt, markLabel: 'fixed', cls: strategy === 'global' ? 'abar bad' : 'abar ok' }));
     res.textContent = `Peak: ${r.peakPct}% of users get errors. Total harm: ${r.userMinutes.toLocaleString('en')} “user-percent minutes”. Fixed at minute ${r.fixedAt}.`;
   };
   const pick = (to: 'global' | 'staged') => {
@@ -172,7 +174,66 @@ function rollout(body: HTMLElement, used: () => void): void {
   draw();
 }
 
+// ---- token-bucket ----
+function tokenBucket(body: HTMLElement, used: () => void): void {
+  const cap = slider('Bucket size (biggest burst allowed):', 5, 100, 5, 20, 'tokens');
+  const rate = slider('Refill rate:', 10, 200, 10, 50, 'per second');
+  const burst = slider('Burst size at 1 second:', 0, 200, 10, 80, 'requests');
+  const chart = el('div', { class: 'anim-chart-wrap' });
+  const res = result();
+  const draw = () => {
+    // 3 seconds of steady traffic (3 requests per 100 ms = 30/s) with one burst.
+    const arrivals = burstTraffic(30, 3, 10, burst.value());
+    const t = simulateBucket({ capacity: cap.value(), refillPerSec: rate.value(), arrivals });
+    const rejected = t.reduce((n, x) => n + x.rejected, 0);
+    const allowed = t.reduce((n, x) => n + x.allowed, 0);
+    chart.replaceChildren(
+      bars(t.map((x) => x.rejected), { max: Math.max(10, ...arrivals), label: 'Rejected requests (429), per 100 ms', peak: `${rejected} rejected`, markAt: 10, markLabel: 'burst', cls: 'abar bad' }),
+      bars(t.map((x) => x.tokens), { max: cap.value(), label: 'Tokens left in the bucket', peak: `size ${cap.value()}`, cls: 'abar ok' }),
+    );
+    res.textContent = rejected
+      ? `${allowed} requests allowed, ${rejected} rejected with “429 Too Many Requests”. A bigger bucket allows bigger bursts; a faster refill allows more requests over time.`
+      : `All ${allowed} requests allowed. The bucket was big enough for the burst.`;
+    res.className = `anim-result ${rejected ? 'bad' : 'ok'}`;
+  };
+  for (const c of [cap, rate, burst]) c.input.addEventListener('input', () => (used(), draw()));
+  const ctrls = el('div', { class: 'anim-ctrls' });
+  ctrls.append(cap.wrap, rate.wrap, burst.wrap);
+  body.append(ctrls, chart, res);
+  draw();
+}
+
+// ---- hash-ring ----
+function hashRing(body: HTMLElement, used: () => void): void {
+  const n = slider('Servers now:', 2, 12, 1, 4, 'servers');
+  const v = slider('Virtual nodes per server (ring only):', 1, 200, 1, 100, 'points');
+  const table = el('div', { class: 'anim-compare' });
+  const chart = el('div', { class: 'anim-chart-wrap' });
+  const res = result();
+  const ks = keys(4000);
+  const draw = () => {
+    const before = nodeNames(n.value());
+    const after = nodeNames(n.value() + 1);
+    const mod = movedShare(modN(ks, before), modN(ks, after));
+    const rng = movedShare(ring(ks, before, v.value()), ring(ks, after, v.value()));
+    const pct = (x: number) => `${Math.round(x * 100)}%`;
+    table.innerHTML = `<div class="cmp bad"><b>${pct(mod)}</b><span>of keys move with <code>hash mod N</code></span></div><div class="cmp ok"><b>${pct(rng)}</b><span>of keys move with a hash ring</span></div>`;
+    const load = loadShare(ring(ks, after, v.value()), after);
+    chart.replaceChildren(
+      bars(load.map((x) => x.share * 100), { max: Math.max(...load.map((x) => x.share * 100)) * 1.1, label: `Share of keys per server on the ring (${after.length} servers)`, peak: `${pct(Math.min(...load.map((x) => x.share)))}–${pct(Math.max(...load.map((x) => x.share)))}`, cls: 'abar' }),
+    );
+    res.textContent = `Adding server ${after.length}: the ring moves about 1 in ${after.length} keys, all to the new server. ${v.value() < 10 ? 'With few virtual nodes, the load per server is uneven.' : 'With many virtual nodes, each server gets a similar share.'}`;
+  };
+  for (const c of [n, v]) c.input.addEventListener('input', () => (used(), draw()));
+  const ctrls = el('div', { class: 'anim-ctrls' });
+  ctrls.append(n.wrap, v.wrap);
+  body.append(ctrls, table, chart, res);
+  draw();
+}
+
 const VIEWS: Record<string, (body: HTMLElement, used: () => void) => void> = {
+  'token-bucket': tokenBucket,
+  'hash-ring': hashRing,
   'cache-stampede': cacheStampede,
   'replication-lag': replicationLag,
   rollout,

@@ -1,0 +1,4 @@
+id: virtual-node
+term: virtual node
+forms: [virtual nodes, vnode, vnodes]
+short: One of many points that a single server owns on a consistent hash ring. Many small points spread keys more evenly than one big one.

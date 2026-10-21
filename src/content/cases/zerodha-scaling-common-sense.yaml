@@ -1,0 +1,8 @@
+id: zerodha-scaling-common-sense
+company: "Zerodha"
+title: "Scaling a large broker with simple, boring choices"
+lesson: "Zerodha prefers simple, well-known tools over fashionable ones. The database is almost always the bottleneck, so they serve reads from Redis and use ETags to save bandwidth."
+url: https://zerodha.tech/blog/scaling-with-common-sense/
+tags: [scaling, architecture]
+lessons: [architecture-tradeoffs, redis, cdn-http-caching]
+verified: true

@@ -1,0 +1,8 @@
+id: instagram-sharded-ids
+company: "Instagram"
+title: "Making sortable 64-bit IDs inside sharded Postgres"
+lesson: "Each ID packs a timestamp, a logical shard number and a sequence, built by a Postgres function. IDs sort by time and need no central ID service."
+url: https://web.archive.org/web/20200113170828/https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c
+tags: [databases, sharding]
+lessons: [unique-ids, sharding]
+verified: true

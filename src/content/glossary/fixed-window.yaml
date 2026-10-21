@@ -1,0 +1,4 @@
+id: fixed-window
+term: fixed window
+forms: [fixed windows]
+short: A rate limit that counts requests in fixed blocks of time, like each calendar minute, and resets the count when a block ends.

@@ -1,0 +1,4 @@
+id: message-broker
+term: broker
+forms: [brokers, message broker, message brokers]
+short: A server that holds messages between the services that send them and the services that read them. SQS, RabbitMQ and Kafka are brokers.

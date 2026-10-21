@@ -1,0 +1,8 @@
+id: shopify-pods
+company: "Shopify"
+title: "Pods: splitting Shopify into isolated groups of shops"
+lesson: "Shopify groups shops into pods, each with its own datastores, while sharing app servers. A routing layer sends each request to the right pod, so one pod's failure stays inside it."
+url: https://shopify.engineering/a-pods-architecture-to-allow-shopify-to-scale
+tags: [architecture, scaling]
+lessons: [cell-architecture, multi-tenancy]
+verified: true

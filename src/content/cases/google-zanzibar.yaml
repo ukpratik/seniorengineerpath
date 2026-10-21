@@ -1,0 +1,8 @@
+id: google-zanzibar
+company: "Google"
+title: "Zanzibar: one consistent permission system for all of Google"
+lesson: "Zanzibar stores access rules as relationships and serves hundreds of services from one model. It respects the order of user actions, so a check never uses permissions older than the content."
+url: https://research.google/pubs/zanzibar-googles-consistent-global-authorization-system/
+tags: [security, architecture]
+lessons: [authorization-models, authn-authz]
+verified: true

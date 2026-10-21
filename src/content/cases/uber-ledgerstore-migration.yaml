@@ -1,0 +1,8 @@
+id: uber-ledgerstore-migration
+company: "Uber"
+title: "Moving a trillion ledger entries without downtime"
+lesson: "Uber moved all its payment ledger data from DynamoDB to an immutable ledger store. Shadow validation compared old and new answers, with clear accuracy targets so the team did not chase every false alarm."
+url: https://web.archive.org/web/20241019075157/https://www.uber.com/blog/migrating-from-dynamodb-to-ledgerstore/
+tags: [ledgers, migrations]
+lessons: [money-ledgers, migrations]
+verified: true

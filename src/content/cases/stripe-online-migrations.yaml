@@ -1,0 +1,8 @@
+id: stripe-online-migrations
+company: "Stripe"
+title: "Online data migrations in four safe steps"
+lesson: "Stripe dual-writes to old and new tables, moves reads, moves writes, then deletes the old data. Each step can be checked and reversed, so large migrations need no downtime."
+url: https://stripe.com/blog/online-migrations
+tags: [migrations, databases]
+lessons: [schema-migrations, migrations]
+verified: true

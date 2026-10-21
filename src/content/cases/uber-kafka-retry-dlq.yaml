@@ -1,0 +1,8 @@
+id: uber-kafka-retry-dlq
+company: "Uber"
+title: "Retry topics and dead-letter queues with Kafka"
+lesson: "Failed messages go to a chain of retry topics, then to a dead-letter topic, so the main consumer keeps moving. Errors stay visible and can be replayed without blocking real-time traffic."
+url: https://web.archive.org/web/20250114092008/https://www.uber.com/blog/reliable-reprocessing/
+tags: [messaging, reliability]
+lessons: [queues-vs-logs, resilience-patterns]
+verified: true

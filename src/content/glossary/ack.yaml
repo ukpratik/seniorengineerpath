@@ -1,0 +1,4 @@
+id: ack
+term: ack
+forms: [acks, acked, unacked]
+short: Short for acknowledgement. A message a consumer sends to say "I am done with this one", so the broker can stop tracking it.

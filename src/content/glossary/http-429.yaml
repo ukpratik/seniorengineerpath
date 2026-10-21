@@ -1,0 +1,4 @@
+id: http-429
+term: 429 Too Many Requests
+forms: ["429"]
+short: The HTTP status code a server returns when a client has sent too many requests in a given time.

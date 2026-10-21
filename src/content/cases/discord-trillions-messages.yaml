@@ -1,0 +1,8 @@
+id: discord-trillions-messages
+company: "Discord"
+title: "Moving trillions of messages from Cassandra to ScyllaDB"
+lesson: "Garbage-collection pauses and hot partitions made Cassandra painful to run. Discord moved to ScyllaDB and added Rust data services that merge identical reads, so one database query serves many users."
+url: https://discord.com/blog/how-discord-stores-trillions-of-messages
+tags: [databases, migrations]
+lessons: [cassandra, gc-tuning, caching-stampedes]
+verified: true

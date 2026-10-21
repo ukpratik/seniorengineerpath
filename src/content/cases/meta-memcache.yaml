@@ -1,0 +1,8 @@
+id: meta-memcache
+company: "Meta"
+title: "Scaling memcache to billions of requests a second"
+lesson: "Facebook turned memcached into a large distributed cache and coordinated it with the database. The paper shows how they traded strong consistency for speed, availability and simple operations."
+url: https://www.usenix.org/conference/nsdi13/technical-sessions/presentation/nishtala
+tags: [caching, scaling]
+lessons: [distributed-cache, caching-stampedes]
+verified: true

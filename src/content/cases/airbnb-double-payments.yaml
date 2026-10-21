@@ -1,0 +1,8 @@
+id: airbnb-double-payments
+company: "Airbnb"
+title: "Avoiding double payments with an idempotency library"
+lesson: "Airbnb built a shared idempotency library for payment services. It keeps database commits few, sorts errors into retryable and non-retryable, and lets failed requests heal through safe retries."
+url: https://web.archive.org/web/20250105181155/https://medium.com/airbnb-engineering/avoiding-double-payments-in-a-distributed-payments-system-2981f6b070bb
+tags: [payments, reliability]
+lessons: [idempotency-retries, payment-lifecycle]
+verified: true

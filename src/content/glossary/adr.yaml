@@ -1,0 +1,4 @@
+id: adr
+term: ADR
+forms: [ADRs, architecture decision record, architecture decision records]
+short: Short for "architecture decision record". A one- or two-page note, kept with the code, that records one decision, why it was made and what it costs.

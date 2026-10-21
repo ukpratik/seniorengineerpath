@@ -1,0 +1,8 @@
+id: stripe-canonical-log-lines
+company: "Stripe"
+title: "Canonical log lines: one rich log line per request"
+lesson: "At the end of each request, Stripe writes one line with the key facts: route, user, status, timing and query counts. Simple queries over these lines answer most questions during an incident."
+url: https://stripe.com/blog/canonical-log-lines
+tags: [observability]
+lessons: [observability-slos, debugging-production]
+verified: true

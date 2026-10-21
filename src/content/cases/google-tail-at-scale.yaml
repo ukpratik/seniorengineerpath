@@ -1,0 +1,8 @@
+id: google-tail-at-scale
+company: "Google"
+title: "The Tail at Scale: rare slowness becomes common at scale"
+lesson: "When one request fans out to many servers, a rare slow server slows most requests. Google argues you should build tail-tolerant systems, reusing fault-tolerance tricks to hide slow parts."
+url: https://research.google/pubs/the-tail-at-scale/
+tags: [performance, reliability]
+lessons: [tail-latency-queueing, fan-out]
+verified: true

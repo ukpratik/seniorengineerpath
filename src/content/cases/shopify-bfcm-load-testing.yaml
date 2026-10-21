@@ -1,0 +1,8 @@
+id: shopify-bfcm-load-testing
+company: "Shopify"
+title: "Load testing the whole platform before Black Friday"
+lesson: "Shopify scales its platform up to the expected peak, runs full load tests, studies the results and repeats. Doing this many times a year finds weak spots long before the real sale."
+url: https://shopify.engineering/scale-performance-testing
+tags: [performance, ecommerce]
+lessons: [load-testing, peak-readiness, capacity-planning]
+verified: true

@@ -1,0 +1,4 @@
+id: layer-4
+term: layer 4
+forms: [L4]
+short: The transport layer of a network (TCP and UDP). A layer 4 load balancer sees connections and ports, not HTTP requests.

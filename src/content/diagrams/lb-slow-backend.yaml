@@ -1,0 +1,20 @@
+id: lb-slow-backend
+title: "One slow server: round-robin keeps feeding it, least connections does not"
+viewBox: 0 0 340 470
+svg: |
+  <rect class="box" x="110" y="10" width="120" height="40" rx="10"/><text class="bt" x="170" y="35">Load balancer</text>
+  <line class="ln" x1="170" y1="52" x2="55" y2="88"/><line class="ln" x1="170" y1="52" x2="170" y2="88"/><line class="ln" x1="170" y1="52" x2="285" y2="88"/>
+  <rect class="box" x="10" y="92" width="90" height="40" rx="10"/><text class="bt" x="55" y="117">Server A</text>
+  <rect class="box" x="125" y="92" width="90" height="40" rx="10"/><text class="bt" x="170" y="117">Server B</text>
+  <rect class="box" x="240" y="92" width="90" height="40" rx="10"/><text class="bt" x="285" y="117">Server C</text>
+  <g class="f" data-f="1"><text class="sub" x="55" y="150">gets 1, 4, 7</text><text class="sub" x="170" y="150">gets 2, 5, 8</text><text class="sub" x="285" y="150">gets 3, 6, 9</text><text class="lb" x="170" y="176">A · round-robin: A, B, C, A, B, C…</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="15" y="190" width="80" height="26" rx="7"/><text class="rec-t" x="55" y="207">80 ms</text><rect class="rec" x="130" y="190" width="80" height="26" rx="7"/><text class="rec-t" x="170" y="207">80 ms</text><rect class="note" x="245" y="190" width="80" height="26" rx="7"/><text class="note-t" x="285" y="207">3 s</text><text class="sub" x="55" y="232">0 waiting</text><text class="sub" x="170" y="232">0 waiting</text><text class="sub" x="285" y="232">6 waiting</text></g>
+  <g class="f" data-f="3"><path class="xm" d="M279 242l12 12M291 242l-12 12"/><text class="sub badt" x="170" y="256">1 in 3 users waits seconds</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="272" x2="332" y2="272"/><text class="lb" x="170" y="296">B · least connections</text><rect class="rec" x="15" y="310" width="80" height="26" rx="7"/><text class="rec-t" x="55" y="327">1 open</text><rect class="rec" x="130" y="310" width="80" height="26" rx="7"/><text class="rec-t" x="170" y="327">1 open</text><rect class="note" x="245" y="310" width="80" height="26" rx="7"/><text class="note-t" x="285" y="327">6 open</text><text class="sub" x="170" y="358">next request: A or B, not C</text></g>
+  <g class="f" data-f="5"><text class="sub" x="55" y="384">most requests</text><text class="sub" x="170" y="384">most requests</text><text class="sub" x="285" y="384">only a few</text><rect class="okb" x="40" y="404" width="260" height="32" rx="8"/><text class="ok-t" x="170" y="425">✓ few users wait on C</text></g>
+captions:
+  - "Path A, round-robin. The load balancer sends requests to A, B and C in turn. Each server gets one request in three, no matter how busy it is."
+  - "Server C has a problem, such as a noisy neighbour, and each request now takes 3 seconds, not 80 ms. A and B finish their work fast. Requests pile up on C."
+  - "Round-robin does not look at load, so C still gets one request in three. About one user in three now waits seconds for a page."
+  - "Path B, least connections. Before each request, the load balancer checks how many requests are still open on each server. C has 6 open, A and B have 1, so the next request goes to A or B."
+  - "C gets a new request only when its count drops. A and B take most of the traffic. Few users wait on the slow server while you find out what is wrong with it."

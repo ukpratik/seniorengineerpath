@@ -1,0 +1,4 @@
+id: shard-key
+term: shard key
+forms: [shard keys, partition key, partition keys]
+short: The field, such as a user ID, that decides which shard a record lives on.

@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { simulateStampede, summary } from '../../src/scripts/sims/cache-stampede.ts';
 import { simulateRead } from '../../src/scripts/sims/replication-lag.ts';
 import { simulateRollout } from '../../src/scripts/sims/rollout.ts';
+import { simulateBucket, burstTraffic } from '../../src/scripts/sims/token-bucket.ts';
+import { modN, ring, keys, nodeNames, movedShare, loadShare } from '../../src/scripts/sims/hash-ring.ts';
 
 describe('cache stampede (SPEC § cache-stampede)', () => {
   const base = { ticks: 30, requestsPerTick: 50, expireAt: 10, recomputeTicks: 5 };
@@ -63,5 +65,49 @@ describe('rollout (SPEC § rollout)', () => {
     expect(r.timeline[19].affectedPct).toBe(10);
     expect(r.timeline[20].affectedPct).toBe(0);
     expect(r.peakPct).toBe(10);
+  });
+});
+
+
+describe('token bucket (SPEC § token-bucket)', () => {
+  it('allows a burst up to capacity, then rejects until tokens refill', () => {
+    const t = simulateBucket({ capacity: 10, refillPerSec: 10, arrivals: [0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 5] });
+    expect(t[2].allowed).toBe(10);
+    expect(t[2].rejected).toBe(15);
+    expect(t[11].allowed).toBe(5);
+    t.forEach((x, i) => expect(x.allowed + x.rejected).toBe([0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 5][i]));
+  });
+
+  it('long-run allowed rate never exceeds the refill rate (plus the first full bucket)', () => {
+    const arrivals = burstTraffic(100, 5, 50, 100); // 50 req/s offered, 10 s
+    const t = simulateBucket({ capacity: 20, refillPerSec: 30, arrivals });
+    const allowed = t.reduce((n, x) => n + x.allowed, 0);
+    expect(allowed).toBeLessThanOrEqual(20 + 30 * 10);
+    expect(t.every((x) => x.tokens >= 0 && x.tokens <= 20)).toBe(true);
+  });
+});
+
+describe('hash ring (SPEC § hash-ring)', () => {
+  const ks = keys(5000);
+  it('hash mod N moves most keys when a server is added', () => {
+    const moved = movedShare(modN(ks, nodeNames(4)), modN(ks, nodeNames(5)));
+    expect(moved).toBeGreaterThan(0.7);
+  });
+
+  it('a ring moves only about 1/(N+1) of the keys, and only to the new server', () => {
+    const before = ring(ks, nodeNames(4), 100);
+    const after = ring(ks, nodeNames(5), 100);
+    const moved = movedShare(before, after);
+    expect(moved).toBeGreaterThan(0.1);
+    expect(moved).toBeLessThan(0.3);
+    for (const [k, n] of before) if (after.get(k) !== n) expect(after.get(k)).toBe('server-5');
+  });
+
+  it('more virtual nodes give a more even load', () => {
+    const spread = (v: number) => {
+      const s = loadShare(ring(ks, nodeNames(5), v), nodeNames(5)).map((x) => x.share);
+      return Math.max(...s) - Math.min(...s);
+    };
+    expect(spread(200)).toBeLessThan(spread(1));
   });
 });

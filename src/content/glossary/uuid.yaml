@@ -1,0 +1,4 @@
+id: uuid
+term: UUID
+forms: [UUIDs]
+short: A 128-bit ID that any server can create on its own, with almost no chance of a clash. It is usually written as 36 letters, digits and dashes.

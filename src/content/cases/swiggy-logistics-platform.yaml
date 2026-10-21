@@ -1,0 +1,8 @@
+id: swiggy-logistics-platform
+company: "Swiggy"
+title: "Turning a delivery monolith into a logistics platform"
+lesson: "Swiggy's delivery monolith could not scale or support new businesses. They rebuilt it as a multi-tenant platform where a job is a chain of small tasks, which allowed multi-leg deliveries."
+url: https://web.archive.org/web/20240828152401/https://bytes.swiggy.com/re-architecting-swiggys-logistics-systems-ddf301a29fa0
+tags: [architecture, migrations]
+lessons: [monolith-microservices, multi-tenancy, ddd]
+verified: true

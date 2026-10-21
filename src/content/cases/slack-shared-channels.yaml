@@ -1,0 +1,8 @@
+id: slack-shared-channels
+company: "Slack"
+title: "Shared channels broke the one-workspace-per-shard rule"
+lesson: "Slack's backend assumed every piece of data belonged to one workspace and one shard. Letting two companies share a channel forced a rethink of how data and routing are partitioned."
+url: https://slack.engineering/how-slack-built-shared-channels/
+tags: [architecture, sharding]
+lessons: [multi-tenancy, sharding]
+verified: true

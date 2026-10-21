@@ -1,0 +1,4 @@
+id: round-robin
+term: round-robin
+forms: [round robin]
+short: A load balancing rule that gives each server the next request in turn, without looking at how busy it is.

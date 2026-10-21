@@ -1,0 +1,4 @@
+id: least-connections
+term: least connections
+forms: [least outstanding requests, least request]
+short: A load balancing rule that sends each request to the server with the fewest requests still in progress.

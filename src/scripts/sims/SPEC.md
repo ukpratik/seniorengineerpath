@@ -21,3 +21,16 @@ Sources: the safe-deploys lesson's incident postmortems (global config pushes) a
 - Staged: stage k reaches `stages[k]`% of users at minute `k × bakeMinutes`. When errors are detected, no new stage starts. Affected users stay at the last started stage until the rollback finishes.
 - After the fix, 0% are affected.
 - If detection is faster than the bake time, the peak equals the first stage.
+
+## token-bucket
+Source: the rate-limiting lesson's sources (Stripe "Scaling your API with rate limiters"; token bucket definition).
+- The bucket starts full (`capacity` tokens) and gains `refillPerSec / 10` tokens every 100 ms tick, never above `capacity`.
+- A request is allowed if a whole token is available, and takes one token; otherwise it is rejected (HTTP 429).
+- Allowed + rejected = arrivals in every tick.
+- A burst up to `capacity` is allowed at once; over a long time, allowed requests average at most `refillPerSec`.
+
+## hash-ring
+Sources: Karger et al. 1997 (consistent hashing); Amazon Dynamo 2007 (virtual nodes).
+- `hash mod N`: adding one server to N moves about N/(N+1) of the keys (most of them).
+- Consistent hash ring: adding one server moves only the keys it takes over, about 1/(N+1) of them. Keys never move between two old servers.
+- More virtual nodes per server make the share of keys per server more even.

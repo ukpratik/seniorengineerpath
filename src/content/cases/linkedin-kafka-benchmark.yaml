@@ -1,0 +1,8 @@
+id: linkedin-kafka-benchmark
+company: "LinkedIn"
+title: "How Kafka reached 2 million writes a second on cheap machines"
+lesson: "Kafka gets its speed from sequential disk I/O, the OS page cache and batching small records together. Throughput stayed steady as stored data grew, with mostly default settings."
+url: https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines
+tags: [messaging, performance]
+lessons: [kafka-internals, batching-pipelining]
+verified: true

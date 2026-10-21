@@ -1,0 +1,4 @@
+id: anycast
+term: anycast
+forms: []
+short: Announcing the same IP address from many places, so the network sends each user to the nearest one.

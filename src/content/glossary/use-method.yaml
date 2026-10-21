@@ -1,0 +1,4 @@
+id: use-method
+term: USE method
+forms: []
+short: "A checklist for resources like CPU, memory and disks: utilization (how busy), saturation (extra work it cannot handle yet, often queued) and errors."

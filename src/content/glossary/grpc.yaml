@@ -1,0 +1,4 @@
+id: grpc
+term: gRPC
+forms: []
+short: A framework for calls between services. A client calls a method on a remote server as if it were local, with the contract written in Protocol Buffers.

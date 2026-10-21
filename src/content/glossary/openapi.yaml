@@ -1,0 +1,4 @@
+id: openapi
+term: OpenAPI
+forms: [OpenAPI Specification, OpenAPI spec]
+short: A standard file format that describes an HTTP API, its endpoints, fields and errors. Tools use the file to make docs, client code and tests.

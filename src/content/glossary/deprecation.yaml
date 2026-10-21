@@ -1,0 +1,4 @@
+id: deprecation
+term: deprecation
+forms: [deprecate, deprecated]
+short: Marking a feature, field or API version as old and due for removal, while it still works, so users have time to move off it.

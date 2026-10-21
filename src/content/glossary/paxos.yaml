@@ -1,0 +1,4 @@
+id: paxos
+term: Paxos
+forms: [multi-Paxos]
+short: An older consensus algorithm by Leslie Lamport. A value is chosen in two phases, and each phase needs a majority of the servers.

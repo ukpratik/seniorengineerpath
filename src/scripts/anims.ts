@@ -6,6 +6,7 @@ import { simulateRead } from './sims/replication-lag.ts';
 import { simulateRollout } from './sims/rollout.ts';
 import { simulateBucket, burstTraffic } from './sims/token-bucket.ts';
 import { modN, ring, keys, nodeNames, movedShare, loadShare } from './sims/hash-ring.ts';
+import { simulateRaft, type RaftEvent } from './sims/raft-election.ts';
 import { track } from './analytics.ts';
 
 const NS = 'http://www.w3.org/2000/svg';
@@ -237,7 +238,88 @@ function hashRing(body: HTMLElement, used: () => void): void {
   draw();
 }
 
+// ---- raft-election ----
+function raftElection(body: HTMLElement, used: () => void): void {
+  const seg = el('div', { class: 'btn-row', role: 'group', 'aria-label': 'Cluster size' });
+  const b3 = el('button', { type: 'button', class: 'chip', 'aria-pressed': 'false' }, '3 servers');
+  const b5 = el('button', { type: 'button', class: 'chip', 'aria-pressed': 'true' }, '5 servers');
+  seg.append(b3, b5);
+  const acts = el('div', { class: 'btn-row' });
+  const stopLeader = el('button', { type: 'button', class: 'btn btn-primary' }, 'Stop the leader');
+  const stopOne = el('button', { type: 'button', class: 'btn btn-secondary' }, 'Stop one more server');
+  const again = el('button', { type: 'button', class: 'btn btn-ghost' }, 'Reset');
+  acts.append(stopLeader, stopOne, again);
+  const cluster = el('div', { class: 'raft-cluster', 'aria-hidden': 'true' });
+  const log = el('ol', { class: 'raft-log' });
+  const res = result();
+  let nodes = 5;
+  let stopped: number[] = [];
+  let seed = 1;
+  const name = (n: number) => `S${n + 1}`;
+  const say = (e: RaftEvent) => {
+    const at = `${e.t} ms`;
+    if (e.kind === 'stopped') return `${at}: ${name(e.node)} stops.`;
+    if (e.kind === 'timeout') return `${at}: ${name(e.node)} hears nothing, starts an election for term ${e.term} and votes for itself.`;
+    if (e.kind === 'vote') return `${at}: ${name(e.node)} votes for ${name(e.for!)} in term ${e.term}.`;
+    return `${at}: ${name(e.node)} has ${e.votes} of ${nodes} votes (a majority) and becomes leader of term ${e.term}.`;
+  };
+  const draw = () => {
+    const r = simulateRaft({ nodes, stopped, stopAt: 100, untilMs: 2500, seed });
+    // Picture: one circle per server, showing its role at the end.
+    cluster.innerHTML = '';
+    for (let n = 0; n < nodes; n++) {
+      const off = stopped.includes(n);
+      const lead = !off && (stopped.length ? r.leader === n : n === 0);
+      const c = el('div', { class: `rnode${off ? ' off' : ''}${lead ? ' lead' : ''}` });
+      c.innerHTML = `<b>${name(n)}</b><span>${off ? 'stopped' : lead ? 'leader' : 'follower'}</span>`;
+      cluster.appendChild(c);
+    }
+    log.innerHTML = '';
+    const shown = r.events.filter((e) => e.kind !== 'vote' || r.events.length < 14).slice(0, 12);
+    for (const e of shown) log.appendChild(el('li', { class: `ev-${e.kind}` }, say(e)));
+    if (!stopped.length) res.textContent = `${name(0)} is the leader of term 1. It sends a heartbeat every 50 ms, so nobody starts an election.`;
+    else if (r.leader === null)
+      res.textContent = `No leader. Only ${nodes - stopped.length} of ${nodes} servers are running, and a leader needs ${r.majority} votes. Elections keep failing (term ${r.term}), so the cluster cannot accept writes.`;
+    else res.textContent = `New leader: ${name(r.leader)} in term ${r.term}. ${nodes - stopped.length} of ${nodes} servers are running, enough for a majority of ${r.majority}.`;
+    res.className = `anim-result ${stopped.length && r.leader === null ? 'bad' : 'ok'}`;
+    stopLeader.disabled = stopped.includes(0);
+    stopOne.disabled = !stopped.includes(0) || stopped.length >= nodes - 1;
+  };
+  const size = (n: number) => {
+    nodes = n;
+    stopped = [];
+    b3.setAttribute('aria-pressed', String(n === 3));
+    b5.setAttribute('aria-pressed', String(n === 5));
+    used();
+    draw();
+  };
+  b3.addEventListener('click', () => size(3));
+  b5.addEventListener('click', () => size(5));
+  stopLeader.addEventListener('click', () => {
+    stopped = [0];
+    seed++;
+    used();
+    draw();
+  });
+  stopOne.addEventListener('click', () => {
+    stopped = [...stopped, stopped.length];
+    seed++;
+    used();
+    draw();
+  });
+  again.addEventListener('click', () => {
+    stopped = [];
+    used();
+    draw();
+  });
+  const ctrls = el('div', { class: 'anim-ctrls' });
+  ctrls.append(seg, acts);
+  body.append(ctrls, cluster, res, log);
+  draw();
+}
+
 const VIEWS: Record<string, (body: HTMLElement, used: () => void) => void> = {
+  'raft-election': raftElection,
   'token-bucket': tokenBucket,
   'hash-ring': hashRing,
   'cache-stampede': cacheStampede,

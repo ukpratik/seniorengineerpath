@@ -1,0 +1,4 @@
+id: problem-details
+term: problem details
+forms: []
+short: A standard JSON shape for API error bodies, defined in RFC 9457. It has fields such as type, title, status and detail, so clients can handle every error the same way.

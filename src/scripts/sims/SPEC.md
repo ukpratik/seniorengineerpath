@@ -34,3 +34,14 @@ Sources: Karger et al. 1997 (consistent hashing); Amazon Dynamo 2007 (virtual no
 - `hash mod N`: adding one server to N moves about N/(N+1) of the keys (most of them).
 - Consistent hash ring: adding one server moves only the keys it takes over, about 1/(N+1) of them. Keys never move between two old servers.
 - More virtual nodes per server make the share of keys per server more even.
+
+## raft-election
+Source: Ongaro & Ousterhout, "In Search of an Understandable Consensus Algorithm" (2014), §5.2 Leader election and Figure 2. Elections only; logs are assumed equally up to date.
+- Node 0 starts as leader in term 1 and sends heartbeats; followers that hear a heartbeat reset their random election timeout (150–300 ms).
+- A follower whose timeout passes becomes a candidate: it adds 1 to its term, votes for itself and asks the others for votes.
+- A server grants at most one vote per term (to the first candidate that asks in that term).
+- A server that sees a higher term becomes a follower in that term.
+- A candidate becomes leader only with votes from a majority of the whole cluster (⌊N/2⌋+1), counting stopped servers in N.
+- Safety: at most one leader is elected per term.
+- With 5 servers, stopping 2 (including the leader) still elects a new leader; stopping 3 never does. With 3 servers, stopping 1 elects a new leader; stopping 2 never does.
+- The new election starts no sooner than the minimum timeout after the last heartbeat.

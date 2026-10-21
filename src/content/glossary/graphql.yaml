@@ -1,0 +1,4 @@
+id: graphql
+term: GraphQL
+forms: []
+short: A query language for APIs. The client asks for exactly the fields it needs, often from many resources in one request.

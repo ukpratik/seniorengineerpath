@@ -1,0 +1,4 @@
+id: flp-result
+term: FLP result
+forms: [FLP]
+short: A 1985 proof by Fischer, Lynch and Paterson. In an asynchronous system, no consensus protocol is sure to finish if even one process may be faulty.

@@ -1,0 +1,4 @@
+id: commit-index
+term: commit index
+forms: []
+short: In Raft, the position of the last log entry known to be stored on a majority of servers. Entries up to it are safe to apply.

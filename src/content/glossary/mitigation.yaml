@@ -1,0 +1,4 @@
+id: mitigation
+term: mitigation
+forms: [mitigate, mitigates, mitigated, mitigating]
+short: An action that stops or reduces harm to users quickly, like a rollback, before you know the exact cause.

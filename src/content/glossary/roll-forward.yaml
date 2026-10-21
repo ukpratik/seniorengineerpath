@@ -1,0 +1,4 @@
+id: roll-forward
+term: roll forward
+forms: [rolling forward, rolled forward]
+short: Fixing a bad release by shipping a new fix, not by going back to the old version.

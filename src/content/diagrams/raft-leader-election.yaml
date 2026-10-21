@@ -1,0 +1,25 @@
+id: raft-leader-election
+title: "A Raft election: the leader stops, a follower wins term 2, and the logs catch up"
+viewBox: 0 0 340 550
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="540"/><line class="life" x1="170" y1="54" x2="170" y2="540"/><line class="life" x1="285" y1="54" x2="285" y2="540"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Server 1</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Server 2</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Server 3</text>
+  <rect class="rec" x="10" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="55" y="78">log: x=1</text>
+  <rect class="rec" x="125" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="78">log: x=1</text>
+  <rect class="rec" x="240" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="285" y="78">log: x=1</text>
+  <text class="sub" x="55" y="102">leader · term 1</text><text class="sub" x="170" y="102">follower</text><text class="sub" x="285" y="102">follower</text>
+  <g class="f" data-f="1"><path class="xm" d="M48 116l14 14M62 116l-14 14"/><text class="sub badt" x="55" y="150">stops</text><text class="sub" x="55" y="166">no heartbeats</text></g>
+  <g class="f" data-f="2"><rect class="note" x="118" y="160" width="104" height="26" rx="7"/><text class="note-t" x="170" y="177">timer runs out</text><text class="sub" x="170" y="204">candidate · term 2</text><text class="sub" x="170" y="220">votes for itself</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="172" y1="256" x2="281" y2="256"/><text class="lb" x="227" y="247">RequestVote</text><text class="sub" x="227" y="273">term 2 · log x=1</text><line class="ln lost" x1="168" y1="256" x2="59" y2="256"/><text class="lb" x="112" y="247">RequestVote</text><text class="sub badt" x="112" y="273">no answer</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="283" y1="304" x2="174" y2="304"/><text class="lb" x="227" y="296">vote: yes</text><text class="sub" x="227" y="320">log not newer</text><rect class="okb" x="112" y="330" width="116" height="28" rx="8"/><text class="ok-t" x="170" y="349">leader · term 2</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="172" y1="384" x2="281" y2="384"/><text class="lb" x="227" y="376">AppendEntries</text><text class="sub" x="227" y="400">heartbeat + y=2</text><rect class="rec" x="125" y="408" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="424">x=1, y=2</text><rect class="rec" x="240" y="408" width="90" height="24" rx="7"/><text class="rec-t" x="285" y="424">x=1, y=2</text><text class="sub" x="227" y="450">2 of 3 · committed</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="168" y1="476" x2="59" y2="476"/><text class="lb" x="112" y="468">AppendEntries</text><text class="sub" x="112" y="492">term 2 · y=2</text><rect class="rec" x="10" y="500" width="90" height="24" rx="7"/><text class="rec-t" x="55" y="516">x=1, y=2</text><text class="sub" x="55" y="540">follower again</text></g>
+captions:
+  - "Server 1 is the leader in term 1. All three logs hold x=1. Then server 1 stops, so its heartbeats stop too."
+  - "Each follower waits a random time. Server 2's election timeout runs out first. It moves to term 2, becomes a candidate and votes for itself."
+  - "Server 2 asks the others for a vote. The request says its term and its last log entry. Server 1 is down and does not answer."
+  - "Server 3 has not voted in term 2, and server 2's log is not behind its own. So it says yes. Two votes out of three is a majority: server 2 is the new leader."
+  - "The new leader sends heartbeats at once, so no one else starts an election. A client writes y=2. It is stored on 2 of 3 servers, so it is committed."
+  - "Server 1 restarts as a follower. It sees term 2 in the leader's message and accepts it. The leader sends the missing entry, and server 1's log catches up."

@@ -1,0 +1,4 @@
+id: raft
+term: Raft
+forms: []
+short: A consensus algorithm. One elected leader copies its log of changes to the other servers, and a change counts once a majority has stored it. etcd and Consul use it.

@@ -1,0 +1,4 @@
+id: cursor-pagination
+term: cursor pagination
+forms: [cursor-based pagination]
+short: A way to page through a list where each answer gives an opaque token, the cursor. The client sends it back to get the items after that point.

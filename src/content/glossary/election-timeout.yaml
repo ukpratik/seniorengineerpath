@@ -1,0 +1,4 @@
+id: election-timeout
+term: election timeout
+forms: [election timeouts]
+short: How long a Raft follower waits without hearing from a leader before it starts an election. Each server picks it at random.

@@ -467,3 +467,11 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 .js .ans{display:none}
 html:not(.js) [data-toc-open],html:not(.js) [data-done],html:not(.js) [data-clarity],html:not(.js) [data-export-prompt]{display:none!important}
 .review .ai-note{display:inline;font-size:var(--fs-sm)}
+.raft-cluster{display:flex;flex-wrap:wrap;gap:8px}
+.rnode{display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--surface);border:3px solid var(--border-strong);font-size:12px;font-weight:var(--fw-bold);color:var(--text-2)}
+.rnode b{font-size:16px;color:var(--text)}
+.rnode.lead{border-color:var(--done);background:var(--done-soft)}
+.rnode.off{border-style:dashed;opacity:.55}
+.raft-log{margin:0;padding-left:1.3em;font-size:var(--fs-sm);display:grid;gap:4px}
+.raft-log .ev-leader{font-weight:var(--fw-bold);color:var(--done)}
+.raft-log .ev-stopped{color:var(--bad)}

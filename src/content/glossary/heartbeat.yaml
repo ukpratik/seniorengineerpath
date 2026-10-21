@@ -1,0 +1,4 @@
+id: heartbeat
+term: heartbeat
+forms: [heartbeats]
+short: A small message sent again and again to say "I am still alive". If heartbeats stop, others assume the sender has failed.

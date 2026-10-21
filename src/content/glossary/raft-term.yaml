@@ -1,0 +1,4 @@
+id: raft-term
+term: Raft term
+forms: [Raft terms]
+short: A numbered period of time in Raft. Each term starts with an election and has at most one leader. A higher term always wins.

@@ -1,0 +1,19 @@
+id: debug-incident-loop
+title: "Debugging a production incident: stop the harm first, then find the cause"
+viewBox: 0 0 340 436
+svg: |
+  <g class="f" data-f="1"><rect class="note" x="22" y="10" width="186" height="40" rx="10"/><text class="note-t" x="115" y="35">1 · Alert fires</text><text class="sub badt" x="276" y="27">checkout errors</text><text class="sub badt" x="276" y="43">0.2% → 6%</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="115" y1="52" x2="115" y2="68"/><rect class="box" x="22" y="72" width="186" height="40" rx="10"/><text class="bt" x="115" y="97">2 · Mitigate first</text><text class="sub" x="276" y="89">roll back, flag off</text><text class="sub" x="276" y="105">or shed load</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="115" y1="114" x2="115" y2="130"/><rect class="box" x="22" y="134" width="186" height="40" rx="10"/><text class="bt" x="115" y="159">3 · What changed?</text><text class="sub" x="276" y="151">deploys · config</text><text class="sub" x="276" y="167">traffic · dependencies</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="115" y1="176" x2="115" y2="192"/><rect class="box" x="22" y="196" width="186" height="40" rx="10"/><text class="bt" x="115" y="221">4 · One hypothesis</text><text class="sub" x="276" y="213">a guess that a test</text><text class="sub" x="276" y="229">can prove wrong</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="115" y1="238" x2="115" y2="254"/><rect class="box" x="22" y="258" width="186" height="40" rx="10"/><text class="bt" x="115" y="283">5 · Test it</text><text class="sub" x="276" y="275">split by version,</text><text class="sub" x="276" y="291">region, tenant, time</text><path class="ln lost" d="M22 278 H9 V216 H17"/></g>
+  <g class="f" data-f="6"><line class="ln" x1="115" y1="300" x2="115" y2="316"/><rect class="rec" x="22" y="320" width="186" height="40" rx="10"/><text class="rec-t" x="115" y="345">6 · Root cause found</text><text class="sub" x="276" y="337">often several</text><text class="sub" x="276" y="353">causes together</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="115" y1="362" x2="115" y2="378"/><rect class="okb" x="22" y="382" width="186" height="40" rx="10"/><text class="ok-t" x="115" y="407">7 · Postmortem actions</text><text class="sub" x="276" y="399">each fix has an</text><text class="sub" x="276" y="415">owner and a date</text></g>
+captions:
+  - "An SLO alert pages you. The error rate on checkout has jumped from 0.2% to 6%. Users are failing to pay right now."
+  - "Do not hunt for the cause yet. First make users safe: roll back the last deploy, turn off a feature flag, or shed load. Keep some logs and one bad host for later."
+  - "Ask what changed just before the errors started. Look at deploys, config and flags, traffic, and the services you depend on."
+  - "Pick the most likely explanation and write it down as one hypothesis. A good hypothesis says what you should see if it is true."
+  - "Test it. Split the errors by version, region, tenant or time. If the data says no, go back and try the next hypothesis. A clear no is useful too."
+  - "The data agrees, and you can explain the whole story. Often it is not one cause but several conditions that met at the same time."
+  - "Write a blameless postmortem. Each action, like a validation check or a kill switch, gets an owner and a date, so the same failure is less likely to come back."

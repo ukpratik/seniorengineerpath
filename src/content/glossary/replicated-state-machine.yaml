@@ -1,0 +1,4 @@
+id: replicated-state-machine
+term: replicated state machine
+forms: [replicated state machines]
+short: Several servers that run the same commands in the same order from a shared log, so they all end up with the same state.

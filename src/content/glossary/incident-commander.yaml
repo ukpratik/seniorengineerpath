@@ -1,0 +1,4 @@
+id: incident-commander
+term: incident commander
+forms: [incident commanders]
+short: The person who leads an incident. They hold the overall picture and give out the work, but do not fix things themselves.

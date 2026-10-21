@@ -1,0 +1,4 @@
+id: consensus-algorithm
+term: consensus algorithm
+forms: [consensus algorithms, consensus protocol, consensus protocols]
+short: A way for a group of machines to agree on one value or one order of changes, even when some of them fail. Raft and Paxos are examples.

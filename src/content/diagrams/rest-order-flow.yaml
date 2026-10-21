@@ -1,0 +1,18 @@
+id: rest-order-flow
+title: "One order through a REST API: create, read, list, and a clear error"
+viewBox: 0 0 340 490
+svg: |
+  <line class="life" x1="60" y1="54" x2="60" y2="424"/><line class="life" x1="280" y1="54" x2="280" y2="424"/>
+  <rect class="box" x="10" y="10" width="100" height="44" rx="10"/><text class="bt" x="60" y="37">Phone app</text>
+  <rect class="box" x="230" y="10" width="100" height="44" rx="10"/><text class="bt" x="280" y="37">Orders API</text>
+  <g class="f" data-f="1"><line class="ln" x1="62" y1="95" x2="276" y2="95"/><text class="lb" x="170" y="86">POST /orders</text><text class="sub" x="170" y="112">Idempotency-Key: k-91</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="278" y1="150" x2="64" y2="150"/><text class="lb" x="170" y="141">201 Created</text><text class="sub" x="170" y="167">Location: /orders/ord_42</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="62" y1="205" x2="276" y2="205"/><text class="lb" x="170" y="196">GET /orders/ord_42</text><line class="ln" x1="278" y1="238" x2="64" y2="238"/><text class="lb" x="170" y="229">200 OK · the order</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="62" y1="285" x2="276" y2="285"/><text class="lb" x="170" y="276">GET /orders?limit=20</text><line class="ln" x1="278" y1="318" x2="64" y2="318"/><text class="lb" x="170" y="309">200 OK · 20 orders</text><text class="sub" x="170" y="335">next_cursor: c_7Hq</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="62" y1="375" x2="276" y2="375"/><text class="lb" x="170" y="366">PATCH /orders/ord_42</text><text class="sub" x="170" y="392">quantity: -1</text><line class="ln lost" x1="278" y1="416" x2="64" y2="416"/><text class="lb badt" x="170" y="408">422 Unprocessable Content</text><rect class="note" x="15" y="430" width="310" height="50" rx="8"/><text class="note-t" x="170" y="450">type: …/problems/bad-quantity</text><text class="note-t" x="170" y="470">detail: quantity must be 1 or more</text></g>
+captions:
+  - "The app creates an order. It sends POST to the orders collection with a new idempotency key, k-91. If it must retry, it sends the same key again."
+  - "The server creates the order and answers 201 Created. The Location header gives the address of the new order, /orders/ord_42."
+  - "The app reads the order with GET. GET is safe and idempotent: it asks for no change, so the app can repeat it if a request fails."
+  - "The app lists orders, 20 at a time. The answer has a cursor, next_cursor. The app sends it back to get the next 20."
+  - "The app sends a bad change: quantity -1. The server answers 422 with a problem details body. The type says what kind of error it is. The detail helps the client fix it."

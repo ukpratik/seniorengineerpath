@@ -1,0 +1,4 @@
+id: bisection
+term: bisection
+forms: [bisect, bisects, bisected, bisecting]
+short: Finding a problem by splitting the search space in half again and again, for example by time, version or region.

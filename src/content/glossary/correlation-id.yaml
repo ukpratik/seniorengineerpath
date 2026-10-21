@@ -1,0 +1,4 @@
+id: correlation-id
+term: correlation ID
+forms: [correlation IDs]
+short: An ID attached to one request and passed to every service it touches, so you can find all of its logs and spans. A trace ID is one kind.

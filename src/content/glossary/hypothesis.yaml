@@ -1,0 +1,4 @@
+id: hypothesis
+term: hypothesis
+forms: [hypotheses]
+short: A guess about the cause of a problem that a test can prove wrong, for example "the new pool size is too small".

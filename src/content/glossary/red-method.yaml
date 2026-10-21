@@ -1,0 +1,4 @@
+id: red-method
+term: RED method
+forms: []
+short: "A checklist for services: rate (requests per second), errors (how many fail) and duration (how long they take)."

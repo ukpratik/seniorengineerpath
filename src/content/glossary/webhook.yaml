@@ -1,0 +1,4 @@
+id: webhook
+term: webhook
+forms: [webhooks]
+short: An HTTP request that a server sends to your endpoint when an event happens, so you do not have to keep asking for changes.

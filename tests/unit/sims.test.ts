@@ -4,6 +4,7 @@ import { simulateRead } from '../../src/scripts/sims/replication-lag.ts';
 import { simulateRollout } from '../../src/scripts/sims/rollout.ts';
 import { simulateBucket, burstTraffic } from '../../src/scripts/sims/token-bucket.ts';
 import { modN, ring, keys, nodeNames, movedShare, loadShare } from '../../src/scripts/sims/hash-ring.ts';
+import { simulateRaft } from '../../src/scripts/sims/raft-election.ts';
 
 describe('cache stampede (SPEC § cache-stampede)', () => {
   const base = { ticks: 30, requestsPerTick: 50, expireAt: 10, recomputeTicks: 5 };
@@ -109,5 +110,53 @@ describe('hash ring (SPEC § hash-ring)', () => {
       return Math.max(...s) - Math.min(...s);
     };
     expect(spread(200)).toBeLessThan(spread(1));
+  });
+});
+
+
+describe('raft election (SPEC § raft-election)', () => {
+  const base = { stopAt: 100, untilMs: 3000 };
+
+  it('elects a new leader after the leader stops, with a majority of the whole cluster', () => {
+    for (let seed = 1; seed <= 50; seed++) {
+      const r = simulateRaft({ ...base, nodes: 5, stopped: [0], seed });
+      expect(r.leader).not.toBeNull();
+      expect(r.leader).not.toBe(0);
+      const win = r.events.find((e) => e.kind === 'leader')!;
+      expect(win.votes).toBeGreaterThanOrEqual(3);
+      expect(win.t).toBeGreaterThanOrEqual(base.stopAt + 150 - 50); // no sooner than min timeout after the last heartbeat
+    }
+  });
+
+  it('never elects two leaders in the same term, and nobody votes twice in a term', () => {
+    for (let seed = 1; seed <= 200; seed++) {
+      for (const [nodes, stopped] of [[5, [0]], [5, [0, 1]], [3, [0]]] as const) {
+        const r = simulateRaft({ ...base, nodes, stopped: [...stopped], seed });
+        const leadersPerTerm = new Map<number, number>();
+        for (const e of r.events.filter((x) => x.kind === 'leader')) leadersPerTerm.set(e.term, (leadersPerTerm.get(e.term) ?? 0) + 1);
+        expect([...leadersPerTerm.values()].every((n) => n === 1)).toBe(true);
+        const votes = new Set<string>();
+        for (const e of r.events.filter((x) => x.kind === 'vote')) {
+          const k = `${e.node}:${e.term}`;
+          expect(votes.has(k)).toBe(false);
+          votes.add(k);
+        }
+      }
+    }
+  });
+
+  it('survives a minority of failures but not a majority', () => {
+    for (let seed = 1; seed <= 30; seed++) {
+      expect(simulateRaft({ ...base, nodes: 5, stopped: [0, 1], seed }).leader).not.toBeNull();
+      expect(simulateRaft({ ...base, nodes: 5, stopped: [0, 1, 2], seed }).leader).toBeNull();
+      expect(simulateRaft({ ...base, nodes: 3, stopped: [0], seed }).leader).not.toBeNull();
+      expect(simulateRaft({ ...base, nodes: 3, stopped: [0, 1], seed }).leader).toBeNull();
+    }
+  });
+
+  it('keeps the same leader while it is healthy', () => {
+    const r = simulateRaft({ ...base, nodes: 5, stopped: [], seed: 7 });
+    expect(r.leader).toBe(0);
+    expect(r.events.filter((e) => e.kind === 'timeout')).toEqual([]);
   });
 });

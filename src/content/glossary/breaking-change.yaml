@@ -1,0 +1,4 @@
+id: breaking-change
+term: breaking change
+forms: [breaking changes]
+short: A change to an API or data format that makes existing clients fail, such as removing or renaming a field.

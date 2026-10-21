@@ -28,6 +28,14 @@ export function rankEntries<T extends { title: string; excerpt: string }>(items:
   return items.map((it, i) => ({ it, i, s: score(it) })).sort((a, b) => b.s - a.s || a.i - b.i).map((x) => x.it);
 }
 
+// Pagefind's fuzzy matching can match a long query to a lone letter ("Z." for "zzqqxx").
+// Drop a result when every highlighted match is much shorter than the query.
+export function weakMatch(excerpt: string, q: string): boolean {
+  const longest = Math.max(...q.trim().split(/\s+/).map((w) => w.length));
+  const marks = [...excerpt.matchAll(/<mark>([^<]*)<\/mark>/g)].map((m) => m[1].replace(/[^\p{L}\p{N}]/gu, ''));
+  return longest > 3 && marks.length > 0 && marks.every((m) => m.length <= 2);
+}
+
 function bucket(n: number): string {
   return n === 0 ? '0' : n <= 3 ? '1-3' : n <= 10 ? '4-10' : '11+';
 }
@@ -80,7 +88,7 @@ export function initSearch(): void {
     const res = await m.debouncedSearch(q, {}, 200);
     if (!res) return; // a newer query replaced this one
     out.removeAttribute('aria-busy');
-    const data = await Promise.all(res.results.slice(0, 30).map((r) => r.data()));
+    const data = (await Promise.all(res.results.slice(0, 30).map((r) => r.data()))).filter((d) => !weakMatch(d.excerpt, q));
     if (!data.length) {
       showNone(q);
       return;

@@ -77,3 +77,14 @@ test('replication lag: labels stay inside their lanes at any setting (BUG-016)',
     expect(outside).toBe(0);
   }
 });
+
+test('raft election: a majority elects a new leader; a minority cannot', async ({ page }) => {
+  await page.goto('/learn/consensus-and-raft');
+  const w = page.locator('[data-anim="raft-election"]');
+  await expect(w.locator('.anim-result')).toContainText('S1 is the leader of term 1');
+  await w.getByRole('button', { name: 'Stop the leader' }).click();
+  await expect(w.locator('.anim-result')).toContainText('New leader');
+  await w.getByRole('button', { name: 'Stop one more server' }).click();
+  await w.getByRole('button', { name: 'Stop one more server' }).click();
+  await expect(w.locator('.anim-result')).toContainText('No leader');
+});

@@ -1,0 +1,4 @@
+id: b-tree
+term: B-tree
+forms: [B-trees]
+short: "A sorted tree of fixed-size pages on disk. The database changes pages in place. Most SQL databases use it for indexes."

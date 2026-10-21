@@ -1,0 +1,4 @@
+id: page-split
+term: page split
+forms: [page splits]
+short: "What a B-tree does when a new key does not fit in a full page: it moves some keys to a new page and adds a pointer in the parent page."

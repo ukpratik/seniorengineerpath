@@ -1,0 +1,4 @@
+id: saga
+term: saga
+forms: [sagas]
+short: A chain of small local transactions across services. If a later step fails, earlier steps are undone by compensating transactions.

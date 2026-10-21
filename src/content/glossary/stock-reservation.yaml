@@ -1,0 +1,4 @@
+id: stock-reservation
+term: reservation
+forms: [reservations, stock reservation, stock reservations]
+short: Stock held for one buyer for a short time, for example during checkout. It is released if the buyer does not pay in time.

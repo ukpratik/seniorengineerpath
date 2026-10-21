@@ -1,0 +1,4 @@
+id: write-amplification
+term: write amplification
+forms: []
+short: "How many bytes a storage engine writes to disk for each byte your app writes. Higher means more background disk work."

@@ -1,0 +1,4 @@
+id: bloom-filter
+term: Bloom filter
+forms: [Bloom filters]
+short: "A small data structure that says a key is surely not in a set, or may be in it. It is never wrong about \"not\"."

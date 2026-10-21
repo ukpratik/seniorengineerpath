@@ -1,0 +1,4 @@
+id: pacelc
+term: PACELC
+forms: []
+short: "An extension of CAP. During a partition (P), choose availability (A) or consistency (C). Else (E), choose latency (L) or consistency (C)."

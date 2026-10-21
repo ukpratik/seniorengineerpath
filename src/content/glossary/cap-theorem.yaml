@@ -1,0 +1,4 @@
+id: cap-theorem
+term: CAP theorem
+forms: [CAP]
+short: "A proof that during a network partition, a replicated system cannot be both consistent (linearizable) and available. Each cut-off node must choose."

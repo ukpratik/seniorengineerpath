@@ -1,0 +1,4 @@
+id: sstable
+term: SSTable
+forms: [SSTables, sorted string table]
+short: "A sorted file on disk that an LSM-tree writes once and never changes. New data goes into new SSTables."

@@ -1,0 +1,26 @@
+id: saga-outbox
+title: "An order saga fails at payment and unwinds, then the outbox sends the event safely"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="300"/><line class="life" x1="170" y1="54" x2="170" y2="300"/><line class="life" x1="285" y1="54" x2="285" y2="300"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Order saga</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Inventory</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Payments</text>
+  <g class="f" data-f="1"><rect class="rec" x="7" y="66" width="96" height="26" rx="7"/><text class="rec-t" x="55" y="83">order: pending</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="57" y1="114" x2="166" y2="114"/><text class="lb" x="112" y="105">reserve 1 item</text><rect class="rec" x="122" y="124" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="141">1 held</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="172" x2="281" y2="172"/><text class="lb" x="227" y="163">charge ₹1,499</text><path class="xm" d="M278 180l14 14M292 180l-14 14"/><text class="sub badt" x="285" y="212">declined</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="57" y1="234" x2="166" y2="234"/><text class="lb" x="112" y="225">release item</text><rect class="rec" x="122" y="244" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="261">0 held</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="7" y="272" width="96" height="26" rx="7"/><text class="rec-t" x="55" y="289">cancelled</text><text class="sub" x="227" y="289">undo, newest first</text></g>
+  <text class="lb" x="170" y="326">Outbox: one write, then a relay</text>
+  <g class="f" data-f="6"><rect class="box" x="5" y="338" width="120" height="96" rx="10"/><text class="bt" x="65" y="358">Order DB</text><rect class="rec" x="13" y="368" width="104" height="24" rx="7"/><text class="rec-t" x="65" y="384">order row</text><rect class="rec" x="13" y="398" width="104" height="24" rx="7"/><text class="rec-t" x="65" y="414">outbox row</text><text class="sub" x="65" y="452">one transaction</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="127" y1="386" x2="146" y2="386"/><rect class="box" x="148" y="364" width="78" height="44" rx="10"/><text class="bt" x="187" y="391">Relay</text><text class="sub" x="187" y="426">reads the log</text></g>
+  <g class="f" data-f="8"><line class="ln" x1="228" y1="386" x2="246" y2="386"/><rect class="box" x="248" y="364" width="87" height="44" rx="10"/><text class="bt" x="291" y="391">Topic</text><rect class="okb" x="148" y="436" width="187" height="28" rx="8"/><text class="ok-t" x="241" y="455">✓ sent only if saved</text></g>
+captions:
+  - "Priya places order 42. The order saga saves it in the order database with the state pending. Each step from here is its own local transaction."
+  - "The saga asks Inventory to hold one item. Inventory commits that in its own database. Nothing is locked across services."
+  - "The saga asks Payments to charge ₹1,499. The card is declined. There is no global rollback, so the saga must undo the earlier steps itself."
+  - "First compensating action: the saga tells Inventory to release the item. Inventory commits a new change. It does not erase history."
+  - "Second compensating action: the saga marks the order cancelled. Steps are undone in reverse order. Priya sees a clear message, not a stuck order."
+  - "How does each step send its event safely? The Order service writes the order row and an outbox row in the same database transaction. Both are saved, or neither is."
+  - "A separate relay reads new outbox rows. A CDC tool like Debezium does this by reading the database's change log, not by polling the table."
+  - "The relay publishes the event to a topic. If the transaction rolled back, there is no outbox row, so no event. The relay may send a row twice, so consumers skip duplicate event IDs."

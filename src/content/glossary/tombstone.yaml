@@ -1,0 +1,4 @@
+id: tombstone
+term: tombstone
+forms: [tombstones]
+short: "A marker that says a key was deleted. Stores that never change old files write it instead of removing data, and clean it up later."

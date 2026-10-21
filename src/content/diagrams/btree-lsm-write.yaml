@@ -1,0 +1,31 @@
+id: btree-lsm-write
+title: "One write in an LSM-tree, and one page split in a B-tree"
+viewBox: 0 0 340 500
+svg: |
+  <text class="lb" x="170" y="16">LSM-tree</text>
+  <line class="life" x1="55" y1="62" x2="55" y2="280"/><line class="life" x1="170" y1="62" x2="170" y2="280"/><line class="life" x1="285" y1="62" x2="285" y2="280"/>
+  <rect class="box" x="5" y="26" width="100" height="36" rx="10"/><text class="bt" x="55" y="49">WAL (disk)</text>
+  <rect class="box" x="120" y="26" width="100" height="36" rx="10"/><text class="bt" x="170" y="49">Memtable</text>
+  <rect class="box" x="235" y="26" width="100" height="36" rx="10"/><text class="bt" x="285" y="49">SSTables</text>
+  <rect class="rec" x="240" y="70" width="90" height="24" rx="7"/><text class="rec-t" x="285" y="86">SST 1</text>
+  <rect class="rec" x="240" y="100" width="90" height="24" rx="7"/><text class="rec-t" x="285" y="116">SST 2</text>
+  <g class="f" data-f="1"><rect class="rec" x="10" y="72" width="90" height="24" rx="7"/><text class="rec-t" x="55" y="88">… + k=42</text><text class="sub" x="55" y="112">append at end</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="57" y1="136" x2="166" y2="136"/><text class="lb" x="112" y="128">insert</text><rect class="rec" x="125" y="146" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="162">7 · 42 · 90</text><text class="sub" x="170" y="186">sorted, in RAM</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="172" y1="204" x2="281" y2="204"/><text class="lb" x="227" y="196">flush</text><rect class="rec" x="240" y="212" width="90" height="24" rx="7"/><text class="rec-t" x="285" y="228">SST 3 (new)</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="236" y="246" width="98" height="28" rx="8"/><text class="ok-t" x="285" y="265">1 merged SST</text><text class="lb" x="140" y="258">compaction</text><text class="sub" x="140" y="274">merge SST 1 + 2 + 3</text></g>
+  <line class="life" x1="5" y1="294" x2="335" y2="294"/>
+  <text class="lb" x="170" y="314">B-tree</text>
+  <line class="life" x1="150" y1="354" x2="55" y2="392"/><line class="life" x1="170" y1="354" x2="170" y2="392"/><line class="life" x1="190" y1="354" x2="285" y2="392"/>
+  <rect class="box" x="110" y="324" width="120" height="30" rx="8"/><text class="bt" x="170" y="344">root: 40 | 80</text>
+  <rect class="box" x="5" y="392" width="100" height="30" rx="8"/><text class="bt" x="55" y="412">10 20 30</text>
+  <rect class="box" x="120" y="392" width="100" height="30" rx="8"/><text class="bt" x="170" y="412">41 43 45 47</text>
+  <rect class="box" x="235" y="392" width="100" height="30" rx="8"/><text class="bt" x="285" y="412">81 85 90</text>
+  <g class="f" data-f="5"><rect class="note" x="120" y="432" width="100" height="26" rx="7"/><text class="note-t" x="170" y="449">+42: page full</text><text class="sub badt" x="55" y="449">no room</text></g>
+  <g class="f" data-f="6"><rect class="rec" x="110" y="324" width="120" height="30" rx="8"/><text class="rec-t" x="170" y="344">root: 40 | 45 | 80</text><rect class="rec" x="120" y="392" width="100" height="30" rx="8"/><text class="rec-t" x="170" y="412">41 42 43</text><rect class="rec" x="120" y="432" width="100" height="26" rx="7"/><text class="rec-t" x="170" y="449">45 47 (new)</text><rect class="okb" x="10" y="466" width="320" height="28" rx="8"/><text class="ok-t" x="170" y="485">Split: new page, new pointer in root</text></g>
+captions:
+  - "LSM-tree. A write for key 42 arrives. First it is added to the end of the write-ahead log (WAL) on disk. Adding to the end of a file is fast."
+  - "Then the key goes into the memtable, a sorted table in memory. The write is now done. No file on disk was changed in place."
+  - "When the memtable is full, it is written to disk as a new sorted file, SST 3. That file is never changed again."
+  - "Later, in the background, compaction merges SST 1, 2 and 3 into one file. It keeps only the newest version of each key. This is the work the LSM-tree put off."
+  - "B-tree. Key 42 belongs in the middle leaf page, between 41 and 43. The change goes to the WAL first (not shown). But the page has no room left."
+  - "The page splits. Some keys move to a new page, and the root gets a pointer to it. The B-tree did its sorting work at once, in place."

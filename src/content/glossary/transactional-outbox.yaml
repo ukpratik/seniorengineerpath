@@ -1,0 +1,4 @@
+id: transactional-outbox
+term: transactional outbox
+forms: [outbox, outbox table, outbox pattern]
+short: A table where a service saves outgoing events in the same transaction as its data. A separate relay then publishes them.

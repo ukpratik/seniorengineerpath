@@ -1,0 +1,4 @@
+id: dual-write
+term: dual write
+forms: [dual writes, dual-write]
+short: Writing the same change to two systems in two separate calls, such as a database and a message broker. A crash in between leaves them out of step.

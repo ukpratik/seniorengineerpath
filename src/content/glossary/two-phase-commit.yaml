@@ -1,0 +1,4 @@
+id: two-phase-commit
+term: two-phase commit
+forms: [2PC]
+short: A way to commit across several databases. A coordinator asks every one to prepare, then tells all of them to commit or roll back.

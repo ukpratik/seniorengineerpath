@@ -1,0 +1,4 @@
+id: consistency-model
+term: consistency model
+forms: [consistency models]
+short: "A promise about what reads can see after writes in a system with many copies of the data, from strong to weak."

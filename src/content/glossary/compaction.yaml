@@ -1,0 +1,4 @@
+id: compaction
+term: compaction
+forms: [compactions, compact]
+short: "Background work in an LSM-tree that merges several SSTables into one and drops old versions and deleted keys."

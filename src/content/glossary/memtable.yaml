@@ -1,0 +1,4 @@
+id: memtable
+term: memtable
+forms: [memtables]
+short: "The sorted table in memory where an LSM-tree collects new writes before it writes them to disk as an SSTable."

@@ -1,0 +1,4 @@
+id: prompt-injection
+term: prompt injection
+forms: [indirect prompt injection]
+short: An attack where text the model reads, such as a web page, file or issue, contains instructions that change what the model does.

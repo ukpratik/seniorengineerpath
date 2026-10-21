@@ -1,0 +1,4 @@
+id: row-lock
+term: row lock
+forms: [row locks, row-level lock, row-level locks]
+short: A lock on one database row. Other transactions that want to change or lock that row wait until the holder commits or rolls back.

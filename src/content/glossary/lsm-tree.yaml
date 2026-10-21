@@ -1,0 +1,4 @@
+id: lsm-tree
+term: LSM-tree
+forms: [LSM-trees, LSM, log-structured merge-tree]
+short: "A storage design that buffers writes in memory, writes them out as new sorted files, and merges those files later in the background."

@@ -1,0 +1,4 @@
+id: write-ahead-log
+term: write-ahead log
+forms: [WAL]
+short: A log where a database records every change before it applies it, so it can recover after a crash. CDC tools read it.

@@ -1,0 +1,4 @@
+id: inbox
+term: inbox
+forms: [inbox table]
+short: A table where a consumer saves the IDs of events it has already handled, so it can skip duplicates.

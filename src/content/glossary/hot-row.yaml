@@ -1,0 +1,4 @@
+id: hot-row
+term: hot row
+forms: [hot rows]
+short: A single database row that very many transactions update at once, such as the stock of a flash-sale product. They wait in line for its lock.

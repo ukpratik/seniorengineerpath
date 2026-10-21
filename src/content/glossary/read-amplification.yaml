@@ -1,0 +1,4 @@
+id: read-amplification
+term: read amplification
+forms: []
+short: "How many places, such as pages or files, a storage engine must check to answer one read."

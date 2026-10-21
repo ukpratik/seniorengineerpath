@@ -1,0 +1,4 @@
+id: overselling
+term: overselling
+forms: [oversell, oversold, oversells]
+short: Selling more units of a product than you have in stock, usually because two orders took the same last item.

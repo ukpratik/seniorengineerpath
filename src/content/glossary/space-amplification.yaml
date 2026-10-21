@@ -1,0 +1,4 @@
+id: space-amplification
+term: space amplification
+forms: []
+short: "How much disk a storage engine uses compared with the size of the live data, for example because of old versions."

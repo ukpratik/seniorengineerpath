@@ -1,0 +1,4 @@
+id: eventual-consistency
+term: eventual consistency
+forms: [eventually consistent]
+short: "Copies or services may disagree for a while after a change. If no new changes come in, they all end up with the same, latest value."

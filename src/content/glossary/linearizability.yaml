@@ -1,0 +1,4 @@
+id: linearizability
+term: linearizability
+forms: [linearizable]
+short: "One of the strongest consistency models for a single piece of data. The system acts as if there is one copy of the data, and each operation takes effect at one instant."

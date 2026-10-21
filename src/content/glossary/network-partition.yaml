@@ -1,0 +1,4 @@
+id: network-partition
+term: network partition
+forms: [network partitions, network split]
+short: "A network failure where some nodes cannot reach others, while all of them keep running."

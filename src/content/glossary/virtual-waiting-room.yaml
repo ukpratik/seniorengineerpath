@@ -1,0 +1,4 @@
+id: virtual-waiting-room
+term: waiting room
+forms: [waiting rooms, virtual waiting room, virtual waiting rooms]
+short: A queue page in front of a site. It lets visitors in at a rate the site can handle and shows the others their wait.

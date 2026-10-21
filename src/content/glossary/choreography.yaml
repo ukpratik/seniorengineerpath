@@ -1,0 +1,4 @@
+id: choreography
+term: choreography
+forms: []
+short: A way to run a saga with no one in charge. Each service listens for events and reacts with its own step.

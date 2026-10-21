@@ -1,0 +1,15 @@
+id: review-flow
+title: "Five layers of review, and what each one catches"
+viewBox: 0 0 340 500
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">1 · Author self-review</text><text class="sub" x="170" y="51">read the diff · run tests · write the why</text><rect class="note" x="150" y="68" width="180" height="26" rx="7"/><text class="note-t" x="240" y="85">catches: debug code, extra files</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="96" x2="170" y2="110"/><rect class="box" x="20" y="114" width="300" height="52" rx="10"/><text class="bt" x="170" y="136">2 · Automated checks</text><text class="sub" x="170" y="155">build · tests · linter · dependency scan</text><rect class="note" x="130" y="172" width="200" height="26" rx="7"/><text class="note-t" x="230" y="189">catches: style, unknown packages</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="200" x2="170" y2="214"/><rect class="rec" x="20" y="218" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="240">3 · Human review, risk first</text><text class="sub" x="170" y="259">data · money · security · migrations</text><rect class="note" x="110" y="276" width="220" height="26" rx="7"/><text class="note-t" x="220" y="293">catches: wrong design, weak tests</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="304" x2="170" y2="318"/><rect class="box" x="20" y="322" width="300" height="52" rx="10"/><text class="bt" x="170" y="344">4 · AI second pass</text><text class="sub" x="170" y="363">fresh context · comments only</text><rect class="note" x="130" y="380" width="200" height="26" rx="7"/><text class="note-t" x="230" y="397">catches: missed edge cases</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="408" x2="170" y2="422"/><rect class="okb" x="20" y="426" width="300" height="52" rx="10"/><text class="ok-t" x="170" y="448">✓ 5 · A human approves and merges</text><text class="sub" x="170" y="467">the decision stays with people</text></g>
+captions:
+  - "The author reads their own diff first, as a reviewer would. They run the tests and write a description that says what changed and why. This removes the easy mistakes before anyone else spends time."
+  - "Machines run the checks that have a clear pass or fail. They build the code, run the tests, run the linter and check every new package. Style arguments end here, so people do not spend review time on them."
+  - "A person reads the risky parts first: data, money, security, concurrency and migrations. They read the tests and ask: would these fail if the code were wrong? This is where wrong designs and weak tests get caught."
+  - "An AI reviewer reads the diff in a fresh context and leaves comments. It may find an edge case the person missed. It does not approve or block anything."
+  - "A person who understands the change approves it and merges it. If something breaks later, a person owns the decision, not a tool."

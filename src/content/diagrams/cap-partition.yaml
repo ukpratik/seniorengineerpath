@@ -1,0 +1,23 @@
+id: cap-partition
+title: "A network partition: what a CP system and an AP system do with a write"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="400"/><line class="life" x1="170" y1="54" x2="170" y2="400"/><line class="life" x1="285" y1="54" x2="285" y2="400"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Replica A</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Replica B</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Ravi's app</text>
+  <rect class="rec" x="10" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="55" y="78">stock: 1</text>
+  <rect class="rec" x="125" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="78">stock: 1</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="112" x2="166" y2="112"/><text class="lb" x="112" y="103">copy changes</text><text class="sub" x="112" y="129">in sync</text></g>
+  <g class="f" data-f="2"><line class="ln lost" x1="57" y1="152" x2="166" y2="152"/><path class="xm" d="M105 145l14 14M119 145l-14 14"/><text class="sub badt" x="112" y="176">network cut</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="283" y1="200" x2="174" y2="200"/><text class="lb" x="227" y="191">buy last item</text></g>
+  <g class="f" data-f="4"><rect class="note" x="8" y="222" width="94" height="26" rx="7"/><text class="note-t" x="55" y="239">If CP</text><line class="ln" x1="172" y1="240" x2="281" y2="240"/><text class="lb" x="227" y="231">error: try later</text><text class="sub" x="227" y="257">B can't reach A</text></g>
+  <g class="f" data-f="5"><rect class="note" x="8" y="278" width="94" height="26" rx="7"/><text class="note-t" x="55" y="295">If AP</text><line class="ln" x1="172" y1="292" x2="281" y2="292"/><text class="lb" x="227" y="284">OK, sold</text><rect class="rec" x="10" y="312" width="90" height="24" rx="7"/><text class="rec-t" x="55" y="328">stock: 0</text><rect class="rec" x="125" y="312" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="328">stock: 0</text><text class="sub" x="55" y="352">sold to Asha</text><text class="sub" x="170" y="352">sold to Ravi</text><text class="sub badt" x="285" y="330">1 item, 2 sales</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="57" y1="384" x2="166" y2="384"/><text class="lb" x="112" y="375">link back</text><rect class="okb" x="10" y="414" width="320" height="34" rx="8"/><text class="ok-t" x="170" y="436">CP: carry on. AP: fix the conflict.</text></g>
+captions:
+  - "Two replicas, A and B, hold the stock count for one item. There is 1 left. A copies every change to B, so they agree."
+  - "The network link between A and B breaks. Both replicas are still running. They just cannot talk to each other. This is a network partition."
+  - "Ravi's app is connected to B. He taps Buy on the last item. B must choose now: answer him, or stay correct."
+  - "A CP system says no. B cannot check with A, so it returns an error. The data stays correct, but Ravi cannot buy for now."
+  - "An AP system says yes. B sells the item to Ravi. On the other side, A has sold the same item to Asha. Both got an answer, but one item was sold twice."
+  - "The link comes back. In the CP system, B catches up with A and nothing needs fixing. The AP system must merge the two histories and fix the conflict, for example by cancelling one order."

@@ -1,0 +1,4 @@
+id: orchestration
+term: orchestration
+forms: [orchestrator, orchestrators]
+short: A way to run a saga where one component tells each service what to do next and keeps the state of the whole flow.

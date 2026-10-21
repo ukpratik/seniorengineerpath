@@ -1,0 +1,4 @@
+id: slopsquatting
+term: slopsquatting
+forms: []
+short: An informal name for a package confusion attack where someone publishes a real, harmful package under a name that AI models tend to invent, and waits for AI-written code to install it.

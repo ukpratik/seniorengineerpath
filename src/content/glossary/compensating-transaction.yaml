@@ -1,0 +1,4 @@
+id: compensating-transaction
+term: compensating transaction
+forms: [compensating transactions, compensating action, compensating actions]
+short: A new action that undoes the effect of an earlier step, such as a refund for a charge. It does not erase the first step.

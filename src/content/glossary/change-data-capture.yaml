@@ -1,0 +1,4 @@
+id: change-data-capture
+term: change data capture
+forms: [CDC]
+short: Reading every insert, update and delete from a database's change log, and sending them on as events to other systems.

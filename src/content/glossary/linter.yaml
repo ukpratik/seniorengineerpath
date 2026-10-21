@@ -1,0 +1,4 @@
+id: linter
+term: linter
+forms: [linters]
+short: A tool that reads your code without running it and flags style problems and common mistakes, the same way every time.

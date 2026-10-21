@@ -1,0 +1,4 @@
+id: causal-consistency
+term: causal consistency
+forms: [causally consistent]
+short: "If one operation may have caused another, like a reply to a comment, everyone sees them in that order."

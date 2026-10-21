@@ -1,0 +1,4 @@
+id: sequential-consistency
+term: sequential consistency
+forms: [sequentially consistent]
+short: "Everyone sees all operations in the same order, and each client's own order is kept. The order may lag behind real time."

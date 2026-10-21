@@ -1,0 +1,4 @@
+id: continuous-integration
+term: CI
+forms: [continuous integration]
+short: Continuous integration. A system that builds the code and runs the tests and other checks on every change, before it is merged.

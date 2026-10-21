@@ -1,0 +1,4 @@
+id: pull-request
+term: pull request
+forms: [pull requests, PR, PRs, merge request, merge requests]
+short: A proposed code change that others can read, comment on and approve before it is merged into the main branch. GitLab calls it a merge request.

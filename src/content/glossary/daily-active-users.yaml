@@ -1,0 +1,4 @@
+id: daily-active-users
+term: daily active users
+forms: [DAU]
+short: The number of different people who use a product on a given day.

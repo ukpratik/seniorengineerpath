@@ -1,0 +1,4 @@
+id: quorum
+term: quorum
+forms: [quorums]
+short: The smallest number of nodes that must answer before a read or write counts. With 3 copies, a common quorum is 2.

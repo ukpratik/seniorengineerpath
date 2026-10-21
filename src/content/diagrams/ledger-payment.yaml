@@ -1,0 +1,18 @@
+id: ledger-payment
+title: "A ₹1,000 payment as ledger entries: every transaction sums to zero"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="45" y1="50" x2="45" y2="420"/><line class="life" x1="128" y1="50" x2="128" y2="420"/><line class="life" x1="211" y1="50" x2="211" y2="420"/><line class="life" x1="294" y1="50" x2="294" y2="420"/>
+  <rect class="box" x="6" y="8" width="78" height="40" rx="9"/><text class="bt" x="45" y="33">Customer</text>
+  <rect class="box" x="89" y="8" width="78" height="40" rx="9"/><text class="bt" x="128" y="33">Holding</text>
+  <rect class="box" x="172" y="8" width="78" height="40" rx="9"/><text class="bt" x="211" y="33">Merchant</text>
+  <rect class="box" x="255" y="8" width="78" height="40" rx="9"/><text class="bt" x="294" y="33">Fees</text>
+  <g class="f" data-f="1"><text class="lb" x="170" y="76">1 · Customer pays ₹1,000</text><rect class="rec" x="9" y="86" width="72" height="26" rx="7"/><text class="rec-t" x="45" y="104">−1,000</text><rect class="rec" x="92" y="86" width="72" height="26" rx="7"/><text class="rec-t" x="128" y="104">+1,000</text><text class="sub" x="170" y="132">−1,000 + 1,000 = 0 ✓</text></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="168">2 · Split: merchant and fee</text><rect class="rec" x="92" y="178" width="72" height="26" rx="7"/><text class="rec-t" x="128" y="196">−1,000</text><rect class="rec" x="175" y="178" width="72" height="26" rx="7"/><text class="rec-t" x="211" y="196">+980</text><rect class="rec" x="258" y="178" width="72" height="26" rx="7"/><text class="rec-t" x="294" y="196">+20</text><text class="sub" x="170" y="224">−1,000 + 980 + 20 = 0 ✓</text></g>
+  <g class="f" data-f="3"><text class="lb" x="170" y="260">3 · A bug forgets the fee</text><rect class="rec" x="92" y="270" width="72" height="26" rx="7"/><text class="rec-t" x="128" y="288">−1,000</text><rect class="rec" x="175" y="270" width="72" height="26" rx="7"/><text class="rec-t" x="211" y="288">+980</text><path class="xm" d="M287 276l14 14M301 276l-14 14"/><text class="sub badt" x="170" y="316">−1,000 + 980 = −20 ✗</text><rect class="note" x="50" y="324" width="240" height="26" rx="7"/><text class="note-t" x="170" y="341">Rejected: not posted</text></g>
+  <g class="f" data-f="4"><text class="lb" x="170" y="378">4 · Balance = sum of entries</text><rect class="rec" x="9" y="388" width="72" height="26" rx="7"/><text class="rec-t" x="45" y="406">−1,000</text><rect class="rec" x="92" y="388" width="72" height="26" rx="7"/><text class="rec-t" x="128" y="406">0</text><rect class="rec" x="175" y="388" width="72" height="26" rx="7"/><text class="rec-t" x="211" y="406">980</text><rect class="rec" x="258" y="388" width="72" height="26" rx="7"/><text class="rec-t" x="294" y="406">20</text><rect class="okb" x="40" y="428" width="260" height="30" rx="8"/><text class="ok-t" x="170" y="448">✓ All balances add up to 0</text></g>
+captions:
+  - "The customer pays ₹1,000. The ledger writes two entries: −1,000 for the customer and +1,000 for a holding account. The code stores them as integers in paise, like −100000. They sum to zero."
+  - "The platform splits the money. It takes ₹1,000 out of holding, gives ₹980 to the merchant and ₹20 to fee income. Three entries, one transaction, and the sum is still zero."
+  - "A bug forgets the fee entry. The sum is −20, not zero, so ₹20 would vanish. The ledger refuses to post it. The bug is caught before any money goes missing."
+  - "Nobody stores a balance by hand. Each balance is the sum of that account's entries. Holding is back to 0, so the money finished its journey. All balances together add up to 0."

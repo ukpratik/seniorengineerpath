@@ -1,0 +1,4 @@
+id: coding-agent
+term: coding agent
+forms: [coding agents]
+short: An AI tool that works in a loop on your code. It reads files, edits them, runs commands and checks the results until the task looks done.

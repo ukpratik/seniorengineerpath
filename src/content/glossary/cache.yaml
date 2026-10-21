@@ -1,0 +1,4 @@
+id: cache
+term: cache
+forms: [caches]
+short: A fast copy of data that is slow or costly to get, kept close to where it is read.

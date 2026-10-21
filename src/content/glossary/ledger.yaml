@@ -1,0 +1,4 @@
+id: ledger
+term: ledger
+forms: [ledgers]
+short: A record of every movement of money (or points, credits, stock) as entries that are only ever added, never changed. Balances are calculated from it.

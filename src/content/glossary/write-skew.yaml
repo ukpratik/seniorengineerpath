@@ -1,0 +1,4 @@
+id: write-skew
+term: write skew
+forms: []
+short: A bug where two transactions read the same data, then each writes a different row. Each write is fine alone, but together they break a rule.

@@ -1,0 +1,4 @@
+id: request-coalescing
+term: request coalescing
+forms: [coalescing, single-flight, singleflight]
+short: Letting only one request load a missing key, while other requests for the same key wait and share its answer.

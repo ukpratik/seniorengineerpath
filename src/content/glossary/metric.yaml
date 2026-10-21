@@ -1,0 +1,4 @@
+id: metric
+term: metric
+forms: [metrics]
+short: A number measured again and again over time, such as requests per second or error rate. Cheap to store and good for graphs and alerts.

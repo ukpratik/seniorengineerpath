@@ -1,0 +1,4 @@
+id: isolation-level
+term: isolation level
+forms: [isolation levels]
+short: A setting that says how much transactions running at the same time can see and change each other's work.

@@ -1,0 +1,4 @@
+id: float
+term: float
+forms: [floats, floating-point, floating point]
+short: A number type that stores values as binary fractions. It is fast but not exact for many decimals, like 0.1, so it must not hold money.

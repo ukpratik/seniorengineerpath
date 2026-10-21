@@ -1,0 +1,4 @@
+id: span
+term: span
+forms: [spans]
+short: One step inside a trace, such as one call to a database, with its start time and duration.

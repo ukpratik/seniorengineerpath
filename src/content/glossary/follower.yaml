@@ -1,0 +1,4 @@
+id: follower
+term: follower
+forms: [followers, standby, standbys]
+short: A database copy that only takes changes from the leader. It can answer reads, but it may be a little behind.

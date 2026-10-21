@@ -1,0 +1,4 @@
+id: burn-rate
+term: burn rate
+forms: [burn rates, burn-rate]
+short: How fast a service spends its error budget. At burn rate 1, the budget runs out exactly at the end of the SLO window.

@@ -1,0 +1,4 @@
+id: canary
+term: canary
+forms: [canaries, canary release, canary stage]
+short: A small part of the fleet, such as 1% of servers, that gets a change first. You compare it with the rest before going wider.

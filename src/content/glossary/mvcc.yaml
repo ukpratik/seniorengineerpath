@@ -1,0 +1,4 @@
+id: mvcc
+term: MVCC
+forms: [multi-version concurrency control]
+short: The database keeps several versions of a row, so readers can see an older version while a writer makes a new one.

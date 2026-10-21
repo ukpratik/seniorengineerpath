@@ -1,0 +1,4 @@
+id: dirty-read
+term: dirty read
+forms: [dirty reads]
+short: Reading data another transaction has written but not yet committed. That data may still be rolled back.

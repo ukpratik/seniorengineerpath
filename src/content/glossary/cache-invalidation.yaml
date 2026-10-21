@@ -1,0 +1,4 @@
+id: cache-invalidation
+term: invalidation
+forms: [cache invalidation]
+short: Removing or updating a cached value when the source data changes, so readers do not see old data.

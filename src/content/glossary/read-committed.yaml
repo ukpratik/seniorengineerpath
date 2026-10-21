@@ -1,0 +1,4 @@
+id: read-committed
+term: read committed
+forms: []
+short: An isolation level where you only see data that other transactions have committed. Each statement can see newer data than the last.

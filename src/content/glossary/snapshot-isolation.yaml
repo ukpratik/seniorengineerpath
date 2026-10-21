@@ -1,0 +1,4 @@
+id: snapshot-isolation
+term: snapshot isolation
+forms: []
+short: An isolation level where a transaction reads from one frozen view of the database, taken at its first statement.

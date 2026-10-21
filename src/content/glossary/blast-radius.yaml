@@ -1,0 +1,3 @@
+id: blast-radius
+term: blast radius
+short: How many users or systems a failure can reach. A small blast radius means a bad change hurts only a few.

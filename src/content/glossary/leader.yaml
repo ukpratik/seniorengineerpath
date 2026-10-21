@@ -1,0 +1,4 @@
+id: leader
+term: leader
+forms: [leaders]
+short: The one database node that accepts writes. It sends every change on to the other copies. Also called the primary.

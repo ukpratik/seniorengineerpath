@@ -1,0 +1,20 @@
+id: agent-loop-context
+title: "One task with a coding agent, and the context window filling up"
+viewBox: 0 0 340 470
+svg: |
+  <text class="lb" x="294" y="40">Context</text>
+  <rect class="box" x="262" y="56" width="64" height="368" rx="8"/>
+  <text class="sub" x="294" y="442">limited</text>
+  <g class="f" data-f="1"><rect class="box" x="10" y="56" width="200" height="44" rx="10"/><text class="bt" x="110" y="76">1 · Explore</text><text class="sub" x="110" y="93">plan mode · read files</text><rect class="rec" x="266" y="334" width="56" height="86" rx="5"/><text class="rec-t" x="294" y="381">files</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="110" y1="102" x2="110" y2="116"/><rect class="box" x="10" y="120" width="200" height="44" rx="10"/><text class="bt" x="110" y="140">2 · Plan</text><text class="sub" x="110" y="157">you read and edit it</text><rect class="rec" x="266" y="302" width="56" height="30" rx="5"/><text class="rec-t" x="294" y="322">plan</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="110" y1="166" x2="110" y2="180"/><rect class="box" x="10" y="184" width="200" height="44" rx="10"/><text class="bt" x="110" y="204">3 · Code</text><text class="sub" x="110" y="221">edit files</text><rect class="rec" x="266" y="254" width="56" height="46" rx="5"/><text class="rec-t" x="294" y="282">edits</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="110" y1="230" x2="110" y2="244"/><rect class="box" x="10" y="248" width="200" height="44" rx="10"/><text class="bt" x="110" y="268">4 · Run tests</text><text class="sub badt" x="110" y="285">2 tests fail</text><rect class="note" x="266" y="206" width="56" height="46" rx="5"/><text class="note-t" x="294" y="234">test log</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="110" y1="294" x2="110" y2="308"/><rect class="box" x="10" y="312" width="200" height="44" rx="10"/><text class="bt" x="110" y="332">5 · Fix, run again</text><text class="sub" x="110" y="349">all tests pass</text><path class="ln" d="M212 334 C 246 334 246 270 216 270"/><rect class="note" x="266" y="148" width="56" height="56" rx="5"/><text class="note-t" x="294" y="181">fixes</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="110" y1="358" x2="110" y2="372"/><rect class="box" x="10" y="376" width="200" height="44" rx="10"/><text class="bt" x="110" y="396">6 · Review</text><text class="sub" x="110" y="413">fresh subagent + you</text><rect class="okb" x="10" y="430" width="200" height="30" rx="8"/><text class="ok-t" x="110" y="450">✓ /clear before next task</text></g>
+captions:
+  - "Explore. In plan mode the agent reads files but changes nothing. Every file it reads uses context, so point it at the right folders instead of the whole repo."
+  - "Plan. The agent writes a plan: which files change, and why. You read it and fix it now. A wrong idea is cheapest to catch here."
+  - "Code. The agent leaves plan mode and edits the files. Every edit and every file it reads adds to the context."
+  - "Run tests. Two tests fail. That is good news: the agent got a clear signal instead of guessing that it was done. The test output also uses context."
+  - "Fix and run again. The agent loops between fixing and testing until all tests pass. The context is now mostly full, and early details may start to get lost."
+  - "Review. A subagent reviews the diff in its own, fresh context, so your main context does not grow. Then you read it too. Before the next task, run /clear."

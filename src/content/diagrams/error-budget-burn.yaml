@@ -1,0 +1,15 @@
+id: error-budget-burn
+title: "An error budget during a bad deploy, with a burn-rate alert"
+viewBox: 0 0 340 446
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">SLO: 99.9% OK over 30 days</text><text class="sub" x="170" y="51">100 M requests → budget 100,000 errors</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="64" x2="170" y2="86"/><rect class="box" x="20" y="92" width="300" height="52" rx="10"/><text class="bt" x="170" y="114">Normal day: 0.05% errors</text><text class="sub" x="170" y="133">burn rate 0.5 · budget would last 60 days</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="146" x2="170" y2="168"/><rect class="note" x="20" y="174" width="300" height="52" rx="10"/><text class="note-t" x="170" y="196">Bad deploy: 1.44% errors</text><text class="sub badt" x="170" y="215">burn rate 14.4 · budget gone in 2 days</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="228" x2="170" y2="250"/><rect class="rec" x="20" y="256" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="278">Page: 1 h and 5 min both ≥ 14.4</text><text class="sub" x="170" y="297">1 hour used 2% of the budget</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="310" x2="170" y2="332"/><rect class="box" x="20" y="338" width="300" height="52" rx="10"/><text class="bt" x="170" y="360">Roll back: errors stop</text><text class="sub" x="170" y="379">5 min window drops → alert clears</text><rect class="okb" x="40" y="400" width="260" height="34" rx="8"/><text class="ok-t" x="170" y="422">✓ the incident cost 2% of budget</text></g>
+captions:
+  - "The checkout SLO is 99.9% of requests succeed over 30 days. With about 100 million requests in that time, the error budget is 0.1%: 100,000 failed requests."
+  - "On a normal day, 0.05% of requests fail. That is half the allowed rate, so the burn rate is 0.5. At this speed the budget would last 60 days. No alert."
+  - "A bad deploy makes 1.44% of requests fail. The burn rate is 1.44 ÷ 0.1 = 14.4. If nothing changes, the whole 30-day budget is gone in about 2 days."
+  - "After about an hour, the burn rate is at least 14.4 over the last hour and over the last 5 minutes. Both windows agree, so the alert pages the on-call engineer. That hour used 2% of the budget, about 2,000 errors."
+  - "The engineer rolls back. Errors drop, the 5-minute window falls below 14.4 and the alert stops within minutes. The incident cost only about 2% of the budget, so the team can keep shipping after they fix the bug."

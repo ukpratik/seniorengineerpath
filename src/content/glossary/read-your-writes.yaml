@@ -1,0 +1,4 @@
+id: read-your-writes
+term: read-your-writes
+forms: [read your writes, read-your-writes consistency]
+short: A promise that after you save something, your own later reads will show it, even if other users see it a bit later.

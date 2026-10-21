@@ -1,0 +1,4 @@
+id: hot-account
+term: hot account
+forms: [hot accounts]
+short: A ledger account that appears in a large share of transactions, so many writes wait on the same row.

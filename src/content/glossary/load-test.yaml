@@ -1,0 +1,4 @@
+id: load-test
+term: load test
+forms: [load tests, load testing]
+short: A test that sends a lot of fake traffic to a system, to find how much it can handle before it slows down or fails.

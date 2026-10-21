@@ -9,6 +9,7 @@ import type { Root as HRoot, Element, ElementContent, RootContent } from 'hast';
 import type { VFile } from 'vfile';
 import { CITE_RE, DIAGRAM_RE, LESSON_SECTIONS, sectionName } from './markdown.ts';
 import { renderStepper, type Diagram } from '../lib/stepper.ts';
+import { ANIMS, renderAnimHost } from '../lib/anims.ts';
 
 export const icon = (name: string, small = false): Element =>
   h('svg', { class: small ? 'i sm' : 'i', 'aria-hidden': 'true' }, [h('use', { href: `/icons.svg#i-${name}` })]);
@@ -27,6 +28,11 @@ export function remarkLesson(options: { diagram: (id: string) => Diagram | undef
       if (p.children.length !== 1 || p.children[0].type !== 'text' || !parent || i === undefined) return;
       const m = DIAGRAM_RE.exec((p.children[0] as Text).value.trim());
       if (!m) return;
+      if (m[1] === 'anim') {
+        if (!ANIMS.includes(m[2])) throw new Error(`Unknown animation "${m[2]}" in ${file.path}`);
+        parent.children[i] = { type: 'html', value: renderAnimHost(m[2]) };
+        return SKIP;
+      }
       const d = options.diagram(m[2]);
       if (!d) throw new Error(`Unknown diagram "${m[2]}" in ${file.path}`);
       parent.children[i] = { type: 'html', value: renderStepper(d) };
@@ -79,7 +85,7 @@ const isEl = (n: RootContent | ElementContent | undefined, tag?: string): boolea
 
 // Astro applies rehype-raw after our plugins, so diagrams arrive as raw HTML nodes.
 const isRawFigure = (n: RootContent | ElementContent) =>
-  (n as { type: string }).type === 'raw' && /^\s*<figure class="stepper"/.test((n as unknown as { value: string }).value);
+  (n as { type: string }).type === 'raw' && /^\s*<(figure class="stepper"|div class="anim)/.test((n as unknown as { value: string }).value);
 
 const STANDALONE = (n: RootContent | ElementContent) =>
   isEl(n, 'table') ||

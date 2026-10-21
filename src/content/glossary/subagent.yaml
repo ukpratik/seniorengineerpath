@@ -1,0 +1,4 @@
+id: subagent
+term: subagent
+forms: [subagents]
+short: A helper agent that works in its own, separate context and sends back only a short summary.

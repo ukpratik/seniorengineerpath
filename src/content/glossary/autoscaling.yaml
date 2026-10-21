@@ -1,0 +1,4 @@
+id: autoscaling
+term: autoscaling
+forms: [autoscale, autoscales]
+short: Adding or removing servers automatically as traffic goes up or down.

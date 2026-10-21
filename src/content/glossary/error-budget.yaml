@@ -1,0 +1,4 @@
+id: error-budget
+term: error budget
+forms: [error budgets]
+short: The amount of failure an SLO allows, which is 100% minus the SLO. A 99.9% SLO gives a budget of 0.1% of requests.

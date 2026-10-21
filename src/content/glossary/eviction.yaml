@@ -1,0 +1,4 @@
+id: eviction
+term: eviction
+forms: [evictions, evict, evicted]
+short: Removing keys from a cache when it is full, for example the least recently used ones, to make room for new data.

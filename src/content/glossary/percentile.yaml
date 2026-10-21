@@ -1,0 +1,4 @@
+id: percentile
+term: percentile
+forms: [percentiles, p99, p50]
+short: "The value below which a given share of measurements fall. A p99 latency of 300 ms means 99% of requests took 300 ms or less."

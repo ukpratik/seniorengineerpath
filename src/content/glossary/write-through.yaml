@@ -1,0 +1,3 @@
+id: write-through
+term: write-through
+short: A caching pattern where every write goes to the cache and the database together, so the cache stays fresh.

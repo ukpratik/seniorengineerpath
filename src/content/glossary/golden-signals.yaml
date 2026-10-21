@@ -1,0 +1,4 @@
+id: golden-signals
+term: four golden signals
+forms: [golden signals]
+short: "Four things to measure for any service: latency, traffic, errors and saturation (how full it is)."

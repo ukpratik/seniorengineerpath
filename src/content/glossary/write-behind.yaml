@@ -1,0 +1,4 @@
+id: write-behind
+term: write-behind
+forms: [write-back]
+short: A caching pattern where writes go to the cache first and reach the database later. Fast, but data can be lost if the cache fails.

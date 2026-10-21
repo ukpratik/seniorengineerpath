@@ -1,0 +1,4 @@
+id: on-call
+term: on-call
+forms: [on call]
+short: The engineer whose turn it is to answer alerts and fix problems, often outside work hours.

@@ -1,0 +1,4 @@
+id: latency
+term: latency
+forms: [latencies]
+short: How long one operation or request takes, from start to answer. Usually measured in milliseconds (ms) or smaller units.

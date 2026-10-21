@@ -1,0 +1,4 @@
+id: replication-lag
+term: replication lag
+forms: []
+short: How far a follower is behind the leader. A write on the leader is not yet visible on a follower during this time.

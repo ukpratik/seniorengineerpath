@@ -1,0 +1,4 @@
+id: failover
+term: failover
+forms: [failovers, fail over, fails over]
+short: Making a follower the new leader when the old leader stops working, and sending writes to it.

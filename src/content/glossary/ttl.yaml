@@ -1,0 +1,4 @@
+id: ttl
+term: TTL
+forms: [TTLs, time to live]
+short: Time to live. How long a cached value is kept before it expires and must be loaded again.

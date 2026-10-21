@@ -1,0 +1,15 @@
+id: latency-estimate
+title: "A five-minute estimate: from users to servers and storage"
+viewBox: 0 0 340 452
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">2 M users × 20 requests</text><text class="sub" x="170" y="51">= 40 M requests a day</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="64" x2="170" y2="86"/><rect class="box" x="20" y="92" width="300" height="52" rx="10"/><text class="bt" x="170" y="114">÷ 86,400 s ≈ ÷ 100,000</text><text class="sub" x="170" y="133">average ≈ 400 requests a second</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="146" x2="170" y2="168"/><rect class="note" x="20" y="174" width="300" height="52" rx="10"/><text class="note-t" x="170" y="196">× 5 (assumed dinner peak)</text><text class="sub badt" x="170" y="215">peak ≈ 2,000 QPS: size for this</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="228" x2="170" y2="250"/><rect class="rec" x="20" y="256" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="278">2,000 ÷ 500 per server = 4</text><text class="sub" x="170" y="297">+ spare servers → run 6</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="310" x2="170" y2="332"/><rect class="box" x="20" y="338" width="300" height="52" rx="10"/><text class="bt" x="170" y="360">500 k orders × 2 KB</text><text class="sub" x="170" y="379">≈ 1 GB a day ≈ 365 GB a year</text><rect class="okb" x="40" y="404" width="260" height="34" rx="8"/><text class="ok-t" x="170" y="426">✓ 6 servers · 1 database</text></g>
+captions:
+  - "Start with users. 2 million daily users, each making about 20 requests, gives 40 million requests a day. Write this assumption down."
+  - "A day has 86,400 seconds. Round it to 100,000. 40 million ÷ 100,000 ≈ 400 requests per second on average. The exact answer is about 460, which is close enough."
+  - "Users do not arrive evenly. This example assumes dinner time brings 5 times the average. That is a guess; use real traffic data if you have it. The peak is about 2,000 QPS."
+  - "A load test shows one server handles about 500 QPS. The peak needs 4 servers. Add spare servers so that losing one, or a deploy, does not take you down."
+  - "Now storage: 500,000 orders a day at about 2 KB each is about 1 GB a day, or 365 GB a year. That fits in one database. The design stays simple."

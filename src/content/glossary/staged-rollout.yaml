@@ -1,0 +1,4 @@
+id: staged-rollout
+term: staged rollout
+forms: [staged rollouts, progressive rollout, percentage rollout, percentage rollouts]
+short: Releasing a change to a growing share of servers or users in steps, checking health at each step before the next.

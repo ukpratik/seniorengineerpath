@@ -1,0 +1,4 @@
+id: acid
+term: ACID
+forms: []
+short: "Atomicity, consistency, isolation, durability: the four promises a database transaction makes."

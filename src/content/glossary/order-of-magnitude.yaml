@@ -1,0 +1,4 @@
+id: order-of-magnitude
+term: order of magnitude
+forms: [orders of magnitude]
+short: A rough size in powers of ten. 300 and 700 have the same order of magnitude (hundreds); 300 and 30,000 do not.

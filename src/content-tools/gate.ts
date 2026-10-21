@@ -13,6 +13,7 @@ import {
 } from './markdown.ts';
 import { analyze, findBannedPhrases, LIMITS } from './readability.ts';
 import { frameCount } from '../lib/stepper.ts';
+import { ANIMS } from '../lib/anims.ts';
 
 export interface Issue {
   file: string;
@@ -102,8 +103,8 @@ function checkLesson(l: LessonFile, c: Content, routes: Set<string>, today: stri
 
   // Diagrams exist and frames match captions.
   for (const d of findDiagrams(tree)) {
-    const dg = c.diagrams.find((x) => x.id === d.id);
-    if (!dg) err('diagrams', `unknown ${d.kind} "${d.id}"`, d.line);
+    const known = d.kind === 'anim' ? ANIMS.includes(d.id) : c.diagrams.some((x) => x.id === d.id);
+    if (!known) err('diagrams', `unknown ${d.kind} "${d.id}"`, d.line);
   }
 
   // 7. Quiz.

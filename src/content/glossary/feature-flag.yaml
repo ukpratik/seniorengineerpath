@@ -1,0 +1,4 @@
+id: feature-flag
+term: feature flag
+forms: [feature flags, feature toggle, feature toggles]
+short: A switch read at runtime that turns a piece of code on or off, for some or all users, without a new deploy.

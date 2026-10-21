@@ -1,0 +1,4 @@
+id: split-brain
+term: split-brain
+forms: [split brain]
+short: A failure where two nodes both think they are the leader and both accept writes. The two copies then disagree.

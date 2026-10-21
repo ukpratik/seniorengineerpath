@@ -1,0 +1,4 @@
+id: synchronous-replication
+term: synchronous replication
+forms: [sync replication]
+short: The leader waits until a follower confirms it has the change before it tells the client the write is done.

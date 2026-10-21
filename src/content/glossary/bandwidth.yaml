@@ -1,0 +1,3 @@
+id: bandwidth
+term: bandwidth
+short: How much data a network link can carry per second, usually in bits per second, such as 1 Gbit/s.

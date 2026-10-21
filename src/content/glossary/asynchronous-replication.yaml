@@ -1,0 +1,4 @@
+id: asynchronous-replication
+term: asynchronous replication
+forms: [async replication]
+short: The leader confirms a write to the client right away and sends it to followers in the background.

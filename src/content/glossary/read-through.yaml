@@ -1,0 +1,3 @@
+id: read-through
+term: read-through
+short: A caching pattern where the app only talks to the cache, and the cache loads missing data from the database itself.

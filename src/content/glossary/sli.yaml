@@ -1,0 +1,4 @@
+id: sli
+term: SLI
+forms: [SLIs, service level indicator, service level indicators]
+short: Service level indicator. A measure of how well a service works for users, often good events divided by valid events.

@@ -1,0 +1,4 @@
+id: rollback
+term: rollback
+forms: [rollbacks, roll back, rolls back, rolled back]
+short: Undoing a deploy or config change by going back to the last version that worked.

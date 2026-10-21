@@ -1,0 +1,3 @@
+id: observability
+term: observability
+short: How well you can understand what a system is doing from the data it sends out, such as metrics, logs and traces.

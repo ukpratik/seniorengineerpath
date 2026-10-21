@@ -1,0 +1,4 @@
+id: serializable
+term: serializable
+forms: [serializability]
+short: The strictest isolation level. The result is the same as if the transactions had run one after another.

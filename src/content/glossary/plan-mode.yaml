@@ -1,0 +1,4 @@
+id: plan-mode
+term: plan mode
+forms: []
+short: A Claude Code mode where the agent reads files and proposes a plan, but does not change your source files.

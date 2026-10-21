@@ -1,0 +1,4 @@
+id: lost-update
+term: lost update
+forms: [lost updates]
+short: A bug where two transactions read the same value, both change it, and the second write wipes out the first.

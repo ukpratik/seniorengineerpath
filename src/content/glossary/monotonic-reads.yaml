@@ -1,0 +1,4 @@
+id: monotonic-reads
+term: monotonic reads
+forms: [monotonic read]
+short: A promise that your reads never go back in time. Once you have seen a change, later reads will not hide it again.

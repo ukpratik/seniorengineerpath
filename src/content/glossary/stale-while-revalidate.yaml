@@ -1,0 +1,3 @@
+id: stale-while-revalidate
+term: stale-while-revalidate
+short: Serving an expired cached value for a short time while one request fetches a fresh copy in the background.

@@ -1,0 +1,4 @@
+id: context-window
+term: context window
+forms: [context windows]
+short: Everything a model can see at once, such as messages, files it read and command output. It has a size limit, and quality drops as it fills.

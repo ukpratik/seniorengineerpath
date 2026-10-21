@@ -1,0 +1,4 @@
+id: trace
+term: trace
+forms: [traces]
+short: A record of the path one request takes through many services, with the timing of each step.

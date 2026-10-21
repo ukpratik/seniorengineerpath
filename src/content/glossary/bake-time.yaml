@@ -1,0 +1,4 @@
+id: bake-time
+term: bake time
+forms: [bake times]
+short: The time you wait at each rollout stage, watching metrics, before sending a change wider.

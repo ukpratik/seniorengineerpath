@@ -1,0 +1,4 @@
+id: cache-stampede
+term: cache stampede
+forms: [cache stampedes, stampede, stampedes, thundering herd, thundering herds]
+short: When a popular cache key expires and many requests miss at once, all loading the same data from the database.

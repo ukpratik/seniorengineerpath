@@ -1,0 +1,4 @@
+id: kill-switch
+term: kill switch
+forms: [kill switches]
+short: A quick way to turn off one feature or component everywhere, without a deploy, when it is causing harm.

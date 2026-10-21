@@ -1,0 +1,4 @@
+id: health-check
+term: health check
+forms: [health checks]
+short: An automatic test of whether a service is working, such as its error rate or a test request, used to decide whether to continue or roll back.

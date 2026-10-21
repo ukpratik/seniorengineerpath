@@ -1,0 +1,4 @@
+id: cache-aside
+term: cache-aside
+forms: [side cache, look-aside cache]
+short: A caching pattern where the app checks the cache, and on a miss reads the database and writes the value into the cache itself.

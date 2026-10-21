@@ -1,0 +1,4 @@
+id: hot-key
+term: hot key
+forms: [hot keys]
+short: A single cache or database key that gets a very large share of all reads or writes.

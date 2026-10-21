@@ -134,6 +134,9 @@ if (page) {
     initStepper(fig, () => track('stepthrough_used', { lesson_id: id, diagram_id: fig.id.replace(/^dg-/, '') })),
   );
 
+  // ---- Custom animations: loaded only on lessons that have one ----
+  if (document.querySelector('[data-anim]')) void import('./anims.ts').then((m) => m.initAnims(id));
+
   // ---- Quiz: instant feedback, nothing stored ----
   document.querySelectorAll<HTMLFieldSetElement>('fieldset.q').forEach((q, qi) => {
     let answered = false;

@@ -1,0 +1,4 @@
+id: minor-unit
+term: minor unit
+forms: [minor units]
+short: The smallest unit of a currency, like paise for rupees or cents for dollars. Storing ₹10.50 as the integer 1050 paise keeps money exact.

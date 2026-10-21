@@ -1,0 +1,4 @@
+id: claude-md
+term: CLAUDE.md
+forms: []
+short: A Markdown file of project instructions that Claude Code reads at the start of every session, like build commands and team rules.

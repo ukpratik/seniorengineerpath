@@ -1,0 +1,4 @@
+id: qps
+term: QPS
+forms: [queries per second]
+short: Queries (or requests) per second. The usual way to say how much traffic a service gets.

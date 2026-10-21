@@ -1,0 +1,4 @@
+id: slo
+term: SLO
+forms: [SLOs, service level objective, service level objectives]
+short: Service level objective. A target for an SLI over a time window, such as 99.9% of requests succeed over 4 weeks.

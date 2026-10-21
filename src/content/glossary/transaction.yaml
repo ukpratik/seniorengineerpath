@@ -1,0 +1,4 @@
+id: transaction
+term: transaction
+forms: [transactions]
+short: A group of database reads and writes that succeed or fail as one unit.

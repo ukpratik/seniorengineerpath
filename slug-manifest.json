@@ -1,4 +1,12 @@
 [
+  "caching-and-cache-stampedes",
+  "database-replication",
   "idempotency-retries-timeouts",
-  "what-senior-really-means"
+  "latency-numbers-and-estimation",
+  "money-and-double-entry-ledgers",
+  "observability-slos-error-budgets",
+  "safe-deploys-config-changes",
+  "transactions-and-isolation-levels",
+  "what-senior-really-means",
+  "working-with-coding-agents"
 ]

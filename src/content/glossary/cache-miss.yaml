@@ -1,0 +1,4 @@
+id: cache-miss
+term: cache miss
+forms: [cache misses, cache hit, cache hits, hit rate]
+short: A cache hit is when the data is in the cache. A cache miss is when it is not, so you must read it from the source.

@@ -1,0 +1,4 @@
+id: replica
+term: replica
+forms: [replicas, read replica, read replicas]
+short: A full copy of a database that runs on another machine and is kept up to date with the original.

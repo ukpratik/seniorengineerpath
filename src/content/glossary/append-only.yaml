@@ -1,0 +1,4 @@
+id: append-only
+term: append-only
+forms: []
+short: Data you can only add to. Old records are never updated or deleted, so the full history stays.

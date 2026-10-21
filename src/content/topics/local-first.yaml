@@ -1,0 +1,8 @@
+id: local-first
+slug: local-first-and-sync-engines
+track: domains
+module: realtime-web
+title: "Local-first apps and sync engines"
+oneLiner: "How apps work offline and sync later, and how sync engines settle conflicts."
+level: L3
+prereqs: [collaborative-editing]

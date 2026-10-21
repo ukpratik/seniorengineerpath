@@ -1,0 +1,8 @@
+id: unique-ids
+slug: unique-id-generation
+track: distributed
+module: time
+title: "Unique ID generation"
+oneLiner: "UUIDs, Snowflake IDs and ticket servers: how to create unique, sortable IDs at scale."
+level: L1
+prereqs: [clocks-ordering]

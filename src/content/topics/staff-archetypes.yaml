@@ -1,0 +1,8 @@
+id: staff-archetypes
+slug: staff-archetypes
+track: craft
+module: levels
+title: "Staff archetypes"
+oneLiner: "Tech lead, architect, solver and right hand: the shapes staff-level work takes."
+level: L3
+prereqs: [career-ladders]

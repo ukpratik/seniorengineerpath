@@ -1,0 +1,8 @@
+id: property-tests
+slug: property-based-and-mutation-testing
+track: foundations
+module: testing
+title: "Property-based and mutation testing"
+oneLiner: "How generated inputs and deliberately broken code show what your example tests miss."
+level: L2
+prereqs: [testing-strategy]

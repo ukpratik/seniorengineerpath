@@ -1,0 +1,8 @@
+id: mentoring
+slug: mentoring-and-sponsorship
+track: craft
+module: influence
+title: "Mentoring and sponsorship"
+oneLiner: "How to grow other engineers, and the difference between giving advice and sponsoring."
+level: L2
+prereqs: [what-senior-means]

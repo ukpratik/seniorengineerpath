@@ -1,0 +1,8 @@
+id: ai-security-risks
+slug: ai-code-security-risks
+track: ai-native
+module: ai-quality
+title: "Security risks in AI-written code"
+oneLiner: "Slopsquatting, prompt injection and leaked secrets: new risks when agents write code."
+level: L2
+prereqs: [code-review, owasp-secure-coding]

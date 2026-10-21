@@ -1,0 +1,8 @@
+id: agent-extensions
+slug: agent-skills-hooks-mcp
+track: ai-native
+module: agents
+title: "Extending agents: skills, hooks and MCP"
+oneLiner: "How skills, subagents, hooks, MCP servers and plugins extend what a coding agent can do."
+level: L2
+prereqs: [coding-agents]

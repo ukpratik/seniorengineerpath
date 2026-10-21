@@ -1,0 +1,8 @@
+id: pricing-promotions
+slug: pricing-and-promotions-engine
+track: domains
+module: ecommerce
+title: "Pricing and promotions engine"
+oneLiner: "How coupons, discounts and price rules combine without giving money away by mistake."
+level: L2
+prereqs: [catalog-modelling]

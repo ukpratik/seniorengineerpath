@@ -1,0 +1,8 @@
+id: nosql-modelling
+slug: data-modelling-for-nosql
+track: data
+module: modelling
+title: "Data modelling for NoSQL"
+oneLiner: "How to design tables around your queries in DynamoDB- and Cassandra-style stores."
+level: L2
+prereqs: [data-models, sharding]

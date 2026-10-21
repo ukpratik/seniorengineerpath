@@ -1,0 +1,8 @@
+id: testing-strategy
+slug: testing-strategy
+track: foundations
+module: testing
+title: "Testing strategy that scales"
+oneLiner: "Which tests to write at each level, and how to keep a large test suite fast and trusted."
+level: L1
+prereqs: [solid-coupling]

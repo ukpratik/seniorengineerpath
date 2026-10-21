@@ -1,0 +1,8 @@
+id: ddd
+slug: domain-driven-design
+track: foundations
+module: code-design
+title: "Domain-driven design"
+oneLiner: "Bounded contexts, aggregates and a shared language for modelling complex business rules."
+level: L2
+prereqs: [hexagonal]

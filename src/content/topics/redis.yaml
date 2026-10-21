@@ -1,0 +1,8 @@
+id: redis
+slug: redis-in-depth
+track: data
+module: key-tech
+title: "Redis in depth"
+oneLiner: "Redis's single-threaded model, atomic scripts and persistence choices, and their limits."
+level: L2
+prereqs: [caching-stampedes]

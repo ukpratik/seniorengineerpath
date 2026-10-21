@@ -1,0 +1,8 @@
+id: supply-chain-security
+slug: dependency-supply-chain-security
+track: reliability
+module: security
+title: "Dependency and supply-chain security"
+oneLiner: "Lockfiles, SBOMs and signed builds: how to trust the code you did not write."
+level: L2
+prereqs: [owasp-secure-coding]

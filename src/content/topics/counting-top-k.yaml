@@ -1,0 +1,8 @@
+id: counting-top-k
+slug: counting-and-top-k-at-scale
+track: distributed
+module: messaging
+title: "Counting and top-K at scale"
+oneLiner: "How to count views and find trending items across billions of events using sketches."
+level: L2
+prereqs: [stream-processing, data-structures]

@@ -1,0 +1,11 @@
+id: aws-2025-10-dynamodb-dns
+title: "AWS DynamoDB outage: an empty DNS record in us-east-1"
+date: 2025-10-20
+company: "Amazon Web Services"
+broke: "DynamoDB in us-east-1 refused new connections for about three hours, and EC2 launches, load balancers, Lambda and many other services failed for much of the day."
+why: "A race between two copies of the DNS automation let an old plan overwrite a newer one. Cleanup then deleted it, which left the DynamoDB endpoint with no IP addresses."
+lesson: "Automation that writes critical records must refuse stale changes, and you must plan for recovery backlogs that last longer than the first fault."
+url: https://aws.amazon.com/message/101925/
+tags: [dns, dependencies, capacity]
+lessons: []
+verified: true

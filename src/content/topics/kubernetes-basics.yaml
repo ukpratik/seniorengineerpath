@@ -1,0 +1,8 @@
+id: kubernetes-basics
+slug: kubernetes-and-runtime-basics
+track: reliability
+module: change
+title: "Kubernetes and runtime platform basics"
+oneLiner: "Pods, deployments, probes and resource limits: what a backend engineer needs to know."
+level: L1
+prereqs: [os-essentials]

@@ -1,0 +1,8 @@
+id: container-patterns
+slug: sidecar-and-container-patterns
+track: scale
+module: architecture
+title: "Sidecar, ambassador and other service patterns"
+oneLiner: "Reusable patterns for building services and batch jobs out of small containers."
+level: L2
+prereqs: [service-mesh]

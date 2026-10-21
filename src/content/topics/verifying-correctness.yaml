@@ -1,0 +1,8 @@
+id: verifying-correctness
+slug: verifying-distributed-correctness
+track: distributed
+module: consistency
+title: "Verifying distributed correctness"
+oneLiner: "How Jepsen, TLA+ and model checking find bugs that ordinary tests miss."
+level: L3
+prereqs: [cap-consistency]

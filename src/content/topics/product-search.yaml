@@ -1,0 +1,8 @@
+id: product-search
+slug: product-search-and-discovery
+track: domains
+module: ecommerce
+title: "Product search and discovery"
+oneLiner: "Relevance, facets and typo tolerance: how shoppers find the product they want."
+level: L2
+prereqs: [search-systems, catalog-modelling]

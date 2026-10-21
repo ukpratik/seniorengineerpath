@@ -1,0 +1,11 @@
+id: github-2018-10-split-brain
+title: "GitHub outage: a 43-second network cut caused a day of trouble"
+date: 2018-10-21
+company: "GitHub"
+broke: "For about 24 hours, GitHub showed stale or wrong data, and webhooks and Pages builds were delayed."
+why: "A 43-second network break made the database tool fail over to the other coast. Writes then existed on both sides and could not be merged back fast."
+lesson: "Automatic failover must know your network layout, and keeping data correct matters more than coming back fast."
+url: https://github.blog/2018-10-30-oct21-post-incident-analysis/
+tags: [database, networking, consensus]
+lessons: []
+verified: true

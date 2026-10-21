@@ -1,0 +1,8 @@
+id: raft
+slug: consensus-and-raft
+track: distributed
+module: consensus
+title: "Consensus and Raft"
+oneLiner: "How Raft gets machines to agree on one log even when some of them fail."
+level: L2
+prereqs: [leader-election, replication]

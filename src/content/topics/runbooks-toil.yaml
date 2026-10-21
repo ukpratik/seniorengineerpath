@@ -1,0 +1,8 @@
+id: runbooks-toil
+slug: runbooks-and-reducing-toil
+track: reliability
+module: incidents
+title: "Runbooks and reducing toil"
+oneLiner: "How good runbooks speed up incidents, and how to automate away repetitive ops work."
+level: L2
+prereqs: [alerting-oncall]

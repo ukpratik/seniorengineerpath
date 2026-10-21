@@ -1,0 +1,8 @@
+id: derived-data
+slug: derived-data-and-the-log
+track: distributed
+module: messaging
+title: "Derived data and the log"
+oneLiner: "Treating the log as the source of truth, and building caches, search and analytics from it."
+level: L3
+prereqs: [queues-vs-logs, sagas-outbox-cdc]

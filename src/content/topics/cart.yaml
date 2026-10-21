@@ -1,0 +1,8 @@
+id: cart
+slug: shopping-cart-design
+track: domains
+module: ecommerce
+title: "Shopping cart design"
+oneLiner: "Where to store carts, how to merge guest and logged-in carts, and keep prices right."
+level: L1
+prereqs: [catalog-modelling]

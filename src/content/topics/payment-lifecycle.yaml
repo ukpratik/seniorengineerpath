@@ -1,0 +1,8 @@
+id: payment-lifecycle
+slug: payment-lifecycle
+track: domains
+module: fintech
+title: "The payment lifecycle"
+oneLiner: "Authorise, capture, settle, refund and chargeback: what happens to a payment after \"Pay\"."
+level: L2
+prereqs: [money-ledgers, idempotency-retries]

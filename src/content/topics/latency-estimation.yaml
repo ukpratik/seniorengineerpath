@@ -1,0 +1,7 @@
+id: latency-estimation
+slug: latency-numbers-and-estimation
+track: foundations
+module: estimation
+title: "Latency numbers and back-of-envelope maths"
+oneLiner: "The speed numbers every engineer should know, and how to size a system in five minutes."
+level: L1

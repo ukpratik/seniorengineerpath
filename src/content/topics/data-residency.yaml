@@ -1,0 +1,8 @@
+id: data-residency
+slug: data-residency-tenant-data-lifecycle
+track: reliability
+module: privacy
+title: "Data residency and the tenant data lifecycle"
+oneLiner: "Keeping customer data in the right country, and exporting or deleting it on request."
+level: L2
+prereqs: [privacy-engineering, multi-tenancy]

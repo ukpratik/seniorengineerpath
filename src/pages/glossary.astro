@@ -1,0 +1,76 @@
+---
+// Glossary A–Z (US-011): plain-English definitions, linked from lessons.
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data.ts';
+import { getCollection } from 'astro:content';
+
+const d = await siteData();
+const lessons = await getCollection('lessons', (l) => d.byId.get(l.id)?.written ?? false);
+// Which lessons use each term (from the build-time glossary linker).
+const usedBy = new Map<string, { title: string; slug: string }[]>();
+for (const l of lessons) {
+  const used = ((l.rendered?.metadata?.frontmatter ?? {}) as { glossaryUsed?: string[] }).glossaryUsed ?? [];
+  const t = d.byId.get(l.id)!;
+  for (const g of used) usedBy.set(g, [...(usedBy.get(g) ?? []), { title: t.title, slug: t.slug }]);
+}
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const groups = letters.map((L) => ({ L, terms: d.glossary.filter((g) => g.term[0].toUpperCase() === L) }));
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+<Base title="Glossary" description={`${d.glossary.length} software engineering terms explained in plain English, for engineers who read English as a second language.`} current="search">
+  <TopBar />
+  <main id="main" class="page narrow" data-pagefind-body data-pagefind-filter="type:Glossary">
+    <p class="eyebrow" data-pagefind-ignore>Glossary</p>
+    <h1 class="ptitle">Words, in plain English</h1>
+    <p class="plede">Every technical word our lessons use, explained in one or two short sentences. Lessons link here the first time they use a word.</p>
+    <label class="field gfilter" for="gq"><Icon name="search" /><span class="sr">Filter terms</span><input id="gq" type="search" placeholder="Filter terms" autocomplete="off" data-gq /></label>
+    <ul class="az" aria-label="Jump to a letter" data-pagefind-ignore>
+      {groups.map((g) => (g.terms.length ? <li><a href={`#letter-${g.L}`}>{g.L}</a></li> : <li><span aria-hidden="true">{g.L}</span></li>))}
+    </ul>
+    <p class="sr" aria-live="polite" data-glive></p>
+    <div class="gl">
+      {groups.filter((g) => g.terms.length).map((g) => (
+        <>
+          <h2 class="letter" id={`letter-${g.L}`} data-pagefind-ignore>{g.L}</h2>
+          {g.terms.map((t) => (
+            <div class="gentry" data-term-row={`${t.term} ${t.forms.join(' ')}`.toLowerCase()}>
+              <h3 class="gt" id={t.id}>{cap(t.term)}</h3>
+              <p class="gd">{t.short}</p>
+              {usedBy.get(t.id) && <p class="small" data-pagefind-ignore>Used in: {usedBy.get(t.id)!.map((l, i) => <>{i > 0 && ' · '}<a href={`/learn/${l.slug}`}>{l.title}</a></>)}</p>}
+            </div>
+          ))}
+        </>
+      ))}
+    </div>
+    <Footer />
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    initUi();
+    const q = document.querySelector<HTMLInputElement>('[data-gq]')!;
+    const rows = [...document.querySelectorAll<HTMLElement>('[data-term-row]')];
+    const live = document.querySelector<HTMLElement>('[data-glive]')!;
+    q.addEventListener('input', () => {
+      const v = q.value.trim().toLowerCase();
+      let n = 0;
+      for (const r of rows) {
+        const show = !v || r.dataset.termRow!.includes(v);
+        r.hidden = !show;
+        if (show) n++;
+      }
+      document.querySelectorAll<HTMLElement>('.gl .letter').forEach((h) => {
+        let el = h.nextElementSibling as HTMLElement | null;
+        let any = false;
+        while (el && !el.classList.contains('letter')) {
+          if (!el.hidden) any = true;
+          el = el.nextElementSibling as HTMLElement | null;
+        }
+        h.hidden = !any;
+      });
+      live.textContent = v ? `${n} terms match.` : '';
+    });
+  </script>
+</Base>

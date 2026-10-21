@@ -1,0 +1,8 @@
+id: tenant-onboarding
+slug: tenant-onboarding-observability-cost
+track: domains
+module: saas
+title: "Tenant onboarding, observability and cost"
+oneLiner: "How to set up new tenants automatically, and see each tenant's health and cost."
+level: L2
+prereqs: [multi-tenancy, observability-slos]

@@ -1,0 +1,11 @@
+id: heroku-2025-06-os-update
+title: "Heroku outage: an unplanned OS update cut network routes"
+date: 2025-06-10
+company: "Heroku"
+broke: "Many Heroku customers had failed logins and broken apps, some for up to 24 hours, and the status page was slow and wrong."
+why: "An automatic OS update that should have been off restarted networking on hosts. Routes were only set at first boot, so they were lost, and status tools ran on the same hosts."
+lesson: "Turn off unplanned updates in production, and run your status page and incident tools on separate systems."
+url: https://www.heroku.com/blog/summary-of-june-10-outage/
+tags: [deploys, networking, observability]
+lessons: []
+verified: true

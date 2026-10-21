@@ -1,0 +1,8 @@
+id: event-sourcing
+slug: event-driven-architecture-event-sourcing
+track: distributed
+module: workflows
+title: "Event-driven architecture and event sourcing"
+oneLiner: "When to publish events or store them as the source of truth, and what that costs."
+level: L2
+prereqs: [queues-vs-logs]

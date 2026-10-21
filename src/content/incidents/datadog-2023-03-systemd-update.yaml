@@ -1,0 +1,11 @@
+id: datadog-2023-03-systemd-update
+title: "Datadog outage: an automatic OS update broke networking"
+date: 2023-03-08
+company: "Datadog"
+broke: "For about a day, Datadog was down in five regions, so users could not reach the site or APIs and monitors did not alert."
+why: "An automatic security update restarted a network service on tens of thousands of nodes. The restart deleted container network routes, and the update window was the same in every region."
+lesson: "Control background updates like any other deploy, because regions that share images and settings can fail together."
+url: https://www.datadoghq.com/blog/2023-03-08-multiregion-infrastructure-connectivity-issue/
+tags: [deploys, networking, config]
+lessons: []
+verified: true

@@ -1,0 +1,8 @@
+id: catalog-modelling
+slug: product-catalog-modelling
+track: domains
+module: ecommerce
+title: "Product catalog modelling"
+oneLiner: "How to model products, variants and attributes that differ from one category to another."
+level: L1
+prereqs: [data-models]

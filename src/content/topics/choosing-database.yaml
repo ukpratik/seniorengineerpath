@@ -1,0 +1,8 @@
+id: choosing-database
+slug: choosing-a-database
+track: data
+module: modelling
+title: "Choosing a database"
+oneLiner: "A simple way to pick a database from your access patterns, not from hype."
+level: L1
+prereqs: [data-models]

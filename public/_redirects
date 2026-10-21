@@ -1,0 +1,3 @@
+# Cloudflare Pages redirects. Topic aliases are appended at build time (US-017).
+/privacy /about#privacy 301
+/checks /about#checks 301

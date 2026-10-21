@@ -1,0 +1,8 @@
+id: load-shedding
+slug: load-shedding-graceful-degradation
+track: scale
+module: protection
+title: "Load shedding and graceful degradation"
+oneLiner: "How to stay partly up under overload by dropping the right work early."
+level: L2
+prereqs: [rate-limiting, resilience-patterns]

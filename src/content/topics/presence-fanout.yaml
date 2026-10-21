@@ -1,0 +1,8 @@
+id: presence-fanout
+slug: presence-and-real-time-fan-out
+track: domains
+module: realtime-web
+title: "Presence and real-time fan-out"
+oneLiner: "How to show who is online and push updates to millions of open connections."
+level: L2
+prereqs: [realtime-transports, fan-out]

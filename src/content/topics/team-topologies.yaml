@@ -1,0 +1,8 @@
+id: team-topologies
+slug: team-topologies-conways-law
+track: craft
+module: judgement
+title: "Team Topologies and Conway's law"
+oneLiner: "Why systems end up shaped like the teams that build them, and how to use that."
+level: L3
+prereqs: [monolith-microservices]

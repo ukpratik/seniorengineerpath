@@ -1,0 +1,8 @@
+id: multi-tenancy
+slug: multi-tenancy-noisy-neighbours
+track: domains
+module: saas
+title: "Multi-tenancy and noisy neighbours"
+oneLiner: "Pooled, bridged and siloed tenants, and how to stop one tenant slowing down the rest."
+level: L2
+prereqs: [sharding, rate-limiting]

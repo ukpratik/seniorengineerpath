@@ -1,0 +1,11 @@
+id: slack-2021-01-network
+title: "Slack outage: post-holiday traffic overloaded a cloud network link"
+date: 2021-01-04
+company: "Slack"
+broke: "On the first work day of 2021, Slack was down and then slow for about three and a half hours."
+why: "A surge of traffic overloaded the AWS Transit Gateways that link Slack's networks, so packets were dropped. Autoscaling then tried to add 1,200 servers, which hit limits and made things worse."
+lesson: "Autoscaling can make an outage worse, and your cloud provider's limits are part of your capacity plan."
+url: https://slack.engineering/slacks-outage-on-january-4th-2021/
+tags: [capacity, networking, observability]
+lessons: []
+verified: true

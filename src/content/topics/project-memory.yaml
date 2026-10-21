@@ -1,0 +1,8 @@
+id: project-memory
+slug: project-memory-claude-md
+track: ai-native
+module: agents
+title: "Project memory: CLAUDE.md and rules files"
+oneLiner: "How memory and rules files give an agent your project's conventions every session."
+level: L1
+prereqs: [coding-agents]

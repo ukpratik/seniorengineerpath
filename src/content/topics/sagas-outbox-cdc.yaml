@@ -1,0 +1,8 @@
+id: sagas-outbox-cdc
+slug: sagas-outbox-and-cdc
+track: distributed
+module: workflows
+title: "Sagas, outbox and CDC"
+oneLiner: "How to keep data in step across services without distributed transactions."
+level: L2
+prereqs: [transactions-isolation, queues-vs-logs, idempotency-retries]

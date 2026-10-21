@@ -1,0 +1,8 @@
+id: tick-rate
+slug: tick-rate-snapshots-bandwidth
+track: domains
+module: gaming
+title: "Tick rate, snapshots and bandwidth"
+oneLiner: "How game servers send world state many times a second without flooding the network."
+level: L2
+prereqs: [game-loop]

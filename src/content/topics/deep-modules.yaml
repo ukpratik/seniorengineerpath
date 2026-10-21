@@ -1,0 +1,7 @@
+id: deep-modules
+slug: complexity-and-deep-modules
+track: foundations
+module: code-design
+title: "Complexity and deep modules"
+oneLiner: "Why code gets hard to change, and how simple interfaces over deep modules keep it easy."
+level: L1

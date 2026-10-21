@@ -1,0 +1,8 @@
+id: rollback-netcode
+slug: lockstep-and-rollback-netcode
+track: domains
+module: gaming
+title: "Deterministic lockstep and rollback netcode"
+oneLiner: "How fighting and strategy games keep players in sync by sharing inputs, not state."
+level: L3
+prereqs: [client-prediction]

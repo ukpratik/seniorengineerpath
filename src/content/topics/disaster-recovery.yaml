@@ -1,0 +1,8 @@
+id: disaster-recovery
+slug: disaster-recovery-and-backups
+track: reliability
+module: incidents
+title: "Disaster recovery and backups"
+oneLiner: "RPO, RTO and tested restores: how to make sure you can really get your data back."
+level: L2
+prereqs: [replication]

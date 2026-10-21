@@ -1,0 +1,8 @@
+id: money-ledgers
+slug: money-and-double-entry-ledgers
+track: domains
+module: fintech
+title: "Money and double-entry ledgers"
+oneLiner: "Why money must never be a float, and how double-entry ledgers keep every rupee accounted for."
+level: L1
+prereqs: [transactions-isolation]

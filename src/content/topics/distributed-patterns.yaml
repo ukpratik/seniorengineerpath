@@ -1,0 +1,8 @@
+id: distributed-patterns
+slug: distributed-systems-patterns
+track: distributed
+module: consensus
+title: "Distributed systems patterns"
+oneLiner: "Recurring patterns, from write-ahead logs to high-water marks, and where real systems use them."
+level: L3
+prereqs: [raft]

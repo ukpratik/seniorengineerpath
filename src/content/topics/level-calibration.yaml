@@ -1,0 +1,8 @@
+id: level-calibration
+slug: interview-level-calibration
+track: craft
+module: career
+title: "What interviewers expect at each level"
+oneLiner: "What separates a mid-level, senior and staff answer to the same design question."
+level: L2
+prereqs: [design-deep-dives]

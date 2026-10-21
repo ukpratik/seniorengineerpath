@@ -1,0 +1,8 @@
+id: rag
+slug: rag-retrieval-augmented-generation
+track: ai-native
+module: llm-features
+title: "RAG: retrieval-augmented generation"
+oneLiner: "How to ground LLM answers in your own data, and why most RAG problems are retrieval problems."
+level: L2
+prereqs: [prompt-engineering, vector-search]

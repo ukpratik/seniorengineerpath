@@ -1,0 +1,11 @@
+id: google-cloud-2025-06-service-control
+title: "Google Cloud outage: blank policy fields crashed API checks"
+date: 2025-06-12
+company: "Google Cloud"
+broke: "For hours, many Google Cloud and Workspace APIs returned 503 errors across the world, touching 76 Cloud products."
+why: "New quota code had no feature flag and no null check. A policy with blank fields copied to every region in seconds and made the API checker crash again and again."
+lesson: "Put new code paths behind a flag, check data that is copied everywhere, and add backoff so restarts do not overload a shared database."
+url: https://status.cloud.google.com/incidents/ow5i3PPK96RduMcb1SsW
+tags: [config, deploys, retries]
+lessons: []
+verified: true

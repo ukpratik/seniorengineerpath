@@ -1,0 +1,8 @@
+id: hexagonal
+slug: clean-and-hexagonal-architecture
+track: foundations
+module: code-design
+title: "Clean and hexagonal architecture"
+oneLiner: "How to keep business logic apart from databases and frameworks so both can change."
+level: L2
+prereqs: [solid-coupling]

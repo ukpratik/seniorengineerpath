@@ -1,0 +1,98 @@
+---
+// Learning path (US-018): an ordered list of lessons, progress and "make this my path".
+import Base from '../../layouts/Base.astro';
+import TopBar from '../../components/TopBar.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { siteData, LEVEL_LABEL } from '../../lib/site-data.ts';
+
+export async function getStaticPaths() {
+  const d = await siteData();
+  return d.paths.map((p) => ({ params: { slug: p.slug }, props: { id: p.id } }));
+}
+const d = await siteData();
+const path = d.paths.find((p) => p.id === Astro.props.id)!;
+const w = path.topics.filter((t) => t.written).length;
+const first = path.topics.find((t) => t.written);
+---
+<Base title={path.title} description={`${path.title}: a SeniorPath learning path for software engineers. ${path.description}`} current="map">
+  <TopBar />
+  <main id="main" class="page" data-path={path.id} data-default={String(path.default)}>
+    <div class="phead">
+      <p class="eyebrow">Learning path</p>
+      <h1 class="ptitle">{path.title}</h1>
+      <p class="plede">{path.description} Follow it in order; each lesson builds on the one before.</p>
+      <nav class="pswitch" aria-label="Choose a path">
+        {d.paths.map((p) => <a class="chip" href={`/paths/${p.slug}`} aria-current={p.id === path.id ? 'page' : undefined}>{p.title}</a>)}
+      </nav>
+    </div>
+    <div class="pgrid">
+      <ol class="steps-list" aria-label="Lessons in order">
+        {path.topics.map((t, i) => (
+          <li class:list={[t.written ? '' : 'soon']} data-topic={t.id}>
+            <a href={`/learn/${t.slug}`}>
+              <span class="num">{i + 1}</span>
+              <span><b>{t.title}</b><span class="meta"><span>{t.trackTitle}</span><span>{LEVEL_LABEL[t.level]}</span><span data-st>{t.written ? 'Written' : 'Coming soon'}</span></span></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+      <aside class="card psum" aria-label="Path progress">
+        <div class="row"><span>Your progress</span><span class="muted" data-pcount>0 of {path.steps.length} done</span></div>
+        <div class="bar" aria-hidden="true"><i style="width:0"></i></div>
+        <p class="small">{path.steps.length} lessons · {w} written, {path.steps.length - w} coming soon</p>
+        {first && <a class="btn btn-primary block" href={`/learn/${first.slug}`} data-pnext><span>Start lesson 1</span><Icon name="arrow-right" /></a>}
+        <button type="button" class="btn btn-secondary" data-active><Icon name="route" /><span>Make this my path</span></button>
+        <p class="small">Your active path sets “Previous” and “Next” inside lessons.</p>
+      </aside>
+    </div>
+    <Footer />
+  </main>
+  <script>
+    import { initUi, store, toast } from '../../scripts/ui.ts';
+    initUi();
+    const main = document.querySelector<HTMLElement>('[data-path]')!;
+    const id = main.dataset.path!;
+    const s = store.load();
+    const items = [...document.querySelectorAll<HTMLLIElement>('.steps-list li')];
+    const btn = document.querySelector<HTMLButtonElement>('[data-active]')!;
+    const isActive = () => (s?.activePath ?? (main.dataset.default === 'true' ? id : '')) === id;
+    const paintBtn = (on: boolean) => {
+      btn.querySelector('span')!.textContent = on ? 'This is your path ✓' : 'Make this my path';
+      btn.disabled = on;
+    };
+    if (!s) {
+      btn.disabled = true;
+      btn.querySelector('span')!.textContent = 'Can’t save a path in this browser';
+    } else {
+      paintBtn(isActive());
+      btn.addEventListener('click', () => {
+        store.setActivePath(id);
+        paintBtn(true);
+        toast('Done. Lessons now show Previous and Next from this path.');
+      });
+      let done = 0;
+      let nextSet = false;
+      items.forEach((li, i) => {
+        const tid = li.dataset.topic!;
+        if (s.done[tid]) {
+          done++;
+          li.classList.add('done');
+          li.querySelector('[data-st]')!.textContent = 'Done ✓';
+        } else if (!nextSet && !li.classList.contains('soon')) {
+          nextSet = true;
+          li.classList.add('next');
+          const a = li.querySelector('a')!;
+          a.setAttribute('aria-current', 'step');
+          const pn = document.querySelector<HTMLAnchorElement>('[data-pnext]');
+          if (pn && done > 0) {
+            pn.href = a.href;
+            pn.querySelector('span')!.textContent = `Next: lesson ${i + 1}`;
+          }
+        }
+      });
+      document.querySelector('[data-pcount]')!.textContent = `${done} of ${items.length} done`;
+      document.querySelector<HTMLElement>('.psum .bar > i')!.style.width = `${Math.round((done / items.length) * 100)}%`;
+    }
+  </script>
+</Base>

@@ -1,0 +1,8 @@
+id: threat-modelling
+slug: threat-modelling-zero-trust
+track: reliability
+module: security
+title: "Threat modelling and zero trust"
+oneLiner: "How to find what an attacker would target in your design before you build it."
+level: L3
+prereqs: [authn-authz, owasp-secure-coding]

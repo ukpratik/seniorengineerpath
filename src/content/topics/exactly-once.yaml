@@ -1,0 +1,8 @@
+id: exactly-once
+slug: exactly-once-and-effectively-once
+track: distributed
+module: messaging
+title: "Exactly-once and effectively-once"
+oneLiner: "Why exactly-once delivery is a myth, and how dedupe makes processing effectively once."
+level: L2
+prereqs: [queues-vs-logs, idempotency-retries]

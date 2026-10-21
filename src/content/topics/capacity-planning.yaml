@@ -1,0 +1,8 @@
+id: capacity-planning
+slug: capacity-planning
+track: foundations
+module: estimation
+title: "Capacity planning"
+oneLiner: "How to forecast load and decide how much hardware you need before you run out."
+level: L2
+prereqs: [latency-estimation, load-testing]

@@ -1,0 +1,8 @@
+id: authn-authz
+slug: authentication-and-authorization
+track: reliability
+module: security
+title: "Authentication and authorization"
+oneLiner: "Sessions, tokens, OAuth and OIDC, and the difference between who you are and what you may do."
+level: L1
+prereqs: [tls]

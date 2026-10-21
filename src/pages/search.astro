@@ -1,0 +1,34 @@
+---
+// Search (US-012): Pagefind's static index, loaded on first focus. Only a bucketed
+// result count is sent to analytics, never the query.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Search" description="Search SeniorPath lessons, glossary terms and incidents." current="search" noindex>
+  <main class="search-ov" id="main" aria-labelledby="s-label">
+    <div class="search-head">
+      <a class="icon-btn" href="/" aria-label="Close search" data-close-search><Icon name="arrow-left" /></a>
+      <label class="field" for="q"><span class="sr" id="s-label">Search SeniorPath</span><Icon name="search" /><input id="q" type="search" placeholder="Search lessons, terms, incidents" autocomplete="off" aria-describedby="s-help" aria-controls="out" /></label>
+    </div>
+    <div class="search-body">
+      <p class="sr" id="s-help">Results appear as you type, grouped by type.</p>
+      <p class="sr" id="s-live" aria-live="polite"></p>
+      <div id="out">
+        <div data-empty>
+          <p class="small">Try one of these:</p>
+          <div class="sugg">
+            {['idempotency', 'retry', 'outage', 'senior', 'timeout', 'DNS'].map((w) => <button type="button" class="chip" data-sugg>{w}</button>)}
+          </div>
+          <div class="empty-ill"><Icon name="info" /><p>Search looks through every lesson, coming-soon topic, glossary term and incident card. It works in your browser, so nothing you type is sent anywhere.</p></div>
+        </div>
+      </div>
+      <noscript><p>Search needs JavaScript. You can browse everything from the <a href="/map">map</a>, the <a href="/glossary">glossary</a> and the <a href="/incidents">incident library</a>.</p></noscript>
+    </div>
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    import { initSearch } from '../scripts/search.ts';
+    initUi();
+    initSearch();
+  </script>
+</Base>

@@ -1,0 +1,8 @@
+id: dora-metrics
+slug: dora-metrics-delivery-performance
+track: craft
+module: delivery
+title: "DORA metrics and delivery performance"
+oneLiner: "The four DORA metrics, what they say about a team, and how they get misused."
+level: L2
+prereqs: [safe-deploys]

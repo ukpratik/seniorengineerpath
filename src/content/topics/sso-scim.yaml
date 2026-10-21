@@ -1,0 +1,8 @@
+id: sso-scim
+slug: enterprise-sso-and-scim
+track: domains
+module: saas
+title: "Enterprise SSO and SCIM"
+oneLiner: "How SAML, OIDC and SCIM let big customers log in and manage users from their own systems."
+level: L2
+prereqs: [authn-authz]

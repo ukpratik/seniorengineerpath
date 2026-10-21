@@ -1,0 +1,8 @@
+id: queues-vs-logs
+slug: queues-vs-logs-delivery-guarantees
+track: distributed
+module: messaging
+title: "Queues vs logs and delivery guarantees"
+oneLiner: "The difference between a queue and a log, and what at-most, at-least and exactly once mean."
+level: L1
+prereqs: [why-distributed-hard]

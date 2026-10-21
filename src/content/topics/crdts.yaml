@@ -1,0 +1,8 @@
+id: crdts
+slug: crdts-and-coordination-avoidance
+track: distributed
+module: consistency
+title: "CRDTs and coordination avoidance"
+oneLiner: "Data types that merge on their own, so replicas can accept writes without asking each other."
+level: L3
+prereqs: [clocks-ordering, cap-consistency]

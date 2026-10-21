@@ -1,0 +1,8 @@
+id: owasp-secure-coding
+slug: owasp-top-10-secure-coding
+track: reliability
+module: security
+title: "OWASP Top 10 and secure coding"
+oneLiner: "The most common web security bugs, like injection and broken access control, and how to stop them."
+level: L1
+prereqs: [rest-api]

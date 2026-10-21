@@ -1,9 +1,11 @@
 // Astro integration: runs the content gate before every build and, after a
 // successful build, records published slugs and writes alias redirects (US-017).
-import { readFileSync, writeFileSync, existsSync, appendFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, appendFileSync, readdirSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AstroIntegration } from 'astro';
+import { UMAMI } from '../config.ts';
 import { loadContent } from './load.ts';
 import { runGate, formatIssues, publishedLessons } from './gate.ts';
 
@@ -17,6 +19,49 @@ export function gateNow(): { ok: boolean; report: string } {
   const c = loadContent();
   const r = runGate(c, { today: new Date().toISOString().slice(0, 10), publishedSlugs: readManifest() });
   return { ok: r.errors.length === 0, report: formatIssues(r) };
+}
+
+function htmlFiles(dir: string): string[] {
+  return readdirSync(dir).flatMap((f) => {
+    const p = join(dir, f);
+    return statSync(p).isDirectory() ? htmlFiles(p) : f.endsWith('.html') ? [p] : [];
+  });
+}
+
+// Content Security Policy with a hash for every inline script in the build (NFR-011).
+export function securityHeaders(distDir: string): string {
+  const hashes = new Set<string>();
+  for (const f of htmlFiles(distDir)) {
+    for (const m of readFileSync(f, 'utf8').matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
+      if (m[1].trim()) hashes.add(`'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`);
+    }
+  }
+  const umami = UMAMI.websiteId ? new URL(UMAMI.src).origin : '';
+  const csp = [
+    "default-src 'self'",
+    `script-src 'self' ${[...hashes].join(' ')} ${umami} 'wasm-unsafe-eval'`.replace(/\s+/g, ' ').trim(),
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data:",
+    "font-src 'self'",
+    `connect-src 'self' ${umami}`.trim(),
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+  ].join('; ');
+  return `/*
+  Content-Security-Policy: ${csp}
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/icons.svg
+  Cache-Control: public, max-age=86400
+`;
 }
 
 export function contentGate(): AstroIntegration {
@@ -41,6 +86,8 @@ export function contentGate(): AstroIntegration {
         const redirects = c.topics.flatMap((t) => t.aliases.map((a) => `/learn/${a} /learn/${t.slug} 301`));
         if (redirects.length) appendFileSync(join(fileURLToPath(dir), '_redirects'), redirects.join('\n') + '\n');
         logger.info(`slug manifest: ${merged.length} published slugs; ${redirects.length} alias redirects`);
+        writeFileSync(join(fileURLToPath(dir), '_headers'), securityHeaders(fileURLToPath(dir)));
+        logger.info('wrote _headers with CSP hashes for inline scripts');
       },
     },
   };

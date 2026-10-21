@@ -1,0 +1,8 @@
+id: lld
+slug: low-level-object-oriented-design
+track: foundations
+module: code-design
+title: "Low-level and object-oriented design"
+oneLiner: "How to design classes and interfaces for a small system, as asked in LLD interviews."
+level: L1
+prereqs: [solid-coupling, design-patterns]

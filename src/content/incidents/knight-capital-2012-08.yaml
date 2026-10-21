@@ -1,0 +1,11 @@
+id: knight-capital-2012-08
+title: "Knight Capital: a missed server lost $460 million in 45 minutes"
+date: 2012-08-01
+company: "Knight Capital"
+broke: "In about 45 minutes after the market opened, Knight's trading system sent millions of unwanted orders and lost about $460 million."
+why: "A manual deploy left old code on one of eight servers. The new code reused a flag that once turned on that old code, so the server sent orders with no limit."
+lesson: "Automate deploys and check every server runs the same version, never reuse old flags, and have a fast kill switch for systems that move money."
+url: https://www.sec.gov/litigation/admin/2013/34-70694.pdf
+tags: [deploys, config, human-error]
+lessons: []
+verified: true

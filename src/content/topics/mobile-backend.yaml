@@ -1,0 +1,8 @@
+id: mobile-backend
+slug: mobile-backend-concerns
+track: domains
+module: realtime-web
+title: "Mobile backend concerns"
+oneLiner: "Old app versions, weak networks, push and offline sync: designing APIs for mobile apps."
+level: L2
+prereqs: [api-versioning]

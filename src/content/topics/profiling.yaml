@@ -1,0 +1,8 @@
+id: profiling
+slug: profiling-and-performance-method
+track: scale
+module: performance
+title: "Profiling and performance method"
+oneLiner: "How to find what is really slow with the USE method, flame graphs and profilers."
+level: L2
+prereqs: [latency-estimation]

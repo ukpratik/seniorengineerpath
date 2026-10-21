@@ -1,0 +1,8 @@
+id: resilience-patterns
+slug: circuit-breakers-and-bulkheads
+track: distributed
+module: reliable-calls
+title: "Circuit breakers, bulkheads and fallbacks"
+oneLiner: "How to stop one slow dependency from taking down every service that calls it."
+level: L2
+prereqs: [idempotency-retries, backoff-jitter]

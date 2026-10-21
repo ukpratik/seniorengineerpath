@@ -1,0 +1,8 @@
+id: contract-tests
+slug: contract-and-integration-tests
+track: foundations
+module: testing
+title: "Contract and integration tests for services"
+oneLiner: "How to test services that call each other without a slow, fragile shared environment."
+level: L2
+prereqs: [testing-strategy, rest-api]

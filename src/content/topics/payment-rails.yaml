@@ -1,0 +1,8 @@
+id: payment-rails
+slug: payment-rails-upi-and-cards
+track: domains
+module: fintech
+title: "Payment rails: UPI and card networks"
+oneLiner: "How UPI and card networks move money, and what their timeouts and states mean for you."
+level: L2
+prereqs: [payment-lifecycle]

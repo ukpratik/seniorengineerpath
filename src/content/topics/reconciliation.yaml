@@ -1,0 +1,8 @@
+id: reconciliation
+slug: reconciliation
+track: domains
+module: fintech
+title: "Reconciliation"
+oneLiner: "How to match your records against banks and providers, and fix the gaps you find."
+level: L2
+prereqs: [money-ledgers]

@@ -1,0 +1,8 @@
+id: btree-lsm
+slug: btree-vs-lsm-tree
+track: data
+module: storage-engines
+title: "B-tree vs LSM-tree"
+oneLiner: "The two main ways databases store data, and why one is fast to read and the other to write."
+level: L1
+prereqs: [storage-internals]

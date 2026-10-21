@@ -1,0 +1,11 @@
+id: crowdstrike-2024-07-channel-file-291
+title: "CrowdStrike outage: a content update crashed Windows hosts"
+date: 2024-07-19
+company: "CrowdStrike"
+broke: "Windows machines running the Falcon sensor crashed to a blue screen, and many needed manual fixes to start again."
+why: "A content update gave the sensor 21 input fields when it expected 20. The sensor read past the end of its data and crashed, and a validator bug let the file through."
+lesson: "Content and config updates can crash systems just like code, so check their shape, test them on a few machines first, and roll out slowly."
+url: https://www.crowdstrike.com/falcon-content-update-remediation-and-guidance-hub/
+tags: [config, deploys, testing]
+lessons: []
+verified: true

@@ -1,0 +1,8 @@
+id: build-vs-buy
+slug: build-vs-buy-vs-open-source
+track: craft
+module: judgement
+title: "Build vs buy vs open source"
+oneLiner: "How to decide whether to build, buy or adopt open source, including the hidden costs."
+level: L2
+prereqs: [architecture-tradeoffs]

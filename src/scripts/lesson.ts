@@ -4,17 +4,53 @@ import { store, icon, toast, openDialog, closeDialog, initUi } from './ui.ts';
 import { initStepper } from './stepthrough.ts';
 import { track } from './analytics.ts';
 import { nthBucket } from './store.ts';
+import { manifest } from './manifest.ts';
 
 initUi();
 
 const page = document.querySelector<HTMLElement>('[data-lesson]');
 if (page) {
   const id = page.dataset.lesson!;
-  const nextTitle = page.dataset.nextTitle ?? '';
   const majorRevised = page.dataset.majorRevised ?? '';
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   store.setLastOpened(id);
   track('lesson_view', { lesson_id: id });
+
+  // ---- Previous / Next follow the reader's active path (LLD §5) ----
+  const active = store.load()?.activePath;
+  if (active && active !== page.dataset.defaultPath) {
+    void manifest().then((m) => {
+      const p = m?.paths[active];
+      if (!m || !p) return;
+      const i = p.steps.indexOf(id);
+      const line = document.querySelector<HTMLElement>('.pathline');
+      const nav = document.querySelector<HTMLElement>('nav.pn');
+      if (i < 0) {
+        if (line) line.hidden = true;
+        return;
+      }
+      if (line) {
+        line.hidden = false;
+        line.querySelector('span')!.textContent = `${p.t} · lesson ${i + 1} of ${p.steps.length}`;
+        line.querySelector<HTMLElement>('.bar > i')!.style.width = `${Math.round(((i + 1) / p.steps.length) * 100)}%`;
+      }
+      const link = (tid: string | undefined, label: string) => {
+        const t = tid ? m.topics[tid] : undefined;
+        if (!t) return '<span></span>';
+        const a = document.createElement('a');
+        a.href = `/learn/${t.s}`;
+        a.innerHTML = `<small>${label}</small>`;
+        a.append(t.t);
+        return a.outerHTML;
+      };
+      const html = link(p.steps[i - 1], '← Previous') + link(p.steps[i + 1], 'Next →');
+      if (nav) {
+        nav.innerHTML = html;
+        nav.setAttribute('aria-label', `Previous and next lesson in ${p.t}`);
+      }
+      page.dataset.nextTitle = p.steps[i + 1] ? m.topics[p.steps[i + 1]]?.t ?? '' : '';
+    });
+  }
 
   // ---- "Updated since you finished it" ----
   const doneAt = store.load()?.done[id];
@@ -134,6 +170,7 @@ if (page) {
         if (v) {
           const r = store.markDone(id);
           if (r?.firstEver) track('lesson_complete', { lesson_id: id, nth_completed_bucket: nthBucket(r.nth) });
+          const nextTitle = page.dataset.nextTitle ?? '';
           toast(nextTitle ? `Marked as done. Next on your path: ${nextTitle}.` : 'Marked as done.');
           const s = store.load();
           if (s && Object.keys(s.done).length >= 5 && !s.exportPrompted) {

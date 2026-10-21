@@ -1,0 +1,8 @@
+id: skill-atrophy
+slug: skill-atrophy-deliberate-practice
+track: ai-native
+module: ai-quality
+title: "Skill atrophy and deliberate practice"
+oneLiner: "How to keep your own skills sharp while AI writes much of your code."
+level: L2
+prereqs: [coding-agents]

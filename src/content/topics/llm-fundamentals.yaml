@@ -1,0 +1,7 @@
+id: llm-fundamentals
+slug: llm-fundamentals
+track: ai-native
+module: llm-features
+title: "LLM fundamentals for product engineers"
+oneLiner: "Tokens, context windows, temperature and cost: what to know before you build with LLMs."
+level: L1

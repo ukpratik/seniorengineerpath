@@ -1,0 +1,8 @@
+id: frontend-architecture
+slug: frontend-architecture-at-scale
+track: domains
+module: realtime-web
+title: "Frontend architecture at scale"
+oneLiner: "Rendering choices, state management and micro-frontends for large web apps."
+level: L2
+prereqs: [web-performance]

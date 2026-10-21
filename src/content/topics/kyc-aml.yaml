@@ -1,0 +1,8 @@
+id: kyc-aml
+slug: kyc-aml-compliance-design
+track: domains
+module: fintech
+title: "KYC, AML and compliance-driven design"
+oneLiner: "How know-your-customer and anti-money-laundering rules shape onboarding and data design."
+level: L2
+prereqs: [audit-trails]

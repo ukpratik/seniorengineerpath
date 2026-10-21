@@ -1,0 +1,8 @@
+id: inventory-flash-sales
+slug: inventory-overselling-flash-sales
+track: domains
+module: ecommerce
+title: "Inventory, overselling and flash sales"
+oneLiner: "How to sell the last item exactly once when thousands of people click \"Buy\" together."
+level: L2
+prereqs: [concurrency-control, caching-stampedes, rate-limiting]

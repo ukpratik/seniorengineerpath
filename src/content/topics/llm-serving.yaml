@@ -1,0 +1,8 @@
+id: llm-serving
+slug: llm-serving-inference
+track: domains
+module: data-ml
+title: "LLM serving and inference infrastructure"
+oneLiner: "Batching, KV caches and GPU queues: how LLMs are served at scale, and at what cost."
+level: L3
+prereqs: [llm-fundamentals, tail-latency-queueing]

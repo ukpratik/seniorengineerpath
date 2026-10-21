@@ -1,37 +1,150 @@
 ---
-// Reader-test home (M2). The full home (Continue card, paths, incidents) comes in M3.
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data.ts';
+import { formatDay } from '../lib/lesson-parts.ts';
 
-const showDrafts = import.meta.env.DEV || process.env.SHOW_DRAFTS === '1';
-const live = new Set((await getCollection('lessons', (l) => l.data.status === 'published' || showDrafts)).map((l) => l.id));
-const topics = await getCollection('topics');
-const path = (await getCollection('paths')).find((p) => p.data.default)!.data;
-const steps = path.steps.map((id) => topics.find((t) => t.id === id)!.data).filter((t) => live.has(t.id));
-const first = steps[0];
+const d = await siteData();
+const first = d.defaultPath.topics.find((t) => t.written);
+const lineFor = (i: number) => ['var(--accent)', 'var(--t2)', 'var(--t4)'][i] ?? 'var(--t6)';
+const featured = d.incidents.slice(0, 3);
 ---
-<Base title="From mid-level to senior" description="SeniorPath helps software engineers grow from mid-level to senior: how real systems are built, broken and fixed, in simple English. Free lessons with diagrams and real incidents." current="home">
-  <header class="topbar">
-    <a class="brand" href="/"><span><b>SeniorPath</b><small>for software engineers</small></span></a>
-    <div class="grow"></div>
-    <button type="button" class="icon-btn theme-toggle" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-moon"></use></svg></button>
-  </header>
-  <main id="main" class="page">
-    <p class="eyebrow">Free · No sign-up</p>
-    <h1 class="ptitle">From mid-level to senior: how real systems are built, broken and fixed.</h1>
-    <p class="plede">Short lessons in simple English. Every lesson starts with something that really broke, shows how it works step by step, and ends with what a senior does at work and with AI.</p>
-    {first && <p><a class="btn btn-primary" href={`/learn/${first.slug}`}>Start with lesson 1: {first.title} <svg class="i" aria-hidden="true"><use href="/icons.svg#i-arrow-right"></use></svg></a></p>}
-    <section class="blk">
-      <div class="sec-head"><h2>{path.title}</h2></div>
-      <ol class="steps-list">
-        {steps.map((t, i) => (
-          <li><a href={`/learn/${t.slug}`}><span class="num">{i + 1}</span><span><b>{t.title}</b><span class="meta">{t.oneLiner}</span></span></a></li>
-        ))}
+<Base title="From mid-level to senior" description="SeniorPath helps software engineers grow from mid-level to senior: how real systems are built, broken and fixed, in simple English. Free lessons with step-through diagrams and real incidents." current="home">
+  <TopBar />
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-h">
+      <div>
+        <div class="first-only">
+          <p class="eyebrow">For software engineers · Free to read</p>
+          <h1 class="promise" id="hero-h">From mid-level to senior: how real systems are built, broken and fixed, in simple English</h1>
+          <p class="lede">Short lessons that start from something that really broke. Diagrams you step through at your own pace. How seniors decide, and how they work with AI.</p>
+          <div class="cta">
+            {first && <a class="btn btn-primary start" href={`/learn/${first.slug}`}><Icon name="arrow-right" /><span>Start with lesson 1: {first.title}</span></a>}
+            <a class="btn btn-ghost" href="/map"><Icon name="map" />See the whole map</a>
+          </div>
+        </div>
+        <div class="ret-only">
+          <p class="eyebrow">Welcome back</p>
+          <h1 class="hello">Pick up where you left off</h1>
+          <article class="card continue" aria-labelledby="cont-t" data-continue hidden>
+            <div class="ring" role="img" data-ring aria-label=""><svg viewBox="0 0 72 72" aria-hidden="true"><circle class="tr" cx="36" cy="36" r="30"></circle><circle class="val" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"></circle></svg><span aria-hidden="true"></span></div>
+            <div><p class="c-meta" data-c-meta></p><h2 id="cont-t" data-c-title></h2><p class="c-sub" data-c-sub></p></div>
+            <a class="btn btn-primary" href="/" data-c-link>Continue lesson <Icon name="arrow-right" /></a>
+            <div class="c-path"><span data-c-path></span><div class="bar" aria-hidden="true"><i style="width:0%"></i></div></div>
+          </article>
+        </div>
+      </div>
+      <aside class="hero-art card art" aria-hidden="true">
+        <h2>Your route through SeniorPath</h2>
+        <svg viewBox="0 0 360 262" width="100%">
+          <path style="stroke:var(--accent)" d="M30 40 H170 Q200 40 200 70 V120 Q200 150 230 150 H330" fill="none" stroke-width="8" stroke-linecap="round"></path>
+          <path style="stroke:var(--t2)" d="M30 220 H120 Q150 220 150 190 V170 Q150 150 180 150 H230" fill="none" stroke-width="8" stroke-linecap="round"></path>
+          <circle style="fill:var(--accent)" cx="30" cy="40" r="11"></circle><path style="stroke:var(--on-accent)" d="m25 40 4 4 7-8" stroke-width="2.6" fill="none"></path>
+          <circle style="fill:var(--surface);stroke:var(--accent)" cx="110" cy="40" r="11" stroke-width="5"></circle>
+          <circle style="fill:var(--surface);stroke:var(--accent)" cx="200" cy="100" r="11" stroke-width="5"></circle>
+          <circle style="fill:var(--surface);stroke:var(--text)" cx="230" cy="150" r="14" stroke-width="5"></circle>
+          <circle style="fill:var(--surface);stroke:var(--accent)" cx="330" cy="150" r="11" stroke-width="5"></circle>
+          <circle style="fill:var(--surface);stroke:var(--t2)" cx="30" cy="220" r="11" stroke-width="5"></circle>
+          <text style="fill:var(--text)" x="30" y="70" font-size="13" font-weight="700">L1 Must-know</text>
+          <text style="fill:var(--text)" x="215" y="95" font-size="13" font-weight="700">L2 Senior</text>
+          <text style="fill:var(--text)" x="262" y="185" font-size="13" font-weight="700">L3 Staff+</text>
+          <text style="fill:var(--text-2)" x="20" y="254" font-size="13" font-weight="600">Domain tracks join here</text>
+        </svg>
+      </aside>
+    </section>
+
+    <div class="wrap blocked-only" style="margin-top:16px"><div class="notice warn" role="status"><Icon name="lock" /><p><strong>This browser isn’t saving progress.</strong> It may be in private mode, or storage is blocked. You can still read every lesson; “Mark as done” and “Continue” won’t be kept.</p></div></div>
+
+    <section class="blk wrap first-only" aria-labelledby="how-h">
+      <div class="sec-head"><h2 id="how-h">How this works</h2></div>
+      <ol class="steps">
+        <li><h3>Read a short lesson</h3><p>10–15 minutes. Each one starts from something that broke, then explains the idea in simple words.</p></li>
+        <li><h3>Step through the picture</h3><p>Diagrams move one step at a time, only when you press Next.</p></li>
+        <li><h3>Check yourself, mark it done</h3><p>A few quick questions. Your progress stays in this browser. No account needed.</p></li>
       </ol>
+    </section>
+
+    <section class="blk wrap" aria-labelledby="paths-h">
+      <div class="sec-head"><h2 id="paths-h">Learning paths</h2><a href="/map">Open the map <Icon name="chev-right" /></a></div>
+      <ul class="grid3">
+        {d.paths.map((p, i) => {
+          const w = p.topics.filter((t) => t.written).length;
+          return (
+            <li class="card pathc" style={`--line:${lineFor(i)}`} data-path-card={p.id}>
+              <div class="pmeta">{p.default && <span class="chip lv">Recommended</span>}<span class="chip">{p.steps.length} lessons · {w} written</span></div>
+              <h3><a href={`/paths/${p.slug}`}>{p.title}</a></h3>
+              <p>{p.description}</p>
+              <div class="pfoot"><span data-p-count>Not started</span><div class="bar" aria-hidden="true"><i style="width:0"></i></div></div>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    {featured.length > 0 && (
+      <section class="blk wrap" aria-labelledby="inc-h">
+        <div class="sec-head"><h2 id="inc-h">From the incident library</h2><a href="/incidents">All {d.incidents.length} incidents <Icon name="chev-right" /></a></div>
+        <ul class="grid3">
+          {featured.map((i) => (
+            <li class="card inc"><span class="when"><Icon name="alert" />{i.company} · {formatDay(i.date)}</span><h3>{i.title}</h3><p>{i.broke}</p><div class="chips">{i.tags.map((t) => <span class="chip">{t}</span>)}</div><div class="links"><a href={`/incidents#${i.id}`}>Read the card</a></div></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="blk wrap" aria-labelledby="more-h">
+      <h2 class="sr" id="more-h">More</h2>
+      <div class="quick"><a class="chip" href="/glossary"><Icon name="book" />Glossary</a><a class="chip" href="/incidents"><Icon name="alert" />Incidents</a><a class="chip" href="/about#checks"><Icon name="shield" />How we check content</a></div>
+      <div class="notice" style="margin-top:20px"><Icon name="download" /><p>Your progress is saved only in this browser. <a href="/progress">Export it</a> to keep it safe.</p></div>
+      <Footer />
     </section>
   </main>
   <script>
-    import { initUi } from '../scripts/ui.ts';
+    import { initUi, store } from '../scripts/ui.ts';
+    import { manifest, LEVEL } from '../scripts/manifest.ts';
     initUi();
+    const s = store.load();
+    if (s && (s.lastOpened || Object.keys(s.done).length)) {
+      manifest().then((m) => {
+        if (!m) return;
+        const doneIn = (steps: string[]) => steps.filter((id) => s.done[id]).length;
+        document.querySelectorAll<HTMLElement>('[data-path-card]').forEach((card) => {
+          const p = m.paths[card.dataset.pathCard!];
+          const n = doneIn(p.steps);
+          if (!n) return;
+          card.querySelector('[data-p-count]')!.textContent = `${n} of ${p.steps.length} done`;
+          card.querySelector<HTMLElement>('.bar > i')!.style.width = `${Math.round((n / p.steps.length) * 100)}%`;
+        });
+        const t = s.lastOpened ? m.topics[s.lastOpened] : undefined;
+        if (!t) return; // the lesson was removed: hide the card silently
+        const pathId = s.activePath && m.paths[s.activePath] ? s.activePath : m.defaultPath;
+        const path = m.paths[pathId];
+        const card = document.querySelector<HTMLElement>('[data-continue]')!;
+        const idx = path.steps.indexOf(s.lastOpened!);
+        const isDone = !!s.done[s.lastOpened!];
+        // If the last lesson is done, offer the next written lesson on the path instead.
+        const nextId = isDone && idx >= 0 ? path.steps.slice(idx + 1).find((id) => m.topics[id]?.w) : undefined;
+        const showId = nextId ?? s.lastOpened!;
+        const show = m.topics[showId];
+        const pos = path.steps.indexOf(showId);
+        card.querySelector('[data-c-meta]')!.textContent = pos >= 0 ? `Lesson ${pos + 1} of ${path.steps.length} in ${path.t}` : 'Last opened';
+        card.querySelector('[data-c-title]')!.textContent = show.t;
+        card.querySelector('[data-c-sub]')!.textContent = `${show.tr} · ${LEVEL[show.l]}`;
+        const link = card.querySelector<HTMLAnchorElement>('[data-c-link]')!;
+        link.href = `/learn/${show.s}`;
+        link.firstChild!.textContent = nextId ? 'Start next lesson ' : 'Continue lesson ';
+        const n = doneIn(path.steps);
+        card.querySelector('[data-c-path]')!.textContent = `${path.t}: ${n} of ${path.steps.length} lessons done`;
+        card.querySelector<HTMLElement>('.c-path .bar > i')!.style.width = `${Math.round((n / path.steps.length) * 100)}%`;
+        const pct = Math.round((n / path.steps.length) * 100);
+        const ring = card.querySelector<HTMLElement>('[data-ring]')!;
+        ring.setAttribute('aria-label', `${pct}% of the path done`);
+        ring.querySelector('span')!.textContent = `${pct}%`;
+        ring.querySelector<SVGCircleElement>('.val')!.style.strokeDashoffset = String(188.5 * (1 - pct / 100));
+        card.hidden = false;
+      });
+    }
   </script>
 </Base>

@@ -1,0 +1,8 @@
+id: io-models
+slug: zero-copy-kernel-bypass-io-models
+track: domains
+module: low-latency
+title: "I/O models, zero-copy and kernel bypass"
+oneLiner: "epoll, io_uring, zero-copy and kernel bypass: how the fastest systems move bytes."
+level: L3
+prereqs: [os-essentials]

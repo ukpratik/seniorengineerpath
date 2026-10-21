@@ -1,0 +1,7 @@
+id: accessibility
+slug: accessibility-a11y
+track: domains
+module: realtime-web
+title: "Accessibility (a11y)"
+oneLiner: "WCAG basics, semantic HTML and screen-reader testing, so everyone can use what you build."
+level: L1

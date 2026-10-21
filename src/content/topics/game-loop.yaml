@@ -1,0 +1,7 @@
+id: game-loop
+slug: game-loop-fixed-timestep
+track: domains
+module: gaming
+title: "The game loop and fixed timestep"
+oneLiner: "How a game updates and draws the world each frame, and why a fixed timestep matters."
+level: L1

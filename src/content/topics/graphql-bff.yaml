@@ -1,0 +1,8 @@
+id: graphql-bff
+slug: graphql-and-backend-for-frontend
+track: foundations
+module: api-design
+title: "GraphQL and backend-for-frontend"
+oneLiner: "What GraphQL and BFFs solve for clients, and the new problems they bring."
+level: L2
+prereqs: [rest-api]

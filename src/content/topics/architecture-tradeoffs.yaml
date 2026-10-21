@@ -1,0 +1,8 @@
+id: architecture-tradeoffs
+slug: making-architecture-trade-offs
+track: craft
+module: judgement
+title: "Making architecture trade-offs"
+oneLiner: "How to compare options, name what you give up, and make a decision others can follow."
+level: L2
+prereqs: [what-senior-means]

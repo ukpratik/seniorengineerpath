@@ -1,0 +1,7 @@
+id: data-structures
+slug: data-structures-for-systems
+track: foundations
+module: code-design
+title: "Data structures for systems"
+oneLiner: "Bloom filters, tries, skip lists and sketches, and the real systems that depend on them."
+level: L2

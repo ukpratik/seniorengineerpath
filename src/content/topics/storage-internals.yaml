@@ -1,0 +1,8 @@
+id: storage-internals
+slug: storage-engine-internals
+track: data
+module: storage-engines
+title: "Storage engine internals"
+oneLiner: "How a database lays data out on disk with pages, logs and the write-ahead log."
+level: L2
+prereqs: [os-essentials]

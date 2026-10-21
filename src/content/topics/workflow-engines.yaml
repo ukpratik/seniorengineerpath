@@ -1,0 +1,8 @@
+id: workflow-engines
+slug: workflow-engines-durable-execution
+track: distributed
+module: workflows
+title: "Workflow engines and durable execution"
+oneLiner: "How Temporal-style engines run long business processes that survive crashes."
+level: L2
+prereqs: [sagas-outbox-cdc]

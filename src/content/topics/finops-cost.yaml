@@ -1,0 +1,8 @@
+id: finops-cost
+slug: finops-cost-aware-architecture
+track: scale
+module: performance
+title: "Cloud cost and FinOps"
+oneLiner: "How to see where cloud money goes, and design systems that cost less to run."
+level: L2
+prereqs: [latency-estimation]

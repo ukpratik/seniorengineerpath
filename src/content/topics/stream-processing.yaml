@@ -1,0 +1,8 @@
+id: stream-processing
+slug: stream-processing
+track: distributed
+module: messaging
+title: "Stream processing"
+oneLiner: "Windows, watermarks and state in Flink-style stream processing, and how checkpoints work."
+level: L2
+prereqs: [queues-vs-logs]

@@ -1,0 +1,8 @@
+id: fan-out
+slug: fan-out-on-write-vs-read
+track: scale
+module: architecture
+title: "Fan-out on write vs fan-out on read"
+oneLiner: "How feeds and notifications reach millions of users, and the celebrity problem."
+level: L2
+prereqs: [scaling-reads, queues-vs-logs]

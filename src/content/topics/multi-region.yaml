@@ -1,0 +1,8 @@
+id: multi-region
+slug: multi-region-and-data-locality
+track: data
+module: replication
+title: "Multi-region systems and data locality"
+oneLiner: "How to run across regions, active-passive or active-active, and keep data close to users."
+level: L3
+prereqs: [replication, cap-consistency]

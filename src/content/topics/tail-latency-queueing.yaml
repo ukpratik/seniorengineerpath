@@ -1,0 +1,8 @@
+id: tail-latency-queueing
+slug: tail-latency-and-queueing
+track: domains
+module: low-latency
+title: "Tail latency and queueing"
+oneLiner: "Why p99 matters more than the average, and how queues and Little's law make systems slow."
+level: L2
+prereqs: [latency-estimation]

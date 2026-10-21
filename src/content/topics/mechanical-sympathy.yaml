@@ -1,0 +1,8 @@
+id: mechanical-sympathy
+slug: mechanical-sympathy-cpu-memory
+track: domains
+module: low-latency
+title: "Mechanical sympathy: CPU caches and memory"
+oneLiner: "How CPU caches and data layout can make the same code ten times faster or slower."
+level: L2
+prereqs: [tail-latency-queueing, os-essentials]

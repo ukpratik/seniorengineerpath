@@ -1,0 +1,8 @@
+id: debugging-production
+slug: debugging-production
+track: reliability
+module: incidents
+title: "Debugging production"
+oneLiner: "A step-by-step way to find the cause of a production problem using data, not guesses."
+level: L2
+prereqs: [observability-slos]

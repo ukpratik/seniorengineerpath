@@ -1,0 +1,8 @@
+id: batching-pipelining
+slug: batching-and-pipelining
+track: domains
+module: low-latency
+title: "Batching and pipelining"
+oneLiner: "How batching and pipelining raise throughput, and what they cost in latency."
+level: L2
+prereqs: [tail-latency-queueing]

@@ -1,0 +1,8 @@
+id: cell-architecture
+slug: cell-based-architecture
+track: scale
+module: architecture
+title: "Cell-based architecture"
+oneLiner: "How splitting a system into independent cells limits the blast radius of failures."
+level: L3
+prereqs: [multi-tenancy, control-data-plane]

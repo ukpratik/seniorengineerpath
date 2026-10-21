@@ -1,0 +1,8 @@
+id: dns-discovery
+slug: dns-and-service-discovery
+track: foundations
+module: networking
+title: "DNS and service discovery"
+oneLiner: "How a name becomes an address, and how services find each other inside a system."
+level: L1
+prereqs: [tcp-ip]

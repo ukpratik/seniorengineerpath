@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+---
+<header class="topbar">
+  <a class="brand" href="/">
+    <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" style="fill:var(--accent)"></rect><path d="M8 22 14 14l5 4 5-8" fill="none" style="stroke:var(--on-accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="8" cy="22" r="2.6" style="fill:var(--on-accent)"></circle><circle cx="24" cy="10" r="2.6" style="fill:var(--on-accent)"></circle></svg>
+    <span><b>SeniorPath</b><small>for software engineers</small></span>
+  </a>
+  <div class="grow"></div>
+  <a class="search-btn" href="/search"><Icon name="search" />Search lessons, terms and incidents</a>
+  <div class="grow"></div>
+  <a class="icon-btn search-icon" href="/search" aria-label="Search"><Icon name="search" /></a>
+  <button type="button" class="icon-btn theme-toggle" aria-label="Switch theme"><Icon name="moon" /></button>
+</header>

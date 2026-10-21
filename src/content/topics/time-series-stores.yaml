@@ -1,0 +1,8 @@
+id: time-series-stores
+slug: time-series-and-specialised-stores
+track: data
+module: storage-engines
+title: "Time-series and specialised stores"
+oneLiner: "How time-series, graph and other specialised stores trade flexibility for speed."
+level: L3
+prereqs: [btree-lsm]

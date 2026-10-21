@@ -1,0 +1,8 @@
+id: schema-migrations
+slug: schema-migrations-zero-downtime
+track: data
+module: modelling
+title: "Schema migrations without downtime"
+oneLiner: "How to change a live database schema with expand-and-contract steps and backfills."
+level: L2
+prereqs: [transactions-isolation, api-versioning]

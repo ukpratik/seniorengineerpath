@@ -1,0 +1,8 @@
+id: distributed-transactions
+slug: distributed-transactions-two-phase-commit
+track: data
+module: transactions
+title: "Distributed transactions and two-phase commit"
+oneLiner: "How 2PC works across services, why it can block, and what teams use instead."
+level: L2
+prereqs: [transactions-isolation, raft]

@@ -1,0 +1,8 @@
+id: tls
+slug: tls-and-secure-connections
+track: foundations
+module: networking
+title: "TLS and secure connections"
+oneLiner: "How TLS encrypts traffic and proves identity, and why expired certificates cause outages."
+level: L1
+prereqs: [tcp-ip]

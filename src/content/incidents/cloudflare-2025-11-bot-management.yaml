@@ -1,0 +1,11 @@
+id: cloudflare-2025-11-bot-management
+title: "Cloudflare outage: a feature file grew too big"
+date: 2025-11-18
+company: "Cloudflare"
+broke: "For several hours, many sites behind Cloudflare showed 5xx error pages, and dashboard logins and Access sign-ins also failed."
+why: "A database permission change made a query return duplicate rows, so a generated feature file doubled in size. The proxy had a hard limit on features and crashed when the file went over it."
+lesson: "Treat files your own systems generate like user input: check them, roll them out slowly, and keep a kill switch for each feature."
+url: https://blog.cloudflare.com/18-november-2025-outage/
+tags: [config, database, deploys]
+lessons: []
+verified: true

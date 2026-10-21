@@ -1,0 +1,144 @@
+---
+// My progress (US-009, US-010): what is done, per track, and export / import.
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data.ts';
+
+const d = await siteData();
+const first = d.defaultPath.topics.find((t) => t.written);
+---
+<Base title="My progress" description="Your SeniorPath progress, saved only in this browser. Export it to keep it safe." current="progress" noindex>
+  <TopBar />
+  <main id="main" class="page">
+    <p class="eyebrow">My progress</p>
+    <h1 class="ptitle">What you’ve done</h1>
+    <div data-banner style="margin-bottom:16px" role="status"></div>
+    <div class="blocked-only" style="margin-bottom:16px"><div class="notice warn"><Icon name="lock" /><p><strong>This browser isn’t saving progress.</strong> It may be in private mode, or storage is blocked. Export and import are turned off.</p></div></div>
+    <div class="pg">
+      <section class="card e-only wide" aria-labelledby="e-h">
+        <h2 id="e-h">No lessons done yet</h2>
+        <p class="small" style="font-size:16px;margin-bottom:12px">When you finish a lesson, tap “Mark as done” at the end. It will show up here. No account needed.</p>
+        {first && <a class="btn btn-primary" href={`/learn/${first.slug}`}>Start with lesson 1: {first.title} <Icon name="arrow-right" /></a>}
+      </section>
+      <section class="card ne-only" aria-labelledby="sum-h">
+        <h2 id="sum-h" class="sr">Summary</h2>
+        <div class="stat">
+          <div class="ring" role="img" data-ring aria-label=""><svg viewBox="0 0 72 72" aria-hidden="true"><circle class="tr" cx="36" cy="36" r="30"></circle><circle class="val" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5"></circle></svg><span aria-hidden="true">0</span></div>
+          <div><b data-sum>0 of {d.writtenCount} lessons done</b><span class="small" data-pathtxt></span></div>
+        </div>
+        <h3 class="small" style="margin:18px 0 8px;font-weight:800;text-transform:uppercase;letter-spacing:.05em">By track (written lessons)</h3>
+        <ul class="tracks">
+          {d.tracks.filter((t) => t.writtenCount > 0).map((t) => (
+            <li data-track={t.id} data-total={t.writtenCount}><span>{t.title}</span><span class="muted" data-tc>0 of {t.writtenCount}</span><div class="bar" aria-hidden="true"><i style="width:0"></i></div></li>
+          ))}
+        </ul>
+      </section>
+      <section class="card ne-only" aria-labelledby="dl-h">
+        <h2 id="dl-h">Done</h2>
+        <ul class="done-list" data-done-list></ul>
+      </section>
+      <section class="card wide" aria-labelledby="ex-h">
+        <h2 id="ex-h">Keep your progress safe</h2>
+        <div class="notice" style="margin-bottom:14px"><Icon name="info" /><p>Your progress is saved <strong>only in this browser</strong>. Clearing site data, private mode or some browsers’ 7-day rule can erase it. Export a file now and then.</p></div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" data-export><Icon name="download" />Export progress (.json)</button>
+          <label class="btn btn-secondary filebtn"><Icon name="upload" />Import a file<input type="file" accept="application/json,.json" data-import /></label>
+        </div>
+        <p class="small" style="margin-top:10px">Importing merges with what is here: you keep every lesson done in either place.</p>
+      </section>
+    </div>
+    <nav class="foot" aria-label="Footer"><a href="/about#privacy">Privacy: what we store</a><a href="/">Home</a></nav>
+  </main>
+  <script>
+    import { initUi, store, icon } from '../scripts/ui.ts';
+    import { manifest, LEVEL } from '../scripts/manifest.ts';
+    import { track } from '../scripts/analytics.ts';
+    initUi();
+    const html = document.documentElement;
+    const banner = document.querySelector<HTMLElement>('[data-banner]')!;
+    const say = (kind: 'ok' | 'bad', title: string, text: string) => {
+      banner.innerHTML = `<div class="notice ${kind}">${icon(kind === 'ok' ? 'check-circle' : 'alert')}<p><strong></strong> <span></span></p></div>`;
+      banner.querySelector('strong')!.textContent = title;
+      banner.querySelector('p span')!.textContent = text;
+    };
+
+    async function paint() {
+      const s = store.load();
+      const done = s ? Object.entries(s.done).sort((a, b) => b[1].localeCompare(a[1])) : [];
+      if (done.length) html.removeAttribute('data-progress');
+      else html.setAttribute('data-progress', 'empty');
+      if (!done.length) return;
+      const m = await manifest();
+      if (!m) return;
+      const written = Object.values(m.topics).filter((t) => t.w).length;
+      const known = done.filter(([id]) => m.topics[id]);
+      document.querySelector('[data-sum]')!.textContent = `${known.length} of ${written} lessons done`;
+      const pct = written ? Math.round((known.length / written) * 100) : 0;
+      const ring = document.querySelector<HTMLElement>('[data-ring]')!;
+      ring.setAttribute('aria-label', `${pct}% of written lessons done`);
+      ring.querySelector('span')!.textContent = String(known.length);
+      ring.querySelector<SVGCircleElement>('.val')!.style.strokeDashoffset = String(188.5 * (1 - pct / 100));
+      const pathId = s!.activePath && m.paths[s!.activePath] ? s!.activePath : m.defaultPath;
+      const path = m.paths[pathId];
+      document.querySelector('[data-pathtxt]')!.textContent = `Active path: ${path.t} · ${path.steps.filter((id) => s!.done[id]).length} of ${path.steps.length}`;
+      document.querySelectorAll<HTMLElement>('[data-track]').forEach((li) => {
+        const title = li.querySelector('span')!.textContent;
+        const n = known.filter(([id]) => m.topics[id].tr === title).length;
+        const total = Number(li.dataset.total);
+        li.querySelector('[data-tc]')!.textContent = `${n} of ${total}`;
+        li.querySelector<HTMLElement>('.bar > i')!.style.width = `${Math.round((n / total) * 100)}%`;
+      });
+      const list = document.querySelector<HTMLElement>('[data-done-list]')!;
+      list.innerHTML = '';
+      for (const [id, at] of known) {
+        const t = m.topics[id];
+        const li = document.createElement('li');
+        li.innerHTML = `${icon('check-circle')}<div><a></a><span></span></div>`;
+        const a = li.querySelector('a')!;
+        a.href = `/learn/${t.s}`;
+        a.textContent = t.t;
+        li.querySelector('div span')!.textContent = `${t.tr} · ${LEVEL[t.l]} · done ${new Date(at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`;
+        list.appendChild(li);
+      }
+    }
+    void paint();
+
+    const exp = document.querySelector<HTMLButtonElement>('[data-export]')!;
+    const imp = document.querySelector<HTMLInputElement>('[data-import]')!;
+    if (!store.available()) {
+      exp.disabled = true;
+      imp.disabled = true;
+    }
+    exp.addEventListener('click', () => {
+      const blob = new Blob([store.exportJson()], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `seniorpath-progress-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      track('progress_export', { result: 'ok' });
+      say('ok', 'Exported.', 'Keep the file somewhere safe. Import it on another browser or device to continue there.');
+    });
+    imp.addEventListener('change', async () => {
+      const f = imp.files?.[0];
+      imp.value = '';
+      if (!f) return;
+      const r = store.importJson(await f.text());
+      track('progress_import', { result: r.ok ? 'ok' : r.reason });
+      if (r.ok) {
+        say('ok', 'Imported.', r.added ? `${r.added} lesson${r.added === 1 ? '' : 's'} added. Nothing was removed.` : 'Nothing new: every lesson in the file was already here.');
+        void paint();
+      } else {
+        const why = {
+          invalid: 'This file is not a SeniorPath progress file, or it is damaged. Your progress was not changed.',
+          newer: 'This file comes from a newer version of SeniorPath. Reload the page and try again. Your progress was not changed.',
+          too_big: 'This file is too big to be a progress file. Your progress was not changed.',
+          unavailable: 'This browser is not saving progress, so we cannot import here.',
+        }[r.reason];
+        say('bad', 'Could not import.', why);
+      }
+    });
+  </script>
+</Base>

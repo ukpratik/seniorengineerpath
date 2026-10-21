@@ -1,0 +1,8 @@
+id: reading-papers
+slug: reading-papers-and-rfcs
+track: craft
+module: writing
+title: "Reading papers and RFCs"
+oneLiner: "How to read an academic paper or an IETF spec quickly and take away what matters."
+level: L2
+prereqs: [technical-writing]

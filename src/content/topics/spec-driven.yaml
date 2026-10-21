@@ -1,0 +1,8 @@
+id: spec-driven
+slug: spec-driven-development
+track: ai-native
+module: ai-quality
+title: "Spec-driven development"
+oneLiner: "How to write clear specs first so agents build the right thing, and check work against them."
+level: L2
+prereqs: [coding-agents, design-docs]

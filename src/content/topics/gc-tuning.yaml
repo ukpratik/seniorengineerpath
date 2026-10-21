@@ -1,0 +1,8 @@
+id: gc-tuning
+slug: garbage-collection-runtime-tuning
+track: domains
+module: low-latency
+title: "Garbage collection and runtime tuning"
+oneLiner: "How garbage collectors cause pauses, and how to tune the JVM, Go or Node runtime."
+level: L2
+prereqs: [os-essentials, profiling]

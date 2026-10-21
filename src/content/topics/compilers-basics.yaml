@@ -1,0 +1,8 @@
+id: compilers-basics
+slug: compilers-and-interpreters-basics
+track: foundations
+module: code-design
+title: "Compilers and interpreters basics"
+oneLiner: "Lexing, parsing and syntax trees, and how they power linters and codemods."
+level: L2
+prereqs: [data-structures]

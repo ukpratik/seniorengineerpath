@@ -1,0 +1,8 @@
+id: design-deep-dives
+slug: design-deep-dives-trade-offs
+track: craft
+module: career
+title: "Deep dives and explaining trade-offs"
+oneLiner: "How to go deep on one part of a design and explain your trade-offs clearly."
+level: L2
+prereqs: [system-design-method, architecture-tradeoffs]

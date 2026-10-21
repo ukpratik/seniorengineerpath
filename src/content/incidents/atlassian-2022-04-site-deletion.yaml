@@ -1,0 +1,11 @@
+id: atlassian-2022-04-site-deletion
+title: "Atlassian outage: a cleanup script deleted 883 customer sites"
+date: 2022-04-05
+company: "Atlassian"
+broke: "775 customers lost access to Jira, Confluence and other Atlassian products, and some waited up to 14 days for their sites to come back."
+why: "A script meant to remove one old app was given site IDs instead of app IDs. The API accepted either kind, so it deleted whole sites."
+lesson: "Make delete APIs check what they are deleting, prefer soft delete, and be able to restore one customer quickly."
+url: https://www.atlassian.com/engineering/post-incident-review-april-2022-outage
+tags: [data-loss, human-error, testing]
+lessons: []
+verified: true

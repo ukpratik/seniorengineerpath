@@ -1,0 +1,8 @@
+id: concurrency-control
+slug: locking-and-mvcc-in-practice
+track: data
+module: transactions
+title: "Locking and MVCC in practice"
+oneLiner: "Optimistic vs pessimistic locking, SELECT FOR UPDATE, and how MVCC avoids blocking."
+level: L2
+prereqs: [transactions-isolation]

@@ -1,0 +1,8 @@
+id: matchmaking
+slug: matchmaking
+track: domains
+module: gaming
+title: "Matchmaking"
+oneLiner: "How games pair players of similar skill quickly, and the trade-off between fairness and wait."
+level: L2
+prereqs: [game-loop]

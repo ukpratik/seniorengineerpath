@@ -74,6 +74,7 @@ const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
   description={lesson ? `A SeniorPath lesson for software engineers: ${lesson.data.subtitle}` : `${topic.oneLiner} (Coming soon on SeniorPath.)`}
   noindex={!lesson}
   current="map"
+  ogImage={lesson ? `/og/${topicId}.png` : undefined}
 >
   <header class="topbar lesson-top">
     <a class="icon-btn" href="/map" aria-label="Back to the map"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-arrow-left"></use></svg></a>
@@ -87,23 +88,23 @@ const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
   </header>
 
   {lesson ? (
-    <div class="lgrid" data-lesson={topicId} data-next-title={next?.title ?? ''} data-major-revised={lesson.data.major_revised_on ?? ''}>
-      <main id="main">
+    <div class="lgrid" data-lesson={topicId} data-next-title={next?.title ?? ''} data-major-revised={lesson.data.major_revised_on ?? ''} data-default-path={path?.id ?? ''}>
+      <main id="main" data-pagefind-body data-pagefind-filter="type:Lesson">
         <header class="lhead">
-          <nav class="crumb" aria-label="Breadcrumb"><a href="/map">Map</a><span aria-hidden="true">›</span><a href={`/map#${track.id}`}>{track.title}</a><span aria-hidden="true">›</span><span>{module.title}</span></nav>
+          <nav class="crumb" aria-label="Breadcrumb" data-pagefind-ignore><a href="/map">Map</a><span aria-hidden="true">›</span><a href={`/map#${track.id}`}>{track.title}</a><span aria-hidden="true">›</span><span>{module.title}</span></nav>
           <h1>{topic.title}</h1>
           <p class="lsub">{lesson.data.subtitle}</p>
-          <div class="chips">
+          <div class="chips" data-pagefind-ignore>
             <span class="chip lv">{levelLabel}</span>
             <span class="chip"><svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-steps"></use></svg>{track.title}</span>
             <span class="chip"><svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-clock"></use></svg>{minutes} min read</span>
           </div>
-          <div class="review">
+          <div class="review" data-pagefind-ignore>
             <svg class="i" aria-hidden="true"><use href="/icons.svg#i-shield"></use></svg>
             <div><strong>{lesson.data.status === 'published' ? reviewLabel : 'Draft: not fact-checked yet'}</strong>{lesson.data.reviewed_on && <>Last reviewed {formatDay(lesson.data.reviewed_on)} · </>}<a href="/about#checks">How we check content</a></div>
           </div>
-          {path && stepIndex >= 0 && (
-            <div class="pathline"><span>{path.title} · lesson {stepIndex + 1} of {path.steps.length}</span><div class="bar" aria-hidden="true"><i style={`width:${Math.round(((stepIndex + 1) / path.steps.length) * 100)}%`}></i></div></div>
+          {path && (
+            <div class="pathline" hidden={stepIndex < 0} data-pagefind-ignore><span>{path.title} · lesson {stepIndex + 1} of {path.steps.length}</span><div class="bar" aria-hidden="true"><i style={`width:${Math.round(((stepIndex + 1) / path.steps.length) * 100)}%`}></i></div></div>
           )}
         </header>
 
@@ -116,10 +117,10 @@ const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
           <Fragment set:html={html} />
         </div>
 
-        {(prev || next) && path && (
+        {path && (
           <nav class="pn" aria-label={`Previous and next lesson in ${path.title}`}>
             {prev ? <a href={`/learn/${prev.slug}`}><small>← Previous</small>{prev.title}</a> : <span></span>}
-            {next && <a href={`/learn/${next.slug}`}><small>Next →</small>{next.title}</a>}
+            {next ? <a href={`/learn/${next.slug}`}><small>Next →</small>{next.title}</a> : <span></span>}
           </nav>
         )}
       </main>
@@ -134,7 +135,7 @@ const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
       </aside>
     </div>
   ) : (
-    <main id="main" class="page narrow">
+    <main id="main" class="page narrow" data-pagefind-body data-pagefind-filter="type:Coming soon">
       <nav class="crumb" aria-label="Breadcrumb"><a href="/map">Map</a><span aria-hidden="true">›</span><a href={`/map#${track.id}`}>{track.title}</a><span aria-hidden="true">›</span><span>{module.title}</span></nav>
       <p class="eyebrow" style="margin-top:8px">Coming soon</p>
       <h1 class="ptitle">{topic.title}</h1>

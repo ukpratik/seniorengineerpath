@@ -1,0 +1,8 @@
+id: audit-trails
+slug: audit-trails-and-immutability
+track: domains
+module: fintech
+title: "Audit trails and immutability"
+oneLiner: "How to keep a tamper-evident record of who changed what, and when."
+level: L2
+prereqs: [money-ledgers]

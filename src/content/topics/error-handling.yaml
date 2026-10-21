@@ -1,0 +1,8 @@
+id: error-handling
+slug: error-handling-defensive-design
+track: foundations
+module: code-design
+title: "Error handling and defensive design"
+oneLiner: "How to design errors out, fail loudly where it helps, and handle the errors that remain."
+level: L1
+prereqs: [deep-modules]

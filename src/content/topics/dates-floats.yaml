@@ -1,0 +1,7 @@
+id: dates-floats
+slug: time-zones-dates-floating-point
+track: foundations
+module: code-design
+title: "Time zones, dates and floating point"
+oneLiner: "Classic sources of bugs in dates and decimal numbers, and how to avoid them."
+level: L1

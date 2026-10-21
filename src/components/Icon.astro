@@ -1,0 +1,5 @@
+---
+interface Props { name: string; small?: boolean; class?: string }
+const { name, small = false, class: extra } = Astro.props;
+---
+<svg class:list={['i', { sm: small }, extra]} aria-hidden="true"><use href={`/icons.svg#i-${name}`}></use></svg>

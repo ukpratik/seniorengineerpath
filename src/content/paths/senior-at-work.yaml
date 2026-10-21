@@ -3,4 +3,32 @@ slug: senior-at-work
 title: Senior at work
 description: The core path. How senior engineers design, run and fix real systems.
 default: true
-steps: [what-senior-means, idempotency-retries]
+steps:
+  # Public launch (PRD §5): start here, then the launch lessons
+  - what-senior-means
+  - idempotency-retries
+  - latency-estimation
+  - replication
+  - transactions-isolation
+  - caching-stampedes
+  - safe-deploys
+  - observability-slos
+  - money-ledgers
+  - coding-agents
+  # The rest of the MVP lessons
+  - load-balancing
+  - rate-limiting
+  - sharding
+  - queues-vs-logs
+  - design-docs
+  - btree-lsm
+  - cap-consistency
+  - sagas-outbox-cdc
+  - inventory-flash-sales
+  - code-review
+  - multi-tenancy
+  - tail-latency-queueing
+  - architecture-tradeoffs
+  - working-with-pms
+  - client-prediction
+  - system-design-method

@@ -1,0 +1,11 @@
+id: cloudflare-2019-07-waf-regex
+title: "Cloudflare outage: one regex used all the CPU"
+date: 2019-07-02
+company: "Cloudflare"
+broke: "For about 27 minutes, visitors to Cloudflare sites around the world got 502 errors, and Cloudflare lost about 80% of its traffic."
+why: "A new firewall rule had a regex that backtracked badly. It was pushed to every server at once, and it used all the CPU that serves web traffic."
+lesson: "Roll out rule and config changes in stages like code, and use a regex engine that cannot run forever."
+url: https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/
+tags: [config, deploys, testing]
+lessons: []
+verified: true

@@ -1,0 +1,8 @@
+id: chaos-engineering
+slug: chaos-engineering-game-days
+track: reliability
+module: incidents
+title: "Chaos engineering and game days"
+oneLiner: "How to break things on purpose, safely, to find weak spots before a real outage does."
+level: L3
+prereqs: [incident-response, resilience-patterns]

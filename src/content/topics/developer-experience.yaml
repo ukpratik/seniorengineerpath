@@ -1,0 +1,8 @@
+id: developer-experience
+slug: developer-experience-inner-source
+track: craft
+module: delivery
+title: "Developer experience and inner source"
+oneLiner: "Golden paths, platforms and internal docs that make every engineer faster."
+level: L3
+prereqs: [team-topologies]

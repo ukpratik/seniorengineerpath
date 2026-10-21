@@ -1,0 +1,8 @@
+id: leaderboards
+slug: leaderboards-and-live-ops
+track: domains
+module: gaming
+title: "Leaderboards and live ops"
+oneLiner: "How to rank millions of players in real time, and run events without a new release."
+level: L1
+prereqs: [redis]

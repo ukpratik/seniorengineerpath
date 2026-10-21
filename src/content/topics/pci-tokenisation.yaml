@@ -1,0 +1,8 @@
+id: pci-tokenisation
+slug: pci-dss-and-tokenisation
+track: domains
+module: fintech
+title: "PCI-DSS and tokenisation"
+oneLiner: "How tokenisation keeps card numbers out of your systems and shrinks your compliance scope."
+level: L2
+prereqs: [secrets-management]

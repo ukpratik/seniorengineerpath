@@ -1,0 +1,8 @@
+id: anti-cheat
+slug: authoritative-servers-anti-cheat
+track: domains
+module: gaming
+title: "Authoritative servers and anti-cheat"
+oneLiner: "Why the server must own the truth, and how games detect and limit cheating."
+level: L2
+prereqs: [tick-rate]

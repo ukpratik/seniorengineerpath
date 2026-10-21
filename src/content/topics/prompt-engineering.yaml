@@ -1,0 +1,8 @@
+id: prompt-engineering
+slug: prompt-and-context-engineering
+track: ai-native
+module: llm-features
+title: "Prompt and context engineering"
+oneLiner: "How to structure prompts and context so an LLM feature gives reliable results."
+level: L2
+prereqs: [llm-fundamentals]

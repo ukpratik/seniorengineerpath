@@ -1,0 +1,7 @@
+id: blob-storage
+slug: blob-and-object-storage
+track: data
+module: storage-engines
+title: "Blob and object storage"
+oneLiner: "How S3-style storage holds files at scale, and the limits of its consistency and speed."
+level: L1

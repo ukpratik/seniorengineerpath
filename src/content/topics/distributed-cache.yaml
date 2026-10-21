@@ -1,0 +1,8 @@
+id: distributed-cache
+slug: distributed-caches
+track: scale
+module: caching
+title: "Distributed caches"
+oneLiner: "How to spread a cache across nodes, pick an eviction policy and handle hot keys."
+level: L2
+prereqs: [caching-stampedes, sharding]

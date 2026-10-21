@@ -1,0 +1,8 @@
+id: peak-readiness
+slug: peak-readiness-big-sale-days
+track: domains
+module: ecommerce
+title: "Peak readiness for big sale days"
+oneLiner: "How teams prepare for Diwali or Black Friday traffic with load tests, freezes and runbooks."
+level: L3
+prereqs: [capacity-planning, load-testing]

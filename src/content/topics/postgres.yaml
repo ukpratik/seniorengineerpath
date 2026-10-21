@@ -1,0 +1,8 @@
+id: postgres
+slug: postgresql-in-depth
+track: data
+module: key-tech
+title: "PostgreSQL in depth"
+oneLiner: "MVCC, vacuum, indexes and replication in the database you most likely use."
+level: L2
+prereqs: [transactions-isolation, replication]

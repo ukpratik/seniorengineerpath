@@ -1,0 +1,8 @@
+id: solid-coupling
+slug: solid-coupling-and-cohesion
+track: foundations
+module: code-design
+title: "SOLID, coupling and cohesion"
+oneLiner: "The design rules behind code that is easy to change, explained with plain examples."
+level: L1
+prereqs: [deep-modules]

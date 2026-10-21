@@ -1,0 +1,8 @@
+id: requirements-nfrs
+slug: requirements-and-non-functional-needs
+track: craft
+module: career
+title: "Requirements and non-functional needs"
+oneLiner: "How to ask the right questions and pin down scale, latency and consistency needs first."
+level: L1
+prereqs: [system-design-method]

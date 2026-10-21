@@ -1,0 +1,8 @@
+id: monolith-microservices
+slug: monolith-modular-monolith-microservices
+track: scale
+module: architecture
+title: "Monolith, modular monolith or microservices"
+oneLiner: "How to choose service boundaries, and why many teams should start with a modular monolith."
+level: L2
+prereqs: [ddd]

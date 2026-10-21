@@ -1,0 +1,8 @@
+id: llm-guardrails
+slug: llm-guardrails-cost-latency
+track: ai-native
+module: llm-features
+title: "Guardrails, cost and latency for LLM features"
+oneLiner: "How to keep LLM features safe, fast and affordable in production."
+level: L2
+prereqs: [llm-agents, llm-evals]

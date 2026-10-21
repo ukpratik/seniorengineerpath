@@ -1,0 +1,8 @@
+id: sharding
+slug: sharding-and-consistent-hashing
+track: data
+module: partitioning
+title: "Sharding and consistent hashing"
+oneLiner: "How to split data across machines, pick a shard key and add nodes without moving everything."
+level: L1
+prereqs: [replication]

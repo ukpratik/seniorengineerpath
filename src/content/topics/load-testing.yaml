@@ -1,0 +1,8 @@
+id: load-testing
+slug: load-testing
+track: scale
+module: performance
+title: "Load testing"
+oneLiner: "How to design load tests that match real traffic and find limits before users do."
+level: L2
+prereqs: [profiling]

@@ -1,0 +1,8 @@
+id: parallel-agents
+slug: parallel-agents-headless-ci
+track: ai-native
+module: agents
+title: "Parallel agents, worktrees and CI"
+oneLiner: "How to run several agents at once, and use agents headless in scripts and CI."
+level: L2
+prereqs: [agent-extensions]

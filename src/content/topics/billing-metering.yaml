@@ -1,0 +1,8 @@
+id: billing-metering
+slug: billing-metering-usage-pricing
+track: domains
+module: saas
+title: "Billing, metering and usage-based pricing"
+oneLiner: "How to count usage accurately and turn it into correct invoices."
+level: L2
+prereqs: [idempotency-retries, queues-vs-logs]

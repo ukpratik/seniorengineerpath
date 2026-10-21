@@ -1,0 +1,11 @@
+id: google-cloud-2019-06-networking
+title: "Google Cloud outage: maintenance stopped network control in many sites"
+date: 2019-06-02
+company: "Google Cloud"
+broke: "For three to four hours, several US and South American regions had heavy packet loss, and Compute Engine, Cloud Storage and YouTube were hit."
+why: "A bug in maintenance automation stopped network control jobs in several places at once instead of one. Routes were withdrawn, and the lost config had to be rebuilt."
+lesson: "Automation must limit how much it can change at once, and the network's control system should not depend on the network it runs."
+url: https://status.cloud.google.com/incident/cloud-networking/19009
+tags: [networking, config, capacity]
+lessons: []
+verified: true

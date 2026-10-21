@@ -1,0 +1,152 @@
+---
+// Curriculum map (US-003): every track, module and topic as static HTML.
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { siteData, LEVEL_LABEL } from '../lib/site-data.ts';
+
+const d = await siteData();
+const total = d.topics.length;
+const firstWritten = d.defaultPath.topics.find((t) => t.written);
+---
+<Base title="Curriculum map" description={`The full SeniorPath curriculum for software engineers: ${d.tracks.length} tracks and ${total} topics, from foundations and distributed systems to domain tracks and AI-native engineering.`} current="map">
+  <TopBar />
+  <main id="main" class="page">
+    <div class="top">
+      <div>
+        <p class="eyebrow">Curriculum map</p>
+        <h1 class="ptitle">Every line, every stop</h1>
+        <p class="plede">{d.tracks.length} tracks. Each track is a line and each topic is a stop. {d.writtenCount} lessons are written so far; the rest are coming soon.</p>
+        <div class="tools">
+          <button type="button" class="switch" role="switch" aria-checked="true" data-wo><span class="track" aria-hidden="true"></span>Written only<span class="state" data-wo-state>On</span></button>
+          <button type="button" class="btn btn-ghost" data-expand>Open all tracks</button>
+        </div>
+        <p class="sr" aria-live="polite" data-live></p>
+        <ul class="legend" aria-label="What the stops mean">
+          <li><span class="status s-done"><Icon name="check-circle" />Done ✓</span></li>
+          <li><span class="status s-here"><Icon name="target" />In progress</span></li>
+          <li><span class="status s-w"><Icon name="book" />Written</span></li>
+          <li><span class="status s-soon"><Icon name="dashed" />Coming soon</span></li>
+        </ul>
+      </div>
+      <div class="card you np-only">
+        <div class="row"><span>New here?</span></div>
+        <p class="small" style="font-size:15px">Start with the “{d.defaultPath.title}” path. It puts the lessons in a sensible order.</p>
+        <a class="btn btn-primary block" href={`/paths/${d.defaultPath.slug}`}><span>Open “{d.defaultPath.title}”</span><Icon name="arrow-right" /></a>
+      </div>
+      <div class="card you p-only">
+        <div class="row"><span>Your progress</span><span class="muted" data-you-count></span></div>
+        <div class="bar" aria-hidden="true"><i style="width:0%"></i></div>
+        <a class="btn btn-primary block" href={firstWritten ? `/learn/${firstWritten.slug}` : '/'} data-you-link><span>Continue</span><Icon name="arrow-right" /></a>
+        <p class="small">Saved only in this browser. <a href="/progress">Export</a></p>
+      </div>
+    </div>
+
+    <div class="lines">
+      {d.tracks.map((t) => {
+        const soon = t.total - t.writtenCount;
+        return (
+          <details class="line" id={t.id} style={`--c:var(--t${t.index})`} open={t.writtenCount > 0}>
+            <summary>
+              <span class="roundel" aria-hidden="true">{t.index}</span>
+              <span class="sumtxt"><h2>{t.title}</h2><span class="tmeta" data-tmeta={t.id}>{t.writtenCount} of {t.total} written</span></span>
+              <Icon name="chev-down" class="chev" />
+            </summary>
+            <ul class="stations" aria-label={`${t.title} modules`}>
+              {t.modules.map((m) => {
+                const w = m.topics.filter((x) => x.written).length;
+                return (
+                  <li class:list={['modg', { empty: w === 0 }]}>
+                    <h3 class="mod">{m.title} <span>· {w} of {m.topics.length} written</span></h3>
+                    <ol class="stops">
+                      {m.topics.map((x) => (
+                        <li class:list={['stn', x.written ? 'is-written' : 'is-soon']} data-topic={x.id}>
+                          <a href={`/learn/${x.slug}`}>
+                            <span class="dot">{x.written && <Icon name="book" />}</span>
+                            <span class="st-body">
+                              <span class="st-title">{x.title}</span>
+                              <span class="st-meta"><span class="lvl">{LEVEL_LABEL[x.level]}</span>
+                                {x.written ? <span class="status s-w"><Icon name="book" />Written</span> : <span class="status s-soon"><Icon name="dashed" />Coming soon</span>}
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ol>
+                  </li>
+                );
+              })}
+            </ul>
+            <p class:list={['hint', { 'has-soon': soon > 0 }]}>{soon} more coming soon. Turn off “Written only” to see them.</p>
+          </details>
+        );
+      })}
+    </div>
+    <Footer />
+  </main>
+  <script>
+    import { initUi, store, icon } from '../scripts/ui.ts';
+    import { track } from '../scripts/analytics.ts';
+    initUi();
+    const html = document.documentElement;
+    const wo = document.querySelector<HTMLButtonElement>('[data-wo]')!;
+    const live = document.querySelector<HTMLElement>('[data-live]')!;
+    const total = document.querySelectorAll('.stn').length;
+    const written = document.querySelectorAll('.stn.is-written').length;
+    const setWO = (on: boolean) => {
+      wo.setAttribute('aria-checked', String(on));
+      html.classList.toggle('only-written', on);
+      document.querySelector('[data-wo-state]')!.textContent = on ? 'On' : 'Off';
+    };
+    setWO(html.classList.contains('only-written'));
+    wo.addEventListener('click', () => {
+      const on = wo.getAttribute('aria-checked') !== 'true';
+      setWO(on);
+      store.setMapAll(!on);
+      track('map_filter_toggle', { value: on ? 'written' : 'all' });
+      live.textContent = on ? `Showing the ${written} written lessons only.` : `Showing all ${total} topics. Coming-soon topics are marked.`;
+    });
+    const ex = document.querySelector<HTMLButtonElement>('[data-expand]')!;
+    ex.addEventListener('click', () => {
+      const lines = [...document.querySelectorAll<HTMLDetailsElement>('details.line')];
+      const open = !lines.every((l) => l.open);
+      lines.forEach((l) => (l.open = open));
+      ex.textContent = open ? 'Close all tracks' : 'Open all tracks';
+    });
+
+    // Progress marks from this browser.
+    const s = store.load();
+    if (s) {
+      let done = 0;
+      document.querySelectorAll<HTMLElement>('.stn.is-written').forEach((li) => {
+        const id = li.dataset.topic!;
+        const a = li.querySelector('a')!;
+        const status = li.querySelector('.status')!;
+        if (s.done[id]) {
+          done++;
+          li.classList.replace('is-written', 'is-done');
+          li.querySelector('.dot')!.innerHTML = icon('check');
+          status.className = 'status s-done';
+          status.innerHTML = `${icon('check-circle')}Done ✓`;
+        } else if (s.lastOpened === id) {
+          li.classList.replace('is-written', 'is-here');
+          a.setAttribute('aria-current', 'step');
+          li.querySelector('.dot')!.innerHTML = icon('target');
+          status.className = 'status s-here';
+          status.innerHTML = `${icon('target')}In progress · you are here`;
+        }
+      });
+      if (s.lastOpened || done) {
+        document.querySelector('[data-you-count]')!.textContent = `${done} of ${written} lessons done`;
+        document.querySelector<HTMLElement>('.you.p-only .bar > i')!.style.width = `${written ? Math.round((done / written) * 100) : 0}%`;
+        const here = document.querySelector<HTMLAnchorElement>('.stn.is-here a');
+        if (here) {
+          const link = document.querySelector<HTMLAnchorElement>('[data-you-link]')!;
+          link.href = here.href;
+          link.querySelector('span')!.textContent = `Continue: ${here.querySelector('.st-title')!.textContent}`;
+        }
+      }
+    }
+  </script>
+</Base>

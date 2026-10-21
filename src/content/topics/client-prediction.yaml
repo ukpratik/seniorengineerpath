@@ -1,0 +1,8 @@
+id: client-prediction
+slug: client-prediction-lag-compensation
+track: domains
+module: gaming
+title: "Client prediction and lag compensation"
+oneLiner: "How online games feel instant despite lag, and why you sometimes die behind a wall."
+level: L2
+prereqs: [tick-rate]

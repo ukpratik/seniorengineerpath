@@ -1,0 +1,8 @@
+id: batch-processing
+slug: batch-processing
+track: distributed
+module: messaging
+title: "Batch processing"
+oneLiner: "How MapReduce and Spark-style jobs process large data sets, and when batch beats streaming."
+level: L2
+prereqs: [column-stores]

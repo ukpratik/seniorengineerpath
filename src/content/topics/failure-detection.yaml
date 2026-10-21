@@ -1,0 +1,8 @@
+id: failure-detection
+slug: failure-detection-and-membership
+track: distributed
+module: consensus
+title: "Failure detection and membership"
+oneLiner: "Heartbeats, timeouts and gossip: how a cluster decides that a node is dead."
+level: L2
+prereqs: [why-distributed-hard]

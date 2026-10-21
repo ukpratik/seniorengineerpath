@@ -1,0 +1,8 @@
+id: flaky-tests
+slug: flaky-tests
+track: foundations
+module: testing
+title: "Flaky tests and test reliability"
+oneLiner: "Why tests fail at random, how to find the cause, and how to stop flakiness spreading."
+level: L2
+prereqs: [testing-strategy]

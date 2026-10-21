@@ -1,0 +1,8 @@
+id: migrations
+slug: running-large-migrations
+track: craft
+module: delivery
+title: "Running large migrations"
+oneLiner: "How to plan, run and finish a migration so nobody is stuck on the old system for years."
+level: L2
+prereqs: [schema-migrations, feature-flags]

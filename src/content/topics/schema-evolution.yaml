@@ -1,0 +1,8 @@
+id: schema-evolution
+slug: schema-evolution-and-encoding
+track: foundations
+module: api-design
+title: "Schema evolution and encoding"
+oneLiner: "How JSON, Protobuf and Avro let old and new code read each other's data."
+level: L2
+prereqs: [rest-api]

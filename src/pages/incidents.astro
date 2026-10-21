@@ -1,0 +1,68 @@
+---
+// Incident library (US-019): short, verified cards that link to the official postmortem.
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { siteData } from '../lib/site-data.ts';
+import { formatDay } from '../lib/lesson-parts.ts';
+
+const d = await siteData();
+const tags = [...new Set(d.incidents.flatMap((i) => i.tags))].sort();
+const lessonsFor = (ids: string[]) => ids.map((id) => d.byId.get(id)).filter((t) => t && t.written);
+---
+<Base title="Incident library" description={`${d.incidents.length} famous production outages explained in simple English for software engineers: what broke, why, and the lesson, with links to each official postmortem.`} current="search">
+  <TopBar />
+  <main id="main" class="page" data-pagefind-body data-pagefind-filter="type:Incident">
+    <p class="eyebrow">Incident library</p>
+    <h1 class="ptitle">What broke, and what we learned</h1>
+    <p class="plede">Real outages from real companies, each in a few lines: what users saw, the root cause and the lesson. Every card links to the company’s own postmortem.</p>
+    <div class="tagbar" role="group" aria-label="Filter by tag" data-pagefind-ignore>
+      <button type="button" class="chip" aria-pressed="true" data-tag="">All</button>
+      {tags.map((t) => <button type="button" class="chip" aria-pressed="false" data-tag={t}>{t}</button>)}
+    </div>
+    <p class="small count" aria-live="polite" data-count-inc>{d.incidents.length} incidents</p>
+    <ul class="grid3">
+      {d.incidents.map((i) => {
+        const ls = lessonsFor(i.lessons);
+        return (
+          <li class="card inc" data-tags={i.tags.join(' ')}>
+            <span class="when" data-pagefind-ignore><Icon name="alert" />{i.company} · {formatDay(i.date)}</span>
+            <h2 style="font-size:18px" id={i.id}>{i.title}</h2>
+            <dl><dt data-pagefind-ignore>What broke</dt><dd>{i.broke}</dd><dt data-pagefind-ignore>Why</dt><dd>{i.why}</dd><dt data-pagefind-ignore>Lesson</dt><dd>{i.lesson}</dd></dl>
+            <div class="chips" data-pagefind-ignore>{i.tags.map((t) => <span class="chip">{t}</span>)}</div>
+            <div class="links" data-pagefind-ignore>
+              <a href={i.url} target="_blank" rel="noopener"><Icon name="ext" small />Official postmortem<span class="sr"> (opens in a new tab)</span></a>
+              {ls.map((l) => <a href={`/learn/${l!.slug}`}><Icon name="book" small />{l!.title}</a>)}
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+    <Footer />
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    initUi();
+    const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-tag]')];
+    const cards = [...document.querySelectorAll<HTMLElement>('li.inc')];
+    const count = document.querySelector<HTMLElement>('[data-count-inc]')!;
+    const apply = (tag: string) => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.tag === tag)));
+      let n = 0;
+      for (const c of cards) {
+        const show = !tag || c.dataset.tags!.split(' ').includes(tag);
+        c.hidden = !show;
+        if (show) n++;
+      }
+      count.textContent = tag ? `${n} incidents tagged “${tag}”` : `${n} incidents`;
+    };
+    chips.forEach((c) => c.addEventListener('click', () => {
+      apply(c.dataset.tag!);
+      history.replaceState(null, '', c.dataset.tag ? `?tag=${c.dataset.tag}` : location.pathname);
+    }));
+    const t = new URLSearchParams(location.search).get('tag');
+    if (t && chips.some((c) => c.dataset.tag === t)) apply(t);
+    if (location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.closest('li')?.classList.add('hl');
+  </script>
+</Base>

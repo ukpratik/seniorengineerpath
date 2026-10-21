@@ -1,0 +1,7 @@
+id: os-essentials
+slug: os-essentials-for-backend
+track: foundations
+module: os-concurrency
+title: "OS essentials for backend engineers"
+oneLiner: "Processes, threads, memory, files and syscalls: the parts of the OS that shape performance."
+level: L1

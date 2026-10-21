@@ -1,0 +1,11 @@
+id: cloudflare-2023-02-customer-throttle
+title: "Cloudflare wrongly throttled one customer's traffic"
+date: 2023-02-02
+company: "Cloudflare"
+broke: "One customer's website became unusable for almost 13 hours because Cloudflare slowed its traffic to the origin server."
+why: "The site's traffic spike filled a shared network link. An unapproved manual throttle was then applied, and support wrongly thought the customer had broken the terms."
+lesson: "Actions that limit a customer need a clear process, more than one approval and a message to the customer."
+url: https://blog.cloudflare.com/how-cloudflare-erroneously-throttled-a-customers-web-traffic/
+tags: [capacity, human-error]
+lessons: []
+verified: true

@@ -1,0 +1,8 @@
+id: control-data-plane
+slug: control-plane-vs-data-plane
+track: scale
+module: traffic
+title: "Control plane vs data plane"
+oneLiner: "Why large systems split the parts that decide from the parts that serve traffic."
+level: L3
+prereqs: [load-balancing]

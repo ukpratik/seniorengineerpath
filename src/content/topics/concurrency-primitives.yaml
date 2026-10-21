@@ -1,0 +1,8 @@
+id: concurrency-primitives
+slug: locks-atomics-and-deadlocks
+track: foundations
+module: os-concurrency
+title: "Locks, atomics and deadlocks"
+oneLiner: "How threads share data safely, and how race conditions and deadlocks happen."
+level: L1
+prereqs: [os-essentials]

@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+---
+<Base title="Page not found" description="This page does not exist on SeniorPath." noindex>
+  <TopBar />
+  <main id="main" class="page narrow">
+    <p class="eyebrow">404</p>
+    <h1 class="ptitle">We can’t find that page</h1>
+    <p class="plede">The link may be old, or the page moved. Try the map or search.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/map">Open the map</a><a class="btn btn-secondary" href="/search">Search</a></div>
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    initUi();
+  </script>
+</Base>

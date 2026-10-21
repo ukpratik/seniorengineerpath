@@ -1,0 +1,8 @@
+id: pagination
+slug: api-pagination-and-filtering
+track: foundations
+module: api-design
+title: "API pagination and filtering"
+oneLiner: "Offset vs cursor pagination, filtering and sorting, and why offsets break on big tables."
+level: L1
+prereqs: [rest-api]

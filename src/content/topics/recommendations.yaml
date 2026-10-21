@@ -1,0 +1,8 @@
+id: recommendations
+slug: recommendation-systems
+track: domains
+module: ecommerce
+title: "Recommendation systems"
+oneLiner: "Candidate generation and ranking: how \"you may also like\" works at scale."
+level: L2
+prereqs: [batch-processing]

@@ -1,0 +1,8 @@
+id: backpressure
+slug: backpressure-and-flow-control
+track: distributed
+module: messaging
+title: "Backpressure and flow control"
+oneLiner: "How a slow consumer can tell fast producers to slow down before queues grow without limit."
+level: L2
+prereqs: [queues-vs-logs, tail-latency-queueing]

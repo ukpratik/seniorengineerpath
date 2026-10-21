@@ -1,0 +1,11 @@
+id: cloudflare-2023-11-control-plane
+title: "Cloudflare outage: one data centre lost power"
+date: 2023-11-02
+company: "Cloudflare"
+broke: "For hours, the Cloudflare dashboard and APIs failed, and logs and analytics were down for almost two days, though customer traffic kept flowing."
+why: "A power failure took out one data centre. Some services meant to survive that still depended on systems that ran only there, and losing the whole site had never been tested."
+lesson: "Prove high availability by turning off a whole site in a test, and do not let new services skip the rules."
+url: https://blog.cloudflare.com/post-mortem-on-cloudflare-control-plane-and-analytics-outage/
+tags: [dependencies, testing, capacity]
+lessons: []
+verified: true

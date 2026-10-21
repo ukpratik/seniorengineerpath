@@ -1,0 +1,8 @@
+id: connection-pooling
+slug: database-connection-pooling
+track: data
+module: key-tech
+title: "Connection pooling and database limits"
+oneLiner: "Why databases run out of connections, and how poolers like PgBouncer help."
+level: L2
+prereqs: [postgres]

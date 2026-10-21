@@ -1,0 +1,8 @@
+id: ci-cd
+slug: ci-cd-trunk-based-development
+track: reliability
+module: change
+title: "CI/CD and trunk-based development"
+oneLiner: "How small, frequent merges and an automated pipeline make releases boring."
+level: L1
+prereqs: [testing-strategy]

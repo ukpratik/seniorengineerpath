@@ -1,0 +1,8 @@
+id: lock-free
+slug: lock-free-programming-memory-models
+track: domains
+module: low-latency
+title: "Lock-free programming and memory models"
+oneLiner: "Compare-and-swap, memory ordering, and why lock-free code is so easy to get wrong."
+level: L3
+prereqs: [concurrency-primitives, mechanical-sympathy]

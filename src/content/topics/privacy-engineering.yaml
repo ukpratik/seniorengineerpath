@@ -1,0 +1,8 @@
+id: privacy-engineering
+slug: privacy-engineering-gdpr-dpdp
+track: reliability
+module: privacy
+title: "Privacy engineering: GDPR and DPDP"
+oneLiner: "Data minimisation, consent, deletion and retention, built into the system from the start."
+level: L2
+prereqs: [secrets-management]

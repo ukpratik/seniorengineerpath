@@ -1,0 +1,8 @@
+id: dynamodb
+slug: dynamodb-in-depth
+track: data
+module: key-tech
+title: "DynamoDB in depth"
+oneLiner: "Partition and sort keys, secondary indexes, capacity modes and hot partitions."
+level: L2
+prereqs: [nosql-modelling]

@@ -1,0 +1,11 @@
+id: fastly-2021-06-global
+title: "Fastly outage: a valid customer config hit a hidden bug"
+date: 2021-06-08
+company: "Fastly"
+broke: "About 85% of Fastly's network returned errors, so many large websites failed to load for most of an hour."
+why: "A deploy in May added a bug that stayed hidden. A valid customer config change in June hit the exact conditions that triggered it."
+lesson: "Hidden bugs can wait weeks for a trigger, so test many config combinations and be able to turn things off everywhere fast."
+url: https://www.fastly.com/blog/summary-of-june-8-outage
+tags: [config, testing, deploys]
+lessons: []
+verified: true

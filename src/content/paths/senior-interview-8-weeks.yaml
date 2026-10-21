@@ -1,0 +1,22 @@
+id: senior-interview-8-weeks
+slug: senior-interview-8-weeks
+title: Senior interview in 8 weeks
+description: Two lessons a week. The design method, the core building blocks and how to show senior signal in the room.
+default: false
+steps:
+  - latency-estimation
+  - system-design-method
+  - requirements-nfrs
+  - load-balancing
+  - caching-stampedes
+  - replication
+  - sharding
+  - cap-consistency
+  - queues-vs-logs
+  - rate-limiting
+  - idempotency-retries
+  - unique-ids
+  - fan-out
+  - design-deep-dives
+  - level-calibration
+  - behavioural-interviews

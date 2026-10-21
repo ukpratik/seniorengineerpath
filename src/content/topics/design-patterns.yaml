@@ -1,0 +1,8 @@
+id: design-patterns
+slug: design-patterns-that-matter
+track: foundations
+module: code-design
+title: "Design patterns that still matter"
+oneLiner: "The small set of patterns you will really use, and when a pattern makes code worse."
+level: L1
+prereqs: [solid-coupling]

@@ -1,0 +1,8 @@
+id: public-speaking
+slug: public-speaking-tech-talks
+track: craft
+module: writing
+title: "Public speaking and tech talks"
+oneLiner: "How to plan and give an internal or conference talk that people remember."
+level: L3
+prereqs: [technical-writing]

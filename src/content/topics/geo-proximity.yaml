@@ -1,0 +1,8 @@
+id: geo-proximity
+slug: geo-search-and-proximity
+track: data
+module: search
+title: "Geo search and proximity"
+oneLiner: "How geohashes, quadtrees and S2 cells find what is near a user, fast."
+level: L2
+prereqs: [secondary-indexes]

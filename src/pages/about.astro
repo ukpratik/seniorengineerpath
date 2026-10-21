@@ -1,0 +1,65 @@
+---
+// About, how we check content (D-012, ADR-006), privacy (PRD §7) and licence (D-008).
+import Base from '../layouts/Base.astro';
+import TopBar from '../components/TopBar.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../config.ts';
+---
+<Base title="About, content checks and privacy" description="Who makes SeniorPath, how every lesson is fact-checked, what data the site stores (almost nothing) and how you may reuse the content." current="none">
+  <TopBar />
+  <main id="main" class="page narrow ab">
+    <p class="eyebrow">About SeniorPath</p>
+    <h1 class="ptitle">Free lessons for the jump from mid-level to senior</h1>
+    <nav class="jump" aria-label="On this page">
+      <a class="chip" href="#about">About</a><a class="chip" href="#checks">How we check content</a><a class="chip" href="#privacy">Privacy</a><a class="chip" href="#licence">Licence</a>
+    </nav>
+
+    <section id="about" class="prose">
+      <h2><Icon name="info" />What this is</h2>
+      <p>SeniorPath is for software engineers with about 2–3 years of experience who want to work like a senior engineer. Most courses teach you to pass an interview. We try to teach the job: how to design, run, debug and decide.</p>
+      <p>Every lesson starts from something that really broke. It explains the idea in simple English, shows it step by step, and ends with what a senior does at work and with AI tools. Many readers read English as a second language, so we keep sentences short and explain every technical word.</p>
+      <p>It is free to read. There is no account and no sign-up. It is made by {SITE.author}, a software engineer, with help from AI tools. The code is on <a href={`https://github.com/${SITE.repo}`}>GitHub</a>.</p>
+    </section>
+
+    <section id="checks" class="prose">
+      <h2><Icon name="shield" />How we check content</h2>
+      <p>Wrong content is the worst thing a learning site can have. So every lesson goes through these steps before it is published:</p>
+      <ol>
+        <li><strong>Written from original sources.</strong> Official docs, research papers, well-known books (with chapter) and the companies’ own incident reports. Never from memory alone.</li>
+        <li><strong>Checked by a separate AI fact-checker.</strong> A different AI agent, which did not write the lesson, opens every source and checks each claim, number and quiz answer. It fixes what is wrong and records the claims it checked.</li>
+        <li><strong>Checked by the build.</strong> The website will not build if a lesson has no sources, no checked claims, broken links, or sentences that are too long.</li>
+        <li><strong>Checked by you.</strong> Every lesson has a “Report a mistake” link. We aim to fix confirmed mistakes within 7 days.</li>
+      </ol>
+      <p>Each lesson shows one of these labels, so you always know how it was reviewed:</p>
+      <div class="labels">
+        <span class="chip"><Icon name="shield" small />Fact-checked by AI against cited sources · Human review pending</span>
+        <span class="chip"><Icon name="check-circle" small />Reviewed by the author</span>
+      </div>
+      <p>Lessons about AI tools change quickly, so we review them every three months.</p>
+    </section>
+
+    <section id="privacy" class="prose">
+      <h2><Icon name="lock" />Privacy: what we store</h2>
+      <p><strong>No cookies. No account. No personal data.</strong></p>
+      <ul>
+        <li><strong>Your progress stays in your browser</strong> (localStorage): which lessons you marked done, the last lesson you opened, your learning path and your theme. It never leaves your device unless you export it yourself.</li>
+        <li><strong>Anonymous counts.</strong> We use Umami, a privacy-friendly analytics tool that does not use cookies. It counts page views and a few events, like “a lesson was completed” or “someone answered a quiz question”. We never send what you type in search, your answers’ text, or any id that identifies you. We respect “Do Not Track”.</li>
+        <li><strong>Reporting a mistake</strong> opens GitHub in a new tab. What you write there is public and covered by GitHub’s own terms.</li>
+      </ul>
+      <p>To delete your progress, clear this site’s data in your browser settings.</p>
+    </section>
+
+    <section id="licence" class="prose">
+      <h2><Icon name="book" />Licence</h2>
+      <p>Lessons, diagrams and other content: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. You may share and adapt them for non-commercial use, if you give credit and share your changes under the same licence.</p>
+      <p>Website code: <a href={`https://github.com/${SITE.repo}/blob/main/LICENSE`}>MIT</a>. The font is Plus Jakarta Sans (SIL Open Font License) and the icons are from Lucide (ISC).</p>
+      <p>Incident cards summarise the companies’ own public reports in our words and link to them. Names of companies and products belong to their owners.</p>
+    </section>
+    <Footer />
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    initUi();
+  </script>
+</Base>

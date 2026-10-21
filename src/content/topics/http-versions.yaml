@@ -1,0 +1,8 @@
+id: http-versions
+slug: http-1-2-3-and-quic
+track: foundations
+module: networking
+title: "HTTP/1.1, HTTP/2 and HTTP/3"
+oneLiner: "What changed in each HTTP version, and why it matters for speed and retries."
+level: L1
+prereqs: [tcp-ip]

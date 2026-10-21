@@ -1,0 +1,8 @@
+id: service-mesh
+slug: service-mesh-and-sidecars
+track: scale
+module: traffic
+title: "Service mesh and sidecars"
+oneLiner: "What a service mesh does for retries, mTLS and traffic control, and what it costs you."
+level: L2
+prereqs: [load-balancing, tls]

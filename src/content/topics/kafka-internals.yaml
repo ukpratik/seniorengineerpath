@@ -1,0 +1,8 @@
+id: kafka-internals
+slug: kafka-internals
+track: data
+module: key-tech
+title: "Kafka internals"
+oneLiner: "Partitions, consumer groups, in-sync replicas and retention: how Kafka works inside."
+level: L2
+prereqs: [queues-vs-logs, replication]

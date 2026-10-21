@@ -1,0 +1,26 @@
+# Weekly check of every external link in the content (US-016). Opens an issue on failure.
+name: links-weekly
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --no-progress --max-retries 3 --accept 200,206,403,429 --exclude-path node_modules 'src/content/**/*.md' 'src/content/**/*.yaml'
+          output: lychee-report.md
+          fail: false
+      - name: Open an issue if links are broken
+        if: steps.lychee.outputs.exit_code != 0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "Broken links found ($(date -u +%F))" --body-file lychee-report.md --label links

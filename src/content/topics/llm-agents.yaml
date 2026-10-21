@@ -1,0 +1,8 @@
+id: llm-agents
+slug: llm-tool-use-and-agents
+track: ai-native
+module: llm-features
+title: "Tool use and agents in products"
+oneLiner: "How to let an LLM call tools safely, and when an agent is the wrong design."
+level: L2
+prereqs: [prompt-engineering]

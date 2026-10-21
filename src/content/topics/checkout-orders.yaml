@@ -1,0 +1,8 @@
+id: checkout-orders
+slug: checkout-and-order-state-machine
+track: domains
+module: ecommerce
+title: "Checkout and the order state machine"
+oneLiner: "How to model an order's states and keep checkout correct across payments and stock."
+level: L2
+prereqs: [inventory-flash-sales, payment-lifecycle]

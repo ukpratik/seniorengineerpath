@@ -1,0 +1,8 @@
+id: cdn-http-caching
+slug: cdn-and-http-caching
+track: scale
+module: caching
+title: "CDNs and HTTP caching"
+oneLiner: "Cache-Control headers, edge caches and purging: how CDNs serve content close to users."
+level: L1
+prereqs: [http-versions, caching-stampedes]

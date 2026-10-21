@@ -1,0 +1,11 @@
+id: reddit-2023-03-pi-day
+title: "Reddit Pi-Day outage: a Kubernetes upgrade renamed a label"
+date: 2023-03-14
+company: "Reddit"
+broke: "For 314 minutes, Reddit showed error pages or empty home pages to people trying to use it."
+why: "The upgrade to Kubernetes 1.24 removed an old node label. The network config used that label to pick its route reflectors, so cluster networking broke."
+lesson: "Read upgrade notes for removed names, test upgrades on clusters like production, and practise rollback before you need it."
+url: https://web.archive.org/web/20260826130053/https://www.reddit.com/r/RedditEng/comments/11xx5o0/you_broke_reddit_the_piday_outage/
+tags: [deploys, networking, config]
+lessons: []
+verified: true

@@ -1,0 +1,8 @@
+id: caching-stampedes
+slug: caching-and-cache-stampedes
+track: scale
+module: caching
+title: "Caching and cache stampedes"
+oneLiner: "Cache-aside, write-through and TTLs, and how to stop a stampede when a hot key expires."
+level: L1
+prereqs: [choosing-database]

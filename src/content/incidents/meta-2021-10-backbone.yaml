@@ -1,0 +1,11 @@
+id: meta-2021-10-backbone
+title: "Facebook outage: a maintenance command cut off every data centre"
+date: 2021-10-04
+company: "Meta (Facebook)"
+broke: "Facebook's services could not be reached from the internet, and even DNS lookups for its names failed."
+why: "A maintenance command took down the whole backbone network, and a bug in the audit tool failed to stop it. DNS servers then withdrew their routes, and remote access tools were down too."
+lesson: "Safety checks need their own tests, and the tools you use to fix an outage must not depend on the network that is down."
+url: https://engineering.fb.com/2021/10/05/networking-traffic/outage-details/
+tags: [networking, dns, dependencies]
+lessons: []
+verified: true

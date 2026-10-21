@@ -1,0 +1,8 @@
+id: zero-to-millions
+slug: scaling-from-zero-to-millions
+track: scale
+module: traffic
+title: "Scaling from zero to millions of users"
+oneLiner: "The usual steps a system takes as it grows, from one server to many regions."
+level: L1
+prereqs: [latency-estimation]

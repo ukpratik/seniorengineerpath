@@ -1,0 +1,8 @@
+id: concurrency-models
+slug: threads-async-and-actors
+track: foundations
+module: os-concurrency
+title: "Concurrency models: threads, async and actors"
+oneLiner: "Thread pools, event loops, async/await and actors, and which one fits which workload."
+level: L2
+prereqs: [concurrency-primitives]

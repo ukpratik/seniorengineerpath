@@ -1,0 +1,8 @@
+id: abuse-prevention
+slug: abuse-prevention-at-scale
+track: scale
+module: protection
+title: "Abuse prevention at scale"
+oneLiner: "How to detect and slow down bots, scrapers and fake accounts without hurting real users."
+level: L2
+prereqs: [rate-limiting]

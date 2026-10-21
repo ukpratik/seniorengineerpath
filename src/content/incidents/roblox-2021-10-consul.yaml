@@ -1,0 +1,11 @@
+id: roblox-2021-10-consul
+title: "Roblox outage: 73 hours down after Consul broke"
+date: 2021-10-28
+company: "Roblox"
+broke: "Roblox was fully down for most of 73 hours, and players came back in steps only on the fourth day."
+why: "A new streaming feature in Consul and a slow path in its BoltDB storage made Consul fail under load. Almost every service, including monitoring, depended on that one Consul cluster."
+lesson: "Do not put everything on one coordination system, and keep monitoring separate from the systems it watches."
+url: https://about.roblox.com/newsroom/2022/01/roblox-return-to-service-10-28-10-31-2021/
+tags: [dependencies, consensus, observability]
+lessons: []
+verified: true

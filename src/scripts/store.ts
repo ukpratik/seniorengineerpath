@@ -14,6 +14,7 @@ export interface State {
   activePath?: string;
   theme?: 'light' | 'dark';
   exportPrompted?: boolean;
+  mapAll?: boolean; // map shows coming-soon topics too
 }
 
 export interface Storage {
@@ -101,6 +102,7 @@ export function createStore(backend: Storage | null = storage()) {
     setActivePath: (id: string) => update((s) => void (s.activePath = id)),
     setTheme: (t: 'light' | 'dark') => update((s) => void (s.theme = t)),
     setExportPrompted: () => update((s) => void (s.exportPrompted = true)),
+    setMapAll: (all: boolean) => update((s) => void (s.mapAll = all)),
 
     exportJson(now = new Date()): string {
       const s = read() ?? empty();

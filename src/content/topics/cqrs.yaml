@@ -1,0 +1,8 @@
+id: cqrs
+slug: cqrs-and-read-models
+track: distributed
+module: workflows
+title: "CQRS and read models"
+oneLiner: "Why some systems split the write model from the read model, and the lag it brings."
+level: L2
+prereqs: [event-sourcing]

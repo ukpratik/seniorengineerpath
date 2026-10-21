@@ -1,0 +1,8 @@
+id: webhooks
+slug: webhooks-and-async-apis
+track: foundations
+module: api-design
+title: "Webhooks and async APIs"
+oneLiner: "How to send and receive webhooks reliably, with signatures, retries and replay."
+level: L2
+prereqs: [rest-api, idempotency-retries]

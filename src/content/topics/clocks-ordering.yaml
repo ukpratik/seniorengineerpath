@@ -1,0 +1,8 @@
+id: clocks-ordering
+slug: time-clocks-and-ordering
+track: distributed
+module: time
+title: "Time, clocks and ordering"
+oneLiner: "Why server clocks disagree, and how logical clocks order events without trusting them."
+level: L2
+prereqs: [why-distributed-hard]

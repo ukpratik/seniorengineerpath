@@ -1,0 +1,8 @@
+id: ml-platform
+slug: ml-platform-feature-stores
+track: domains
+module: data-ml
+title: "ML platforms and feature stores"
+oneLiner: "How teams train, serve and monitor models, and keep features the same in both."
+level: L3
+prereqs: [lakehouse, stream-processing]

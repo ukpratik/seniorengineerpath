@@ -1,0 +1,8 @@
+id: ai-tool-landscape
+slug: ai-coding-tool-landscape
+track: ai-native
+module: agents
+title: "The AI coding tool landscape"
+oneLiner: "How the main AI coding tools differ, and the patterns they share."
+level: L1
+prereqs: [coding-agents]

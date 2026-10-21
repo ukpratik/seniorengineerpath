@@ -1,0 +1,8 @@
+id: fraud-risk
+slug: fraud-and-risk-systems
+track: domains
+module: fintech
+title: "Fraud and risk systems"
+oneLiner: "Rules, scores and manual review: how payment systems catch fraud in real time."
+level: L2
+prereqs: [payment-lifecycle, stream-processing]

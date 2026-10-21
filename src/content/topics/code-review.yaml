@@ -1,0 +1,8 @@
+id: code-review
+slug: reviewing-human-and-ai-code
+track: ai-native
+module: ai-quality
+title: "Reviewing code written by humans and AI"
+oneLiner: "How to review well as author and reviewer, and what to check harder when AI wrote the code."
+level: L1
+prereqs: [what-senior-means]

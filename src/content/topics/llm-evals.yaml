@@ -1,0 +1,8 @@
+id: llm-evals
+slug: evals-for-llm-systems
+track: ai-native
+module: llm-features
+title: "Evals for LLM systems"
+oneLiner: "How to test features whose output changes each run, with datasets, graders and regression checks."
+level: L2
+prereqs: [llm-fundamentals]

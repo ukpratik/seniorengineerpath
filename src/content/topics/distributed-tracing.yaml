@@ -1,0 +1,8 @@
+id: distributed-tracing
+slug: distributed-tracing
+track: reliability
+module: observability
+title: "Distributed tracing in practice"
+oneLiner: "How trace IDs follow a request across services, and how to read a trace to find the slow part."
+level: L2
+prereqs: [observability-slos]

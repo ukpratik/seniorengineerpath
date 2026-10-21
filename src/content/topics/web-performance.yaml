@@ -1,0 +1,8 @@
+id: web-performance
+slug: web-performance-core-web-vitals
+track: domains
+module: realtime-web
+title: "Web performance and Core Web Vitals"
+oneLiner: "LCP, INP and CLS: how to measure and fix what makes pages feel slow."
+level: L1
+prereqs: [cdn-http-caching]

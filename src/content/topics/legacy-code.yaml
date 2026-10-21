@@ -1,0 +1,8 @@
+id: legacy-code
+slug: refactoring-and-legacy-code
+track: foundations
+module: code-design
+title: "Refactoring and legacy code"
+oneLiner: "How to change old code that has no tests safely, one small step at a time."
+level: L1
+prereqs: [testing-strategy]

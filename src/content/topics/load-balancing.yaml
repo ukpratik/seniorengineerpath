@@ -1,0 +1,8 @@
+id: load-balancing
+slug: load-balancing
+track: scale
+module: traffic
+title: "Load balancing"
+oneLiner: "L4 vs L7, balancing algorithms and health checks: how traffic is spread across servers."
+level: L1
+prereqs: [tcp-ip, http-versions]

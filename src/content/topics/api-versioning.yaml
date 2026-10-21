@@ -1,0 +1,8 @@
+id: api-versioning
+slug: api-versioning-and-lifecycle
+track: foundations
+module: api-design
+title: "API versioning and deprecation"
+oneLiner: "How to change a public API without breaking clients, and how to retire old versions."
+level: L2
+prereqs: [schema-evolution]

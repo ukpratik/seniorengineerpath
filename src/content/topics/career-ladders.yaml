@@ -1,0 +1,8 @@
+id: career-ladders
+slug: career-ladders-level-expectations
+track: craft
+module: levels
+title: "Career ladders and level expectations"
+oneLiner: "How companies define each level, and how to read your own ladder."
+level: L1
+prereqs: [what-senior-means]

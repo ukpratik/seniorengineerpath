@@ -1,0 +1,8 @@
+id: functional-programming
+slug: functional-programming-concepts
+track: foundations
+module: code-design
+title: "Functional programming ideas"
+oneLiner: "Immutability, pure functions and composition, and how they make everyday code safer."
+level: L2
+prereqs: [deep-modules]

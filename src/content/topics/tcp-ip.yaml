@@ -1,0 +1,7 @@
+id: tcp-ip
+slug: tcp-ip-network-stack
+track: foundations
+module: networking
+title: "TCP/IP and the network stack"
+oneLiner: "How bytes travel reliably between machines, and where they slow down or get stuck."
+level: L1

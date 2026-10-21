@@ -1,0 +1,18 @@
+id: into-domains
+slug: into-domains
+title: Into the domains
+description: How money, shops, games, SaaS and very fast systems each bend the same building blocks.
+default: false
+steps:
+  - money-ledgers
+  - payment-lifecycle
+  - reconciliation
+  - inventory-flash-sales
+  - checkout-orders
+  - client-prediction
+  - matchmaking
+  - multi-tenancy
+  - billing-metering
+  - tail-latency-queueing
+  - mechanical-sympathy
+  - batching-pipelining

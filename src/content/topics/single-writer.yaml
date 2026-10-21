@@ -1,0 +1,8 @@
+id: single-writer
+slug: lmax-disruptor-single-writer
+track: domains
+module: low-latency
+title: "The LMAX Disruptor and the single-writer rule"
+oneLiner: "How letting one thread own the data can beat locks for very high throughput."
+level: L3
+prereqs: [mechanical-sympathy, concurrency-primitives]

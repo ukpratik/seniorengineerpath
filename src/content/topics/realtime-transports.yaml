@@ -1,0 +1,8 @@
+id: realtime-transports
+slug: websockets-sse-long-polling
+track: foundations
+module: networking
+title: "WebSockets, SSE and long polling"
+oneLiner: "The ways a server can push data to clients, and how to choose between them."
+level: L1
+prereqs: [http-versions]

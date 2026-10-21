@@ -1,0 +1,8 @@
+id: why-distributed-hard
+slug: why-distributed-systems-are-hard
+track: distributed
+module: consistency
+title: "Why distributed systems are hard"
+oneLiner: "Partial failures, lost messages and unreliable clocks: what changes once you have two machines."
+level: L1
+prereqs: [tcp-ip]

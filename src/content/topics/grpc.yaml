@@ -1,0 +1,8 @@
+id: grpc
+slug: rpc-and-grpc
+track: foundations
+module: api-design
+title: "RPC and gRPC"
+oneLiner: "How RPC differs from REST, and when gRPC with Protocol Buffers is the better choice."
+level: L1
+prereqs: [rest-api]

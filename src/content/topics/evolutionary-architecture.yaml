@@ -1,0 +1,8 @@
+id: evolutionary-architecture
+slug: evolutionary-architecture-strangler-fig
+track: scale
+module: architecture
+title: "Evolutionary architecture and the strangler fig"
+oneLiner: "How to change a system's architecture step by step while it keeps running."
+level: L3
+prereqs: [monolith-microservices, legacy-code]

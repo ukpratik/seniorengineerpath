@@ -1,0 +1,8 @@
+id: scaling-writes
+slug: scaling-writes-and-hot-keys
+track: data
+module: partitioning
+title: "Scaling writes and hot keys"
+oneLiner: "How to handle heavy write load with batching, queues and splitting hot keys."
+level: L2
+prereqs: [sharding, queues-vs-logs]

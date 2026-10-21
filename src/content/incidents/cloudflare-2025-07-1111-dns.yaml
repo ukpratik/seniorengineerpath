@@ -1,0 +1,11 @@
+id: cloudflare-2025-07-1111-dns
+title: "Cloudflare 1.1.1.1 outage: an old config mistake woke up"
+date: 2025-07-14
+company: "Cloudflare"
+broke: "For 62 minutes, the 1.1.1.1 DNS resolver was down worldwide, so most of its users could not look up names and most websites seemed broken."
+why: "A config change in June wrongly tied the 1.1.1.1 addresses to a non-production service. A later, unrelated change refreshed that config and withdrew the addresses everywhere."
+lesson: "Check the full result of a change, not only the lines you edited, because old mistakes can wait for an unrelated trigger."
+url: https://blog.cloudflare.com/cloudflare-1-1-1-1-incident-on-july-14-2025/
+tags: [config, dns, networking]
+lessons: []
+verified: true

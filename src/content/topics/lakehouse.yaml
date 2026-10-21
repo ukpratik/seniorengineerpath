@@ -1,0 +1,8 @@
+id: lakehouse
+slug: lakehouse-analytics-architecture
+track: domains
+module: data-ml
+title: "Lakehouse and analytics architecture"
+oneLiner: "Warehouses, lakes and lakehouses, and how data flows from apps into analytics."
+level: L2
+prereqs: [batch-processing, column-stores]

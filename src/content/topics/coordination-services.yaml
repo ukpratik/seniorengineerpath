@@ -1,0 +1,8 @@
+id: coordination-services
+slug: zookeeper-etcd-coordination
+track: distributed
+module: consensus
+title: "Coordination services: ZooKeeper and etcd"
+oneLiner: "What ZooKeeper and etcd give you for locks, config and discovery, and when not to use them."
+level: L2
+prereqs: [raft]

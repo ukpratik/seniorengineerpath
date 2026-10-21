@@ -1,0 +1,8 @@
+id: i18n
+slug: internationalisation-localisation
+track: domains
+module: realtime-web
+title: "Internationalisation and localisation"
+oneLiner: "Unicode, plurals, right-to-left text and local formats for apps used around the world."
+level: L2
+prereqs: [dates-floats]

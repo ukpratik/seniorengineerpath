@@ -1,0 +1,8 @@
+id: feature-flags
+slug: feature-flags-and-entitlements
+track: reliability
+module: change
+title: "Feature flags and entitlements"
+oneLiner: "How to use flags for safe releases and paid plans without leaving a mess of dead flags."
+level: L1
+prereqs: [safe-deploys]

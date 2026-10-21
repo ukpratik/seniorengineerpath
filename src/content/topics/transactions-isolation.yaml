@@ -1,0 +1,7 @@
+id: transactions-isolation
+slug: transactions-and-isolation-levels
+track: data
+module: transactions
+title: "Transactions and isolation levels"
+oneLiner: "What ACID really promises, and the anomalies each isolation level lets through."
+level: L1

@@ -1,0 +1,8 @@
+id: scaling-reads
+slug: scaling-reads
+track: scale
+module: caching
+title: "Scaling reads"
+oneLiner: "Read replicas, caches and denormalised views: the ways to serve many more reads."
+level: L1
+prereqs: [caching-stampedes, replication]

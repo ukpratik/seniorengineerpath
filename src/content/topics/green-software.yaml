@@ -1,0 +1,8 @@
+id: green-software
+slug: green-sustainable-software
+track: scale
+module: performance
+title: "Green and sustainable software"
+oneLiner: "How to measure the energy and carbon cost of software, and schedule work to cut it."
+level: L2
+prereqs: [finops-cost]

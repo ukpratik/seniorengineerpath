@@ -1,0 +1,8 @@
+id: system-design-method
+slug: system-design-interview-method
+track: craft
+module: career
+title: "The system design method, worked on Ticketmaster"
+oneLiner: "A step-by-step method for system design interviews, worked through on a ticket-booking system."
+level: L1
+prereqs: [latency-estimation, zero-to-millions]

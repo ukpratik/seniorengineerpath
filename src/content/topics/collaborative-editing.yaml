@@ -1,0 +1,8 @@
+id: collaborative-editing
+slug: collaborative-editing-ot-crdt
+track: domains
+module: realtime-web
+title: "Collaborative editing: OT and CRDTs"
+oneLiner: "How Google Docs-style editors merge edits from many people typing at once."
+level: L2
+prereqs: [crdts, realtime-transports]

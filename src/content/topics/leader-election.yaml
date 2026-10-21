@@ -1,0 +1,8 @@
+id: leader-election
+slug: leader-election-and-leases
+track: distributed
+module: consensus
+title: "Leader election and leases"
+oneLiner: "How a cluster picks one leader, and how fencing tokens stop two leaders acting at once."
+level: L2
+prereqs: [failure-detection]

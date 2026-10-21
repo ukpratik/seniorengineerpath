@@ -1,0 +1,8 @@
+id: authorization-models
+slug: rbac-abac-rebac
+track: reliability
+module: security
+title: "Authorization models: RBAC, ABAC and ReBAC"
+oneLiner: "Roles, attributes and relationships: how to model permissions that grow with the product."
+level: L2
+prereqs: [authn-authz]

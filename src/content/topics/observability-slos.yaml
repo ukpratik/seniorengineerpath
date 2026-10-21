@@ -1,0 +1,7 @@
+id: observability-slos
+slug: observability-slos-error-budgets
+track: reliability
+module: observability
+title: "Observability, SLOs and error budgets"
+oneLiner: "Logs, metrics and traces, and how SLOs and error budgets turn them into decisions."
+level: L1

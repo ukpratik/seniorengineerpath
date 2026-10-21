@@ -1,0 +1,11 @@
+id: cloudflare-2025-12-waf-config
+title: "Cloudflare outage: a global config change hit an old bug"
+date: 2025-12-05
+company: "Cloudflare"
+broke: "For about 25 minutes, about 28% of the HTTP traffic Cloudflare served got 500 errors."
+why: "While adding protection for a React security flaw, a change turned off an internal test tool. It went out through a global config system in seconds and hit a years-old bug in the older proxy."
+lesson: "Config systems that reach every server in seconds need the same gradual rollout and health checks as code."
+url: https://blog.cloudflare.com/5-december-2025-outage/
+tags: [config, deploys]
+lessons: []
+verified: true

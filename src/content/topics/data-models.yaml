@@ -1,0 +1,7 @@
+id: data-models
+slug: data-models-and-query-languages
+track: data
+module: modelling
+title: "Data models and query languages"
+oneLiner: "Relational, document and graph models, and how the model shapes the queries you can write."
+level: L1

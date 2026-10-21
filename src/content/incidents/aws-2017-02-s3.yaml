@@ -1,0 +1,11 @@
+id: aws-2017-02-s3
+title: "AWS S3 outage: one wrong input removed too many servers"
+date: 2017-02-28
+company: "Amazon Web Services"
+broke: "For about four hours, S3 in us-east-1 could not serve requests, and services that need S3, such as EC2 launches and Lambda, also failed."
+why: "A playbook command to remove a few billing servers had one wrong input and removed far more, including servers S3 needs to find objects. Restarting them took hours."
+lesson: "Tools that remove capacity must work slowly and refuse to go below a safe minimum, because one typo should not take down a region."
+url: https://aws.amazon.com/message/41926/
+tags: [human-error, capacity]
+lessons: []
+verified: true

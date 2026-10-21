@@ -1,0 +1,11 @@
+id: gitlab-2017-01-database
+title: "GitLab outage: the primary database was wiped by mistake"
+date: 2017-01-31
+company: "GitLab"
+broke: "GitLab.com was down for about 18 hours, and about six hours of database changes, such as issues, comments and new accounts, were lost."
+why: "While fixing broken replication, a command meant for the secondary database ran on the primary and deleted its data. Several backup methods had been failing without anyone noticing."
+lesson: "A backup you have never restored is not a backup, so test restores often and alert loudly when a backup job fails."
+url: https://about.gitlab.com/blog/2017/02/10/postmortem-of-database-outage-of-january-31/
+tags: [data-loss, database, human-error]
+lessons: []
+verified: true

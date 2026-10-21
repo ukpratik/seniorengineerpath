@@ -1,0 +1,8 @@
+id: alerting-oncall
+slug: alerting-and-on-call
+track: reliability
+module: observability
+title: "Alerting and on-call"
+oneLiner: "How to alert on symptoms, not causes, and run an on-call rota people can live with."
+level: L2
+prereqs: [observability-slos]

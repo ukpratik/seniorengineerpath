@@ -1,0 +1,11 @@
+id: cloudflare-2025-06-workers-kv
+title: "Cloudflare outage: a storage provider failure broke many products"
+date: 2025-06-12
+company: "Cloudflare"
+broke: "For about two and a half hours, Workers KV failed most requests, and products built on it, such as Access logins, WARP and the dashboard, also failed."
+why: "Part of the storage behind Workers KV ran on a third-party cloud that had its own outage. Many Cloudflare products depended on KV, so the failure spread."
+lesson: "Know what your core services depend on, and do not let them rely on one outside store with no backup."
+url: https://blog.cloudflare.com/cloudflare-service-outage-june-12-2025/
+tags: [dependencies]
+lessons: []
+verified: true

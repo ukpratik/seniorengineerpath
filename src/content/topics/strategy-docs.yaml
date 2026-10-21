@@ -1,0 +1,8 @@
+id: strategy-docs
+slug: engineering-strategy-vision-docs
+track: craft
+module: writing
+title: "Engineering strategy and vision docs"
+oneLiner: "How to write a strategy that guides many teams' decisions for a year or more."
+level: L3
+prereqs: [design-docs]

@@ -1,0 +1,8 @@
+id: licensing
+slug: software-licensing
+track: craft
+module: judgement
+title: "Software licensing: MIT, Apache, GPL, AGPL"
+oneLiner: "What each open source licence lets you ship, and why AGPL worries legal teams."
+level: L1
+prereqs: [build-vs-buy]

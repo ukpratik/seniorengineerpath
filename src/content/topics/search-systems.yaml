@@ -1,0 +1,8 @@
+id: search-systems
+slug: search-and-inverted-indexes
+track: data
+module: search
+title: "Search systems and inverted indexes"
+oneLiner: "How Elasticsearch-style search finds and ranks documents, and keeps the index fresh."
+level: L2
+prereqs: [secondary-indexes]

@@ -1,0 +1,8 @@
+id: api-gateway
+slug: api-gateway-and-edge
+track: foundations
+module: api-design
+title: "API gateways and edge concerns"
+oneLiner: "What an API gateway does for auth, routing and limits, and when it becomes a bottleneck."
+level: L1
+prereqs: [rest-api, load-balancing]

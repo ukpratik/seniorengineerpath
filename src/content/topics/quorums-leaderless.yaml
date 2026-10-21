@@ -1,0 +1,8 @@
+id: quorums-leaderless
+slug: quorums-and-leaderless-replication
+track: data
+module: replication
+title: "Quorums and leaderless replication"
+oneLiner: "How Dynamo-style systems use read and write quorums, and where quorums still go wrong."
+level: L2
+prereqs: [replication]

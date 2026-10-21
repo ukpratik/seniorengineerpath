@@ -1,0 +1,8 @@
+id: design-docs
+slug: design-docs-and-rfcs
+track: craft
+module: writing
+title: "Design docs and RFCs"
+oneLiner: "How to write a design doc that gets read, reviewed and agreed."
+level: L2
+prereqs: [what-senior-means]

@@ -140,6 +140,7 @@ function decorateTable(t: Element): void {
 // "With AI": h3 "What to ask…" + quotes, h3 "What to check…" + list → two columns.
 function aiLayout(nodes: ElementContent[]): ElementContent[] {
   const cols: Element[] = [];
+  const lead: ElementContent[] = []; // intro text before the first sub-heading stays as prose (BUG QA2-01)
   let cur: Element | null = null;
   for (const n of nodes) {
     const h3 = el(n, 'h3');
@@ -150,7 +151,10 @@ function aiLayout(nodes: ElementContent[]): ElementContent[] {
       cols.push(cur);
       continue;
     }
-    if (!cur) continue;
+    if (!cur) {
+      lead.push(n);
+      continue;
+    }
     const quote = el(n, 'blockquote');
     const list = el(n, 'ul');
     if (quote) {
@@ -171,7 +175,7 @@ function aiLayout(nodes: ElementContent[]): ElementContent[] {
       cur.children.push(n);
     }
   }
-  return [h('div', { class: 'ai' }, cols)];
+  return cols.length ? [...lead, h('div', { class: 'ai' }, cols)] : lead;
 }
 
 export function rehypeLesson() {

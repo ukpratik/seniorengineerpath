@@ -127,8 +127,9 @@ function replicationLag(body: HTMLElement, used: () => void): void {
   const draw = () => {
     const r = simulateRead({ lagMs: lag.value(), readAfterMs: after.value(), readYourWrites: ryw.on(), rywWindowMs: 1000 });
     const at = (ms: number) => Math.min(100, (ms / 2000) * 100);
-    // Past the middle, anchor the label by its right edge so it stays inside the lane on phones.
-    const pos = (ms: number) => (at(ms) > 55 ? `left:auto;right:${100 - at(ms)}%` : `left:${at(ms)}%`);
+    // The marker sits at its time (left: X%). The label shifts left by X% of its own
+    // width, so it always fits in the lane and events keep their order (BUG-016, QA2-02).
+    const pos = (ms: number) => `left:${at(ms)}%;transform:translateX(-${at(ms)}%)`;
     lanes.innerHTML = `
       <div class="lane"><span class="who">Leader</span><div class="tl"><i class="ev w" style="left:0%">write: name = "Asha"</i></div></div>
       <div class="lane"><span class="who">Follower</span><div class="tl"><i class="ev a" style="${pos(lag.value())}">gets the write</i></div></div>

@@ -140,7 +140,7 @@ Always keep the currency next to the amount. `1050` means nothing without "INR".
 
 **Rule two: record every movement of money as double-entry.** Money never appears or disappears. It always moves *from* somewhere *to* somewhere. So every movement is written as at least two entries: one that takes money out of an account and one that puts it into another. [@mt]
 
-In this lesson we write money leaving an account as minus and money arriving as plus. Accountants use the words debit and credit for the two sides, and which side means "more" depends on the type of account. [@mt] The rule that matters is the same in both styles: the entries of one transaction must sum to zero. [@square-books]
+In this lesson we write money leaving an account as minus and money arriving as plus. Accountants call the two sides debit and credit. Which side means "more" depends on the type of account. [@mt] The rule that matters is the same in both styles: the entries of one transaction must sum to zero. [@square-books]
 
 > [!key] **The key idea.** Never change a balance directly. Write balanced entries that never change, and calculate every balance from those entries.
 
@@ -204,7 +204,7 @@ One cost needs a warning. Some accounts, like the platform's own fee account, ap
 - Ban `UPDATE` and `DELETE` on the entries table. Use database permissions, not only a team rule.
 - Give every ledger transaction a unique key from the event that caused it, so retries cannot post twice.
 - Run reconciliation every day. Give every difference an owner and a deadline.
-- Keep accounts that should return to zero, like money on the way, and alert when they do not. [@stripe-ledger]
+- Keep accounts that should return to zero, like money that has been sent but has not arrived yet. Alert when they do not return to zero. [@stripe-ledger]
 - Use the same pattern for things that are not money: reward points, credits, gift cards, even stock in a warehouse.
 
 ## With AI

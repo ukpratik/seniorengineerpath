@@ -86,6 +86,18 @@ export function contentGate(): AstroIntegration {
         const redirects = c.topics.flatMap((t) => t.aliases.map((a) => `/learn/${a} /learn/${t.slug} 301`));
         if (redirects.length) appendFileSync(join(fileURLToPath(dir), '_redirects'), redirects.join('\n') + '\n');
         logger.info(`slug manifest: ${merged.length} published slugs; ${redirects.length} alias redirects`);
+        // Rendering must never drop text: every [@citation] in a published lesson
+        // must appear on its page (guards against QA2-01-style bugs).
+        const missing: string[] = [];
+        for (const l of publishedLessons(c)) {
+          const topic = c.topics.find((t) => t.id === l.data.topic);
+          const page = join(fileURLToPath(dir), 'learn', `${topic?.slug}.html`);
+          if (!topic || !existsSync(page)) continue;
+          const want = (l.body.match(/\[@[a-z0-9-]+\]/g) ?? []).length;
+          const got = (readFileSync(page, 'utf8').match(/<sup><a href="#src-/g) ?? []).length;
+          if (got !== want) missing.push(`${l.id}: ${want} citations in the lesson, ${got} on the page`);
+        }
+        if (missing.length) throw new Error(`Lesson text was dropped while rendering:\n  ${missing.join('\n  ')}`);
         writeFileSync(join(fileURLToPath(dir), '_headers'), securityHeaders(fileURLToPath(dir)));
         logger.info('wrote _headers with CSP hashes for inline scripts');
       },

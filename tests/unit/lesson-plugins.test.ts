@@ -100,6 +100,12 @@ describe('lesson plugins', () => {
     expect(html).toContain('<ul class="checks">');
   });
 
+  it('keeps intro text before the first With AI sub-heading (QA2-01)', async () => {
+    const md = LESSON.replace('## With AI\n\n', '## With AI\n\nAn intro paragraph with a fact.\n\n');
+    const { html } = await render(md);
+    expect(html).toMatch(/<div class="prose"><p>An intro paragraph with a fact.<\/p><\/div><div class="ai">/);
+  });
+
   it('adds slots for incidents, the quiz and sources', async () => {
     const { html } = await render(LESSON);
     for (const s of ['incidents', 'quiz', 'deeper']) expect(html).toContain(`data-slot="${s}"`);

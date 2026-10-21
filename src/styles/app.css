@@ -440,7 +440,7 @@ details[open].deeper summary .i{transform:rotate(180deg)}
 .anim-lanes{display:grid;gap:8px}
 .lane{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:var(--fw-bold)}
 .lane .tl{position:relative;height:34px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--border)}
-.lane .ev{position:absolute;top:4px;transform:translateX(-2px);font-style:normal;font-size:12px;white-space:nowrap;padding:3px 6px;border-radius:6px;background:var(--accent-soft);color:var(--accent-ink);border-left:3px solid var(--accent);max-width:calc(100% - 4px);overflow:hidden;text-overflow:ellipsis}
+.lane .ev{position:absolute;top:4px;font-style:normal;font-size:12px;white-space:nowrap;padding:3px 6px;border-radius:6px;background:var(--accent-soft);color:var(--accent-ink);border-left:3px solid var(--accent);max-width:calc(100% - 4px);overflow:hidden;text-overflow:ellipsis}
 .lane .ev.bad{background:var(--bad-soft);color:var(--bad);border-left-color:var(--bad)}
 .lane .ev.ok{background:var(--done-soft);color:var(--done);border-left-color:var(--done)}
 @media (min-width:600px){.anim-ctrls{flex-direction:row;flex-wrap:wrap;align-items:flex-end}.anim-ctrl{flex:1;min-width:200px}}

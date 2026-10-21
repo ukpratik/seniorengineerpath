@@ -59,3 +59,21 @@ test('charts draw real bar heights (not the 8 px progress-bar style)', async ({ 
   const h = await page.locator('[data-anim="cache-stampede"] rect.abar').evaluateAll((rs) => Math.max(...rs.map((r) => r.getBoundingClientRect().height)));
   expect(h).toBeGreaterThan(40);
 });
+
+test('replication lag: labels stay inside their lanes at any setting (BUG-016)', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/learn/database-replication');
+  const w = page.locator('[data-anim="replication-lag"]');
+  for (const [lag, after] of [['1000', '1000'], ['2000', '600'], ['0', '2000']]) {
+    await w.getByLabel(/Replication lag/).fill(lag);
+    await w.getByLabel(/You read again after/).fill(after);
+    const outside = await w.evaluate((host) =>
+      [...host.querySelectorAll('.lane')].filter((lane) => {
+        const tl = lane.querySelector('.tl')!.getBoundingClientRect();
+        const ev = lane.querySelector('.ev')!.getBoundingClientRect();
+        return ev.left < tl.left - 0.5 || ev.right > tl.right + 0.5;
+      }).length,
+    );
+    expect(outside).toBe(0);
+  }
+});

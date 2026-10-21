@@ -1,4 +1,4 @@
-/* SeniorPath design tokens (v1, 2026-10-21). Source of truth: product/04-design/design-system.md
+/* SeniorPath design tokens (v1, 2026-10-21). From the SeniorPath design system.
    Plain CSS custom properties. Light is the default; dark follows the system unless
    <html data-theme="light|dark"> is set by the manual toggle. */
 /* Plus Jakarta Sans (SIL Open Font License, public/fonts/OFL.txt), self-hosted latin subset. */

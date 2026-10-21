@@ -1,6 +1,5 @@
-/* SeniorPath components (ported from product/04-design/final/assets/app.css).
-   Needs tokens.css. Normal document scroll; breakpoints 600 (tables, 2 columns)
-   and 900 (nav rail, side TOC). */
+/* SeniorPath components. Needs tokens.css. Normal document scroll;
+   breakpoints 600 (tables, 2 columns) and 900 (nav rail, side TOC). */
 *{box-sizing:border-box}
 html,body{margin:0}
 body{font-family:var(--font-sans);line-height:var(--lh-ui);-webkit-font-smoothing:antialiased;color:var(--text)}

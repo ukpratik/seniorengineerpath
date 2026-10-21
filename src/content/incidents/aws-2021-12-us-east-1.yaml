@@ -1,0 +1,11 @@
+id: aws-2021-12-us-east-1
+title: "AWS us-east-1 outage: a connection storm on the internal network"
+date: 2021-12-07
+company: Amazon Web Services
+broke: For several hours, many AWS services in us-east-1 had errors, including EC2 APIs, the console, Route 53 APIs and STS.
+why: An automatic capacity change caused a flood of connections that overloaded internal network devices. A hidden bug stopped clients from backing off, so retries kept the congestion going.
+lesson: Retries must back off. If clients retry without waiting, a small overload can turn into a long outage.
+url: https://aws.amazon.com/message/12721/
+tags: [retries, capacity, networking]
+lessons: [idempotency-retries]
+verified: true

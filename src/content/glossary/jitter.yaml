@@ -1,0 +1,3 @@
+id: jitter
+term: jitter
+short: Adding a small random amount to each wait, so many clients do not retry at the same moment.

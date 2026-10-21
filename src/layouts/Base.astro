@@ -1,0 +1,90 @@
+---
+import '../styles/tokens.css';
+import '../styles/app.css';
+import { SITE, UMAMI } from '../config.ts';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  current?: 'home' | 'map' | 'search' | 'progress' | 'none';
+  ogImage?: string;
+}
+const { title, description, noindex = false, current = 'none', ogImage } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+const totalLessons = (await getCollection('lessons', (l) => l.data.status === 'published')).length;
+const tabs = [
+  { id: 'home', href: '/', label: 'Home', icon: 'home' },
+  { id: 'map', href: '/map', label: 'Map', icon: 'map' },
+  { id: 'search', href: '/search', label: 'Search', icon: 'search' },
+  { id: 'progress', href: '/progress', label: 'Progress', icon: 'chart' },
+];
+const fullTitle = `${title} · ${SITE.name} ${SITE.tagline}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B1020" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" type="application/rss+xml" title="SeniorPath lessons" href="/rss.xml" />
+    <script is:inline>
+      // Apply the saved theme before first paint and mark that JS runs (CSP: hashed).
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var s = JSON.parse(localStorage.getItem('seniorpath:v1') || '{}');
+          if (s.theme === 'light' || s.theme === 'dark') d.setAttribute('data-theme', s.theme);
+        } catch (e) {}
+      })();
+    </script>
+    {UMAMI.websiteId && <script is:inline defer src={UMAMI.src} data-website-id={UMAMI.websiteId} data-do-not-track="true"></script>}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="app">
+      <nav class="nav" aria-label="Main">
+        <a class="brand" href="/">
+          <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" style="fill:var(--accent)"></rect><path d="M8 22 14 14l5 4 5-8" fill="none" style="stroke:var(--on-accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="8" cy="22" r="2.6" style="fill:var(--on-accent)"></circle><circle cx="24" cy="10" r="2.6" style="fill:var(--on-accent)"></circle></svg>
+          <span><b>{SITE.name}</b><small>{SITE.tagline}</small></span>
+        </a>
+        <ul class="tabs">
+          {tabs.map((t) => (
+            <li>
+              <a href={t.href} aria-current={current === t.id ? 'page' : undefined}>
+                <span class="pill"><svg class="i" aria-hidden="true"><use href={`/icons.svg#i-${t.icon}`}></use></svg></span>
+                <span>{t.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="rail-extra" data-rail-progress data-total={totalLessons}>
+          <div style="font-weight:800;color:var(--text)">Your progress</div>
+          <div style="margin:4px 0 8px" data-rail-count>0 of {totalLessons} lessons done</div>
+          <div class="bar" aria-hidden="true"><i style="width:0%"></i></div>
+          <p style="margin:10px 0 0;font-size:13px">Saved only in this browser. <a href="/progress">Export</a></p>
+        </div>
+      </nav>
+      <div class="main-col">
+        <slot />
+      </div>
+    </div>
+    <slot name="after" />
+  </body>
+</html>

@@ -1,0 +1,4 @@
+id: timeout
+term: timeout
+forms: [timeouts]
+short: A time limit for waiting. If no answer comes back in time, the caller stops waiting.

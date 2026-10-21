@@ -1,0 +1,4 @@
+id: idempotent
+term: idempotent
+forms: [idempotency]
+short: An action is idempotent if doing it twice has the same effect as doing it once.

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+.env*
+test-results/
+playwright-report/
+.lighthouseci/
+
+# Product docs live in their own private, local-only repo (D-027).
+product/

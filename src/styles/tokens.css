@@ -1,0 +1,100 @@
+/* SeniorPath design tokens (v1, 2026-10-21). Source of truth: product/04-design/design-system.md
+   Plain CSS custom properties. Light is the default; dark follows the system unless
+   <html data-theme="light|dark"> is set by the manual toggle. */
+/* Plus Jakarta Sans (SIL Open Font License, public/fonts/OFL.txt), self-hosted latin subset. */
+@font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:400 800;font-display:swap;
+  src:url(/fonts/plus-jakarta-sans-latin.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{
+  /* ---- Type ---- */
+  --font-sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --fs-xs:12px;   /* captions, tab labels, eyebrow */
+  --fs-sm:14px;   /* meta, chips, helper text */
+  --fs-md:16px;   /* UI text, card body */
+  --fs-body:18px; /* lesson prose (phone and desktop) */
+  --fs-lg:20px;   /* card titles */
+  --fs-xl:22px;   /* section titles */
+  --fs-2xl:30px;  /* page title, phone */
+  --fs-3xl:38px;  /* page title, desktop */
+  --fs-4xl:44px;  /* home promise, desktop */
+  --lh-tight:1.2; --lh-ui:1.5; --lh-prose:1.65;
+  --fw-regular:400; --fw-medium:600; --fw-bold:700; --fw-heavy:800;
+  --tracking-tight:-.015em; --tracking-caps:.05em;
+
+  /* ---- Space (4px base) ---- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
+  --gutter:16px;            /* phone side gutter */
+  --gutter-desktop:32px;
+  --measure:72ch;           /* max line length for prose */
+  --content-max:1120px;
+
+  /* ---- Radii ---- */
+  --r-sm:8px; --r-md:12px; --r-lg:14px; --r-xl:20px; --r-2xl:24px; --r-pill:999px;
+
+  /* ---- Sizes ---- */
+  --tap:48px;               /* minimum touch target */
+  --topbar-h:64px; --tabbar-h:72px; --rail-w:240px;
+  --icon:24px; --icon-sm:18px;
+
+  /* ---- Motion ---- */
+  --dur-fast:150ms;         /* fades, toggles (max allowed under reduced motion) */
+  --dur:200ms;              /* sheets, accordions */
+  --ease:cubic-bezier(.2,0,0,1);
+  --step-interval:3500ms;   /* step-through Play */
+
+  /* ---- Layers ---- */
+  --z-sticky:10; --z-nav:20; --z-scrim:40; --z-sheet:50; --z-toast:60;
+
+  /* ---- Colour: light ---- */
+  color-scheme:light;
+  --bg:#F5F7FA; --surface:#FFFFFF; --surface-2:#EEF2F7; --surface-3:#E1E7EF;
+  --text:#0F172A; --text-2:#475569; --text-3:#556073;
+  --border:#D5DCE6; --border-strong:#7B8799;
+  --accent:#4F46E5; --accent-hover:#4338CA; --on-accent:#FFFFFF; --accent-soft:#ECEEFF; --accent-ink:#3730A3;
+  --done:#047857; --done-soft:#E2F5EC;
+  --warn:#9A4A06; --warn-soft:#FDF1E1;
+  --bad:#B91C1C; --bad-soft:#FCEBEB;
+  --info:#1D4ED8; --info-soft:#E8EFFE;
+  --rail:#D3DAE4; --focus:#4F46E5; --scrim:rgba(5,8,15,.5);
+  --e-1:0 1px 2px rgba(15,23,42,.05),0 6px 20px rgba(15,23,42,.06);
+  --e-2:0 12px 40px rgba(15,23,42,.18);
+  --e-3:0 -10px 40px rgba(15,23,42,.22);
+  /* track (metro line) colours: decorative identity only, >=3:1 on --surface */
+  --t1:#2563EB; --t2:#0E7490; --t3:#7C3AED; --t4:#C2410C; --t5:#BE123C; --t6:#15803D; --t7:#A16207; --t8:#C026D3;
+  /* diagram tokens */
+  --dg-bg:var(--surface-2); --dg-node:var(--surface); --dg-node-stroke:var(--border-strong);
+  --dg-text:var(--text); --dg-sub:var(--text-2); --dg-life:var(--border-strong);
+  --dg-arrow:var(--text-2); --dg-arrow-active:var(--accent); --dg-label-active:var(--accent-ink);
+  --dg-rec:var(--accent-soft); --dg-rec-stroke:var(--accent); --dg-rec-text:var(--accent-ink);
+  --dg-ok:var(--done-soft); --dg-ok-stroke:var(--done); --dg-ok-text:var(--done);
+  --dg-warn:var(--warn-soft); --dg-warn-stroke:var(--warn); --dg-warn-text:var(--warn);
+  --dg-bad:var(--bad);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0B1020; --surface:#131A2B; --surface-2:#1A2336; --surface-3:#26314A;
+    --text:#E7ECF5; --text-2:#AAB5C8; --text-3:#98A4B9;
+    --border:#2A3550; --border-strong:#5D6B87;
+    --accent:#8F88FF; --accent-hover:#A9A3FF; --on-accent:#0B1020; --accent-soft:#1F2250; --accent-ink:#C9C5FF;
+    --done:#4ADE9A; --done-soft:#0E2A21; --warn:#F5B454; --warn-soft:#2B2113; --bad:#F87171; --bad-soft:#2D1518; --info:#93B4FF; --info-soft:#17223F;
+    --rail:#2E3A55; --focus:#B3AEFF; --scrim:rgba(0,0,0,.6);
+    --e-1:0 1px 2px rgba(0,0,0,.3); --e-2:0 12px 40px rgba(0,0,0,.5); --e-3:0 -10px 40px rgba(0,0,0,.5);
+    --t1:#60A5FA; --t2:#22D3EE; --t3:#A78BFA; --t4:#FB923C; --t5:#FB7185; --t6:#4ADE80; --t7:#FACC15; --t8:#E879F9;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0B1020; --surface:#131A2B; --surface-2:#1A2336; --surface-3:#26314A;
+  --text:#E7ECF5; --text-2:#AAB5C8; --text-3:#98A4B9;
+  --border:#2A3550; --border-strong:#5D6B87;
+  --accent:#8F88FF; --accent-hover:#A9A3FF; --on-accent:#0B1020; --accent-soft:#1F2250; --accent-ink:#C9C5FF;
+  --done:#4ADE9A; --done-soft:#0E2A21; --warn:#F5B454; --warn-soft:#2B2113; --bad:#F87171; --bad-soft:#2D1518; --info:#93B4FF; --info-soft:#17223F;
+  --rail:#2E3A55; --focus:#B3AEFF; --scrim:rgba(0,0,0,.6);
+  --e-1:0 1px 2px rgba(0,0,0,.3); --e-2:0 12px 40px rgba(0,0,0,.5); --e-3:0 -10px 40px rgba(0,0,0,.5);
+  --t1:#60A5FA; --t2:#22D3EE; --t3:#A78BFA; --t4:#FB923C; --t5:#FB7185; --t6:#4ADE80; --t7:#FACC15; --t8:#E879F9;
+}
+@media (prefers-reduced-motion:reduce){
+  :root{--dur:0ms; --dur-fast:150ms}
+}

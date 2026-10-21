@@ -1,0 +1,78 @@
+- id: foundations
+  title: Foundations
+  short: Foundations
+  modules:
+    - { id: networking, title: Networking basics }
+    - { id: os-concurrency, title: OS and concurrency }
+    - { id: estimation, title: Latency and estimation }
+    - { id: code-design, title: Code craft and design }
+    - { id: api-design, title: API design }
+    - { id: testing, title: Testing }
+- id: data
+  title: Data
+  short: Data
+  modules:
+    - { id: modelling, title: Data modelling }
+    - { id: storage-engines, title: Storage engines and indexing }
+    - { id: replication, title: Replication }
+    - { id: partitioning, title: Partitioning }
+    - { id: transactions, title: Transactions }
+    - { id: search, title: Search }
+    - { id: key-tech, title: Key technologies }
+- id: distributed
+  title: Distributed systems
+  short: Distributed
+  modules:
+    - { id: time, title: Time and clocks }
+    - { id: consistency, title: Consistency }
+    - { id: consensus, title: Consensus }
+    - { id: reliable-calls, title: Reliable calls }
+    - { id: workflows, title: Sagas, outbox and CDC }
+    - { id: messaging, title: Messaging and streams }
+- id: scale
+  title: Building at scale
+  short: Scale
+  modules:
+    - { id: traffic, title: Load balancing and traffic }
+    - { id: caching, title: Caching and CDNs }
+    - { id: protection, title: Rate limiting and protection }
+    - { id: architecture, title: Architecture styles }
+    - { id: performance, title: Performance and cost }
+- id: reliability
+  title: Reliability and security
+  short: Reliability
+  modules:
+    - { id: observability, title: Observability and SLOs }
+    - { id: change, title: Deploys and config changes }
+    - { id: incidents, title: Incident response }
+    - { id: security, title: Security }
+    - { id: privacy, title: Privacy }
+- id: domains
+  title: Domain tracks
+  short: Domains
+  modules:
+    - { id: saas, title: SaaS }
+    - { id: fintech, title: Fintech }
+    - { id: ecommerce, title: E-commerce }
+    - { id: gaming, title: Gaming }
+    - { id: low-latency, title: High-throughput and low-latency }
+    - { id: realtime-web, title: Real-time and web }
+    - { id: data-ml, title: Data, ML and AI systems }
+- id: craft
+  title: The senior engineer's craft
+  short: Craft
+  modules:
+    - { id: levels, title: What senior means }
+    - { id: writing, title: Writing and design docs }
+    - { id: judgement, title: Technical judgement }
+    - { id: delivery, title: Delivery and execution }
+    - { id: influence, title: Influence and leadership }
+    - { id: career, title: Career and interviews }
+- id: ai-native
+  title: AI-native engineering
+  short: AI-native
+  modules:
+    - { id: evidence, title: The evidence }
+    - { id: agents, title: Working with coding agents }
+    - { id: ai-quality, title: Quality and risk with AI code }
+    - { id: llm-features, title: Building LLM features }

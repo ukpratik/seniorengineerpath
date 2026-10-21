@@ -1,0 +1,4 @@
+id: idempotency-key
+term: idempotency key
+forms: [idempotency keys]
+short: A unique id the client sends with a request, so the server can spot a repeat and return the saved result.

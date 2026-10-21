@@ -1,0 +1,15 @@
+id: senior-scope
+title: "How scope grows from a task to work across teams"
+viewBox: 0 0 340 390
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="110" y="14" width="120" height="44" rx="10"/><text class="bt" x="170" y="41">Task</text><text class="sub" x="170" y="78">early career · hours to days</text></g>
+  <g class="f" data-f="2"><rect class="box" x="75" y="94" width="190" height="44" rx="10"/><text class="bt" x="170" y="121">Feature</text><text class="sub" x="170" y="158">mid-level · one team · weeks</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="40" y="174" width="260" height="44" rx="10"/><text class="rec-t" x="170" y="201">Project or system</text><text class="sub" x="170" y="238">senior · unclear problem · months</text></g>
+  <g class="f" data-f="4"><rect class="note" x="5" y="254" width="330" height="44" rx="10"/><text class="note-t" x="170" y="281">Problem across teams</text><text class="sub" x="170" y="318">staff · many teams · a year or more</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="20" y="336" width="300" height="34" rx="8"/><text class="ok-t" x="170" y="358">✓ Wider scope, same craft underneath</text></g>
+captions:
+  - "Early in your career, someone gives you a clear task: fix this bug, add this field. They have already decided what to build."
+  - "At mid-level, you own a feature for your team. The problem is defined, and you choose how to build it."
+  - "At senior, you own a project or a system. The problem is often unclear, so you define it, plan it and see it through."
+  - "At staff, the problem crosses many teams and lasts a year or more. You set direction more than you write code."
+  - "Each step adds scope, ambiguity and ownership. Your coding skill still matters. It is just no longer the whole job. Level names differ between companies."

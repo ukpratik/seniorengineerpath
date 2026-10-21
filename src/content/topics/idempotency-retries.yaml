@@ -1,0 +1,7 @@
+id: idempotency-retries
+slug: idempotency-retries-timeouts
+track: distributed
+module: reliable-calls
+title: Idempotency, retries and timeouts
+oneLiner: Why one retry can charge a customer twice, and the small key that stops it.
+level: L1

@@ -1,0 +1,182 @@
+---
+// One route for every topic: a written lesson (US-005) or a coming-soon page (US-004).
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { SITE, issueUrl } from '../../config.ts';
+import { incidentsHtml, quizHtml, deeperHtml, fillSlots, readingMinutes, formatDay } from '../../lib/lesson-parts.ts';
+import { LESSON_SECTIONS } from '../../content-tools/markdown.ts';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('topics');
+  return topics.map((t) => ({ params: { slug: t.data.slug }, props: { topicId: t.id } }));
+}
+
+const showDrafts = import.meta.env.DEV || process.env.SHOW_DRAFTS === '1';
+const isLive = (s: string) => s === 'published' || showDrafts;
+
+const { topicId } = Astro.props;
+const topic = (await getEntry('topics', topicId))!.data;
+const track = (await getEntry('tracks', topic.track))!.data;
+const module = track.modules.find((m) => m.id === topic.module)!;
+const lessons = await getCollection('lessons', (l) => isLive(l.data.status));
+const written = new Set(lessons.map((l) => l.id));
+const topics = await getCollection('topics');
+const topicById = new Map(topics.map((t) => [t.id, t.data]));
+const lesson = lessons.find((l) => l.id === topicId);
+
+// Path context (default path for now; JS swaps it when another path is active: LLD §5).
+const paths = await getCollection('paths');
+const path = paths.find((p) => p.data.default)?.data;
+const stepIndex = path ? path.steps.indexOf(topicId) : -1;
+const prevId = stepIndex > 0 ? path!.steps[stepIndex - 1] : undefined;
+const nextId = path && stepIndex >= 0 && stepIndex < path.steps.length - 1 ? path.steps[stepIndex + 1] : undefined;
+const prev = prevId ? topicById.get(prevId) : undefined;
+const next = nextId ? topicById.get(nextId) : undefined;
+
+const levelLabel = { L1: 'L1 Must-know', L2: 'L2 Senior', L3: 'L3 Staff+' }[topic.level];
+
+let html = '';
+let minutes = 0;
+let glossary: { id: string; term: string; short: string }[] = [];
+if (lesson) {
+  const allIncidents = await getCollection('incidents');
+  const incidents = lesson.data.incidents.map((id) => allIncidents.find((i) => i.id === id)!.data);
+  const related = lesson.data.related.map((id) => {
+    const t = topicById.get(id)!;
+    return { title: t.title, slug: t.slug, written: written.has(id) };
+  });
+  const pageUrl = new URL(`/learn/${topic.slug}`, Astro.site).toString();
+  html = fillSlots(lesson.rendered?.html ?? '', {
+    incidents: incidentsHtml(incidents),
+    quiz: quizHtml(lesson.data.quiz, issueUrl(topicId, pageUrl)),
+    deeper: deeperHtml(lesson.data.sources, incidents, related),
+  });
+  if (lesson.data.illustrative_story) {
+    html = html.replace(
+      '<div class="prose">',
+      '<div class="prose"><span class="illus"><svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-alert"></use></svg>A made-up story to show a common failure. Not about a real company.</span>',
+    );
+  }
+  minutes = lesson.data.readingMinutes ?? readingMinutes(html);
+  const fm = (lesson.rendered?.metadata?.frontmatter ?? {}) as { glossaryUsed?: string[] };
+  const used = fm.glossaryUsed ?? [];
+  const allTerms = await getCollection('glossary');
+  glossary = used.map((id) => allTerms.find((g) => g.id === id)!.data).filter(Boolean);
+}
+const reviewLabel =
+  lesson?.data.reviewed_by === 'human'
+    ? 'Reviewed by the author'
+    : 'Fact-checked by AI against cited sources · Human review pending';
+const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
+---
+<Base
+  title={topic.title}
+  description={lesson ? `A SeniorPath lesson for software engineers: ${lesson.data.subtitle}` : `${topic.oneLiner} (Coming soon on SeniorPath.)`}
+  noindex={!lesson}
+  current="map"
+>
+  <header class="topbar lesson-top">
+    <a class="icon-btn" href="/map" aria-label="Back to the map"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-arrow-left"></use></svg></a>
+    <div class="grow tb-title"><span class="tb-track">{track.title} · {topic.level}</span><span class="tb-name">{topic.title}</span></div>
+    {lesson && (
+      <button type="button" class="btn btn-secondary toc-btn" data-toc-open aria-haspopup="dialog" aria-controls="tocSheet">
+        <svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-list"></use></svg><span data-sec-count>1 / 8</span><span class="sr"> sections. Open contents</span>
+      </button>
+    )}
+    <button type="button" class="icon-btn theme-toggle" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-moon"></use></svg></button>
+  </header>
+
+  {lesson ? (
+    <div class="lgrid" data-lesson={topicId} data-next-title={next?.title ?? ''} data-major-revised={lesson.data.major_revised_on ?? ''}>
+      <main id="main">
+        <header class="lhead">
+          <nav class="crumb" aria-label="Breadcrumb"><a href="/map">Map</a><span aria-hidden="true">›</span><a href={`/map#${track.id}`}>{track.title}</a><span aria-hidden="true">›</span><span>{module.title}</span></nav>
+          <h1>{topic.title}</h1>
+          <p class="lsub">{lesson.data.subtitle}</p>
+          <div class="chips">
+            <span class="chip lv">{levelLabel}</span>
+            <span class="chip"><svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-steps"></use></svg>{track.title}</span>
+            <span class="chip"><svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-clock"></use></svg>{minutes} min read</span>
+          </div>
+          <div class="review">
+            <svg class="i" aria-hidden="true"><use href="/icons.svg#i-shield"></use></svg>
+            <div><strong>{lesson.data.status === 'published' ? reviewLabel : 'Draft: not fact-checked yet'}</strong>{lesson.data.reviewed_on && <>Last reviewed {formatDay(lesson.data.reviewed_on)} · </>}<a href="/about#checks">How we check content</a></div>
+          </div>
+          {path && stepIndex >= 0 && (
+            <div class="pathline"><span>{path.title} · lesson {stepIndex + 1} of {path.steps.length}</span><div class="bar" aria-hidden="true"><i style={`width:${Math.round(((stepIndex + 1) / path.steps.length) * 100)}%`}></i></div></div>
+          )}
+        </header>
+
+        <div class="notice info" data-updated hidden role="status" style="margin:0 0 16px 4px">
+          <svg class="i" aria-hidden="true"><use href="/icons.svg#i-refresh"></use></svg>
+          <p><strong>Updated since you finished it.</strong> We changed this lesson after you marked it done. Your progress is kept.</p>
+        </div>
+
+        <div class="rail">
+          <Fragment set:html={html} />
+        </div>
+
+        {(prev || next) && path && (
+          <nav class="pn" aria-label={`Previous and next lesson in ${path.title}`}>
+            {prev ? <a href={`/learn/${prev.slug}`}><small>← Previous</small>{prev.title}</a> : <span></span>}
+            {next && <a href={`/learn/${next.slug}`}><small>Next →</small>{next.title}</a>}
+          </nav>
+        )}
+      </main>
+      <aside class="toc-side" aria-label="Lesson contents">
+        <h2>In this lesson</h2>
+        <p class="left">{LESSON_SECTIONS.length} sections · about {minutes} min</p>
+        <ol class="toc-list">
+          {LESSON_SECTIONS.map((n, i) => (
+            <li><a href={`#s${i + 1}`} data-i={i}><span class="st"><b>{i + 1}</b><svg class="i" aria-hidden="true"><use href="/icons.svg#i-check"></use></svg></span><span>{n}</span><span class="rs"></span></a></li>
+          ))}
+        </ol>
+      </aside>
+    </div>
+  ) : (
+    <main id="main" class="page narrow">
+      <nav class="crumb" aria-label="Breadcrumb"><a href="/map">Map</a><span aria-hidden="true">›</span><a href={`/map#${track.id}`}>{track.title}</a><span aria-hidden="true">›</span><span>{module.title}</span></nav>
+      <p class="eyebrow" style="margin-top:8px">Coming soon</p>
+      <h1 class="ptitle">{topic.title}</h1>
+      <p class="plede">{topic.oneLiner}</p>
+      <div class="chips" style="margin-bottom:20px"><span class="chip lv">{levelLabel}</span><span class="chip">{track.title}</span></div>
+      <div class="notice info"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-info"></use></svg><p><strong>We have not written this lesson yet.</strong> New lessons come out in batches. Follow the <a href="/rss.xml">RSS feed</a> to hear when it is ready.</p></div>
+      {prereqs.length > 0 && (
+        <section class="blk"><h2 class="sec-head">Read these first</h2><ul class="prose">{prereqs.map((p) => <li><a href={`/learn/${p.slug}`}>{p.title}</a>{!written.has(topics.find((t) => t.data.slug === p.slug)!.id) && ' (coming soon)'}</li>)}</ul></section>
+      )}
+      {topic.link && <p class="small" style="margin-top:20px">Until then: <a href={topic.link.url} target="_blank" rel="noopener">{topic.link.title}<span class="sr"> (opens in a new tab)</span></a></p>}
+      <p style="margin-top:24px"><a class="btn btn-secondary" href="/map">Back to the map</a></p>
+    </main>
+  )}
+
+  <Fragment slot="after">
+    {glossary.map((g) => <template data-term={g.id} data-title={g.term.charAt(0).toUpperCase() + g.term.slice(1)}>{g.short}</template>)}
+    <dialog class="sheet" id="gloss" aria-labelledby="g-title">
+      <div class="sheet-in"><div class="grab" aria-hidden="true"></div>
+        <div class="sh-head"><h2 id="g-title" class="g-title">Term</h2><button type="button" class="icon-btn" data-close aria-label="Close definition"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-x"></use></svg></button></div>
+        <p class="g-def"></p><a class="more" href="/glossary">See full entry <svg class="i sm" aria-hidden="true"><use href="/icons.svg#i-arrow-right"></use></svg></a>
+      </div>
+    </dialog>
+    {lesson && (
+      <dialog class="sheet" id="tocSheet" aria-labelledby="toc-title">
+        <div class="sheet-in"><div class="grab" aria-hidden="true"></div>
+          <div class="sh-head"><h2 id="toc-title">Jump to a section</h2><button type="button" class="icon-btn" data-close aria-label="Close contents"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-x"></use></svg></button></div>
+          <ol class="toc-list">
+            {LESSON_SECTIONS.map((n, i) => (
+              <li><a href={`#s${i + 1}`} data-i={i}><span class="st"><b>{i + 1}</b><svg class="i" aria-hidden="true"><use href="/icons.svg#i-check"></use></svg></span><span>{n}</span><span class="rs"></span></a></li>
+            ))}
+          </ol>
+        </div>
+      </dialog>
+    )}
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path class="mk" d="M0 0 10 5 0 10z" style="fill:var(--dg-arrow)"></path></marker>
+        <marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto-start-reverse"><path class="mkA" d="M0 0 10 5 0 10z" style="fill:var(--dg-arrow-active)"></path></marker>
+      </defs>
+    </svg>
+    <script>
+      import '../../scripts/lesson.ts';
+    </script>
+  </Fragment>
+</Base>

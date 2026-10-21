@@ -1,0 +1,4 @@
+id: backoff
+term: exponential backoff
+forms: [backoff]
+short: Waiting longer after each failed try, for example 1, 2, then 4 seconds.

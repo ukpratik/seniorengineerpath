@@ -1,0 +1,8 @@
+id: backoff-jitter
+slug: backoff-jitter-retry-budgets
+track: distributed
+module: reliable-calls
+title: Backoff, jitter and retry budgets
+oneLiner: How to retry without making an outage worse.
+level: L2
+prereqs: [idempotency-retries]

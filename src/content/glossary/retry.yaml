@@ -1,0 +1,4 @@
+id: retry
+term: retry
+forms: [retries]
+short: Sending the same request again after it failed or timed out.

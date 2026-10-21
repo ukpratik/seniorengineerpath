@@ -1,0 +1,19 @@
+id: idempotency-retry
+title: "Retry with an idempotency key: the charge happens once"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="456"/><line class="life" x1="170" y1="54" x2="170" y2="456"/><line class="life" x1="285" y1="54" x2="285" y2="456"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Phone app</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Payments API</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Saved keys</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="95" x2="166" y2="95"/><text class="lb" x="112" y="86">POST /payments</text><text class="sub" x="112" y="112">key 7f3a · ₹1,499</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="172" y1="140" x2="281" y2="140"/><text class="lb" x="227" y="131">save key 7f3a</text><rect class="rec" x="122" y="154" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="171">charge ₹1,499</text><rect class="rec" x="240" y="154" width="90" height="26" rx="7"/><text class="rec-t" x="285" y="171">7f3a · paid</text></g>
+  <g class="f" data-f="3"><line class="ln lost" x1="168" y1="218" x2="59" y2="218"/><text class="lb" x="112" y="204">200 OK</text><path class="xm" d="M105 211l14 14M119 211l-14 14"/><text class="sub badt" x="112" y="242">lost on the way</text><rect class="note" x="8" y="252" width="94" height="26" rx="7"/><text class="note-t" x="55" y="269">timeout · 10 s</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="57" y1="312" x2="166" y2="312"/><text class="lb" x="112" y="303">retry</text><text class="sub" x="112" y="329">same key 7f3a</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="172" y1="358" x2="281" y2="358"/><text class="lb" x="227" y="349">look up 7f3a</text><line class="ln" x1="283" y1="390" x2="174" y2="390"/><text class="lb" x="227" y="382">found: paid</text><line class="ln" x1="168" y1="426" x2="59" y2="426"/><text class="lb" x="112" y="417">200 OK</text><text class="sub" x="112" y="443">saved result</text><rect class="okb" x="190" y="414" width="140" height="30" rx="8"/><text class="ok-t" x="260" y="434">✓ charged once</text></g>
+captions:
+  - The app sends the payment with a new idempotency key, 7f3a. It made the key once, when Priya tapped Pay.
+  - The server saves the key, then charges the card ₹1,499. It stores the result next to the key.
+  - The server's answer is lost on the network. After 10 seconds the app stops waiting. It does not know that the charge worked.
+  - The app retries. It sends the same request with the same key, 7f3a, not a new one.
+  - The server finds 7f3a in its saved keys. It sends back the saved result and does not charge again. Priya pays once.

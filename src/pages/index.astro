@@ -1,0 +1,37 @@
+---
+// Reader-test home (M2). The full home (Continue card, paths, incidents) comes in M3.
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const showDrafts = import.meta.env.DEV || process.env.SHOW_DRAFTS === '1';
+const live = new Set((await getCollection('lessons', (l) => l.data.status === 'published' || showDrafts)).map((l) => l.id));
+const topics = await getCollection('topics');
+const path = (await getCollection('paths')).find((p) => p.data.default)!.data;
+const steps = path.steps.map((id) => topics.find((t) => t.id === id)!.data).filter((t) => live.has(t.id));
+const first = steps[0];
+---
+<Base title="From mid-level to senior" description="SeniorPath helps software engineers grow from mid-level to senior: how real systems are built, broken and fixed, in simple English. Free lessons with diagrams and real incidents." current="home">
+  <header class="topbar">
+    <a class="brand" href="/"><span><b>SeniorPath</b><small>for software engineers</small></span></a>
+    <div class="grow"></div>
+    <button type="button" class="icon-btn theme-toggle" aria-label="Switch theme"><svg class="i" aria-hidden="true"><use href="/icons.svg#i-moon"></use></svg></button>
+  </header>
+  <main id="main" class="page">
+    <p class="eyebrow">Free · No sign-up</p>
+    <h1 class="ptitle">From mid-level to senior: how real systems are built, broken and fixed.</h1>
+    <p class="plede">Short lessons in simple English. Every lesson starts with something that really broke, shows how it works step by step, and ends with what a senior does at work and with AI.</p>
+    {first && <p><a class="btn btn-primary" href={`/learn/${first.slug}`}>Start with lesson 1: {first.title} <svg class="i" aria-hidden="true"><use href="/icons.svg#i-arrow-right"></use></svg></a></p>}
+    <section class="blk">
+      <div class="sec-head"><h2>{path.title}</h2></div>
+      <ol class="steps-list">
+        {steps.map((t, i) => (
+          <li><a href={`/learn/${t.slug}`}><span class="num">{i + 1}</span><span><b>{t.title}</b><span class="meta">{t.oneLiner}</span></span></a></li>
+        ))}
+      </ol>
+    </section>
+  </main>
+  <script>
+    import { initUi } from '../scripts/ui.ts';
+    initUi();
+  </script>
+</Base>

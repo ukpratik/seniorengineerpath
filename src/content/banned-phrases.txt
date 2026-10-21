@@ -1,0 +1,25 @@
+# One phrase per line. The gate fails a published lesson that uses any of them (NFR-006).
+# Idioms and hype words that are hard for non-native readers.
+piece of cake
+hit the ground running
+low-hanging fruit
+move the needle
+boil the ocean
+at the end of the day
+ball is in your court
+back to square one
+by the book
+cut corners
+in a nutshell
+leverage
+synergy
+paradigm shift
+best-in-class
+world-class
+game changer
+seamless
+robust and scalable
+under the hood
+out of the box
+no-brainer
+silver bullet

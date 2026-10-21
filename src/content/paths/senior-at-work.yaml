@@ -1,0 +1,6 @@
+id: senior-at-work
+slug: senior-at-work
+title: Senior at work
+description: The core path. How senior engineers design, run and fix real systems.
+default: true
+steps: [what-senior-means, idempotency-retries]

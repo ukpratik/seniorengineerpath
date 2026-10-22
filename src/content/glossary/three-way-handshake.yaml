@@ -1,0 +1,4 @@
+id: three-way-handshake
+term: three-way handshake
+forms: [three-way handshakes, TCP handshake]
+short: How TCP opens a connection. The client sends SYN, the server answers SYN-ACK, and the client sends ACK. It costs one round trip before any data moves.

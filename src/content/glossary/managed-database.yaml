@@ -1,0 +1,4 @@
+id: managed-database
+term: managed database
+forms: ["managed databases", "managed database service"]
+short: "A database that a cloud provider runs for you. It handles setup, patching, backups and failover, so your team does less operations work."

@@ -1,0 +1,4 @@
+id: message-queue
+term: message queue
+forms: []
+short: A place where one service leaves jobs or messages and another service picks them up later. It lets slow work happen in the background. SQS and RabbitMQ are examples.

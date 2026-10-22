@@ -1,0 +1,4 @@
+id: polyglot-persistence
+term: polyglot persistence
+forms: []
+short: "Using several kinds of databases in one system, each for the data it fits best. It adds running cost and data to keep in sync."

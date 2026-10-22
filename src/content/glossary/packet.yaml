@@ -1,0 +1,4 @@
+id: packet
+term: packet
+forms: [packets]
+short: One small chunk of data sent across a network, with a header that says where it comes from and where it goes. Big messages are split into many packets.

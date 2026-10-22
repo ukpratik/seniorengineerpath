@@ -1,0 +1,17 @@
+id: db-choice-path
+title: "From questions about your data to a database family"
+viewBox: 0 0 340 440
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="5" y="14" width="210" height="50" rx="10"/><text class="bt" x="110" y="35">Rows that link together?</text><text class="sub" x="110" y="53">orders, money · transactions</text><line class="ln" x1="217" y1="39" x2="236" y2="39"/><rect class="rec" x="240" y="22" width="95" height="34" rx="7"/><text class="rec-t" x="287" y="44">Relational</text></g>
+  <g class="f" data-f="2"><rect class="box" x="5" y="84" width="210" height="50" rx="10"/><text class="bt" x="110" y="105">Only get and put by key?</text><text class="sub" x="110" y="123">sessions, carts · huge traffic</text><line class="ln" x1="217" y1="109" x2="236" y2="109"/><rect class="rec" x="240" y="92" width="95" height="34" rx="7"/><text class="rec-t" x="287" y="114">Key-value</text></g>
+  <g class="f" data-f="3"><rect class="box" x="5" y="154" width="210" height="50" rx="10"/><text class="bt" x="110" y="175">Search words in text?</text><text class="sub" x="110" y="193">typos, ranking by relevance</text><line class="ln" x1="217" y1="179" x2="236" y2="179"/><rect class="rec" x="240" y="162" width="95" height="34" rx="7"/><text class="rec-t" x="287" y="184">Search</text></g>
+  <g class="f" data-f="4"><rect class="box" x="5" y="224" width="210" height="50" rx="10"/><text class="bt" x="110" y="245">Data points over time?</text><text class="sub" x="110" y="263">metrics, sensors, prices</text><line class="ln" x1="217" y1="249" x2="236" y2="249"/><rect class="rec" x="240" y="232" width="95" height="34" rx="7"/><text class="rec-t" x="287" y="254">Time-series</text></g>
+  <g class="f" data-f="5"><rect class="box" x="5" y="294" width="210" height="50" rx="10"/><text class="bt" x="110" y="315">Paths across many links?</text><text class="sub" x="110" y="333">friends of friends, fraud rings</text><line class="ln" x1="217" y1="319" x2="236" y2="319"/><rect class="rec" x="240" y="302" width="95" height="34" rx="7"/><text class="rec-t" x="287" y="324">Graph</text></g>
+  <g class="f" data-f="6"><rect class="okb" x="10" y="368" width="320" height="30" rx="8"/><text class="ok-t" x="170" y="388">✓ Not sure? Start with Postgres</text><text class="sub" x="170" y="420">add a new store only for a proven need</text></g>
+captions:
+  - "Do your records point at each other, like orders, users and payments? Must several rows change together or not at all? Then start with a relational database such as Postgres or MySQL."
+  - "Do you only ever read and write one item by its key, at very high traffic? A key-value store such as DynamoDB or Redis fits. A document store like MongoDB fits when one key holds a nested JSON-like record."
+  - "Do users type words and expect ranked results, even with small typos? Add a search engine such as Elasticsearch, usually as a copy of data that lives in your main database."
+  - "Is most of the data timestamped points, like CPU use every 10 seconds? A time-series store such as TimescaleDB or InfluxDB keeps it cheap to write, keep and query by time range."
+  - "Is the question about paths, like friends of friends or money moving through many accounts? A graph database such as Neo4j stores the links themselves, so it can follow many hops."
+  - "No clear yes? Start with one relational database. It covers most needs for a long time. Add another store only when a measured need shows up, and count its running cost."

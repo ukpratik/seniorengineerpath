@@ -1,0 +1,4 @@
+id: partial-failure
+term: partial failure
+forms: [partial failures]
+short: When some parts of a distributed system fail while other parts keep working. For example, one server or one network link breaks, and the rest of the system keeps running.

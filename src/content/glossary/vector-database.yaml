@@ -1,0 +1,4 @@
+id: vector-database
+term: vector database
+forms: ["vector databases", "vector store", "vector stores"]
+short: "A database that finds the stored vectors nearest to a given one, for example to find similar texts. pgvector adds this to Postgres."

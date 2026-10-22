@@ -1,0 +1,4 @@
+id: livelock
+term: livelock
+forms: ["livelocks"]
+short: "Threads keep reacting to each other and retrying, so they stay busy, but none of them makes progress."

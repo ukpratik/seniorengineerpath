@@ -1,0 +1,4 @@
+id: ip-address
+term: IP address
+forms: [IP addresses]
+short: The number that tells the network which machine a packet is for. IPv4 addresses are 32 bits, like 10.0.4.17. IPv6 addresses are 128 bits.

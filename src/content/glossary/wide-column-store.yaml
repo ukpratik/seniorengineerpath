@@ -1,0 +1,4 @@
+id: wide-column-store
+term: wide-column store
+forms: ["wide-column stores", "wide-column database"]
+short: "A database that splits tables into partitions by key and spreads them over many nodes, such as Cassandra. Fast queries must give the partition key."

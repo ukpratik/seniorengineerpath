@@ -1,0 +1,4 @@
+id: key-value-store
+term: key-value store
+forms: ["key-value stores", "key-value database", "key-value databases"]
+short: "A database that stores each value under a key. You get and put by key. Examples are DynamoDB and Redis."

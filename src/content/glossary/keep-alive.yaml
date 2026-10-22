@@ -1,0 +1,4 @@
+id: keep-alive
+term: keep-alive
+forms: [keep-alive connection, keep-alive connections, persistent connection, persistent connections, keepalive, keepalives, keep-alives]
+short: Keeping an idle connection open and working. In HTTP, the connection stays open so the next request needs no new handshake. Keep-alive probes or pings check that an idle connection still works.

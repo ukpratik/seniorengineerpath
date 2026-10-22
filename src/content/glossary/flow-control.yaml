@@ -1,0 +1,4 @@
+id: flow-control
+term: flow control
+forms: []
+short: A way for a receiver to tell the sender how much more data it can take right now, so a fast sender does not overflow a slow reader.

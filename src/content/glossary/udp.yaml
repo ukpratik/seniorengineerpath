@@ -1,0 +1,4 @@
+id: udp
+term: UDP
+forms: [User Datagram Protocol]
+short: A simple transport protocol that sends single messages with no connection. It does not promise that messages arrive, arrive once, or arrive in order.

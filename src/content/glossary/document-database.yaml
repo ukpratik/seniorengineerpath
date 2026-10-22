@@ -1,0 +1,4 @@
+id: document-database
+term: document database
+forms: ["document databases", "document store", "document stores"]
+short: "A database that stores records as JSON-like documents with nested fields, such as MongoDB."

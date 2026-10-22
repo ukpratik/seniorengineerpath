@@ -1,0 +1,4 @@
+id: graph-database
+term: graph database
+forms: ["graph databases"]
+short: "A database that stores nodes and the links between them, such as Neo4j. It is good at following many hops of links."

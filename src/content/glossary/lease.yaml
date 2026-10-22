@@ -1,0 +1,4 @@
+id: lease
+term: lease
+forms: ["leases"]
+short: "A lock or role that expires after a set time unless the holder renews it. If the holder crashes, others can take over later."

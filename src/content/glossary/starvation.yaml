@@ -1,0 +1,4 @@
+id: starvation
+term: starvation
+forms: []
+short: "A thread never gets the lock or resource it waits for, because other threads always get it first."

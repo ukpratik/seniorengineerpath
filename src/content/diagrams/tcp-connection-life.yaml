@@ -1,0 +1,22 @@
+id: tcp-connection-life
+title: "One TCP connection: handshake, request, a lost packet, close"
+viewBox: 0 0 340 560
+svg: |
+  <line class="life" x1="60" y1="54" x2="60" y2="546"/><line class="life" x1="280" y1="54" x2="280" y2="546"/>
+  <rect class="box" x="5" y="10" width="110" height="44" rx="10"/><text class="bt" x="60" y="37">Your app</text>
+  <rect class="box" x="225" y="10" width="110" height="44" rx="10"/><text class="bt" x="280" y="37">Server :443</text>
+  <g class="f" data-f="1"><line class="ln" x1="62" y1="92" x2="276" y2="92"/><text class="lb" x="170" y="83">SYN</text><text class="sub" x="170" y="108">"can we talk?"</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="278" y1="136" x2="64" y2="136"/><text class="lb" x="170" y="127">SYN-ACK</text><text class="sub" x="170" y="152">"yes, can you hear me?"</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="62" y1="180" x2="276" y2="180"/><text class="lb" x="170" y="171">ACK</text><rect class="note" x="70" y="190" width="200" height="26" rx="7"/><text class="note-t" x="170" y="207">1 round trip spent, no data yet</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="62" y1="250" x2="276" y2="250"/><text class="lb" x="170" y="241">GET /orders/42</text><line class="ln" x1="278" y1="286" x2="64" y2="286"/><text class="lb" x="170" y="277">ACK</text></g>
+  <g class="f" data-f="5"><line class="ln lost" x1="278" y1="328" x2="64" y2="328"/><text class="lb" x="170" y="319">200 OK, part 1</text><path class="xm" d="M163 321l14 14M177 321l-14 14"/><text class="sub badt" x="170" y="352">lost on the way</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="278" y1="394" x2="64" y2="394"/><text class="lb" x="170" y="385">part 1 again</text><line class="ln" x1="62" y1="426" x2="276" y2="426"/><text class="lb" x="170" y="417">ACK</text><rect class="okb" x="100" y="434" width="140" height="28" rx="8"/><text class="ok-t" x="170" y="453">✓ app gets all bytes</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="62" y1="490" x2="276" y2="490"/><text class="lb" x="170" y="481">FIN</text><line class="ln" x1="278" y1="520" x2="64" y2="520"/><text class="lb" x="170" y="511">ACK, then FIN</text><line class="ln" x1="62" y1="544" x2="276" y2="544"/><text class="lb" x="170" y="538">ACK</text></g>
+captions:
+  - Your app wants to call the server on port 443. Its TCP sends a SYN packet. It carries a starting sequence number that is hard to guess. TCP uses these numbers to count bytes.
+  - The server answers with SYN-ACK. It confirms your number and sends its own starting number.
+  - Your app sends ACK. The connection is now open. One full round trip has passed, and no request data has moved yet.
+  - Now the request goes out. (With HTTPS, a TLS handshake would come first. It is left out here.) The server's TCP sends an ACK, which says "I have every byte up to here".
+  - The server sends the response in packets. The first one is lost. Later parts arrive and wait in a buffer. TCP gives bytes to your app only in order, so your app sees nothing yet.
+  - The server gets no ACK for part 1 before its retransmission timer ends, so it sends part 1 again. Now your app gets the whole response, in order.
+  - When one side is done, it sends FIN. The other side answers with ACK. When it is done too, it sends its own FIN. A last ACK closes the connection.

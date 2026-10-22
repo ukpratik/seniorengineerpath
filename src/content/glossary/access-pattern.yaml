@@ -1,0 +1,4 @@
+id: access-pattern
+term: access pattern
+forms: ["access patterns"]
+short: "How an app reads and writes its data: which queries, by which keys, how often, and how fast the answer must be."

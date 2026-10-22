@@ -1,0 +1,4 @@
+id: quic
+term: QUIC
+forms: []
+short: A newer transport protocol that runs over UDP. It has reliable streams and built-in TLS, and a lost packet only blocks the streams it carried. HTTP/3 runs on it.

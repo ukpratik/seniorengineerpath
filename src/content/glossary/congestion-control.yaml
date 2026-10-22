@@ -1,0 +1,4 @@
+id: congestion-control
+term: congestion control
+forms: []
+short: Rules that make a sender slow down when the network looks overloaded, for example when packets get lost, so the network does not collapse.

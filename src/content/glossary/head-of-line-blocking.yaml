@@ -1,0 +1,4 @@
+id: head-of-line-blocking
+term: head-of-line blocking
+forms: [head-of-line block]
+short: When one lost or slow item at the front of a line holds back everything behind it, even items that are ready.

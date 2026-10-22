@@ -1,0 +1,4 @@
+id: time-series-database
+term: time-series database
+forms: ["time-series databases", "time-series store", "time-series stores"]
+short: "A database built for timestamped data points, like metrics or sensor readings. It makes writes and time-range queries cheap."

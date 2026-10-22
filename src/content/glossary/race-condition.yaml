@@ -1,0 +1,4 @@
+id: race-condition
+term: race condition
+forms: ["race conditions", "data race", "data races"]
+short: "A bug where the result depends on the timing of threads. Two threads touch the same data at about the same time, and one change can be lost."

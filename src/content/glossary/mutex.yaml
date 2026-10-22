@@ -1,0 +1,4 @@
+id: mutex
+term: mutex
+forms: ["mutexes", "mutual exclusion lock", "mutual exclusion locks"]
+short: "A lock that only one thread can hold at a time. Other threads that want it wait until the holder unlocks it."

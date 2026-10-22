@@ -1,0 +1,4 @@
+id: compare-and-swap
+term: compare-and-swap
+forms: ["CAS", "compareAndSet"]
+short: "One atomic CPU step: if a variable still holds the value you expect, set it to a new value and report success. Otherwise change nothing and report failure."

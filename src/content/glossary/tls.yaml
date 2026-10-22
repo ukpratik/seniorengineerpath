@@ -1,0 +1,4 @@
+id: tls
+term: TLS
+forms: [Transport Layer Security]
+short: Transport Layer Security. A protocol that encrypts data on a connection, detects changes to it, and lets the client check the server's identity with a certificate. HTTPS is HTTP over TLS.

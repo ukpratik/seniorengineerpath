@@ -1,0 +1,4 @@
+id: critical-section
+term: critical section
+forms: ["critical sections"]
+short: "A piece of code that reads or changes shared data. Only one thread may run it at a time, or the data can break."

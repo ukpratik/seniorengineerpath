@@ -1,0 +1,4 @@
+id: port-number
+term: port number
+forms: [port numbers]
+short: A number that picks one program on a machine, such as 443 for a web server. An IP address finds the machine; the port finds the program.

@@ -1,0 +1,4 @@
+id: tcp
+term: TCP
+forms: [Transmission Control Protocol]
+short: The transport protocol most of the internet uses. It opens a connection and delivers bytes reliably and in order, sending lost data again.

@@ -1,0 +1,4 @@
+id: nat
+term: NAT
+forms: [network address translation, NAT gateway, NAT gateways]
+short: Network address translation. A router or gateway swaps private addresses and ports for its own public IP address and ports. This lets many machines share one public address.

@@ -1,0 +1,20 @@
+id: no-reply-four-causes
+title: "No reply: four different causes look the same to the caller"
+viewBox: 0 0 340 480
+svg: |
+  <line class="life" x1="60" y1="52" x2="60" y2="420"/><line class="life" x1="280" y1="52" x2="280" y2="420"/>
+  <rect class="box" x="10" y="8" width="100" height="44" rx="10"/><text class="bt" x="60" y="35">Order app</text>
+  <rect class="box" x="230" y="8" width="100" height="44" rx="10"/><text class="bt" x="280" y="35">Stock service</text>
+  <g class="f" data-f="1"><line class="ln lost" x1="62" y1="86" x2="168" y2="86"/><text class="lb" x="112" y="77">reserve item</text><text class="lb" x="186" y="91">?</text><rect class="note" x="10" y="98" width="100" height="26" rx="7"/><text class="note-t" x="60" y="115">no reply · 2 s</text></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="152">A · the request is lost</text><line class="ln lost" x1="62" y1="170" x2="150" y2="170"/><path class="xm" d="M156 163l14 14M170 163l-14 14"/></g>
+  <g class="f" data-f="3"><text class="lb" x="170" y="212">B · the server crashed</text><line class="ln" x1="62" y1="230" x2="276" y2="230"/><path class="xm" d="M273 238l14 14M287 238l-14 14"/><text class="sub badt" x="170" y="252">server is down</text></g>
+  <g class="f" data-f="4"><text class="lb" x="170" y="282">C · the server is slow</text><line class="ln" x1="62" y1="300" x2="276" y2="300"/><rect class="rec" x="232" y="308" width="96" height="24" rx="7"/><text class="rec-t" x="280" y="324">busy · 30 s</text><text class="sub" x="140" y="324">reply comes too late</text></g>
+  <g class="f" data-f="5"><text class="lb" x="170" y="352">D · the reply is lost</text><line class="ln" x1="62" y1="368" x2="276" y2="368"/><rect class="okb" x="236" y="374" width="88" height="22" rx="7"/><text class="ok-t" x="280" y="390">reserved</text><line class="ln lost" x1="278" y1="408" x2="62" y2="408"/><path class="xm" d="M150 401l14 14M164 401l-14 14"/></g>
+  <g class="f" data-f="6"><rect class="note" x="20" y="434" width="300" height="32" rx="8"/><text class="note-t" x="170" y="455">The app sees the same in A, B, C and D</text></g>
+captions:
+  - "The order app asks the stock service to reserve one item. After 2 seconds there is still no reply. What happened?"
+  - "Cause A. The network lost the request. The stock service never saw it, so nothing was reserved."
+  - "Cause B. The request arrived, but the stock service crashed. Maybe it reserved the item first, maybe not."
+  - "Cause C. The stock service is alive but slow, for example in a long garbage collection pause. The reply will come, but after the app stopped waiting."
+  - "Cause D. The stock service reserved the item and replied. The network lost the reply. The work is done, but the app does not know."
+  - "From the app's side, all four cases look the same: silence. It cannot tell a lost message from a slow or dead server. So a retry must be safe in every case."

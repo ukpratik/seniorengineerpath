@@ -1,0 +1,4 @@
+id: vertical-scaling
+term: vertical scaling
+forms: [scale vertically, scaling vertically]
+short: Handling more load by moving to a bigger machine, with more CPU and memory. Simple, but there is a largest machine, and it is still one machine.

@@ -1,0 +1,4 @@
+id: horizontal-scaling
+term: horizontal scaling
+forms: [scale horizontally, scaling horizontally, scale out, scaling out]
+short: Handling more load by adding more machines that share the work. It avoids the size limit of one machine, and, if built for it, one machine can fail without taking the service down.

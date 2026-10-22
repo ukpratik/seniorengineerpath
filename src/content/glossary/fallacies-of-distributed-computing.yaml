@@ -1,0 +1,4 @@
+id: fallacies-of-distributed-computing
+term: fallacies of distributed computing
+forms: [eight fallacies]
+short: "Eight false beliefs that designers of distributed systems often hold, such as \"the network is reliable\" and \"latency is zero\". First written down at Sun in the 1990s."

@@ -1,0 +1,18 @@
+id: zero-to-millions-growth
+title: "A typical path: from one server to many parts"
+viewBox: 0 0 340 372
+svg: |
+  <rect class="box" x="120" y="8" width="100" height="34" rx="10"/><text class="bt" x="170" y="30">Users</text>
+  <g class="f" data-f="1"><line class="ln" x1="170" y1="42" x2="170" y2="120"/><rect class="box" x="120" y="124" width="100" height="44" rx="10"/><text class="bt" x="170" y="143">One server</text><text class="sub" x="170" y="159">app + DB</text></g>
+  <g class="f" data-f="2"><rect class="box" x="120" y="124" width="100" height="44" rx="10"/><text class="bt" x="170" y="150">App server</text><line class="ln" x1="170" y1="168" x2="170" y2="258"/><rect class="box" x="120" y="262" width="100" height="40" rx="10"/><text class="bt" x="170" y="287">Database</text></g>
+  <g class="f" data-f="3"><rect class="box" x="120" y="62" width="100" height="36" rx="10"/><text class="bt" x="170" y="85">Load balancer</text><line class="ln" x1="150" y1="98" x2="62" y2="122"/><line class="ln" x1="190" y1="98" x2="278" y2="122"/><rect class="box" x="10" y="124" width="96" height="44" rx="10"/><text class="bt" x="58" y="150">App server</text><rect class="box" x="234" y="124" width="96" height="44" rx="10"/><text class="bt" x="282" y="150">App server</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="58" y1="168" x2="58" y2="194"/><rect class="rec" x="10" y="198" width="96" height="30" rx="8"/><text class="rec-t" x="58" y="218">Cache</text><rect class="box" x="8" y="262" width="92" height="40" rx="10"/><text class="bt" x="54" y="287">Read replica</text><line class="ln" x1="118" y1="282" x2="104" y2="282"/></g>
+  <g class="f" data-f="5"><rect class="rec" x="10" y="62" width="80" height="36" rx="8"/><text class="rec-t" x="50" y="85">CDN</text><line class="ln" x1="124" y1="34" x2="80" y2="58"/><line class="ln" x1="282" y1="168" x2="282" y2="194"/><rect class="note" x="234" y="198" width="96" height="30" rx="8"/><text class="note-t" x="282" y="218">Queue</text><line class="ln" x1="282" y1="228" x2="282" y2="258"/><rect class="box" x="234" y="262" width="96" height="40" rx="10"/><text class="bt" x="282" y="287">Workers</text></g>
+  <g class="f" data-f="6"><rect class="box" x="120" y="262" width="100" height="40" rx="10"/><text class="bt" x="170" y="280">DB shards</text><text class="sub" x="170" y="295">1 · 2 · 3</text><rect class="okb" x="10" y="322" width="320" height="34" rx="8"/><text class="ok-t" x="170" y="344">Monitoring at every step</text></g>
+captions:
+  - "Day one. The app and the database run on one server. This is cheap and simple, and it is often enough for a long time."
+  - "The database moves to its own machine. Now the app and the database can each get the size they need."
+  - "A load balancer sends users to several app servers. The app servers are stateless, so any of them can serve any user, and one can fail without taking the site down."
+  - "Reads grow. A cache answers the most common reads, and a read replica takes reads off the main database."
+  - "A CDN serves images and scripts from places near users. A queue takes slow work, such as resizing photos, so workers do it in the background."
+  - "When one database can no longer take all the writes, the data is split into shards. Monitoring of latency, traffic, errors and saturation was needed from day one. At this size you cannot run without it."

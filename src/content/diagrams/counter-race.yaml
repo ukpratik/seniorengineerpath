@@ -1,0 +1,20 @@
+id: counter-race
+title: "Two threads add 1 to a counter, and one add is lost"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="380"/><line class="life" x1="170" y1="54" x2="170" y2="380"/><line class="life" x1="285" y1="54" x2="285" y2="380"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Thread A</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">counter</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Thread B</text>
+  <rect class="rec" x="125" y="62" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="78">counter = 7</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="108" x2="166" y2="108"/><text class="lb" x="112" y="99">load</text><line class="ln" x1="168" y1="135" x2="59" y2="135"/><text class="lb" x="112" y="128">7</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="283" y1="165" x2="174" y2="165"/><text class="lb" x="227" y="156">load</text><line class="ln" x1="172" y1="192" x2="281" y2="192"/><text class="lb" x="227" y="185">7</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="230" x2="166" y2="230"/><text class="lb" x="112" y="221">store 8</text><rect class="rec" x="125" y="244" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="260">counter = 8</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="283" y1="295" x2="174" y2="295"/><text class="lb" x="227" y="286">store 8</text><rect class="rec" x="125" y="309" width="90" height="24" rx="7"/><text class="rec-t" x="170" y="325">counter = 8</text><path class="xm" d="M222 314l14 14M236 314l-14 14"/><text class="sub badt" x="170" y="360">2 adds, but should be 9</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="10" y="390" width="320" height="30" rx="8"/><text class="ok-t" x="170" y="410">✓ lock: B waits, loads 8, stores 9</text><rect class="okb" x="10" y="428" width="320" height="30" rx="8"/><text class="ok-t" x="170" y="448">✓ atomic add: 7 → 8 → 9</text></g>
+captions:
+  - "The counter is 7. Thread A runs counter = counter + 1. The CPU does this in three steps: load, add, store. A loads 7 into its register."
+  - "Before A stores its result, the scheduler switches to Thread B. B runs the same line and also loads 7."
+  - "A adds 1 to its own copy and stores 8."
+  - "B adds 1 to its old copy, 7, and also stores 8. It overwrites A's work. Two adds ran, but the counter grew by one. This is a lost update."
+  - "Fix 1: a lock around the line. B must wait until A unlocks, so it loads 8 and stores 9. Fix 2: one atomic add. The load, add and store happen as one step that nobody can split."

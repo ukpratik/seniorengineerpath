@@ -1,0 +1,4 @@
+id: fencing-token
+term: fencing token
+forms: ["fencing tokens"]
+short: "A number that grows each time a lock is given out. Storage rejects writes with an older number, so a client whose lock expired cannot overwrite newer data."

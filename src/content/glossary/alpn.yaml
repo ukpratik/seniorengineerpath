@@ -1,0 +1,4 @@
+id: alpn
+term: ALPN
+forms: [Application-Layer Protocol Negotiation]
+short: A TLS extension where the client lists the protocols it speaks, such as h2 or http/1.1, and the server picks one, with no extra round trip.

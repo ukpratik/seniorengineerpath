@@ -1,0 +1,4 @@
+id: trunk-based-development
+term: trunk-based development
+forms: [trunk based development]
+short: A way of working where every developer merges small changes into one shared branch (trunk or main) at least daily, instead of keeping long-lived branches.

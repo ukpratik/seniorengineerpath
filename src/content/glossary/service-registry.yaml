@@ -1,0 +1,6 @@
+id: service-registry
+term: service registry
+forms: [service registries]
+short: A shared list of running service instances and their addresses, kept current by health checks. Consul is a common example.
+status: draft
+claims_checked: []

@@ -1,0 +1,6 @@
+id: dns
+term: DNS
+forms: [Domain Name System]
+short: The Domain Name System. A tree of names spread over many name servers, which turns names like www.example.com into IP addresses.
+status: draft
+claims_checked: []

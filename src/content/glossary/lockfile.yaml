@@ -1,0 +1,4 @@
+id: lockfile
+term: lockfile
+forms: [lockfiles, lock file, lock files]
+short: A file, such as package-lock.json, that records the exact version of every dependency, so every build installs the same ones.

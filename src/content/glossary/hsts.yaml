@@ -1,0 +1,4 @@
+id: hsts
+term: HSTS
+forms: [HTTP Strict Transport Security, Strict-Transport-Security]
+short: A response header that tells the browser to use only HTTPS for a site for a set time, and not to let users click through certificate errors.

@@ -1,0 +1,4 @@
+id: multiplexing
+term: multiplexing
+forms: [multiplexed, multiplex]
+short: Sending many separate conversations over one connection at the same time, by cutting them into small labelled pieces and mixing them.

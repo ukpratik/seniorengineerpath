@@ -1,0 +1,6 @@
+id: primary-key
+term: primary key
+forms: [primary keys]
+short: The column, or set of columns, that names each row of a table. No two rows may have the same value.
+status: published
+claims_checked: []

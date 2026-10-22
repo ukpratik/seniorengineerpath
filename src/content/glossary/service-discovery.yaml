@@ -1,0 +1,6 @@
+id: service-discovery
+term: service discovery
+forms: []
+short: How one service finds the current network addresses of another service, while servers start, stop and move.
+status: draft
+claims_checked: []

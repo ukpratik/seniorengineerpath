@@ -1,0 +1,4 @@
+id: connection-migration
+term: connection migration
+forms: []
+short: A QUIC feature that keeps a connection alive when the client's IP address or port changes, because the connection is found by an ID, not by its address.

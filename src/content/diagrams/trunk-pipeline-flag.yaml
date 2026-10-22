@@ -1,0 +1,26 @@
+id: trunk-pipeline-flag
+title: "One commit on trunk: built once, tested, promoted, then turned on with a flag"
+viewBox: 0 0 340 520
+svg: |
+  <rect class="box" x="8" y="10" width="120" height="44" rx="10"/><text class="bt" x="68" y="37">main (trunk)</text>
+  <rect class="box" x="8" y="84" width="120" height="44" rx="10"/><text class="bt" x="68" y="111">Build</text>
+  <rect class="box" x="8" y="158" width="120" height="44" rx="10"/><text class="bt" x="68" y="185">Test</text>
+  <rect class="box" x="8" y="232" width="120" height="44" rx="10"/><text class="bt" x="68" y="259">Package</text>
+  <rect class="box" x="8" y="306" width="120" height="44" rx="10"/><text class="bt" x="68" y="333">Staging</text>
+  <rect class="box" x="8" y="380" width="120" height="44" rx="10"/><text class="bt" x="68" y="407">Production</text>
+  <rect class="box" x="8" y="454" width="120" height="44" rx="10"/><text class="bt" x="68" y="481">Feature flag</text>
+  <g class="f" data-f="1"><rect class="rec" x="142" y="12" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="30">PR merged · 60 lines</text><text class="sub" x="238" y="46">commit a1b2c</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="68" y1="56" x2="68" y2="80"/><rect class="rec" x="142" y="86" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="104">compile once</text><text class="sub" x="238" y="120">from commit a1b2c</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="68" y1="130" x2="68" y2="154"/><rect class="rec" x="142" y="160" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="178">unit + integration</text><text class="sub" x="238" y="194">all green · 8 min</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="68" y1="204" x2="68" y2="228"/><rect class="rec" x="142" y="234" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="252">image app:a1b2c</text><text class="sub" x="238" y="268">stored and signed</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="68" y1="278" x2="68" y2="302"/><rect class="rec" x="142" y="308" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="326">same image a1b2c</text><text class="sub" x="238" y="342">smoke tests pass</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="68" y1="352" x2="68" y2="376"/><rect class="note" x="142" y="382" width="192" height="40" rx="8"/><text class="note-t" x="238" y="400">same image a1b2c</text><text class="sub" x="238" y="416">flag off · users see no change</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="68" y1="426" x2="68" y2="450"/><rect class="okb" x="142" y="456" width="192" height="40" rx="8"/><text class="ok-t" x="238" y="474">✓ on for 1% of users</text><text class="sub" x="238" y="490">watch errors, then widen</text></g>
+captions:
+  - "A developer merges a small pull request into main. It changes 60 lines. The new feature is inside a feature flag that is off."
+  - "The pipeline starts on its own. It builds the code once, from this exact commit."
+  - "Unit and integration tests run. They finish in 8 minutes, so the developer still remembers the change if something fails."
+  - "The pipeline packages the build into one image, app:a1b2c. It stores the image and signs it. Nobody builds it again."
+  - "The same image goes to staging. Smoke tests check that it starts and answers requests."
+  - "The same image goes to production, in stages. The flag is still off, so users see no change. Deploying code is not the same as releasing a feature."
+  - "The team turns the flag on for 1% of users and watches errors and latency. If they rise, they turn the flag off in seconds. If not, they go wider."

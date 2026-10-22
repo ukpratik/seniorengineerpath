@@ -1,0 +1,6 @@
+id: negative-caching
+term: negative caching
+forms: [negative cache]
+short: Caching the answer "this does not exist". In DNS, a resolver remembers that a name has no record, so a record you create later can stay invisible for a while.
+status: draft
+claims_checked: []

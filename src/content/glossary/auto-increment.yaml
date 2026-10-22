@@ -1,0 +1,6 @@
+id: auto-increment
+term: auto-increment
+forms: [AUTO_INCREMENT]
+short: A database feature that gives each new row the next number in a counter, like 1, 2, 3. One database owns the counter.
+status: published
+claims_checked: []

@@ -1,0 +1,4 @@
+id: continuous-delivery
+term: continuous delivery
+forms: []
+short: Building software so that any version that passes the pipeline can be released to production at any time. A person still chooses when to deploy.

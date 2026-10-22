@@ -1,0 +1,6 @@
+id: authoritative-name-server
+term: authoritative name server
+forms: [authoritative name servers]
+short: The DNS server that holds the real records for a zone, such as example.com. Other servers only cache or point to it.
+status: draft
+claims_checked: []

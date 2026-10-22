@@ -1,0 +1,4 @@
+id: acme
+term: ACME
+forms: [Automatic Certificate Management Environment]
+short: A protocol that lets software prove it controls a domain and get or renew a certificate with no human involved. Let's Encrypt uses it.

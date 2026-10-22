@@ -1,0 +1,6 @@
+id: ulid
+term: ULID
+forms: [ULIDs]
+short: A 128-bit ID with a millisecond timestamp first and random bits after it. It is written as 26 characters that sort in time order.
+status: published
+claims_checked: []

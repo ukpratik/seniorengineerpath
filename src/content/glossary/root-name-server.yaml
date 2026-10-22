@@ -1,0 +1,6 @@
+id: root-name-server
+term: root name server
+forms: [root name servers, root server, root servers]
+short: A DNS server at the top of the name tree. It does not know final answers. It tells resolvers which servers handle .com, .org and other top-level domains.
+status: draft
+claims_checked: []

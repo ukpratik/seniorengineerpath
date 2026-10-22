@@ -1,0 +1,4 @@
+id: alt-svc
+term: Alt-Svc
+forms: [alternative service, alternative services]
+short: An HTTP response header that tells the client the same site is also available another way, for example over HTTP/3 on UDP port 443.

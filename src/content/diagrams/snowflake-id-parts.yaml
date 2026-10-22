@@ -1,0 +1,21 @@
+id: snowflake-id-parts
+title: "Building a Snowflake-style 64-bit ID"
+viewBox: 0 0 340 440
+svg: |
+  <rect class="box" x="10" y="14" width="204" height="34" rx="6"/><text class="bt" x="112" y="36">time · 41 bits</text>
+  <rect class="box" x="218" y="14" width="49" height="34" rx="6"/><text class="bt" x="243" y="36">10</text>
+  <rect class="box" x="271" y="14" width="59" height="34" rx="6"/><text class="bt" x="300" y="36">12</text>
+  <text class="sub" x="112" y="66">ms since epoch</text><text class="sub" x="243" y="66">machine</text><text class="sub" x="300" y="66">sequence</text>
+  <g class="f" data-f="1"><rect class="rec" x="10" y="80" width="204" height="26" rx="7"/><text class="rec-t" x="112" y="97">1,000 ms</text><text class="sub" x="112" y="124">read from the clock</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="218" y="80" width="49" height="26" rx="7"/><text class="rec-t" x="243" y="97">7</text><text class="sub" x="243" y="124">fixed</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="271" y="80" width="59" height="26" rx="7"/><text class="rec-t" x="300" y="97">0, 1…</text><text class="sub" x="300" y="124">+1 each</text></g>
+  <g class="f" data-f="4"><line class="life" x1="8" y1="140" x2="332" y2="140"/><text class="lb" x="170" y="162">join the bits</text><rect class="rec" x="40" y="172" width="260" height="26" rx="7"/><text class="rec-t" x="170" y="189">seq 0 → 4,194,332,672</text><rect class="rec" x="40" y="204" width="260" height="26" rx="7"/><text class="rec-t" x="170" y="221">seq 1 → 4,194,332,673</text></g>
+  <g class="f" data-f="5"><line class="life" x1="8" y1="246" x2="332" y2="246"/><text class="lb" x="170" y="268">next ms: 1,001</text><rect class="rec" x="40" y="278" width="260" height="26" rx="7"/><text class="rec-t" x="170" y="295">seq 0 → 4,198,526,976</text><rect class="okb" x="60" y="312" width="220" height="30" rx="8"/><text class="ok-t" x="170" y="332">✓ later ms, bigger ID</text></g>
+  <g class="f" data-f="6"><line class="life" x1="8" y1="358" x2="332" y2="358"/><text class="lb" x="170" y="380">clock jumps back to 999</text><rect class="note" x="40" y="392" width="260" height="30" rx="8"/><text class="note-t" x="170" y="412">wait: no IDs until after 1,001</text></g>
+captions:
+  - "The generator reads the clock. It counts milliseconds from its own start date, the epoch. In this example, 1,000 ms have passed. This goes in the top 41 bits."
+  - "The machine number goes in the next 10 bits. It is set when the generator starts. Here it is 7. No two running generators may share one."
+  - "The last 12 bits are a counter. It starts at 0 and goes up by one for each ID in the same millisecond. That gives 4,096 IDs per millisecond."
+  - "Join the parts: time × 2²² + machine × 2¹² + sequence. The first ID is 4,194,332,672. The next one in the same millisecond is one bigger."
+  - "One millisecond later, the time part is bigger. Time sits in the top bits, so this ID is bigger than every ID from millisecond 1,000 on this machine."
+  - "NTP moves the clock back to 999. New IDs could repeat or go backwards. So the generator refuses to make IDs until the clock passes the last time it used."

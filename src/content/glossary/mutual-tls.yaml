@@ -1,0 +1,4 @@
+id: mutual-tls
+term: mutual TLS
+forms: [mTLS]
+short: TLS where both sides show a certificate, so the server also knows which client is calling. Often used between internal services.

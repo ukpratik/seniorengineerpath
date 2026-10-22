@@ -1,0 +1,6 @@
+id: top-level-domain
+term: top-level domain
+forms: [top-level domains, TLD, TLDs]
+short: The last part of a domain name, like .com or .org. Its name servers know which servers hold each domain under it.
+status: draft
+claims_checked: []

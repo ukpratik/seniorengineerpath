@@ -1,0 +1,4 @@
+id: build-artifact
+term: build artifact
+forms: [build artifacts]
+short: The file a build produces and you deploy, such as a container image, a JAR or an app bundle. Build it once and deploy that same file everywhere.

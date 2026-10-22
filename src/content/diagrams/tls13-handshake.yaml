@@ -1,0 +1,18 @@
+id: tls13-handshake
+title: "A TLS 1.3 handshake, then one encrypted request"
+viewBox: 0 0 340 480
+svg: |
+  <line class="life" x1="60" y1="54" x2="60" y2="470"/><line class="life" x1="280" y1="54" x2="280" y2="470"/>
+  <rect class="box" x="5" y="10" width="110" height="44" rx="10"/><text class="bt" x="60" y="37">Phone app</text>
+  <rect class="box" x="210" y="10" width="125" height="44" rx="10"/><text class="bt" x="272" y="37">api.shop.example</text>
+  <g class="f" data-f="1"><line class="ln" x1="62" y1="90" x2="276" y2="90"/><text class="lb" x="170" y="81">ClientHello</text><text class="sub" x="170" y="106">SNI · ALPN · key share</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="278" y1="140" x2="64" y2="140"/><text class="lb" x="170" y="131">ServerHello + key share</text><text class="sub" x="170" y="156">then encrypted: certificates · signature</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="80" y="174" width="180" height="24" rx="7"/><text class="rec-t" x="170" y="190">api.shop.example</text><rect class="rec" x="80" y="206" width="180" height="24" rx="7"/><text class="rec-t" x="170" y="222">signed by: intermediate CA</text><rect class="okb" x="80" y="238" width="180" height="24" rx="7"/><text class="ok-t" x="170" y="254">signed by: root in trust store</text><text class="sub" x="170" y="282">name ✓ · dates ✓ · signatures ✓</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="62" y1="318" x2="276" y2="318"/><text class="lb" x="170" y="309">Finished</text><rect class="note" x="70" y="328" width="200" height="26" rx="7"/><text class="note-t" x="170" y="345">keys agreed · 1 round trip</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="62" y1="390" x2="276" y2="390"/><text class="lb" x="170" y="381">GET /orders (encrypted)</text><line class="ln" x1="278" y1="424" x2="64" y2="424"/><text class="lb" x="170" y="415">200 OK (encrypted)</text><rect class="okb" x="90" y="436" width="160" height="28" rx="8"/><text class="ok-t" x="170" y="455">✓ private and checked</text></g>
+captions:
+  - "The app opens a TCP connection, then sends ClientHello. It names the site it wants (SNI), the HTTP versions it speaks (ALPN), and its half of a key exchange."
+  - "The server answers with its own key share. Both sides can now make the same secret keys. Everything after this message is encrypted, including the server's certificates."
+  - "The app checks the chain. The site's certificate must be signed by an intermediate, and that one by a root in the app's trust store. Names and dates must match too."
+  - "The server also signed the handshake with the private key for its certificate. The app checks this and sends Finished. One round trip, and the keys are agreed."
+  - "Now the app sends the real request, encrypted with the new keys. Nobody on the network can read it or change it without being noticed."

@@ -1,0 +1,6 @@
+id: ticket-server
+term: ticket server
+forms: [ticket servers]
+short: A small database server whose only job is to hand out unique numbers, for example for primary keys in a sharded system.
+status: published
+claims_checked: []

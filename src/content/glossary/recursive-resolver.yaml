@@ -1,0 +1,6 @@
+id: recursive-resolver
+term: recursive resolver
+forms: [recursive resolvers, DNS resolver, DNS resolvers]
+short: The DNS server your app asks. It walks the DNS tree for you, from the root down, and caches the answers it gets.
+status: draft
+claims_checked: []

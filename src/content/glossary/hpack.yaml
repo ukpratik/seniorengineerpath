@@ -1,0 +1,4 @@
+id: hpack
+term: HPACK
+forms: [QPACK]
+short: The header compression format of HTTP/2. Both sides keep tables of headers they have seen, so a repeated header can be sent as a small number. HTTP/3 uses a similar format, QPACK.

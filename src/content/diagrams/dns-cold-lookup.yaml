@@ -1,0 +1,21 @@
+id: dns-cold-lookup
+title: "A DNS lookup for api.example.com from a cold cache"
+viewBox: 0 0 340 520
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="506"/><line class="life" x1="170" y1="54" x2="170" y2="506"/><line class="life" x1="285" y1="54" x2="285" y2="506"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Your app</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Resolver</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Name servers</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="92" x2="166" y2="92"/><text class="lb" x="112" y="83">api.example.com?</text><text class="sub" x="112" y="109">type A</text><rect class="note" x="122" y="118" width="96" height="24" rx="7"/><text class="note-t" x="170" y="135">cache empty</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="172" y1="166" x2="281" y2="166"/><text class="lb" x="227" y="157">ask root</text><line class="ln" x1="283" y1="194" x2="174" y2="194"/><text class="lb" x="227" y="186">try .com</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="172" y1="228" x2="281" y2="228"/><text class="lb" x="227" y="219">ask .com</text><line class="ln" x1="283" y1="256" x2="174" y2="256"/><text class="lb" x="227" y="248">try ns1</text><text class="sub" x="227" y="272">ns1.example.com</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="172" y1="300" x2="281" y2="300"/><text class="lb" x="227" y="291">ask ns1</text><line class="ln" x1="283" y1="328" x2="174" y2="328"/><text class="lb" x="227" y="320">203.0.113.10</text><text class="sub" x="227" y="344">TTL 300 s</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="122" y="354" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="371">kept 300 s</text><line class="ln" x1="168" y1="404" x2="59" y2="404"/><text class="lb" x="112" y="396">203.0.113.10</text></g>
+  <g class="f" data-f="6"><line class="life" x1="8" y1="422" x2="332" y2="422"/><text class="sub" x="170" y="440">one minute later</text><line class="ln" x1="57" y1="466" x2="166" y2="466"/><text class="lb" x="112" y="458">api.example.com?</text><line class="ln" x1="168" y1="494" x2="59" y2="494"/><text class="lb" x="112" y="487">from cache</text><rect class="okb" x="190" y="472" width="140" height="30" rx="8"/><text class="ok-t" x="260" y="492">✓ no servers asked</text></g>
+captions:
+  - "Your app asks the recursive resolver for the A record of api.example.com. The resolver has just started, so its cache is empty."
+  - "The resolver asks a root name server. The root does not know the answer. It sends back the names of the name servers for .com."
+  - "The resolver asks a .com server. It also does not know the answer. It sends back the name servers for example.com, such as ns1.example.com."
+  - "The resolver asks ns1.example.com, the authoritative name server. It has the record: 203.0.113.10, with a TTL of 300 seconds."
+  - "The resolver keeps the answer in its cache for up to 300 seconds. It also keeps the referrals. Then it returns the address to your app."
+  - "A minute later, someone asks again. The resolver answers from its cache. If you change the record now, this resolver can keep the old answer for four more minutes."

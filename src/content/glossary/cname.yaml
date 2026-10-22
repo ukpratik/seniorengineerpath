@@ -1,0 +1,6 @@
+id: cname
+term: CNAME
+forms: [CNAMEs, CNAME record, CNAME records]
+short: A DNS record that makes one name an alias for another name. The resolver then looks up the other name.
+status: draft
+claims_checked: []

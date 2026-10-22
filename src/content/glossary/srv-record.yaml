@@ -1,0 +1,6 @@
+id: srv-record
+term: SRV record
+forms: [SRV records]
+short: A DNS record that says where a service runs, as a host name and a port, with a priority and a weight for choosing between hosts.
+status: draft
+claims_checked: []

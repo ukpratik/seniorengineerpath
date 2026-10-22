@@ -1,0 +1,6 @@
+id: snowflake-id
+term: Snowflake ID
+forms: [Snowflake IDs, Snowflake-style ID, Snowflake-style IDs]
+short: A 64-bit ID built from a timestamp, a machine number and a counter, first made by Twitter. IDs from one machine sort by time.
+status: published
+claims_checked: []

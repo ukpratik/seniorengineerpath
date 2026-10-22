@@ -1,0 +1,4 @@
+id: sni
+term: SNI
+forms: [Server Name Indication]
+short: A TLS extension where the client sends the host name it wants in its first message, so one IP address can serve many sites with different certificates.

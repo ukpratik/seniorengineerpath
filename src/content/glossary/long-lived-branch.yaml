@@ -1,0 +1,4 @@
+id: long-lived-branch
+term: long-lived branch
+forms: [long-lived branches, long-lived feature branch, long-lived feature branches]
+short: A branch that stays apart from main for weeks or months. The longer it lives, the bigger and riskier the final merge.

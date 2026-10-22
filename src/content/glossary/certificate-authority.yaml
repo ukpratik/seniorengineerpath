@@ -1,0 +1,4 @@
+id: certificate-authority
+term: certificate authority
+forms: [certificate authorities]
+short: An organisation that signs certificates after it checks the requester. For most web certificates, it checks that the requester controls the domain. Clients trust a certificate if a trusted certificate authority signed it.

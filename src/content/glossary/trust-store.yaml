@@ -1,0 +1,4 @@
+id: trust-store
+term: trust store
+forms: [trust stores]
+short: The set of root certificates that an operating system, browser or runtime trusts. A certificate chain must end at one of them.

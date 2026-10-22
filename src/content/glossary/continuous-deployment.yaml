@@ -1,0 +1,4 @@
+id: continuous-deployment
+term: continuous deployment
+forms: []
+short: Every change that passes the automated pipeline goes to production on its own, with no human step.

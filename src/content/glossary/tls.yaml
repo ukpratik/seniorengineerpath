@@ -1,4 +1,5 @@
+# Source: RFC 9846, The Transport Layer Security (TLS) Protocol Version 1.3, section 1 (https://www.rfc-editor.org/rfc/rfc9846). The glossary schema has no sources field.
 id: tls
 term: TLS
 forms: [Transport Layer Security]
-short: Transport Layer Security. A protocol that encrypts data on a connection, detects changes to it, and lets the client check the server's identity with a certificate. HTTPS is HTTP over TLS.
+short: Transport Layer Security. A protocol that encrypts data on a connection, detects changes to it, and lets the client check the server's identity with a certificate. The server can also ask the client for one. HTTPS is HTTP over TLS.

@@ -1,0 +1,4 @@
+id: chain-of-trust
+term: chain of trust
+forms: [certificate chain, certificate chains, certification path]
+short: The list of certificates from a site's certificate up to a trusted root. Each one is signed by the next one up, so the client can check them all.

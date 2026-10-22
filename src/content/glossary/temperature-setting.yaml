@@ -1,0 +1,4 @@
+id: temperature-setting
+term: temperature setting
+forms: [model temperature]
+short: A request setting that controls how random a model's word choice is. Higher gives more varied text. Lower sticks to the most likely words, but output can still vary.

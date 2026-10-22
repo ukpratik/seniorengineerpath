@@ -1,0 +1,4 @@
+id: structured-output
+term: structured output
+forms: [structured outputs]
+short: A model feature that forces the reply to match a JSON schema you give. It controls the shape of the data, not whether the values are true.

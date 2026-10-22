@@ -1,0 +1,4 @@
+id: single-point-of-failure
+term: single point of failure
+forms: [single points of failure]
+short: One part that, if it fails, stops the whole system. You remove it by running more than one copy and making sure they do not all fail together.

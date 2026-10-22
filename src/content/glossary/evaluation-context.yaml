@@ -1,0 +1,4 @@
+id: evaluation-context
+term: evaluation context
+forms: []
+short: The data passed to a feature flag check, such as user ID, plan or country, that the flag's rules use to decide the answer.

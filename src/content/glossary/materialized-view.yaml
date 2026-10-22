@@ -1,0 +1,4 @@
+id: materialized-view
+term: materialized view
+forms: [materialized views, materialised view, materialised views]
+short: A database view whose query result is stored like a table. Reads are fast, but the data is only as fresh as the last refresh.

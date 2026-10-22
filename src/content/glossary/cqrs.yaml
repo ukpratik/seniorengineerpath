@@ -1,0 +1,4 @@
+id: cqrs
+term: CQRS
+forms: [command query responsibility segregation]
+short: Using one model to change data and a different model, often a different store, to read it. Powerful for some parts of a system, but it adds complexity and lag.

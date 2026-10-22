@@ -1,0 +1,4 @@
+id: zero-data-retention
+term: zero data retention
+forms: [ZDR]
+short: An arrangement with an LLM provider where it does not store your prompts and replies after it sends the response. It is usually set up by request, not on by default.

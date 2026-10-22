@@ -1,0 +1,4 @@
+id: tool-use
+term: tool use
+forms: [function calling]
+short: A model feature where the model asks your app to run a function, with arguments in a fixed format. Your code runs it and sends the result back.

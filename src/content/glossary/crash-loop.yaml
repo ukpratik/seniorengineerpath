@@ -1,0 +1,4 @@
+id: crash-loop
+term: crash loop
+forms: [crash loops]
+short: When a program crashes, restarts, hits the same problem and crashes again, over and over.

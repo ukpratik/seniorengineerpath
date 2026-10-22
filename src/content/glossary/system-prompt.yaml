@@ -1,0 +1,4 @@
+id: system-prompt
+term: system prompt
+forms: [system prompts]
+short: The fixed instructions an app sends to a model with every request, such as its role, rules and output format. It is not a secret and not a security control.

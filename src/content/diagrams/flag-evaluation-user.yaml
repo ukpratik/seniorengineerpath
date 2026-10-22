@@ -1,0 +1,23 @@
+id: flag-evaluation-user
+title: "One flag check for one user: context, rules, hash bucket, variant, cache"
+viewBox: 0 0 340 520
+svg: |
+  <rect class="box" x="8" y="10" width="120" height="44" rx="10"/><text class="bt" x="68" y="37">Request</text>
+  <rect class="box" x="8" y="94" width="120" height="44" rx="10"/><text class="bt" x="68" y="121">Context</text>
+  <rect class="box" x="8" y="178" width="120" height="44" rx="10"/><text class="bt" x="68" y="205">Rules</text>
+  <rect class="box" x="8" y="262" width="120" height="44" rx="10"/><text class="bt" x="68" y="289">Hash bucket</text>
+  <rect class="box" x="8" y="346" width="120" height="44" rx="10"/><text class="bt" x="68" y="373">Variant</text>
+  <rect class="box" x="8" y="430" width="120" height="44" rx="10"/><text class="bt" x="68" y="457">Cached</text>
+  <g class="f" data-f="1"><rect class="rec" x="142" y="12" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="30">is new-checkout on?</text><text class="sub" x="238" y="46">default: off</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="68" y1="56" x2="68" y2="90"/><rect class="rec" x="142" y="96" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="114">user u-831 · plan pro</text><text class="sub" x="238" y="130">country IN</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="68" y1="140" x2="68" y2="174"/><rect class="note" x="142" y="180" width="192" height="40" rx="8"/><text class="note-t" x="238" y="198">1. staff list → no match</text><text class="sub" x="238" y="214">2. rollout: 10% of users</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="68" y1="224" x2="68" y2="258"/><rect class="rec" x="142" y="264" width="192" height="40" rx="8"/><text class="rec-t" x="238" y="282">hash(flag + u-831) → 7</text><text class="sub" x="238" y="298">7 is at or below 10</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="68" y1="308" x2="68" y2="342"/><rect class="okb" x="142" y="348" width="192" height="40" rx="8"/><text class="ok-t" x="238" y="366">✓ variant: on</text><text class="sub" x="238" y="382">reason: 10% split</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="68" y1="392" x2="68" y2="426"/><rect class="note" x="142" y="432" width="192" height="40" rx="8"/><text class="note-t" x="238" y="450">same answer next time</text><text class="sub" x="238" y="466">rules kept in memory</text></g>
+captions:
+  - "A request for user u-831 reaches the checkout code. The code asks one question: is the flag new-checkout on? It also passes a default, off, for when anything goes wrong."
+  - "The code builds the evaluation context: the user ID, the plan and the country. The plan is here for other checks. This release flag does not use it."
+  - "The flag has two rules, checked in order. Rule 1 turns it on for staff. User u-831 is not staff. Rule 2 turns it on for 10% of users."
+  - "To pick the 10%, the tool hashes the flag name with the user ID. This user gets the number 7. Because 7 is at or below 10, the user is in the rollout. The same user always gets 7 for this flag."
+  - "The answer is the variant on, with a reason that says why. Logging the variant and reason helps you debug odd behaviour later."
+  - "In this example, the SDK keeps the flag rules in memory, so the next check needs no network call. When someone changes the rollout to 20%, the new rules reach the SDK, and user u-831 stays in."

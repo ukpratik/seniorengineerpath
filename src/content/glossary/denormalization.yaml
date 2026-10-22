@@ -1,0 +1,4 @@
+id: denormalization
+term: denormalization
+forms: [denormalisation, denormalise, denormalize, denormalised, denormalized]
+short: Storing a copy of data where it is read, such as a comment count on the post row, so reads need fewer joins. Every write must now update the copies too.

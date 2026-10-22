@@ -1,0 +1,19 @@
+id: downstream-error-layers
+title: "One downstream call fails: classify, retry once, degrade, then tell the user and log"
+viewBox: 0 0 340 500
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="486"/><line class="life" x1="170" y1="54" x2="170" y2="486"/><line class="life" x1="285" y1="54" x2="285" y2="486"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Phone app</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Product API</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Delivery svc</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="90" x2="166" y2="90"/><text class="lb" x="112" y="81">GET /product/42</text><line class="ln" x1="172" y1="124" x2="281" y2="124"/><text class="lb" x="227" y="115">delivery date?</text><text class="sub" x="227" y="141">timeout 300 ms</text></g>
+  <g class="f" data-f="2"><line class="ln lost" x1="283" y1="174" x2="174" y2="174"/><text class="lb" x="227" y="165">503 busy</text><rect class="note" x="122" y="186" width="96" height="40" rx="7"/><text class="note-t" x="170" y="203">transient</text><text class="sub" x="170" y="219">read · safe to retry</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="172" y1="258" x2="281" y2="258"/><text class="lb" x="227" y="249">retry once</text><text class="sub" x="227" y="275">after backoff + jitter</text><path class="xm" d="M220 285l14 14M234 285l-14 14"/><text class="sub badt" x="227" y="318">timed out again</text></g>
+  <g class="f" data-f="4"><rect class="rec" x="122" y="338" width="96" height="40" rx="7"/><text class="rec-t" x="170" y="355">no more retries</text><text class="sub" x="170" y="371">degrade: no date</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="168" y1="410" x2="59" y2="410"/><text class="lb" x="112" y="401">200 · page</text><rect class="okb" x="5" y="422" width="150" height="54" rx="8"/><text class="ok-t" x="80" y="443">✓ “Delivery date</text><text class="ok-t" x="80" y="462">not available now”</text><rect class="note" x="182" y="422" width="152" height="54" rx="8"/><text class="note-t" x="258" y="443">log: 503, timeout,</text><text class="note-t" x="258" y="462">2 tries, request id</text></g>
+captions:
+  - "The phone app asks for product 42. The Product API needs a delivery date, so it calls the Delivery service with a timeout of 300 ms."
+  - "The Delivery service answers 503: busy. The API classifies the error. A 503 on a read is transient and safe to retry. A 400 would be a different story: the request is wrong, so a retry cannot help."
+  - "The API retries once, after a short backoff with jitter. It retries in this layer only. The second call times out."
+  - "The retry limit is reached, and the user is waiting. The delivery date is optional on this page, so the API degrades: it builds the page without a date, instead of failing the whole page."
+  - "The user gets the product page with a short, calm message. Engineers get a log line with the error, the number of tries and the request ID. No stack trace or secret goes to the user."

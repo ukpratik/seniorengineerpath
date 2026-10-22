@@ -1,0 +1,4 @@
+id: tls-termination
+term: TLS termination
+forms: [terminates TLS, terminate TLS, TLS offloading]
+short: Ending the encrypted TLS connection at a proxy or gateway. The proxy decrypts the request, can inspect it, and then forwards it, ideally over a new TLS connection.

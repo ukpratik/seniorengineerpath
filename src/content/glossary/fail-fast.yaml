@@ -1,0 +1,4 @@
+id: fail-fast
+term: fail fast
+forms: [fails fast, failing fast]
+short: Stopping quickly at the first sign of a problem, with a clear error, instead of waiting or carrying on in a bad state.

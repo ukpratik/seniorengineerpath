@@ -1,0 +1,4 @@
+id: circuit-breaker
+term: circuit breaker
+forms: [circuit breakers]
+short: A guard around calls to another service. After many failures it stops sending calls for a short time, so the failing service can recover and the caller does not wait.

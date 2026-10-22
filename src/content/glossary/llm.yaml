@@ -1,0 +1,4 @@
+id: llm
+term: LLM
+forms: [LLMs, large language model, large language models]
+short: Large language model. A model trained on a lot of text to predict the next token. It writes likely text, not checked facts.

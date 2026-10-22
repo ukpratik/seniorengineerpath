@@ -1,0 +1,4 @@
+id: llm-token
+term: LLM token
+forms: [LLM tokens, input tokens, output tokens, input token, output token]
+short: The unit of text a language model reads and writes. A token can be a word, part of a word, a character or a byte. Providers count cost, limits and speed in tokens.

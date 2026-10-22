@@ -1,0 +1,4 @@
+id: transient-error
+term: transient error
+forms: [transient errors]
+short: An error that may go away on its own in a moment, such as a busy service or a dropped connection. These are the errors worth retrying.

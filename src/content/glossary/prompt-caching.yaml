@@ -1,0 +1,4 @@
+id: prompt-caching
+term: prompt caching
+forms: []
+short: A provider feature that saves the work done on a fixed start of a prompt and reuses it on later requests. It lowers cost and latency when the start is exactly the same.

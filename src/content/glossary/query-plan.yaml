@@ -1,0 +1,4 @@
+id: query-plan
+term: query plan
+forms: [query plans]
+short: The steps a database chooses to run a query, such as which index to use or whether to scan the whole table. EXPLAIN shows it.

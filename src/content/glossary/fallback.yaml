@@ -1,0 +1,4 @@
+id: fallback
+term: fallback
+forms: [fallbacks]
+short: A second way to get an answer or do a job, used when the normal way fails or is not available. Fallback code that rarely runs is hard to test, so it can fail when you need it.

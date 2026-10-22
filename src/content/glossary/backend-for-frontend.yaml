@@ -1,0 +1,4 @@
+id: backend-for-frontend
+term: backend for frontend
+forms: [backends for frontends, backend-for-frontend, BFF, BFFs]
+short: A small backend built for one user interface, such as the mobile app. It shapes and combines data for that client, and the UI team usually owns it.

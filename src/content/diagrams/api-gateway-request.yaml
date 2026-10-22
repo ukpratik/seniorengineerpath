@@ -1,0 +1,21 @@
+id: api-gateway-request
+title: "One request through an API gateway: TLS, auth, rate limit, route, upstream, response"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="45" y1="54" x2="45" y2="456"/><line class="life" x1="170" y1="54" x2="170" y2="456"/><line class="life" x1="292" y1="54" x2="292" y2="456"/>
+  <rect class="box" x="5" y="10" width="80" height="44" rx="10"/><text class="bt" x="45" y="37">Phone</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Gateway</text>
+  <rect class="box" x="250" y="10" width="84" height="44" rx="10"/><text class="bt" x="292" y="37">Orders</text>
+  <g class="f" data-f="1"><line class="ln" x1="47" y1="88" x2="166" y2="88"/><text class="lb" x="106" y="80">GET /v2/orders/7</text><rect class="rec" x="112" y="98" width="116" height="24" rx="7"/><text class="rec-t" x="170" y="114">1 · TLS ends</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="112" y="134" width="116" height="24" rx="7"/><text class="rec-t" x="170" y="150">2 · token ✓ user 42</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="112" y="170" width="116" height="24" rx="7"/><text class="rec-t" x="170" y="186">3 · limit ✓ 37 left</text></g>
+  <g class="f" data-f="4"><rect class="rec" x="112" y="206" width="116" height="24" rx="7"/><text class="rec-t" x="170" y="222">4 · route: orders v2</text><line class="ln" x1="172" y1="256" x2="288" y2="256"/><text class="lb" x="231" y="248">/orders/7</text><text class="sub" x="231" y="273">timeout 2 s</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="290" y1="300" x2="174" y2="300"/><text class="lb" x="231" y="293">200</text><rect class="rec" x="112" y="310" width="116" height="24" rx="7"/><text class="rec-t" x="170" y="326">5 · log + metrics</text><line class="ln" x1="168" y1="352" x2="49" y2="352"/><text class="lb" x="106" y="345">200 OK</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="47" y1="392" x2="166" y2="392"/><text class="lb" x="106" y="384">bad token</text><line class="ln" x1="168" y1="420" x2="49" y2="420"/><text class="lb" x="106" y="413">401</text><text class="sub" x="292" y="408">never called</text><rect class="okb" x="60" y="430" width="220" height="28" rx="8"/><text class="ok-t" x="170" y="449">✓ cheap checks stop it early</text></g>
+captions:
+  - "The phone sends GET /v2/orders/7 over HTTPS. The gateway ends the TLS connection, so it can read the request."
+  - "The gateway checks the access token. It is valid and belongs to user 42. A bad token would stop here."
+  - "The gateway checks the rate limit for user 42. There are 37 requests left this minute, so the request goes on."
+  - "The gateway matches the path to the orders service, version 2. It calls the service over a new TLS connection and will wait at most 2 seconds."
+  - "The service answers 200. The gateway logs the request and records its time and status, then returns the answer to the phone."
+  - "Another request has an expired token. The gateway answers 401 at step 2. The orders service never sees it, so it spends no work on it."

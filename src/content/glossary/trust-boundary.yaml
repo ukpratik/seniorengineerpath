@@ -1,0 +1,4 @@
+id: trust-boundary
+term: trust boundary
+forms: [trust boundaries]
+short: A point where data enters your code from a source you do not control, such as a user, a partner or another team's service. Data should be checked there.

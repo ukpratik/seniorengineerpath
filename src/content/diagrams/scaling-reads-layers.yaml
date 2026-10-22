@@ -1,0 +1,21 @@
+id: scaling-reads-layers
+title: "One read falling through the layers: CDN, app cache, replica, primary"
+viewBox: 0 0 340 500
+svg: |
+  <line class="life" x1="34" y1="50" x2="34" y2="450"/><line class="life" x1="102" y1="50" x2="102" y2="450"/><line class="life" x1="170" y1="50" x2="170" y2="450"/><line class="life" x1="238" y1="50" x2="238" y2="450"/><line class="life" x1="306" y1="50" x2="306" y2="450"/>
+  <rect class="box" x="2" y="10" width="64" height="40" rx="9"/><text class="bt" x="34" y="35">User</text>
+  <rect class="box" x="70" y="10" width="64" height="40" rx="9"/><text class="bt" x="102" y="35">CDN</text>
+  <rect class="box" x="138" y="10" width="64" height="40" rx="9"/><text class="bt" x="170" y="35">Cache</text>
+  <rect class="box" x="206" y="10" width="64" height="40" rx="9"/><text class="bt" x="238" y="35">Replica</text>
+  <rect class="box" x="274" y="10" width="64" height="40" rx="9"/><text class="bt" x="306" y="35">Primary</text>
+  <g class="f" data-f="1"><line class="ln" x1="36" y1="84" x2="98" y2="84"/><text class="lb" x="68" y="76">public</text><line class="ln" x1="100" y1="110" x2="38" y2="110"/><text class="lb" x="68" y="104">hit</text><text class="sub" x="238" y="100">not asked</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="36" y1="146" x2="98" y2="146"/><text class="lb" x="68" y="138">feed</text><line class="ln" x1="104" y1="162" x2="166" y2="162"/><text class="lb" x="136" y="156">pass</text><rect class="rec" x="142" y="170" width="56" height="22" rx="6"/><text class="rec-t" x="170" y="185">hit</text><line class="ln" x1="168" y1="206" x2="38" y2="206"/><text class="lb" x="102" y="200">200</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="36" y1="244" x2="166" y2="244"/><text class="lb" x="102" y="236">old page</text><rect class="note" x="142" y="252" width="56" height="22" rx="6"/><text class="note-t" x="170" y="267">miss</text><line class="ln" x1="172" y1="288" x2="234" y2="288"/><text class="lb" x="204" y="282">read</text><line class="ln" x1="236" y1="310" x2="174" y2="310"/><text class="lb" x="204" y="304">rows</text><rect class="rec" x="142" y="318" width="56" height="22" rx="6"/><text class="rec-t" x="170" y="333">fill</text><line class="ln" x1="168" y1="352" x2="38" y2="352"/><text class="lb" x="102" y="346">200</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="36" y1="388" x2="166" y2="388"/><text class="lb" x="102" y="380">my profile</text><line class="ln" x1="172" y1="414" x2="302" y2="414"/><text class="lb" x="238" y="407">just wrote</text><text class="sub badt" x="238" y="430">skip the replica</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="30" y="458" width="280" height="30" rx="8"/><text class="ok-t" x="170" y="478">✓ the primary sees few reads</text></g>
+captions:
+  - "A visitor opens a public product page. It is the same for everyone, so the CDN has a fresh copy and answers near the user. Your cache and databases never see this read."
+  - "A logged-in user opens their feed. It is private, so the CDN passes it on. The app finds the feed in its cache and answers from memory."
+  - "Another user asks for an old page of the feed. The cache misses. The app reads from a replica, puts the result in the cache, then answers."
+  - "This user just changed their profile. The replica may still be behind. So for a short time, the app reads this user's own data from the primary."
+  - "Each layer answers what it can and passes the rest down. The primary is left free for writes and for the few reads that must be fresh."

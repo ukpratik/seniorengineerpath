@@ -1,0 +1,4 @@
+id: read-model
+term: read model
+forms: [read models]
+short: A copy of data shaped for one kind of read, such as a feed table or search index. It is built from the main data and updated after each change.

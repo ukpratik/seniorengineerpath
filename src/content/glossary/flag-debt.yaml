@@ -1,0 +1,4 @@
+id: flag-debt
+term: flag debt
+forms: []
+short: Old feature flags that stay in the code after their job is done. Each one adds branches to test and a switch that can be flipped by mistake.

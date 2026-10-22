@@ -1,0 +1,4 @@
+id: graceful-degradation
+term: graceful degradation
+forms: [degrade gracefully, degrades gracefully]
+short: Still serving users when part of the system fails, with less, for example a page without recommendations, instead of failing the whole request.

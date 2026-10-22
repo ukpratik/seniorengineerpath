@@ -1,0 +1,4 @@
+id: time-to-first-token
+term: time to first token
+forms: [TTFT]
+short: How long a model takes to send the first token of its reply after it gets the request. It is how long a user waits before any text appears.

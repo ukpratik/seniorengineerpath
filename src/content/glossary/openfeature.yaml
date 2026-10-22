@@ -1,0 +1,4 @@
+id: openfeature
+term: OpenFeature
+forms: []
+short: An open specification for a vendor-neutral API for checking feature flags. A provider connects it to the flag tool you use.

@@ -1,0 +1,4 @@
+id: service-mesh
+term: service mesh
+forms: [service meshes]
+short: A layer of proxies, often one next to each service, that handles traffic between services, such as retries, mutual TLS and metrics, without changes to app code.

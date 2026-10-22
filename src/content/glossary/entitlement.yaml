@@ -1,0 +1,4 @@
+id: entitlement
+term: entitlement
+forms: [entitlements]
+short: What a customer is allowed to use because of their plan or contract, for example "Pro accounts can export to PDF".

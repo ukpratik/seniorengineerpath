@@ -1,0 +1,15 @@
+id: mentoring-cycle
+title: "One mentoring cycle, from stretch task to public credit"
+viewBox: 0 0 340 500
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="52" rx="10"/><text class="bt" x="170" y="32">1 · Pick a stretch task</text><text class="sub" x="170" y="51">just above today's level · reversible</text><rect class="note" x="130" y="68" width="200" height="26" rx="7"/><text class="note-t" x="230" y="85">Karan: retry job redesign</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="96" x2="170" y2="110"/><rect class="box" x="20" y="114" width="300" height="52" rx="10"/><text class="bt" x="170" y="136">2 · Agree goals and limits</text><text class="sub" x="170" y="155">what done means · check-ins · when to call</text><rect class="note" x="110" y="172" width="220" height="26" rx="7"/><text class="note-t" x="220" y="189">design review before any code</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="200" x2="170" y2="214"/><rect class="rec" x="20" y="218" width="300" height="52" rx="10"/><text class="rec-t" x="170" y="240">3 · Mentee drives, mentor asks</text><text class="sub" x="170" y="259">"What have you ruled out?"</text><rect class="note" x="130" y="276" width="200" height="26" rx="7"/><text class="note-t" x="230" y="293">mentor never takes the keyboard</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="304" x2="170" y2="318"/><rect class="box" x="20" y="322" width="300" height="52" rx="10"/><text class="bt" x="170" y="344">4 · Review with SBI feedback</text><text class="sub" x="170" y="363">situation · behaviour · impact · intent</text><rect class="note" x="110" y="380" width="220" height="26" rx="7"/><text class="note-t" x="220" y="397">praise what to repeat, too</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="408" x2="170" y2="422"/><rect class="okb" x="20" y="426" width="300" height="52" rx="10"/><text class="ok-t" x="170" y="448">✓ 5 · Sponsor the result in public</text><text class="sub" x="170" y="467">credit by name · they present it</text></g>
+captions:
+  - "Pick a task just above the mentee's current level. Here, Karan will redesign the payment retry job. It ships behind a feature flag, so a mistake can be turned off."
+  - "Agree on what done means, what Karan may decide alone, and when to check in. One rule is clear: if customer data might be wrong, he calls Meera at once."
+  - "Karan does the work and makes the decisions. When he is stuck, Meera asks questions first, such as what he has ruled out. She gives the answer only when time is short or the risk is high."
+  - "After launch, Meera gives feedback with SBI: the situation, the behaviour she saw and its impact. She asks about his intent, and she names what he did well so he can repeat it."
+  - "Meera sponsors the result. She asks Karan to present the redesign at the team demo, and she credits him by name in the update to her manager. Then the next cycle starts."

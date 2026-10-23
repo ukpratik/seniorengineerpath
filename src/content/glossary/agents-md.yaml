@@ -1,0 +1,6 @@
+id: agents-md
+term: AGENTS.md
+forms: []
+short: A shared Markdown file of project instructions for coding agents, like a README for agents. Many tools read it, and the file closest to the code being changed wins.
+status: published
+claims_checked: []

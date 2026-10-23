@@ -1,0 +1,4 @@
+id: client-side-rendering
+term: client-side rendering
+forms: [CSR]
+short: "Building a page in the browser with JavaScript that changes the DOM. The server sends little HTML and a script bundle."

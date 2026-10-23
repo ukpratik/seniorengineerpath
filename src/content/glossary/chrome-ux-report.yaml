@@ -1,0 +1,4 @@
+id: chrome-ux-report
+term: Chrome UX Report
+forms: [CrUX, Chrome User Experience Report]
+short: "A public Google dataset of how real Chrome users experience popular websites, including the Core Web Vitals."

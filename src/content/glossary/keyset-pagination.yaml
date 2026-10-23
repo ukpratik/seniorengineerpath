@@ -1,0 +1,6 @@
+id: keyset-pagination
+term: keyset pagination
+forms: [seek method, keyset paging]
+short: Paging that asks for the rows after the last row you saw, using its sort values, instead of skipping a number of rows. It stays fast on deep pages.
+status: published
+claims_checked: []

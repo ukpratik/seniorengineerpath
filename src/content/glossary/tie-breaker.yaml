@@ -1,0 +1,6 @@
+id: tie-breaker
+term: tie-breaker
+forms: [tie-breakers, tiebreaker, tiebreakers]
+short: A unique column, such as the id, added at the end of a sort order. When two rows have the same value, it decides which comes first, so the order never changes.
+status: published
+claims_checked: []

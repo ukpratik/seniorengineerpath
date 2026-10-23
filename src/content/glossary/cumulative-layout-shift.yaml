@@ -1,0 +1,4 @@
+id: cumulative-layout-shift
+term: Cumulative Layout Shift
+forms: [CLS]
+short: "A score for how much content on a page moves without the user asking for it. Good is 0.1 or less."

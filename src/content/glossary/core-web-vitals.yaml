@@ -1,0 +1,4 @@
+id: core-web-vitals
+term: Core Web Vitals
+forms: [Core Web Vital]
+short: "Three numbers from Google that describe how a page feels to real users: LCP for loading, INP for responsiveness and CLS for visual stability."

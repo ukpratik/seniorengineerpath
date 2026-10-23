@@ -1,0 +1,6 @@
+id: rules-file
+term: rules file
+forms: [rules files]
+short: A file of standing instructions that a coding tool loads into the agent's context, such as Cursor rules or Copilot instructions. It guides the agent but does not enforce anything.
+status: published
+claims_checked: []

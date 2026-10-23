@@ -1,0 +1,19 @@
+id: memory-load-order
+title: "How memory files load in one session, and how a new rule gets added"
+viewBox: 0 0 340 520
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="44" rx="10"/><text class="bt" x="170" y="30">1 · New session starts</text><text class="sub" x="170" y="46">context is empty · no memory of yesterday</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="56" x2="170" y2="70"/><rect class="rec" x="20" y="74" width="300" height="44" rx="10"/><text class="rec-t" x="170" y="94">2 · User file loads</text><text class="sub" x="170" y="110">~/.claude/CLAUDE.md · your habits</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="120" x2="170" y2="134"/><rect class="rec" x="20" y="138" width="300" height="44" rx="10"/><text class="rec-t" x="170" y="158">3 · Project file loads</text><text class="sub" x="170" y="174">./CLAUDE.md · team rules, in git</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="184" x2="170" y2="198"/><rect class="rec" x="20" y="202" width="300" height="44" rx="10"/><text class="rec-t" x="170" y="222">4 · Folder file loads on demand</text><text class="sub" x="170" y="238">web/CLAUDE.md · when the agent works there</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="248" x2="170" y2="262"/><rect class="box" x="20" y="266" width="300" height="44" rx="10"/><text class="bt" x="170" y="286">5 · Agent plans with all rules</text><text class="sub" x="170" y="302">joined in order · closest read last</text><rect class="note" x="110" y="316" width="220" height="26" rx="7"/><text class="note-t" x="220" y="333">but no rule about test imports</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="170" y1="344" x2="170" y2="358"/><rect class="box" x="20" y="362" width="300" height="44" rx="10"/><text class="bt badt" x="170" y="382">6 · Same mistake again</text><text class="sub" x="170" y="398">imports @jest/globals · review catches it</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="170" y1="408" x2="170" y2="422"/><rect class="okb" x="20" y="426" width="300" height="52" rx="10"/><text class="ok-t" x="170" y="448">✓ 7 · Reviewer adds one rule</text><text class="sub" x="170" y="467">"Tests use Vitest" · merged like code</text><text class="sub" x="170" y="502">next session loads it from step 3</text></g>
+captions:
+  - "A new session starts with a fresh context window. The agent does not remember the corrections from yesterday's chat."
+  - "Next, Claude Code loads your user file, ~/.claude/CLAUDE.md. Only a managed file from your organization, if there is one, loads before it. It holds your personal habits for all projects."
+  - "Next, it loads the project file, ./CLAUDE.md, and any files in the folders above where you started. The team shares this file through git."
+  - "When the agent reads or edits a file in a subfolder, such as web/, it loads that folder's CLAUDE.md too. Rules for one part of the code stay out of the way until needed."
+  - "All the files are joined, not replaced. Instructions closer to the working folder come last. The agent plans with them. But no file says which test library to use."
+  - "So the agent writes a test that imports from @jest/globals, as it did last week. The team moved to Vitest months ago. A reviewer catches it in the pull request."
+  - "The reviewer adds one short, checkable line to the project CLAUDE.md, and the team reviews it like code. From the next session on, every agent loads the rule at step 3."

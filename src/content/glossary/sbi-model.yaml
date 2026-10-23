@@ -1,0 +1,6 @@
+id: sbi-model
+term: SBI model
+forms: [SBI, Situation-Behavior-Impact]
+short: A way to give feedback in three parts. Name the situation, describe the behaviour you saw, and say what impact it had. It avoids judging the person.
+status: published
+claims_checked: []

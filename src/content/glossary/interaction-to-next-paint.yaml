@@ -1,0 +1,4 @@
+id: interaction-to-next-paint
+term: Interaction to Next Paint
+forms: [INP]
+short: "How long a page takes to show a visible response after a click, tap or key press. It reports the slowest one on the page, ignoring a few outliers. Good is 200 ms or less."

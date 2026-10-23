@@ -1,0 +1,4 @@
+id: critical-rendering-path
+term: critical rendering path
+forms: []
+short: "The steps a browser takes to turn HTML, CSS and JavaScript into pixels: build the DOM and CSSOM, make the render tree, do layout, then paint."

@@ -1,0 +1,4 @@
+id: time-to-first-byte
+term: time to first byte
+forms: [TTFB, Time to First Byte]
+short: "The time from the start of a page request until the first byte of the response arrives. It includes redirects, DNS, the connection, TLS and the server's work."

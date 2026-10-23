@@ -1,0 +1,19 @@
+id: page-load-vitals
+title: "Loading one product page (example timings): where TTFB, LCP, INP and CLS come from"
+viewBox: 0 0 340 552
+svg: |
+  <g class="f" data-f="1"><rect class="box" x="20" y="10" width="300" height="58" rx="10"/><text class="bt" x="170" y="34">0 s · tap a link to /product</text><text class="sub" x="170" y="54">DNS, connect, TLS, then GET</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="70" x2="170" y2="84"/><rect class="rec" x="20" y="86" width="300" height="58" rx="10"/><text class="rec-t" x="170" y="110">0.6 s · first byte of HTML</text><text class="sub" x="170" y="130">this wait is the TTFB</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="170" y1="146" x2="170" y2="160"/><rect class="note" x="20" y="162" width="300" height="58" rx="10"/><text class="note-t" x="170" y="186">Parse HTML: CSS + script in head</text><text class="sub badt" x="170" y="206">render-blocking: screen stays white</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="170" y1="222" x2="170" y2="236"/><rect class="box" x="20" y="238" width="300" height="58" rx="10"/><text class="bt" x="170" y="262">1.4 s · first text on screen</text><text class="sub" x="170" y="282">DOM + CSSOM → layout → paint</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="170" y1="298" x2="170" y2="312"/><rect class="okb" x="20" y="314" width="300" height="58" rx="10"/><text class="ok-t" x="170" y="338">2.2 s · hero image painted</text><text class="sub" x="170" y="358">✓ LCP 2.2 s (good ≤ 2.5 s)</text></g>
+  <g class="f" data-f="6"><line class="ln" x1="170" y1="374" x2="170" y2="388"/><rect class="note" x="20" y="390" width="300" height="58" rx="10"/><text class="note-t" x="170" y="414">User taps "Add to cart"</text><text class="sub badt" x="170" y="434">✗ 300 ms task first · INP 340 ms</text></g>
+  <g class="f" data-f="7"><line class="ln" x1="170" y1="450" x2="170" y2="464"/><rect class="note" x="20" y="466" width="300" height="58" rx="10"/><text class="note-t" x="170" y="490">Ad image with no size loads late</text><text class="sub badt" x="170" y="510">✗ button jumps down · CLS 0.15</text></g>
+captions:
+  - "This is a made-up page with example timings. The user taps a link. The browser looks up the name, opens a connection, does TLS and sends the request."
+  - "After 0.6 seconds the first byte of the HTML arrives. That wait is the time to first byte. It includes redirects, DNS, the connection, TLS and the server's work."
+  - "The browser parses the HTML and finds a stylesheet and a normal script in the head. CSS is render-blocking, so nothing is painted until the CSS is loaded and processed."
+  - "The browser combines the DOM and the CSS rules into a render tree, does layout and paints. The first text appears at 1.4 seconds."
+  - "The hero image is the largest thing in view. It is painted at 2.2 seconds, so LCP is 2.2 seconds. That is inside the 2.5-second good limit."
+  - "The user taps Add to cart. A 300 ms JavaScript task is already running, so the tap waits. The next frame appears 340 ms after the tap. That is above the 200 ms good limit for INP."
+  - "An ad image without a width and height loads late and pushes the button down. The user did not ask for this move, so it counts toward CLS. A score of 0.15 is above the 0.1 good limit. All the timings and scores here are examples."

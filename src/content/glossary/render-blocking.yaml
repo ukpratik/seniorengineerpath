@@ -1,0 +1,4 @@
+id: render-blocking
+term: render-blocking
+forms: [render blocking]
+short: "A file the browser must load and process before it can show the page, such as CSS or a normal script tag in the head."

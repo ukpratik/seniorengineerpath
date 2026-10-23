@@ -1,0 +1,6 @@
+id: monorepo
+term: monorepo
+forms: [monorepos]
+short: One repository that holds the code for many projects or services, often owned by different teams.
+status: published
+claims_checked: []

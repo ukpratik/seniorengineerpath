@@ -1,0 +1,20 @@
+id: presence-offline
+title: "One user goes offline: from a missed heartbeat to the few screens that need to know"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="45" y1="54" x2="45" y2="380"/><line class="life" x1="130" y1="54" x2="130" y2="380"/><line class="life" x1="215" y1="54" x2="215" y2="380"/><line class="life" x1="300" y1="54" x2="300" y2="380"/>
+  <rect class="box" x="7" y="10" width="76" height="44" rx="10"/><text class="bt" x="45" y="37">Asha</text>
+  <rect class="box" x="92" y="10" width="76" height="44" rx="10"/><text class="bt" x="130" y="37">Gateway A</text>
+  <rect class="box" x="177" y="10" width="76" height="44" rx="10"/><text class="bt" x="215" y="37">Presence</text>
+  <rect class="box" x="262" y="10" width="76" height="44" rx="10"/><text class="bt" x="300" y="37">Gateway B</text>
+  <g class="f" data-f="1"><line class="ln" x1="47" y1="86" x2="126" y2="86"/><text class="lb" x="87" y="78">heartbeat</text><line class="ln" x1="47" y1="118" x2="126" y2="118"/><text class="lb" x="87" y="110">heartbeat</text><text class="sub" x="87" y="134">every 30 s</text></g>
+  <g class="f" data-f="2"><path class="xm" d="M38 152l14 14M52 152l-14 14"/><text class="sub badt" x="45" y="184">no signal</text><rect class="note" x="94" y="168" width="72" height="40" rx="7"/><text class="note-t" x="130" y="185">no heartbeat</text><text class="note-t" x="130" y="200">for 90 s</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="132" y1="234" x2="211" y2="234"/><text class="lb" x="172" y="226">Asha offline</text><rect class="rec" x="179" y="246" width="72" height="26" rx="7"/><text class="rec-t" x="215" y="263">Asha: off</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="217" y1="300" x2="296" y2="300"/><text class="lb" x="257" y="292">publish</text><text class="sub" x="257" y="316">only to subscribers</text><text class="sub" x="257" y="332">of Asha's channel</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="300" y1="380" x2="230" y2="404"/><rect class="okb" x="150" y="406" width="90" height="44" rx="8"/><text class="ok-t" x="195" y="425">Ravi ✓</text><text class="ok-t" x="195" y="441">Asha on screen</text><rect class="box" x="248" y="406" width="90" height="44" rx="8"/><text class="bt" x="293" y="425">Meena</text><text class="sub" x="293" y="441">not on screen</text></g>
+captions:
+  - "Asha's phone holds a WebSocket to Gateway A. It sends a small heartbeat every 30 seconds to say it is still there."
+  - "Asha's train enters a tunnel. The connection dies without a clean close, so the heartbeats just stop. Gateway A waits for three missed beats, 90 seconds, before it decides she is gone."
+  - "Gateway A tells the presence service. The presence service is the one owner of Asha's status, and it changes it to offline."
+  - "The presence service publishes the change on Asha's channel. Only the gateways with a client that subscribed to Asha get a copy. Gateway B has one. Most gateways get nothing."
+  - "Gateway B sends the update to Ravi, who has Asha in his open chat. Meena is in the same team, but Asha is not on her screen, so she did not subscribe and gets nothing."

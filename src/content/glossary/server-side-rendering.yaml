@@ -1,0 +1,4 @@
+id: server-side-rendering
+term: server-side rendering
+forms: [SSR]
+short: "Building a page's HTML on the server for each request, so the browser gets content instead of an empty page and a large script."

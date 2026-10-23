@@ -1,0 +1,4 @@
+id: long-task
+term: long task
+forms: [long tasks]
+short: "Any piece of work on the browser's main thread that takes longer than 50 ms. While it runs, the page cannot respond to the user."

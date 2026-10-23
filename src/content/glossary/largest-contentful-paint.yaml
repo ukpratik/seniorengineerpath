@@ -1,0 +1,4 @@
+id: largest-contentful-paint
+term: Largest Contentful Paint
+forms: [LCP]
+short: "The time from when the user starts loading a page until the largest image, text block or video in view is shown. Good is 2.5 seconds or less."

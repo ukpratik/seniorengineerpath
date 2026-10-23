@@ -1,0 +1,4 @@
+id: performance-budget
+term: performance budget
+forms: [performance budgets]
+short: "A set of limits on numbers that affect speed, such as JavaScript size or LCP. Build tools can warn when a change goes over a limit."

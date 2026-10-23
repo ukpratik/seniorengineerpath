@@ -1,0 +1,4 @@
+id: code-splitting
+term: code splitting
+forms: []
+short: "Cutting a JavaScript bundle into smaller pieces, so the browser downloads only the code the first view needs and loads the rest later."

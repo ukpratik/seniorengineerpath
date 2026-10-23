@@ -1,0 +1,4 @@
+id: lab-data
+term: lab data
+forms: []
+short: "Performance numbers from loading a page in a controlled setup, with one device and one network. Repeatable, but not what real users get."

@@ -1,0 +1,4 @@
+id: main-thread
+term: main thread
+forms: [main-thread]
+short: "The browser thread that runs almost all of a page's JavaScript and handles user input. It can do only one task at a time."

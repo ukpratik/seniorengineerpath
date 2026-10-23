@@ -1,0 +1,4 @@
+id: real-user-monitoring
+term: real user monitoring
+forms: [RUM]
+short: "Measuring performance in the browsers of your real visitors and sending the numbers to your own analytics."

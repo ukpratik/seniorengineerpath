@@ -1,0 +1,4 @@
+id: total-blocking-time
+term: Total Blocking Time
+forms: [TBT]
+short: "A lab metric: the total time after First Contentful Paint when long tasks block the main thread. Only the part of each task over 50 ms counts. It helps find INP problems but does not replace INP."

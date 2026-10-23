@@ -1,0 +1,6 @@
+id: glob-pattern
+term: glob pattern
+forms: [glob patterns, glob, globs]
+short: A short pattern that matches file paths. For example, src/**/*.ts matches every TypeScript file under the src folder.
+status: published
+claims_checked: []

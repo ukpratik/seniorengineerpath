@@ -1,0 +1,4 @@
+id: hydration
+term: hydration
+forms: []
+short: "Running JavaScript in the browser to make server-rendered HTML interactive. Until it finishes, the page can look ready but not respond."

@@ -1,0 +1,4 @@
+id: lazy-loading
+term: lazy loading
+forms: [lazy-loading, lazy-load, lazy-loaded]
+short: "Loading a resource, such as an image or a piece of code, only when it is about to be needed instead of at the start."

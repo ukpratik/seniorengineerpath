@@ -1,0 +1,4 @@
+id: lighthouse
+term: Lighthouse
+forms: [Lighthouse CI]
+short: "Google's open-source tool that loads a page in a controlled setup and reports performance and other audits. It gives lab data, not data from real users."

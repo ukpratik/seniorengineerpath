@@ -302,10 +302,11 @@ sup a{font-size:var(--fs-xs);font-weight:var(--fw-bold);text-decoration:none;pad
 .checks .i{color:var(--done);margin-top:2px}
 @media (min-width:600px){.ai{grid-template-columns:1fr 1fr}}
 /* Quiz, done, clarity */
-.q{border:0;padding:0;margin:0 0 22px}
+.q{border:0;padding:0;margin:0 0 22px;min-inline-size:0}
 .q legend{font-weight:var(--fw-heavy);font-size:17px;margin-bottom:10px;padding:0}
 .opt{display:flex;align-items:center;gap:12px;min-height:52px;padding:10px 14px;margin-bottom:8px;border:2px solid var(--border);border-radius:var(--r-lg);background:var(--surface);cursor:pointer;font-size:var(--fs-md)}
 .opt input{width:20px;height:20px;accent-color:var(--accent);flex:none;margin:0}
+.opt>span{min-width:0;overflow-wrap:anywhere}
 .opt:hover{border-color:var(--border-strong)}
 .opt.right{border-color:var(--done);background:var(--done-soft)}
 .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}

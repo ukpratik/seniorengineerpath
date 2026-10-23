@@ -72,3 +72,10 @@ test('QA1-16: RSS links match the canonical URLs (no trailing slash)', () => {
   expect(links.length).toBeGreaterThan(0);
   expect(links.filter((l) => l.endsWith('/'))).toEqual([]);
 });
+
+test('Quiz with a long code path fits a 360 px phone (fieldset min-content width)', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/learn/project-memory-claude-md');
+  const [sw, cw] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
+  expect(sw).toBeLessThanOrEqual(cw);
+});

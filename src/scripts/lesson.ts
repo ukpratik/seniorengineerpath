@@ -150,7 +150,8 @@ if (page) {
       input.closest('.opt')!.classList.add(ok ? 'right' : 'wrong');
       const fb = q.querySelector<HTMLElement>('.fb')!;
       fb.innerHTML = ok ? '<strong class="ok">✓ Correct.</strong> ' : '<strong class="bad">✗ Not quite.</strong> ';
-      fb.append(fb.dataset.why ?? '');
+      const why = q.querySelector<HTMLTemplateElement>('template.why');
+      if (why) fb.append(why.content.cloneNode(true));
       if (!answered) {
         answered = true;
         track('quiz_answer', { lesson_id: id, q: qi + 1, correct: ok });

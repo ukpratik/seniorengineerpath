@@ -21,14 +21,20 @@ ${incidents
 <a class="more btn btn-ghost" style="padding-left:0" href="/incidents?tag=${tag}">All incidents tagged “${e(tag)}” ${ico('arrow-right', true)}</a></div>`;
 }
 
+// Quiz text is plain front matter, so `code` spans are the only markup it gets (escaped first).
+export function inlineCode(s: string): string {
+  return e(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
 export function quizHtml(quiz: Lesson['quiz'], reportUrl: string): string {
   const letters = 'abcde';
+  const c = inlineCode;
   const qs = quiz
     .map(
-      (q, qi) => `<fieldset class="q" data-ok="${letters[q.answer]}"><legend>${qi + 1}. ${e(q.q)}</legend>
-${q.options.map((o, oi) => `<label class="opt"><input type="radio" name="q${qi + 1}" value="${letters[oi]}">${e(o)}</label>`).join('\n')}
-<p class="fb" aria-live="polite" data-why="${e(q.why)}"></p>
-<details class="ans"><summary>Show answer</summary><p><strong>${e(q.options[q.answer])}</strong> ${e(q.why)}</p></details></fieldset>`,
+      (q, qi) => `<fieldset class="q" data-ok="${letters[q.answer]}"><legend>${qi + 1}. ${c(q.q)}</legend>
+${q.options.map((o, oi) => `<label class="opt"><input type="radio" name="q${qi + 1}" value="${letters[oi]}"><span>${c(o)}</span></label>`).join('\n')}
+<p class="fb" aria-live="polite"></p><template class="why">${c(q.why)}</template>
+<details class="ans"><summary>Show answer</summary><p><strong>${c(q.options[q.answer])}</strong> ${c(q.why)}</p></details></fieldset>`,
     )
     .join('\n');
   return `<form class="quiz">${qs}</form>

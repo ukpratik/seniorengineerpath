@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "astro dev",
     "gate": "node --experimental-strip-types scripts/run-gate.ts",
+    "export:app": "node --experimental-strip-types scripts/export-app-content.ts",
     "build": "astro build --force && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",

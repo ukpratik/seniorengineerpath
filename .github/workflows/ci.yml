@@ -26,6 +26,7 @@ jobs:
       - run: npx astro check
       - run: npm test
       - run: npm run build # content gate + site + search index
+      - run: npm run export:app # Android app content (ADR-007): fails on Markdown the app can't draw
       - name: JS budget (NFR-002)
         run: node scripts/js-budget.mjs
       - run: npx playwright install --with-deps chromium webkit firefox

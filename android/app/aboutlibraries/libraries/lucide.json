@@ -1,0 +1,14 @@
+{
+  "uniqueId": "dev.lucide:lucide",
+  "name": "Lucide icons",
+  "description": "Interface icons, converted to Android vector drawables from the website's icon set.",
+  "website": "https://lucide.dev",
+  "developers": [
+    {
+      "name": "Lucide Contributors"
+    }
+  ],
+  "licenses": [
+    "ISC"
+  ]
+}

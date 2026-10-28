@@ -1,0 +1,17 @@
+# Gradle / build
+.gradle/
+build/
+.kotlin/
+local.properties
+captures/
+*.apk
+*.aab
+*.ap_
+*.dex
+# IDE
+.idea/
+*.iml
+# Signing: never commit keys or passwords (ADR-007; keys in ~/.android-keys/, passwords in ~/.gradle/gradle.properties)
+*.jks
+*.keystore
+keystore.properties

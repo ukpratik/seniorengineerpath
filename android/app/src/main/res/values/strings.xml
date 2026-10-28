@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SeniorPath</string>
+
+    <!-- Bottom bar -->
+    <string name="tab_home">Home</string>
+    <string name="tab_map">Map</string>
+    <string name="tab_search">Search</string>
+    <string name="tab_progress">Progress</string>
+    <string name="back">Back</string>
+
+    <!-- Home -->
+    <string name="home_title">Start here</string>
+    <string name="home_intro">From mid-level to senior. How real systems are built, broken and fixed, in simple English.</string>
+    <plurals name="home_lessons">
+        <item quantity="one">%d lesson ready</item>
+        <item quantity="other">%d lessons ready</item>
+    </plurals>
+    <plurals name="home_topics">
+        <item quantity="one">%d topic on the map</item>
+        <item quantity="other">%d topics on the map</item>
+    </plurals>
+    <string name="home_path_label">Suggested path</string>
+    <plurals name="home_path_steps">
+        <item quantity="one">%d lesson in this path</item>
+        <item quantity="other">%d lessons in this path</item>
+    </plurals>
+    <string name="home_offline">Everything works offline. No account, and nothing about you leaves this phone.</string>
+
+    <!-- Map -->
+    <string name="map_title">Curriculum map</string>
+    <string name="map_track_count">Written: %1$d of %2$d</string>
+
+    <!-- Search -->
+    <string name="search_title">Search</string>
+    <string name="search_soon">Search across lessons, the glossary and the libraries comes in a later build.</string>
+
+    <!-- Progress -->
+    <string name="progress_title">Progress</string>
+    <string name="progress_soon">Lessons you mark as done will show here.</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_system">Follow the phone</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="about_row">Licences and credits</string>
+    <string name="version">Version %1$s · content %2$s</string>
+
+    <!-- Licences -->
+    <string name="licences_title">Licences and credits</string>
+    <string name="licence_content_title">Lessons and diagrams</string>
+    <string name="licence_content_body">© 2026 Pratik Ukey. Licensed under Creative Commons BY-NC-SA 4.0: you may share and adapt them for non-commercial use, with credit to SeniorPath (seniorpath.dev), under the same licence.</string>
+    <string name="licence_code_title">App and website code</string>
+    <string name="licence_code_body">© 2026 Pratik Ukey. MIT licence. The source is on GitHub: ukpratik/seniorengineerpath.</string>
+    <string name="licence_libraries">Open-source libraries</string>
+    <string name="licence_row">%1$s %2$s</string>
+    <string name="licence_close">Close</string>
+</resources>

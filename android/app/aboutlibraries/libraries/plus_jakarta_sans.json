@@ -1,0 +1,14 @@
+{
+  "uniqueId": "io.github.tokotype:plus-jakarta-sans",
+  "name": "Plus Jakarta Sans",
+  "description": "UI and diagram typeface (variable weight), the same file the website uses. Copyright 2020 The Plus Jakarta Sans Project Authors.",
+  "website": "https://github.com/tokotype/PlusJakartaSans",
+  "developers": [
+    {
+      "name": "The Plus Jakarta Sans Project Authors"
+    }
+  ],
+  "licenses": [
+    "OFL-1.1"
+  ]
+}

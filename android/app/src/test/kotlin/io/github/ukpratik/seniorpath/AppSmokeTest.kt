@@ -25,26 +25,32 @@ class AppSmokeTest {
 
     private val content get() = ApplicationProvider.getApplicationContext<SeniorPathApp>().container.content
 
+    /** The first frame waits for the saved theme, so wait for the bottom bar before tapping it. */
+    private fun tab(label: String) {
+        rule.waitUntil(10_000) { rule.onAllNodes(hasText(label)).fetchSemanticsNodes().isNotEmpty() }
+        rule.onNodeWithText(label).performClick()
+    }
+
     @Test
     fun `home shows the lesson count from the bundled content`() {
         val m = content.manifest
-        rule.waitUntil(5_000) { rule.onAllNodes(hasText("${m.lessonCount} lessons ready", substring = true)).fetchSemanticsNodes().isNotEmpty() }
+        rule.waitUntil(10_000) { rule.onAllNodes(hasText("${m.lessonCount} lessons ready", substring = true)).fetchSemanticsNodes().isNotEmpty() }
         rule.onNodeWithText("Start here").assertExists()
     }
 
     @Test
     fun `map tab lists every track`() {
-        rule.onNodeWithText("Map").performClick()
+        tab("Map")
         rule.onNodeWithText("Map").assertIsSelected()
         val tracks = content.manifest.tracks
-        rule.waitUntil(5_000) { rule.onAllNodes(hasText(tracks.first().title)).fetchSemanticsNodes().isNotEmpty() }
+        rule.waitUntil(10_000) { rule.onAllNodes(hasText(tracks.first().title)).fetchSemanticsNodes().isNotEmpty() }
         rule.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasText(tracks.last().title))
         rule.onNodeWithText(tracks.last().title).assertExists()
     }
 
     @Test
     fun `progress tab opens licences, and back returns`() {
-        rule.onNodeWithText("Progress").performClick()
+        tab("Progress")
         rule.onNodeWithText("Licences and credits").performClick()
         rule.onNodeWithText("Lessons and diagrams").assertExists()
         rule.onNodeWithText("Open-source libraries").assertExists()

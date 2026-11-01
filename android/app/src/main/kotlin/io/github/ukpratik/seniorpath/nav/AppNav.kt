@@ -21,11 +21,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import io.github.ukpratik.seniorpath.AppContainer
 import io.github.ukpratik.seniorpath.R
 import io.github.ukpratik.seniorpath.feature.about.LicencesScreen
 import io.github.ukpratik.seniorpath.feature.home.HomeScreen
+import io.github.ukpratik.seniorpath.feature.lesson.LessonScreen
 import io.github.ukpratik.seniorpath.feature.map.MapScreen
+import io.github.ukpratik.seniorpath.feature.paths.PathScreen
+import io.github.ukpratik.seniorpath.feature.paths.PathsScreen
 import io.github.ukpratik.seniorpath.feature.progress.ProgressScreen
 import io.github.ukpratik.seniorpath.feature.search.SearchScreen
 import kotlinx.serialization.Serializable
@@ -35,6 +39,9 @@ import kotlinx.serialization.Serializable
 @Serializable data object SearchRoute
 @Serializable data object ProgressRoute
 @Serializable data object LicencesRoute
+@Serializable data object PathsRoute
+@Serializable data class PathRoute(val id: String)
+@Serializable data class LessonRoute(val id: String)
 
 private data class Tab(val route: Any, @param:StringRes val label: Int, @param:DrawableRes val icon: Int)
 
@@ -75,11 +82,17 @@ fun AppNav(container: AppContainer) {
         },
     ) { padding ->
         NavHost(nav, startDestination = HomeRoute, modifier = Modifier.padding(padding).consumeWindowInsets(padding)) {
-            composable<HomeRoute> { HomeScreen(container) }
-            composable<MapRoute> { MapScreen(container) }
+            val lesson = { id: String -> nav.navigate(LessonRoute(id)) }
+            val path = { id: String -> nav.navigate(PathRoute(id)) }
+            val back: () -> Unit = { nav.popBackStack() }
+            composable<HomeRoute> { HomeScreen(container, onLesson = lesson, onPath = path, onPaths = { nav.navigate(PathsRoute) }) }
+            composable<MapRoute> { MapScreen(container, onLesson = lesson, onPath = path) }
             composable<SearchRoute> { SearchScreen() }
             composable<ProgressRoute> { ProgressScreen(container, onLicences = { nav.navigate(LicencesRoute) }) }
-            composable<LicencesRoute> { LicencesScreen(onBack = { nav.popBackStack() }) }
+            composable<LicencesRoute> { LicencesScreen(onBack = back) }
+            composable<PathsRoute> { PathsScreen(container, onPath = path, onBack = back) }
+            composable<PathRoute> { PathScreen(container, it.toRoute<PathRoute>().id, onLesson = lesson, onBack = back) }
+            composable<LessonRoute> { LessonScreen(container, it.toRoute<LessonRoute>().id, onBack = back) }
         }
     }
 }

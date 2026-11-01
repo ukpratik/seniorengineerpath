@@ -8,6 +8,17 @@
     <string name="tab_search">Search</string>
     <string name="tab_progress">Progress</string>
     <string name="back">Back</string>
+    <string name="state_open">Open</string>
+    <string name="state_closed">Closed</string>
+
+    <!-- Levels and statuses, as on the site -->
+    <string name="level_l1">L1 Must-know</string>
+    <string name="level_l2">L2 Senior</string>
+    <string name="level_l3">L3 Staff+</string>
+    <string name="status_done">Done ✓</string>
+    <string name="status_here">In progress</string>
+    <string name="status_written">Written</string>
+    <string name="status_soon">Coming soon</string>
 
     <!-- Home -->
     <string name="home_title">Start here</string>
@@ -25,11 +36,52 @@
         <item quantity="one">%d lesson in this path</item>
         <item quantity="other">%d lessons in this path</item>
     </plurals>
+    <string name="home_your_path">Your path</string>
+    <string name="home_next_lesson">Lesson %1$d: %2$s</string>
+    <string name="home_all_paths">All learning paths</string>
     <string name="home_offline">Everything works offline. No account, and nothing about you leaves this phone.</string>
 
     <!-- Map -->
     <string name="map_title">Curriculum map</string>
     <string name="map_track_count">Written: %1$d of %2$d</string>
+    <string name="map_lede">Each track is a line and each topic is a stop. Lessons written so far: %1$d. The rest are coming soon.</string>
+    <string name="map_written_only">Written only</string>
+    <string name="map_new_here">New here?</string>
+    <string name="map_new_here_body">Start with the “%1$s” path. It puts the lessons in a sensible order.</string>
+    <string name="map_open_path">Open “%1$s”</string>
+    <string name="map_your_progress">Your progress</string>
+    <string name="map_done_count">Done: %1$d of %2$d</string>
+    <string name="map_continue">Continue: %1$s</string>
+    <string name="map_module_count">%1$s · written: %2$d of %3$d</string>
+    <plurals name="map_more_soon">
+        <item quantity="one">%d more coming soon. Turn off “Written only” to see it.</item>
+        <item quantity="other">%d more coming soon. Turn off “Written only” to see them.</item>
+    </plurals>
+
+    <!-- Coming soon -->
+    <string name="soon_notice">We have not written this lesson yet. New lessons come out in batches; update the app to get them.</string>
+    <string name="soon_prereqs">Read these first</string>
+
+    <!-- Paths -->
+    <string name="paths_title">Learning paths</string>
+    <string name="paths_lede">A path puts lessons in a sensible order. Pick one; you can change it any time.</string>
+    <string name="path_yours_badge">Your path</string>
+    <string name="path_card_meta">%1$s · done: %2$d</string>
+    <string name="path_eyebrow">Learning path</string>
+    <string name="path_lede">%1$s Follow it in order; each lesson builds on the one before.</string>
+    <string name="path_done_count">Done: %1$d of %2$d</string>
+    <string name="path_written_count">Steps: %1$d · written: %2$d · coming soon: %3$d</string>
+    <string name="path_start">Start lesson %1$d</string>
+    <string name="path_next">Next: lesson %1$d</string>
+    <string name="path_make_active">Make this my path</string>
+    <string name="path_is_active">This is your path ✓</string>
+    <string name="path_made_active">Done. Lessons now show Previous and Next from this path.</string>
+    <string name="path_active_hint">Your path sets “Previous” and “Next” inside lessons.</string>
+    <string name="path_steps_heading">Lessons in order</string>
+
+    <!-- Lesson -->
+    <string name="lesson_meta">%1$s · %2$d min read</string>
+    <string name="lesson_soon">The full lesson reader comes in the next test build.</string>
 
     <!-- Search -->
     <string name="search_title">Search</string>

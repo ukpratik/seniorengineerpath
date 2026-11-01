@@ -3,7 +3,6 @@ package io.github.ukpratik.seniorpath.feature.about
 import android.content.res.Resources
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -14,8 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -24,16 +21,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import io.github.ukpratik.seniorpath.R
+import io.github.ukpratik.seniorpath.ui.components.BackBar
 import io.github.ukpratik.seniorpath.ui.components.rememberLoaded
 import org.json.JSONObject
 
@@ -71,16 +67,7 @@ fun LicencesScreen(onBack: () -> Unit) {
     var open by remember { mutableStateOf<LicenceEntry?>(null) }
     val scheme = MaterialTheme.colorScheme
     Column(Modifier.fillMaxSize()) {
-        Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) {
-                Icon(painterResource(R.drawable.ic_arrow_left), contentDescription = stringResource(R.string.back))
-            }
-            Text(
-                stringResource(R.string.licences_title),
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(start = 4.dp).semantics { heading() },
-            )
-        }
+        BackBar(stringResource(R.string.licences_title), onBack)
         LazyColumn(Modifier.fillMaxSize()) {
             item { Notice(R.string.licence_content_title, R.string.licence_content_body) }
             item { Notice(R.string.licence_code_title, R.string.licence_code_body) }

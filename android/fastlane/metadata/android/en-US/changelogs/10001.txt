@@ -1,0 +1,1 @@
+First release: 64 lessons with step-through diagrams, six interactive animations, quizzes, search, the incident and case-study libraries, learning paths, and progress you can move to and from the website. Fully offline.

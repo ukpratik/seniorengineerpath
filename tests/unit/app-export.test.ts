@@ -7,6 +7,7 @@ import {
   lessonSections,
   quizInlines,
   frameCss,
+  plainText,
   diagramCss,
   appDiagram,
   DIAGRAM_PALETTE,
@@ -219,4 +220,21 @@ describe('the real export', () => {
       }
     }
   }, 60_000);
+});
+
+describe('search text for lessons (plainText)', () => {
+  it('joins inline runs as written and separates blocks, table cells and Yes/No marks', () => {
+    const text = plainText([
+      { t: 'p', c: [{ t: 'text', v: 'See ' }, { t: 'strong', c: [{ t: 'text', v: 'Raft' }] }, { t: 'text', v: '. Then' }] },
+      {
+        t: 'table',
+        head: [[{ t: 'text', v: 'Option' }], [{ t: 'text', v: 'What you get' }]],
+        rows: [
+          [{ c: [{ t: 'text', v: 'Cache' }] }, { c: [{ t: 'text', v: ', for reads.' }], mark: 'yes' }],
+          [{ c: [{ t: 'text', v: 'Queue' }] }, { c: [{ t: 'text', v: 'It waits.' }], mark: 'no' }],
+        ],
+      },
+    ] as never);
+    expect(text).toBe('See Raft. Then Option What you get Cache Yes, for reads. Queue No It waits.');
+  });
 });

@@ -256,19 +256,21 @@ const INLINE = new Set(['text', 'strong', 'em', 'code', 'link', 'term']);
 export function plainText(x: Inline[] | Block[] | Section[]): string {
   const parts: string[] = [];
   const walk = (v: unknown): void => {
-    if (Array.isArray(v)) return v.forEach(walk);
+    // A list of lists (table header cells, list items) gets a space after each inner list.
+    if (Array.isArray(v)) return v.forEach((x) => (walk(x), Array.isArray(x) && parts.push(' ')));
     if (!v || typeof v !== 'object') return;
     const o = v as Record<string, unknown>;
     if (o.t === 'cite') return;
     if (typeof o.v === 'string') parts.push(o.v);
-    if (o.mark === 'yes' || o.mark === 'no') parts.push(o.mark === 'yes' ? 'Yes' : 'No'); // the site's Yes / No cell marks
+    if (o.mark === 'yes' || o.mark === 'no') parts.push(o.mark === 'yes' ? 'Yes\u0001' : 'No\u0001'); // the site's Yes / No cell marks
     for (const k of ['c', 'blocks', 'items', 'head', 'rows', 'cols'] as const) walk(o[k]);
     if (Array.isArray(o.title)) walk(o.title);
     // Inline runs join as written ("Raft" + ". Prefer"); blocks, cells and line breaks are separated by a space.
     if (!INLINE.has(o.t as string)) parts.push(' ');
   };
   walk(x);
-  return parts.join('').replace(/\s+/g, ' ').trim();
+  // After a Yes / No mark: a space before a word ("No It"), none before punctuation ("Yes, for").
+  return parts.join('').replace(/\u0001(?=[\p{L}\p{N}])/gu, ' ').replace(/\u0001/g, '').replace(/\s+/g, ' ').trim();
 }
 
 // ---------- Diagrams ----------

@@ -117,6 +117,7 @@ describe('lessonSections', () => {
     });
     const [table, list] = sec(sections, 'How it works').blocks;
     expect(table).toMatchObject({ t: 'table', rows: [[{ c: [{ v: 'Key' }] }, { mark: 'yes', c: [{ v: 'Always' }] }], [{}, { mark: 'no', c: [] }], [{ c: [{ v: 'No cache' }] }, { mark: 'yes' }]] });
+    if (table.t !== 'table') throw new Error('expected a table');
     expect(table.rows[2][0].mark).toBeUndefined();
     expect(list).toMatchObject({ t: 'list', ordered: true, items: [[{ t: 'p', c: [{ v: 'First ' }, { t: 'code', v: 'step' }] }], [{}]] });
   });

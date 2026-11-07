@@ -12,8 +12,8 @@ android {
     defaultConfig {
         applicationId = "io.github.ukpratik.seniorpath" // permanent after the first Play upload (D-040)
         // versionCode = MAJOR × 10000 + MINOR × 100 + PATCH, as in the other apps.
-        versionCode = 700
-        versionName = "0.7.0"
+        versionCode = 10000
+        versionName = "1.0.0"
         // Lesson share links and "Report a mistake" (src/config.ts SITE.url and SITE.repo).
         buildConfigField("String", "SITE_URL", "\"https://seniorpath.dev\"")
         buildConfigField("String", "REPO", "\"ukpratik/seniorengineerpath\"")

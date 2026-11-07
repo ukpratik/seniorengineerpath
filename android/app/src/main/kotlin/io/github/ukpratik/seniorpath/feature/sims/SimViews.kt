@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -142,6 +145,13 @@ private fun Lane(who: String, at: Float, label: String, color: androidx.compose.
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(who, style = MaterialTheme.typography.labelMedium, modifier = Modifier.width(64.dp))
         Box(Modifier.weight(1f).height(30.dp).background(MaterialTheme.colorScheme.surface, RoundedCornerShape(6.dp))) {
+            // A tick at the exact time, so events keep their order whatever the label widths (BUG-051).
+            Box(
+                Modifier.fillMaxSize().drawBehind {
+                    val x = size.width * at
+                    drawLine(color, Offset(x, 0f), Offset(x, size.height), strokeWidth = 2.dp.toPx())
+                },
+            )
             Text(
                 label,
                 style = MaterialTheme.typography.labelSmall,

@@ -10,7 +10,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +36,10 @@ import io.github.ukpratik.seniorpath.feature.paths.PathScreen
 import io.github.ukpratik.seniorpath.feature.paths.PathsScreen
 import io.github.ukpratik.seniorpath.feature.progress.ProgressScreen
 import io.github.ukpratik.seniorpath.feature.search.SearchScreen
+import io.github.ukpratik.seniorpath.feature.search.SearchTargets
+import io.github.ukpratik.seniorpath.feature.library.CasesScreen
+import io.github.ukpratik.seniorpath.feature.library.GlossaryScreen
+import io.github.ukpratik.seniorpath.feature.library.IncidentsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable data object HomeRoute
@@ -42,6 +50,9 @@ import kotlinx.serialization.Serializable
 @Serializable data object PathsRoute
 @Serializable data class PathRoute(val id: String)
 @Serializable data class LessonRoute(val id: String)
+@Serializable data class IncidentsRoute(val focus: String? = null)
+@Serializable data class CasesRoute(val focus: String? = null)
+@Serializable data object GlossaryRoute
 
 private data class Tab(val route: Any, @param:StringRes val label: Int, @param:DrawableRes val icon: Int)
 
@@ -59,6 +70,11 @@ fun AppNav(container: AppContainer) {
     val entry by nav.currentBackStackEntryAsState()
     val destination = entry?.destination
     val onTab = tabs.any { t -> destination?.hasRoute(t.route::class) == true }
+    // Build the search index in the background once the first screen is up, so the Search tab answers at once.
+    LaunchedEffect(Unit) {
+        delay(1500)
+        withContext(Dispatchers.Default) { runCatching { container.content.searchIndex } }
+    }
     Scaffold(
         bottomBar = {
             if (onTab) {
@@ -87,7 +103,17 @@ fun AppNav(container: AppContainer) {
             val back: () -> Unit = { nav.popBackStack() }
             composable<HomeRoute> { HomeScreen(container, onLesson = lesson, onPath = path, onPaths = { nav.navigate(PathsRoute) }) }
             composable<MapRoute> { MapScreen(container, onLesson = lesson, onPath = path) }
-            composable<SearchRoute> { SearchScreen() }
+            composable<SearchRoute> {
+                SearchScreen(container, SearchTargets(
+                    onLesson = lesson,
+                    onIncident = { nav.navigate(IncidentsRoute(it)) },
+                    onCase = { nav.navigate(CasesRoute(it)) },
+                    onGlossary = { nav.navigate(GlossaryRoute) },
+                ))
+            }
+            composable<IncidentsRoute> { IncidentsScreen(container, it.toRoute<IncidentsRoute>().focus, onLesson = lesson, onBack = back) }
+            composable<CasesRoute> { CasesScreen(container, it.toRoute<CasesRoute>().focus, onLesson = lesson, onBack = back) }
+            composable<GlossaryRoute> { GlossaryScreen(container, onBack = back) }
             composable<ProgressRoute> { ProgressScreen(container, onLicences = { nav.navigate(LicencesRoute) }, onLesson = lesson) }
             composable<LicencesRoute> { LicencesScreen(onBack = back) }
             composable<PathsRoute> { PathsScreen(container, onPath = path, onBack = back) }
@@ -96,7 +122,7 @@ fun AppNav(container: AppContainer) {
                 // Previous / Next and related topics replace the lesson on screen, so Back returns to where reading began.
                 LessonScreen(container, it.toRoute<LessonRoute>().id, onLesson = { id ->
                     nav.navigate(LessonRoute(id)) { popUpTo<LessonRoute> { inclusive = true } }
-                }, onBack = back, onProgress = {
+                }, onBack = back, onIncident = { nav.navigate(IncidentsRoute(it)) }, onCase = { nav.navigate(CasesRoute(it)) }, onProgress = {
                     nav.navigate(ProgressRoute) {
                         popUpTo(nav.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true

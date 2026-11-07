@@ -30,6 +30,8 @@ class ContentRepository(
     val incidents: List<Incident> by lazy { decode("incidents.json", ListSerializer(Incident.serializer())) }
     val cases: List<CaseStudy> by lazy { decode("cases.json", ListSerializer(CaseStudy.serializer())) }
     val search: List<SearchEntry> by lazy { decode("search.json", ListSerializer(SearchEntry.serializer())) }
+    /** Built on first use from search.json; call off the main thread. */
+    val searchIndex: SearchIndex by lazy { SearchIndex(search) }
     val diagramStyle: DiagramStyle by lazy { decode("diagram-style.json", DiagramStyle.serializer()) }
 
     private val lessons = ConcurrentHashMap<String, Lesson>()

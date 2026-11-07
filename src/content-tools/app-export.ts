@@ -429,8 +429,11 @@ export function buildAppExport(c: Content): AppExport {
   const paths = [...c.paths].sort((a, b) => Number(b.default) - Number(a.default) || a.title.localeCompare(b.title));
 
   files.set('glossary.json', c.glossary);
-  files.set('incidents.json', c.incidents);
-  files.set('cases.json', c.cases);
+  // Backlinks, as the site's library pages show them: the entry's own lessons plus every published lesson that cites it.
+  const linked = (id: string, own: string[], key: 'incidents' | 'cases') =>
+    [...new Set([...own, ...published.filter((l) => l.data[key].includes(id)).map((l) => l.id)])].filter((x) => written.has(x));
+  files.set('incidents.json', c.incidents.map((i) => ({ ...i, lessons: linked(i.id, i.lessons, 'incidents') })));
+  files.set('cases.json', c.cases.map((k) => ({ ...k, lessons: linked(k.id, k.lessons, 'cases') })));
   for (const g of c.glossary) search.push({ type: 'glossary', id: g.id, title: g.term, text: g.short });
   for (const i of c.incidents) search.push({ type: 'incident', id: i.id, title: `${i.company}: ${i.title}`, text: i.broke });
   for (const k of c.cases) search.push({ type: 'case', id: k.id, title: `${k.company}: ${k.title}`, text: k.lesson });

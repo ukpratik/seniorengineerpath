@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.foundation.layout.navigationBarsPadding
+import io.github.ukpratik.seniorpath.content.GlossaryEntry
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -97,4 +101,20 @@ fun LoadError(error: Throwable, modifier: Modifier = Modifier) {
         color = MaterialTheme.colorScheme.error,
         modifier = modifier.padding(16.dp),
     )
+}
+
+/** A glossary term in a bottom sheet (US-011): the term and its short meaning. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GlossarySheet(entry: GlossaryEntry?, id: String, onDismiss: () -> Unit) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(
+            Modifier.padding(start = 20.dp, end = 20.dp, bottom = 24.dp).navigationBarsPadding(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(stringResource(R.string.lesson_glossary), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+            Text(entry?.term ?: id, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
+            Text(entry?.short.orEmpty(), style = MaterialTheme.typography.bodyLarge)
+        }
+    }
 }

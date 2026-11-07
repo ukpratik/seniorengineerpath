@@ -63,6 +63,8 @@ import io.github.ukpratik.seniorpath.data.statusOf
 import io.github.ukpratik.seniorpath.feature.map.ComingSoonSheet
 import io.github.ukpratik.seniorpath.feature.map.TopicRow
 import io.github.ukpratik.seniorpath.ui.components.BackBar
+import io.github.ukpratik.seniorpath.feature.library.formatDay
+import io.github.ukpratik.seniorpath.ui.components.GlossarySheet
 import io.github.ukpratik.seniorpath.ui.components.LoadError
 import io.github.ukpratik.seniorpath.ui.components.SpCard
 import io.github.ukpratik.seniorpath.ui.components.levelLabel
@@ -127,7 +129,7 @@ private class Loaded(val lesson: Lesson, val manifest: Manifest, val repo: Conte
  */
 @OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
 @Composable
-fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit, onBack: () -> Unit, onProgress: () -> Unit = {}) {
+fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit, onBack: () -> Unit, onProgress: () -> Unit = {}, onIncident: (String) -> Unit = {}, onCase: (String) -> Unit = {}) {
     val loaded = rememberLoaded(id) {
         val repo = container.content
         Loaded(repo.lesson(id), repo.manifest, repo).also { container.diagrams; repo.glossary; repo.incidents; repo.cases; it.lesson.sections.forEach { s -> s.blocks.forEach { b -> if (b is Block.Diagram) repo.diagram(b.id) } } }
@@ -191,7 +193,7 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
                             modifier = Modifier.padding(top = 8.dp).semantics { heading() },
                         )
                         is Item.SourceRow -> SourceRow(row.n, row.source)
-                        Item.Library -> Library(lesson, data.repo)
+                        Item.Library -> Library(lesson, data.repo, onIncident, onCase)
                         Item.Related -> RelatedTopics(lesson, data.manifest, progress, openTopic)
                         Item.Done -> DoneButton(lesson, data.manifest, progress, container, snackbar, onProgress)
                         Item.Footer -> Footer(lesson, data.manifest, progress, onLesson)
@@ -223,19 +225,7 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
                 }
             }
         }
-        term?.let { t ->
-            val entry = data.repo.glossaryById[t]
-            ModalBottomSheet(onDismissRequest = { term = null }) {
-                Column(
-                    Modifier.padding(start = 20.dp, end = 20.dp, bottom = 24.dp).navigationBarsPadding(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    Text(stringResource(R.string.lesson_glossary), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-                    Text(entry?.term ?: t, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
-                    Text(entry?.short.orEmpty(), style = MaterialTheme.typography.bodyLarge)
-                }
-            }
-        }
+        term?.let { t -> GlossarySheet(data.repo.glossaryById[t], t, onDismiss = { term = null }) }
         soon?.let { s ->
             ComingSoonSheet(s, data.manifest, { progress.statusOf(it, data.manifest) }, onDismiss = { soon = null }, onOpen = { p ->
                 soon = null
@@ -402,30 +392,29 @@ private fun SourceRow(n: Int, source: Source) {
     }
 }
 
-/** The lesson's real incidents and case studies; each opens the original write-up. The libraries come in A6. */
+/** The lesson's real incidents and case studies; each opens its card in the library, as on the site. */
 @Composable
-private fun Library(lesson: Lesson, repo: ContentRepository) {
-    val uri = LocalUriHandler.current
+private fun Library(lesson: Lesson, repo: ContentRepository, onIncident: (String) -> Unit, onCase: (String) -> Unit) {
     val incidents = repo.incidents.filter { it.id in lesson.incidents }
     val cases = repo.cases.filter { it.id in lesson.cases }
     @Composable
-    fun Entry(label: String, url: String) {
+    fun Entry(label: String, onClick: () -> Unit) {
         Row(
-            Modifier.fillMaxWidth().clickable(role = Role.Button) { uri.openUri(url) }.padding(vertical = 6.dp),
+            Modifier.fillMaxWidth().heightIn(min = 44.dp).clickable(role = Role.Button, onClick = onClick).padding(vertical = 6.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Text(label, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.weight(1f))
-            Icon(painterResource(R.drawable.ic_ext), null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
+            Icon(painterResource(R.drawable.ic_chev_right), null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
         }
     }
     Column {
         if (incidents.isNotEmpty()) {
             Text(stringResource(R.string.lesson_incidents), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
-            for (i in incidents) Entry("${i.company}, ${i.date}: ${i.title}", i.url)
+            for (i in incidents) Entry("${i.company}, ${formatDay(i.date)}: ${i.title}") { onIncident(i.id) }
         }
         if (cases.isNotEmpty()) {
             Text(stringResource(R.string.lesson_cases), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
-            for (c in cases) Entry("${c.company}: ${c.title}", c.url)
+            for (c in cases) Entry("${c.company}: ${c.title}") { onCase(c.id) }
         }
     }
 }

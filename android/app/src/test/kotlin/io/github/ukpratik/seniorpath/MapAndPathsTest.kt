@@ -32,6 +32,13 @@ class MapAndPathsTest {
     private fun scrollTo(text: String) = rule.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasText(text))
 
     @Test
+    fun `map intro counts the written lessons`() {
+        waitFor("Map")
+        rule.onNodeWithText("Map").performClick()
+        waitFor("Lessons written so far: ${manifest.lessonCount}.")
+    }
+
+    @Test
     fun `a written topic on the map opens its lesson`() {
         waitFor("Map")
         rule.onNodeWithText("Map").performClick()

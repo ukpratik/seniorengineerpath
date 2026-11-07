@@ -80,7 +80,7 @@ fun MapScreen(container: AppContainer, onLesson: (String) -> Unit, onPath: (Stri
             item {
                 ScreenTitle(stringResource(R.string.map_title))
                 Text(
-                    stringResource(R.string.map_lede, manifest.tracks.size, manifest.lessonCount),
+                    stringResource(R.string.map_lede, manifest.lessonCount),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )

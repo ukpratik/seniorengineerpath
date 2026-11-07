@@ -51,11 +51,13 @@ class AppSmokeTest {
     @Test
     fun `progress tab opens licences, and back returns`() {
         tab("Progress")
+        rule.waitUntil(10_000) { rule.onAllNodes(hasText("Keep your progress safe")).fetchSemanticsNodes().isNotEmpty() }
+        rule.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasText("Licences and credits"))
         rule.onNodeWithText("Licences and credits").performClick()
         rule.onNodeWithText("Lessons and diagrams").assertExists()
         rule.onNodeWithText("Open-source libraries").assertExists()
         rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
-        rule.onNodeWithText("Follow the phone").assertExists()
+        rule.onAllNodes(hasScrollAction()).onFirst().performScrollToNode(hasText("Follow the phone"))
     }
 
     @Test

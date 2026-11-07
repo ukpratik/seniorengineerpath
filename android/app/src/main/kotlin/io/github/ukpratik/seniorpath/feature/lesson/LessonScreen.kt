@@ -69,6 +69,19 @@ import io.github.ukpratik.seniorpath.ui.components.levelLabel
 import io.github.ukpratik.seniorpath.ui.components.rememberLoaded
 import io.github.ukpratik.seniorpath.ui.components.rememberProgress
 import kotlinx.coroutines.launch
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Button
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import io.github.ukpratik.seniorpath.data.ReadingSpot
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 
 /** One row of the lesson list; each top-level block is its own row so long lessons scroll smoothly. */
 private sealed interface Item {
@@ -82,6 +95,7 @@ private sealed interface Item {
     data class SourceRow(val n: Int, val source: Source) : Item { override val key = "src$n" }
     data object Library : Item { override val key = "library" }
     data object Related : Item { override val key = "related" }
+    data object Done : Item { override val key = "done" }
     data object Footer : Item { override val key = "footer" }
 }
 
@@ -101,6 +115,7 @@ private fun items(lesson: Lesson): List<Item> = buildList {
             if (lesson.related.isNotEmpty()) add(Item.Related)
         }
     }
+    add(Item.Done)
     add(Item.Footer)
 }
 
@@ -110,9 +125,9 @@ private class Loaded(val lesson: Lesson, val manifest: Manifest, val repo: Conte
  * The lesson reader (US-005): the fixed 8 sections, tappable glossary terms (US-011), citations that jump to the
  * sources (US-013), links that open in the browser (US-014), a contents sheet, and Previous / Next on the reader's path.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, FlowPreview::class)
 @Composable
-fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit, onBack: () -> Unit) {
+fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit, onBack: () -> Unit, onProgress: () -> Unit = {}) {
     val loaded = rememberLoaded(id) {
         val repo = container.content
         Loaded(repo.lesson(id), repo.manifest, repo).also { container.diagrams; repo.glossary; repo.incidents; repo.cases; it.lesson.sections.forEach { s -> s.blocks.forEach { b -> if (b is Block.Diagram) repo.diagram(b.id) } } }
@@ -123,7 +138,23 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
     var term by rememberSaveable { mutableStateOf<String?>(null) }
     var contents by rememberSaveable { mutableStateOf(false) }
     var soon by rememberSaveable { mutableStateOf<String?>(null) }
+    val snackbar = remember { SnackbarHostState() }
 
+    // US-002: remember this lesson as the one in progress, and come back to the same place in it.
+    LaunchedEffect(id) { container.progress.setLastOpened(id) }
+    var restored by rememberSaveable(id) { mutableStateOf(false) }
+    LaunchedEffect(id, loaded?.isSuccess) {
+        if (loaded?.isSuccess != true) return@LaunchedEffect
+        if (!restored) {
+            container.settings.readingSpot()?.takeIf { it.lesson == id }?.let { list.scrollToItem(it.index, it.offset) }
+            restored = true
+        }
+        snapshotFlow { list.firstVisibleItemIndex to list.firstVisibleItemScrollOffset }
+            .debounce(400)
+            .collect { (i, o) -> container.settings.setReadingSpot(ReadingSpot(id, i, o)) }
+    }
+
+    Box(Modifier.fillMaxSize()) {
     Column(Modifier.fillMaxSize()) {
         BackBar(null, onBack) {
             if (loaded?.isSuccess == true) {
@@ -150,7 +181,7 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
             ) {
                 items(rows, key = { it.key }) { row ->
                     when (row) {
-                        Item.Header -> Header(lesson, data.manifest)
+                        Item.Header -> Header(lesson, data.manifest, updatedSinceDone(lesson, progress))
                         is Item.SectionHead -> SectionHeader(row.section, row.total)
                         is Item.BlockRow -> LessonBlock(row.block, { data.repo.diagram(it) })
                         is Item.Quiz -> QuizCard(row.index, row.q)
@@ -162,6 +193,7 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
                         is Item.SourceRow -> SourceRow(row.n, row.source)
                         Item.Library -> Library(lesson, data.repo)
                         Item.Related -> RelatedTopics(lesson, data.manifest, progress, openTopic)
+                        Item.Done -> DoneButton(lesson, data.manifest, progress, container, snackbar, onProgress)
                         Item.Footer -> Footer(lesson, data.manifest, progress, onLesson)
                     }
                 }
@@ -211,10 +243,71 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
             })
         }
     }
+    SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding())
+    }
+}
+
+/** The site's "Updated since you finished it": the lesson had a major revision after the reader marked it done. */
+private fun updatedSinceDone(lesson: Lesson, progress: ProgressState): Boolean {
+    val doneAt = progress.done[lesson.id] ?: return false
+    val revised = lesson.majorRevisedOn ?: return false
+    return revised > doneAt.take(10)
+}
+
+/** Mark as done (US-009), at the end of the lesson as on the site. The fifth lesson done suggests an export, once. */
+@Composable
+private fun DoneButton(
+    lesson: Lesson,
+    manifest: Manifest,
+    progress: ProgressState,
+    container: AppContainer,
+    snackbar: SnackbarHostState,
+    onProgress: () -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    val done = lesson.id in progress.done
+    val next = progress.activePath(manifest)?.let { p ->
+        val steps = p.steps.filter { manifest.topics[it]?.written == true }
+        steps.indexOf(lesson.id).takeIf { it >= 0 }?.let { steps.getOrNull(it + 1) }
+    }?.let { manifest.topics[it]?.title }
+    val doneMsg = if (next != null) stringResource(R.string.done_toast_next, next) else stringResource(R.string.done_toast)
+    val undoneMsg = stringResource(R.string.done_undone)
+    val promptMsg = stringResource(R.string.done_export_prompt)
+    val promptAction = stringResource(R.string.done_export_action)
+    val label = stringResource(if (done) R.string.done_undo else R.string.done_mark)
+    Column(Modifier.padding(top = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        HorizontalDivider()
+        val onClick: () -> Unit = {
+            scope.launch {
+                if (done) {
+                    container.progress.undoDone(lesson.id)
+                    snackbar.currentSnackbarData?.dismiss()
+                    snackbar.showSnackbar(undoneMsg)
+                } else {
+                    val s = container.progress.markDone(lesson.id)
+                    snackbar.currentSnackbarData?.dismiss()
+                    if (s.done.size >= 5 && s.exportPrompted != true) {
+                        container.progress.setExportPrompted()
+                        val r = snackbar.showSnackbar(promptMsg, actionLabel = promptAction, duration = SnackbarDuration.Long)
+                        if (r == SnackbarResult.ActionPerformed) onProgress()
+                    } else {
+                        snackbar.showSnackbar(doneMsg)
+                    }
+                }
+            }
+        }
+        val icon = @Composable { Icon(painterResource(if (done) R.drawable.ic_check else R.drawable.ic_check_circle), null, modifier = Modifier.size(20.dp)) }
+        val text = @Composable { Text(label, modifier = Modifier.padding(start = 8.dp)) }
+        if (done) {
+            OutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) { icon(); text() }
+        } else {
+            Button(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) { icon(); text() }
+        }
+    }
 }
 
 @Composable
-private fun Header(lesson: Lesson, manifest: Manifest) {
+private fun Header(lesson: Lesson, manifest: Manifest, updated: Boolean) {
     val track = manifest.tracks.firstOrNull { it.id == lesson.track }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
@@ -226,6 +319,15 @@ private fun Header(lesson: Lesson, manifest: Manifest) {
         Text(lesson.subtitle, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (lesson.illustrativeStory) {
             Text(stringResource(R.string.lesson_illustrative), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        if (updated) {
+            Column(
+                Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(10.dp)).padding(12.dp)
+                    .semantics { liveRegion = LiveRegionMode.Polite },
+            ) {
+                Text(stringResource(R.string.lesson_updated_title), style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                Text(stringResource(R.string.lesson_updated_body), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSecondaryContainer)
+            }
         }
     }
 }
@@ -350,8 +452,7 @@ private fun Footer(lesson: Lesson, manifest: Manifest, progress: ProgressState, 
     val steps = path.steps.filter { manifest.topics[it]?.written == true }
     val i = steps.indexOf(lesson.id)
     if (i < 0) return
-    Column(Modifier.padding(top = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        HorizontalDivider()
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             stringResource(R.string.lesson_on_path, path.title, i + 1, steps.size),
             style = MaterialTheme.typography.bodySmall,

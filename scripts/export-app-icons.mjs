@@ -2,7 +2,7 @@
 // Run after adding a name to ICONS: node scripts/export-app-icons.mjs. The output is committed.
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const ICONS = ['home', 'map', 'search', 'check-circle', 'arrow-left', 'chev-right', 'info', 'sun', 'moon', 'monitor', 'book', 'route', 'target', 'dashed', 'check', 'chev-down', 'x', 'bulb', 'list', 'ext', 'arrow-right', 'upload'];
+const ICONS = ['home', 'map', 'search', 'check-circle', 'arrow-left', 'chev-right', 'info', 'sun', 'moon', 'monitor', 'book', 'route', 'target', 'dashed', 'check', 'chev-down', 'x', 'bulb', 'list', 'ext', 'arrow-right', 'upload', 'download'];
 const OUT = 'android/app/src/main/res/drawable';
 
 const svg = readFileSync('public/icons.svg', 'utf8');

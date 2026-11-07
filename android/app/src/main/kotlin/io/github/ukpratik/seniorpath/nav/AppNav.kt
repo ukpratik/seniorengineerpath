@@ -88,7 +88,7 @@ fun AppNav(container: AppContainer) {
             composable<HomeRoute> { HomeScreen(container, onLesson = lesson, onPath = path, onPaths = { nav.navigate(PathsRoute) }) }
             composable<MapRoute> { MapScreen(container, onLesson = lesson, onPath = path) }
             composable<SearchRoute> { SearchScreen() }
-            composable<ProgressRoute> { ProgressScreen(container, onLicences = { nav.navigate(LicencesRoute) }) }
+            composable<ProgressRoute> { ProgressScreen(container, onLicences = { nav.navigate(LicencesRoute) }, onLesson = lesson) }
             composable<LicencesRoute> { LicencesScreen(onBack = back) }
             composable<PathsRoute> { PathsScreen(container, onPath = path, onBack = back) }
             composable<PathRoute> { PathScreen(container, it.toRoute<PathRoute>().id, onLesson = lesson, onBack = back) }
@@ -96,7 +96,12 @@ fun AppNav(container: AppContainer) {
                 // Previous / Next and related topics replace the lesson on screen, so Back returns to where reading began.
                 LessonScreen(container, it.toRoute<LessonRoute>().id, onLesson = { id ->
                     nav.navigate(LessonRoute(id)) { popUpTo<LessonRoute> { inclusive = true } }
-                }, onBack = back)
+                }, onBack = back, onProgress = {
+                    nav.navigate(ProgressRoute) {
+                        popUpTo(nav.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                    }
+                })
             }
         }
     }

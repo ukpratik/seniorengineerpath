@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { createStore, KEY, nthBucket, type Storage } from '../../src/scripts/store.ts';
 
 function memory(initial: Record<string, string> = {}): Storage & { data: Record<string, string> } {
@@ -85,5 +86,37 @@ describe('store', () => {
 
   it('buckets completion counts', () => {
     expect([1, 2, 5, 6, 40].map(nthBucket)).toEqual(['1', '2-5', '2-5', '6+', '6+']);
+  });
+});
+
+// The web half of the progress-file contract with the Android app (tests/fixtures/progress/README.md).
+describe('progress file shared with the Android app', () => {
+  const fixture = (name: string) => readFileSync(new URL(`../fixtures/progress/${name}`, import.meta.url), 'utf8');
+
+  it('writes exactly the file the app imports', () => {
+    const state = {
+      v: 1,
+      done: {
+        'api-gateway': '2026-10-01T09:00:00.000Z',
+        'authn-authz': '2026-10-03T18:30:00.000Z',
+        'a-lesson-that-was-removed': '2026-09-01T00:00:00.000Z',
+      },
+      ever: [],
+      lastOpened: 'btree-lsm',
+      lastOpenedAt: '2026-10-04T08:00:00.000Z',
+    };
+    const s = createStore(memory({ [KEY]: JSON.stringify(state) }));
+    expect(s.exportJson(new Date('2026-10-05T12:00:00.000Z'))).toBe(fixture('web-export.json'));
+  });
+
+  it('imports the file the app exports', () => {
+    const s = createStore(memory());
+    const known = new Set(['api-gateway', 'architecture-tradeoffs', 'authn-authz', 'btree-lsm']);
+    expect(s.importJson(fixture('app-export.json'), known)).toEqual({ ok: true, added: 2, ignored: 0 });
+    expect(s.load()?.done).toEqual({
+      'architecture-tradeoffs': '2026-11-01T07:15:00.000Z',
+      'api-gateway': '2026-11-02T10:00:00.000Z',
+    });
+    expect(s.load()?.lastOpened).toBe('btree-lsm');
   });
 });

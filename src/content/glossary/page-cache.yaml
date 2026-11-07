@@ -1,0 +1,4 @@
+id: page-cache
+term: page cache
+forms: [OS page cache, file cache]
+short: File data the Linux kernel keeps in RAM after a read or write. It makes repeated reads fast. Written data waits there before it goes to disk.

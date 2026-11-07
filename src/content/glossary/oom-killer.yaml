@@ -1,0 +1,4 @@
+id: oom-killer
+term: OOM killer
+forms: [OOM-killed, OOMKilled, OOM kill, OOM kills, out of memory killer]
+short: The part of the Linux kernel that ends a process when memory runs out and cannot be freed. In a container, it runs when the container reaches its memory limit and the kernel cannot free enough memory.

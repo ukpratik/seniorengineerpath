@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: true
+glossary_optout: [join]
 sources:
   - id: ddia
     title: "Martin Kleppmann, Designing Data-Intensive Applications (O'Reilly)"

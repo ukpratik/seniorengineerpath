@@ -1,0 +1,4 @@
+id: process
+term: process
+forms: [processes]
+short: A running program. Each process has its own private memory, its own open files and its own limits, so one process normally cannot read or damage another's memory.

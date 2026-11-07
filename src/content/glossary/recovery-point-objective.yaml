@@ -1,0 +1,4 @@
+id: recovery-point-objective
+term: recovery point objective
+forms: [RPO, RPOs, recovery point objectives]
+short: The most data you accept to lose in a disaster, measured as time. An RPO of 5 minutes means you may lose up to the last 5 minutes of writes.

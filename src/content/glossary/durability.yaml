@@ -1,0 +1,3 @@
+id: durability
+term: durability
+short: How likely it is that data, once saved, stays saved and is not lost. It is different from availability, which is whether you can reach the data right now.

@@ -1,0 +1,4 @@
+id: clearing-account
+term: clearing account
+forms: [clearing accounts]
+short: A ledger account that holds money only while it is on the way, for example between a payment and its payout. When every step finishes, it should go back to zero.

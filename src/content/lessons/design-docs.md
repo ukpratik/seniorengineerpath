@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: true
+glossary_optout: [process]
 sources:
   - id: ubl
     title: "Malte Ubl, “Design Docs at Google”, Industrial Empathy (2020)"

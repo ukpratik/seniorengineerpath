@@ -1,0 +1,4 @@
+id: file-descriptor
+term: file descriptor
+forms: [file descriptors]
+short: A small number the kernel gives your process for each open file, socket or pipe. Each process may hold only a limited number at once.

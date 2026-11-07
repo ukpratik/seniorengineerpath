@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: false
+glossary_optout: [availability]
 sources:
   - id: cf2019
     title: "Cloudflare, “Details of the Cloudflare outage on July 2, 2019” (official postmortem)"

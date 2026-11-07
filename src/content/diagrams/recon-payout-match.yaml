@@ -1,0 +1,20 @@
+id: recon-payout-match
+title: "Matching one day of payments: ledger, provider report and bank statement"
+viewBox: 0 0 340 430
+svg: |
+  <text class="lb" x="62" y="16">Our ledger</text>
+  <text class="lb" x="180" y="16">Provider report</text>
+  <text class="lb" x="290" y="16">Result</text>
+  <g class="f" data-f="1"><rect class="box" x="10" y="26" width="104" height="28" rx="6"/><text class="bt" x="62" y="45">A ₹1,000</text><rect class="box" x="10" y="60" width="104" height="28" rx="6"/><text class="bt" x="62" y="79">B ₹500</text><rect class="box" x="10" y="94" width="104" height="28" rx="6"/><text class="bt" x="62" y="113">C ₹200</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="122" y="26" width="116" height="28" rx="6"/><text class="rec-t" x="180" y="45">A 1,000 fee 20</text><rect class="rec" x="122" y="60" width="116" height="28" rx="6"/><text class="rec-t" x="180" y="79">B 500 fee 10</text><rect class="rec" x="122" y="128" width="116" height="28" rx="6"/><text class="rec-t" x="180" y="147">D 300 fee 6</text></g>
+  <g class="f" data-f="3"><rect class="okb" x="246" y="26" width="88" height="28" rx="6"/><text class="ok-t" x="290" y="45">✓ match</text><rect class="okb" x="246" y="60" width="88" height="28" rx="6"/><text class="ok-t" x="290" y="79">✓ match</text><rect class="note" x="246" y="94" width="88" height="28" rx="6"/><text class="note-t" x="290" y="113">only ours</text><rect class="note" x="246" y="128" width="88" height="28" rx="6"/><text class="note-t" x="290" y="147">only theirs</text><text class="sub" x="170" y="178">match on the payment id, then compare amounts</text></g>
+  <line class="life" x1="5" y1="192" x2="335" y2="192"/>
+  <text class="lb" x="170" y="214">Payout vs bank statement</text>
+  <g class="f" data-f="4"><rect class="rec" x="10" y="226" width="150" height="30" rx="6"/><text class="rec-t" x="85" y="246">Payout ₹1,764</text><rect class="box" x="180" y="226" width="150" height="30" rx="6"/><text class="bt" x="255" y="246">Bank +₹1,764</text><text class="sub" x="170" y="276">980 + 490 + 294 = 1,764 · same trace id</text><text class="sub badt" x="170" y="296">matched A + B net = ₹1,470 · gap ₹294 = D</text></g>
+  <g class="f" data-f="5"><text class="lb" x="170" y="324">Break queue</text><rect class="note" x="10" y="334" width="320" height="28" rx="6"/><text class="note-t" x="170" y="353">C · timing · age 1 day · wait</text><rect class="note" x="10" y="368" width="320" height="28" rx="6"/><text class="note-t" x="170" y="387">D · missing on our side · verify, post entry</text><text class="sub" x="170" y="418">Fix with new entries. Never edit old ones.</text></g>
+captions:
+  - "Your ledger says three card payments succeeded today: A for ₹1,000, B for ₹500 and C for ₹200. It knows the gross amounts, but not the fees yet."
+  - "The provider's report lists what it put into this payout. It has A and B, with fees. It also has D, a payment your ledger never recorded. C is not there."
+  - "Match line by line on the payment id. A and B match. C exists only on your side. D exists only on the provider's side. Each gap is a break."
+  - "The payout is the sum of the net amounts, ₹1,764. It matches the bank deposit, and the trace id agrees. After you book the fees from the report, the items you matched, A and B, net to only ₹1,470. The extra ₹294 is D, which your ledger never recorded."
+  - "Every break goes to a queue with a type, an owner and an age. C is probably a timing gap, so you wait a day. D needs a check with the provider, then a new ledger entry. You never edit an old entry."

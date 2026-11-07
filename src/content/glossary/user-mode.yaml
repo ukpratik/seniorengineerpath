@@ -1,0 +1,4 @@
+id: user-mode
+term: user mode
+forms: [kernel mode]
+short: The restricted CPU mode your code runs in. It cannot do I/O or run privileged instructions. For that it asks the kernel, which runs in kernel mode with full access.

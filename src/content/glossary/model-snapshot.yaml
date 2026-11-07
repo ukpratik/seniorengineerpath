@@ -1,0 +1,4 @@
+id: model-snapshot
+term: model snapshot
+forms: [model snapshots]
+short: A fixed, dated version of a model with a name that does not change, such as one ending in a date. Pinning one keeps behaviour stable until you choose to upgrade.

@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-22
 illustrative_story: true
+glossary_optout: [process]
 sources:
   - id: bbg-zero
     title: "ByteByteGo, “Scale From Zero To Millions Of Users”, System Design Interview course (online chapter)"

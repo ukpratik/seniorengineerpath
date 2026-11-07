@@ -1,0 +1,4 @@
+id: thread
+term: thread
+forms: [threads, OS thread, OS threads]
+short: One line of execution inside a process. Threads of one process share its memory and open files, but each thread has its own stack.

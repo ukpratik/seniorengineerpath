@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: false
+glossary_optout: [process]
 sources:
   - id: cloudflare-2017
     title: "Cloudflare, “How and why the leap second affected Cloudflare DNS” (January 2017)"

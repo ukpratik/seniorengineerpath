@@ -101,7 +101,7 @@ quiz:
 incidents: []
 cases: [slack-realtime-messaging, discord-elixir-fanout]
 related: [http-versions, load-balancing, presence-fanout, backpressure, webhooks]
-glossary_optout: [fan-out]
+glossary_optout: [fan-out, process]
 ---
 
 ## What broke

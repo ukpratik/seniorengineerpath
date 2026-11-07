@@ -1,0 +1,4 @@
+id: fsync
+term: fsync
+forms: [fdatasync]
+short: A system call that waits until a file's changed data is stored on the disk. Without it, written data may sit only in RAM and be lost on a power cut.

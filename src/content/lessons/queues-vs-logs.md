@@ -3,6 +3,7 @@ topic: queues-vs-logs
 subtitle: A queue forgets a message once it is done. A log keeps it. Know which one you have, and what "delivered once" really means.
 status: published
 illustrative_story: true
+glossary_optout: [join]
 sources:
   - id: ddia
     title: "Martin Kleppmann, Designing Data-Intensive Applications (O'Reilly)"

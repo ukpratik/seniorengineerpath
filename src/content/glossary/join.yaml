@@ -1,0 +1,4 @@
+id: join
+term: join
+forms: [joins, joined, joining, "table join"]
+short: A query step that combines rows from two tables by matching a column, such as orders.user_id = users.id.

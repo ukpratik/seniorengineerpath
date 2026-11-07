@@ -3,6 +3,7 @@ topic: raft
 subtitle: Raft lets a small group of servers agree on one list of changes, even when some of them fail. Learn how it works and what it costs.
 status: published
 illustrative_story: true
+glossary_optout: [process]
 sources:
   - id: raft-paper
     title: "Diego Ongaro and John Ousterhout, “In Search of an Understandable Consensus Algorithm (Extended Version)”, 2014 (USENIX ATC 2014)"

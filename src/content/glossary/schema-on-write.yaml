@@ -1,0 +1,4 @@
+id: schema-on-write
+term: schema-on-write
+forms: []
+short: The database checks every write against a fixed schema, such as a SQL table definition, and rejects data that does not fit.

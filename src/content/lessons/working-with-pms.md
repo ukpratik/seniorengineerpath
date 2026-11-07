@@ -97,7 +97,7 @@ quiz:
     answer: 0
     why: Early news gives the PM time to cut scope, move the date or warn others. Late news removes those choices.
 incidents: []
-glossary_optout: [scope, leader]
+glossary_optout: [scope, leader, join]
 related: [influence-without-authority, estimation-planning, tech-debt, requirements-nfrs, design-docs, technical-writing]
 ---
 

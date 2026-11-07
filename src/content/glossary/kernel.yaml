@@ -1,0 +1,4 @@
+id: kernel
+term: kernel
+forms: [kernels, OS kernel]
+short: The core of the operating system. It runs with full access to the hardware and shares the CPU, memory and disks among all programs.

@@ -3,6 +3,7 @@ topic: debugging-production
 subtitle: When production breaks, first stop the harm, then find the cause with data, one hypothesis at a time.
 status: published
 illustrative_story: false
+glossary_optout: [process]
 sources:
   - id: cf2025
     title: "Cloudflare, “Cloudflare outage on November 18, 2025” (official postmortem)"

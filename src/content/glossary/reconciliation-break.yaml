@@ -1,0 +1,4 @@
+id: reconciliation-break
+term: reconciliation break
+forms: [reconciliation breaks]
+short: A difference found during reconciliation, such as a payment that is on only one side, a wrong amount or a duplicate. Each one needs a type, an owner and a fix.

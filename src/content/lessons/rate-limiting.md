@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: true
+glossary_optout: [process, join]
 sources:
   - id: stripe
     title: "Paul Tarjan, “Scaling your API with rate limiters”, Stripe blog, 2017"

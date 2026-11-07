@@ -1,0 +1,4 @@
+id: context-engineering
+term: context engineering
+forms: []
+short: Choosing and arranging everything a model sees for one request, such as instructions, examples, documents, tool results and history, so the useful tokens fit and the noise stays out.

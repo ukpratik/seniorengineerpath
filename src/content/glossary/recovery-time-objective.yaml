@@ -1,0 +1,4 @@
+id: recovery-time-objective
+term: recovery time objective
+forms: [RTO, RTOs, recovery time objectives]
+short: The longest you accept a service to be down after a disaster before it works again. An RTO of 1 hour means you must be back within an hour.

@@ -127,7 +127,7 @@ quiz:
 incidents: []
 cases: [shopify-resilient-payments, stripe-idempotency-keys]
 related: [money-ledgers, idempotency-retries, webhooks, reconciliation, pci-tokenisation, payment-rails, fraud-risk]
-glossary_optout: [authorization, authentication]
+glossary_optout: [authorization, authentication, process]
 ---
 
 ## What broke

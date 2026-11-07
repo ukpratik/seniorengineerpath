@@ -1,0 +1,4 @@
+id: data-model
+term: data model
+forms: [data models]
+short: The shape you give your data, such as tables with rows, nested documents, or a graph of nodes and links.

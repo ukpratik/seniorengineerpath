@@ -1,0 +1,4 @@
+id: camt-053
+term: camt.053
+forms: []
+short: The ISO 20022 XML message for a bank account statement. It holds the opening and closing balances and every entry for the period, often one day.

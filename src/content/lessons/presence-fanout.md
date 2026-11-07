@@ -83,7 +83,7 @@ quiz:
 incidents: []
 cases: [discord-elixir-fanout, slack-realtime-messaging]
 related: [realtime-transports, fan-out, sharding, backpressure, queues-vs-logs]
-glossary_optout: [fan-out, request-coalescing]
+glossary_optout: [fan-out, request-coalescing, process]
 ---
 
 ## What broke

@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: false
+glossary_optout: [join]
 sources:
   - id: hi-delivery
     title: "Hello Interview, “System Design Delivery Framework” (System Design in a Hurry)"

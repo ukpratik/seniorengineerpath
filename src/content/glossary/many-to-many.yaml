@@ -1,0 +1,4 @@
+id: many-to-many
+term: many-to-many
+forms: [many-to-many relationship, many-to-many relationships]
+short: A link where each record on both sides can connect to many on the other, like users and events. In SQL it needs a third table of id pairs.

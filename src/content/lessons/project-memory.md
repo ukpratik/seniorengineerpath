@@ -3,6 +3,7 @@ topic: project-memory
 subtitle: Write down what the agent cannot guess, keep it short, and review it like code.
 status: published
 illustrative_story: true
+glossary_optout: [join]
 sources:
   - id: cc-memory
     title: "Anthropic, “How Claude remembers your project”, Claude Code documentation"

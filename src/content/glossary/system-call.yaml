@@ -1,0 +1,4 @@
+id: system-call
+term: system call
+forms: [system calls, syscall, syscalls]
+short: A request from your program to the kernel, such as read, write or open. The CPU switches into kernel mode to do it, which costs time.

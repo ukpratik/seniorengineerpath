@@ -1,0 +1,4 @@
+id: normalization
+term: normalization
+forms: [normalisation, normalise, normalize, normalised, normalized]
+short: Designing tables so each fact is stored in one place and other rows point to it by id. Updates touch one row, but reads need joins.

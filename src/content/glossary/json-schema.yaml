@@ -1,0 +1,4 @@
+id: json-schema
+term: JSON Schema
+forms: [JSON schemas]
+short: A standard way to describe the shape of JSON data, such as which fields exist, their types and which are required. Code can check a document against it.

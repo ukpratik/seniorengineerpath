@@ -3,6 +3,7 @@ topic: incident-response
 subtitle: Run an incident with one leader, one channel and regular updates, then write a blameless postmortem whose fixes really get done.
 status: published
 illustrative_story: false
+glossary_optout: [process, join]
 sources:
   - id: atl-pir
     title: "Atlassian, “Post-Incident Review on the Atlassian April 2022 outage” (official review)"

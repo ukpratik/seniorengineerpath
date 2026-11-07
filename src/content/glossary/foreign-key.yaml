@@ -1,0 +1,4 @@
+id: foreign-key
+term: foreign key
+forms: [foreign keys]
+short: A column whose value must match a row in another table, such as order_items.order_id pointing to orders.id. The database rejects values with no match.

@@ -1,0 +1,4 @@
+id: schema-on-read
+term: schema-on-read
+forms: []
+short: The database does not force a structure on writes. The code that reads the data decides what it means, and must handle old and new shapes.

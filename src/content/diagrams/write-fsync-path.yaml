@@ -1,0 +1,19 @@
+id: write-fsync-path
+title: "write() returns once the data is in the page cache; fsync() waits for the disk"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="390"/><line class="life" x1="170" y1="54" x2="170" y2="390"/><line class="life" x1="285" y1="54" x2="285" y2="390"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Your app</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Kernel</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Disk</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="86" x2="166" y2="86"/><text class="lb" x="112" y="77">write()</text><text class="sub" x="112" y="104">user → kernel mode</text></g>
+  <g class="f" data-f="2"><rect class="note" x="120" y="118" width="100" height="26" rx="7"/><text class="note-t" x="170" y="136">page: dirty</text><line class="ln" x1="168" y1="166" x2="59" y2="166"/><text class="lb" x="112" y="159">done</text><text class="sub badt" x="170" y="190">in RAM only, not on disk</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="222" x2="166" y2="222"/><text class="lb" x="112" y="213">fsync()</text><text class="sub" x="55" y="244">app waits…</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="172" y1="270" x2="281" y2="270"/><text class="lb" x="227" y="261">flush</text><line class="ln" x1="283" y1="304" x2="174" y2="304"/><text class="lb" x="227" y="297">stored</text><rect class="rec" x="120" y="316" width="100" height="26" rx="7"/><text class="rec-t" x="170" y="334">page: clean</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="168" y1="370" x2="59" y2="370"/><text class="lb" x="112" y="363">done</text><rect class="okb" x="10" y="410" width="320" height="30" rx="8"/><text class="ok-t" x="170" y="430">✓ now the data is on the device</text></g>
+captions:
+  - "Your app calls write() with 4 KB of data. This is a system call: the CPU switches from user mode into the kernel."
+  - "The kernel copies the data into a page in the page cache, in RAM, and marks the page dirty. Then write() returns. The data is not on the disk yet. A power cut now loses it."
+  - "To make the data durable, the app calls fsync() on the same file descriptor. The call blocks. Your thread waits."
+  - "The kernel sends the dirty page to the disk and waits for the device to confirm it has stored the data. Now the page is clean."
+  - "Only now does fsync() return. This wait is the cost of durability. A database waits for a flush like this before it confirms a commit, though one flush can serve several commits."

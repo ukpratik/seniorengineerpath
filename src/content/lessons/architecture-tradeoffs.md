@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-21
 illustrative_story: true
+glossary_optout: [process, join]
 sources:
   - id: amazon-2015
     title: "Jeff Bezos, 2015 Letter to Shareholders, Amazon.com (filed with the US SEC, April 2016)"

@@ -6,6 +6,7 @@ reviewed_by: ai-factcheck
 reviewed_on: 2026-10-22
 review_by: 2027-01-20
 illustrative_story: false
+glossary_optout: [process]
 sources:
   - id: claude-evals
     title: "Anthropic, “Define success criteria and build evaluations”, Claude documentation"

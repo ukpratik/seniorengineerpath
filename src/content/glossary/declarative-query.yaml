@@ -1,0 +1,4 @@
+id: declarative-query
+term: declarative query
+forms: [declarative queries, declarative query language, declarative query languages]
+short: A query that says what result you want, not the steps to get it, as in SQL or Cypher. The database chooses the indexes and order.

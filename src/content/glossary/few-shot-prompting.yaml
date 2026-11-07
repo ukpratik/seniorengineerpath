@@ -1,0 +1,4 @@
+id: few-shot-prompting
+term: few-shot prompting
+forms: [few-shot, few-shot examples, few-shot example, zero-shot]
+short: Putting a few worked examples of input and the output you want into the prompt, so the model copies their format and style. With no examples, it is called zero-shot.

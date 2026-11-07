@@ -3,6 +3,7 @@ topic: search-systems
 subtitle: A search engine does not scan your text. It looks words up in an inverted index, ranks the matches, and must be kept in step with your database.
 status: published
 illustrative_story: true
+glossary_optout: [process, normalization]
 sources:
   - id: pg-fts-intro
     title: "PostgreSQL documentation: Full Text Search, Introduction"

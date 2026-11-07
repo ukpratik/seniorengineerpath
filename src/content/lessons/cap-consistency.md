@@ -111,7 +111,7 @@ quiz:
 incidents: [github-2018-10-split-brain]
 cases: [amazon-dynamo, google-spanner]
 related: [replication, quorums-leaderless, clocks-ordering, raft, multi-region, crdts]
-glossary_optout: [partition]
+glossary_optout: [partition, availability]
 ---
 
 ## What broke

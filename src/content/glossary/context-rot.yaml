@@ -1,0 +1,4 @@
+id: context-rot
+term: context rot
+forms: []
+short: The drop in a model's accuracy and recall as its context window fills with more tokens. A long prompt can hide the one fact the model needs.

@@ -1,0 +1,4 @@
+id: context-switch
+term: context switch
+forms: [context switches, context switching]
+short: The kernel stops one thread, saves its registers, and starts another. It lets many threads share one CPU, but each switch costs time.

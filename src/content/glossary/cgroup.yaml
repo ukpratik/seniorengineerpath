@@ -1,0 +1,4 @@
+id: cgroup
+term: cgroup
+forms: [cgroups, control group, control groups, cgroup v2]
+short: A Linux feature that groups processes and limits what they may use together, such as memory and CPU. Containers use cgroups for their limits.

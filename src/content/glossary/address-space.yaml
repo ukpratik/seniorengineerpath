@@ -1,0 +1,4 @@
+id: address-space
+term: address space
+forms: [address spaces, virtual memory, virtual address, virtual addresses]
+short: The private view of memory that each process gets. Every address the program sees is virtual; the OS and hardware map it to real RAM. This is called virtual memory.

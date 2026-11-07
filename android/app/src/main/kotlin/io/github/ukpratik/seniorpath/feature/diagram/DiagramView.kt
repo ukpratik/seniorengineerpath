@@ -52,6 +52,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -85,9 +86,12 @@ fun DiagramView(d: Diagram, renderer: DiagramRenderer, modifier: Modifier = Modi
             Text(d.title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
             ShareButton(d, k, dark, renderer)
         }
+        // The step's caption names the picture for TalkBack, also while it is still being drawn.
+        val described = stringResource(R.string.diagram_step_of, k, d.frames) + ": " + d.captions[k - 1]
         Frame(
             d, k, dark, renderer,
-            Modifier.clickable(onClickLabel = stringResource(R.string.diagram_zoom)) { zoom = true }
+            Modifier.semantics { contentDescription = described }
+                .clickable(onClickLabel = stringResource(R.string.diagram_zoom)) { zoom = true }
                 .pointerInput(d.id, k) { swipes { dir -> step(k + dir) } },
         )
         Steps(d, k, step)
@@ -115,7 +119,8 @@ private fun Frame(d: Diagram, k: Int, dark: Boolean, renderer: DiagramRenderer, 
         val b = bitmap
         val image = b?.second
         when {
-            image != null -> Image(image.asImageBitmap(), contentDescription = caption, modifier = Modifier.fillMaxSize())
+            // Inside the zoom view this names the picture; in the lesson the clickable frame already does.
+            image != null -> Image(image.asImageBitmap(), contentDescription = if (scale > 1f) caption else null, modifier = Modifier.fillMaxSize())
             b != null -> Text(stringResource(R.string.diagram_failed), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(8.dp))
             else -> CircularProgressIndicator(Modifier.align(Alignment.Center).size(28.dp), strokeWidth = 3.dp)
         }

@@ -268,9 +268,11 @@ export function plainText(x: Inline[] | Block[] | Section[]): string {
 
 // ---------- Diagrams ----------
 
+// Arrowheads as on the site, but with orient="auto": AndroidSVG 1.4 can't parse "auto-start-reverse", and the
+// diagrams only put markers at line ends, where both draw the same.
 const DEFS =
-  '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path class="mk" d="M0 0 10 5 0 10z"/></marker>' +
-  '<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto-start-reverse"><path class="mkA" d="M0 0 10 5 0 10z"/></marker></defs>';
+  '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="mk" d="M0 0 10 5 0 10z"/></marker>' +
+  '<marker id="ahA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="3.6" markerHeight="3.6" orient="auto"><path class="mkA" d="M0 0 10 5 0 10z"/></marker></defs>';
 
 // Resolved from tokens.css (the --dg-* tokens). Keep in step with it.
 export const DIAGRAM_PALETTE = {
@@ -333,6 +335,7 @@ export function appDiagram(d: Content['diagrams'][number]): AppDiagram {
   if (frames !== d.captions.length) throw new ExportError(`diagram ${d.id}: ${frames} frames but ${d.captions.length} captions`);
   const inner = d.svg.trim().replace(/class="f" data-f="(\d+)"/g, 'class="f f$1" data-f="$1"');
   if (/class="f"/.test(inner)) throw new ExportError(`diagram ${d.id}: a frame group has attributes in an unexpected order`);
+  if (/marker-start/.test(inner)) throw new ExportError(`diagram ${d.id}: marker-start needs orient="auto-start-reverse", which the app can't draw`);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${d.viewBox}">${DEFS}${inner}</svg>`;
   return { id: d.id, title: d.title, viewBox: d.viewBox, frames, captions: d.captions, svg };
 }

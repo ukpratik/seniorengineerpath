@@ -3,6 +3,7 @@ package io.github.ukpratik.seniorpath
 import android.content.Context
 import io.github.ukpratik.seniorpath.content.ContentRepository
 import io.github.ukpratik.seniorpath.data.ProgressRepository
+import io.github.ukpratik.seniorpath.feature.diagram.DiagramRenderer
 import io.github.ukpratik.seniorpath.data.SettingsRepository
 
 /** Manual wiring (architecture.md §4): the app is small enough not to need a DI framework. */
@@ -15,4 +16,7 @@ class AppContainer(context: Context) {
     val settings = SettingsRepository(context.applicationContext)
 
     val progress = ProgressRepository(context.applicationContext)
+
+    /** Draws diagram steps. First use reads `diagram-style.json`, so touch it off the main thread. */
+    val diagrams by lazy { DiagramRenderer(context.applicationContext, content.diagramStyle) }
 }

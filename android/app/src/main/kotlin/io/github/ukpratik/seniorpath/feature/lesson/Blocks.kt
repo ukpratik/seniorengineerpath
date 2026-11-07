@@ -35,7 +35,13 @@ import io.github.ukpratik.seniorpath.content.Block
 import io.github.ukpratik.seniorpath.content.Cell
 import io.github.ukpratik.seniorpath.content.Diagram
 import io.github.ukpratik.seniorpath.content.Inline
+import io.github.ukpratik.seniorpath.feature.diagram.DiagramRenderer
+import io.github.ukpratik.seniorpath.feature.diagram.DiagramView
 import io.github.ukpratik.seniorpath.ui.components.SpCard
+import androidx.compose.runtime.staticCompositionLocalOf
+
+/** The diagram renderer for lesson screens; null draws diagrams as numbered text. */
+val LocalDiagramRenderer = staticCompositionLocalOf<DiagramRenderer?> { null }
 
 /** Draws one lesson block (the closed set in app-export.ts). [diagram] looks up a diagram by id. */
 @Composable
@@ -79,7 +85,11 @@ fun LessonBlock(block: Block, diagram: (String) -> Diagram?, modifier: Modifier 
             Box(Modifier.width(4.dp).fillMaxHeight().background(MaterialTheme.colorScheme.outline, RoundedCornerShape(2.dp)))
             Blocks(block.blocks, diagram, Modifier.padding(start = 12.dp).weight(1f))
         }
-        is Block.Diagram -> DiagramPlaceholder(diagram(block.id), modifier)
+        is Block.Diagram -> {
+            val d = diagram(block.id)
+            val renderer = LocalDiagramRenderer.current
+            if (d != null && renderer != null) DiagramView(d, renderer, modifier) else DiagramSteps(d, modifier)
+        }
         is Block.Anim -> SpCard(modifier) {
             Text(stringResource(R.string.lesson_anim_title), style = MaterialTheme.typography.titleMedium)
             Text(stringResource(R.string.lesson_anim_soon), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -162,9 +172,9 @@ private fun TableCell(cell: Cell) {
     }
 }
 
-/** Until the step-through viewer (A4): the diagram's title and its numbered steps, which carry the explanation. */
+/** A diagram as text (title and numbered steps), used where no renderer is provided, such as in previews and tests. */
 @Composable
-private fun DiagramPlaceholder(d: Diagram?, modifier: Modifier) {
+private fun DiagramSteps(d: Diagram?, modifier: Modifier) {
     if (d == null) return
     Column(
         modifier.fillMaxWidth().border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(12.dp)).padding(14.dp),
@@ -178,6 +188,5 @@ private fun DiagramPlaceholder(d: Diagram?, modifier: Modifier) {
                 Text(c, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
             }
         }
-        Text(stringResource(R.string.lesson_diagram_soon), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }

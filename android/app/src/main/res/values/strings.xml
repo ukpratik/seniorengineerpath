@@ -93,7 +93,13 @@
     <string name="lesson_prev">Previous: %1$s</string>
     <string name="lesson_next">Next: %1$s</string>
     <string name="lesson_diagram_label">Diagram, step by step</string>
-    <string name="lesson_diagram_soon">The drawn, step-through diagram comes in the next test build.</string>
+    <string name="diagram_step_of">Step %1$d of %2$d</string>
+    <string name="diagram_back">Back</string>
+    <string name="diagram_next">Next</string>
+    <string name="diagram_zoom">Open full screen</string>
+    <string name="diagram_close">Close</string>
+    <string name="diagram_share">Share this step</string>
+    <string name="diagram_failed">This picture can’t be drawn on this phone. The steps below explain it.</string>
     <string name="lesson_anim_title">Interactive animation</string>
     <string name="lesson_anim_soon">This lesson has an animation you can play with on the website. It comes to the app in a later build.</string>
     <string name="mark_yes">Yes</string>

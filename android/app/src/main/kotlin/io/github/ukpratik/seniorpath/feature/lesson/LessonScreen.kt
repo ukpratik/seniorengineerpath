@@ -115,7 +115,7 @@ private class Loaded(val lesson: Lesson, val manifest: Manifest, val repo: Conte
 fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit, onBack: () -> Unit) {
     val loaded = rememberLoaded(id) {
         val repo = container.content
-        Loaded(repo.lesson(id), repo.manifest, repo).also { repo.glossary; repo.incidents; repo.cases; it.lesson.sections.forEach { s -> s.blocks.forEach { b -> if (b is Block.Diagram) repo.diagram(b.id) } } }
+        Loaded(repo.lesson(id), repo.manifest, repo).also { container.diagrams; repo.glossary; repo.incidents; repo.cases; it.lesson.sections.forEach { s -> s.blocks.forEach { b -> if (b is Block.Diagram) repo.diagram(b.id) } } }
     }
     val progress = rememberProgress(container)
     val list = rememberLazyListState()
@@ -142,7 +142,7 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
             onCite = { n -> scope.launch { list.animateScrollToItem(indexOf("src$n")) } },
         )
 
-        CompositionLocalProvider(LocalInlineActions provides actions) {
+        CompositionLocalProvider(LocalInlineActions provides actions, LocalDiagramRenderer provides container.diagrams) {
             LazyColumn(
                 state = list,
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 32.dp),

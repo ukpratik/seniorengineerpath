@@ -1,0 +1,1 @@
+Screen readers now name a diagram step while it is still being drawn. Search snippets no longer run table headings together. First release on F-Droid.

@@ -20,7 +20,7 @@ npm ci
 npm run dev        # live site with drafts at http://localhost:4321
 npm run gate       # check all content without building
 npm run build      # content gate + site + search index → dist/
-npm run export:app # content for the Android app → android/app/src/main/assets/content/
+npm run export:app # content for the Android app → android/app/src/main/assets/content/ (committed: rerun and commit after any lesson change; CI checks)
 node scripts/serve.mjs 4322   # serve dist/ with clean URLs
 npm test           # unit tests
 npx playwright install chromium webkit firefox && npm run test:e2e

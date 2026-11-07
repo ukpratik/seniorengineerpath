@@ -27,6 +27,14 @@ jobs:
       - run: npm test
       - run: npm run build # content gate + site + search index
       - run: npm run export:app # Android app content (ADR-007): fails on Markdown the app can't draw
+      # The app's content is committed so F-Droid can build the app with Gradle alone. It must match the lessons.
+      - name: App content is up to date
+        run: |
+          if [ -n "$(git status --porcelain -- android/app/src/main/assets/content)" ]; then
+            git status --short -- android/app/src/main/assets/content | head -20
+            echo "::error::android/app/src/main/assets/content is out of date. Run 'npm run export:app' and commit the result."
+            exit 1
+          fi
       - name: JS budget (NFR-002)
         run: node scripts/js-budget.mjs
       - run: npx playwright install --with-deps chromium webkit firefox

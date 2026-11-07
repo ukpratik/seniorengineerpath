@@ -111,6 +111,7 @@ quiz:
     answer: 2
     why: In Anthropic's study, the AI group scored lower on a quiz, mostly on debugging, and people who handed the work to AI scored lowest. Explaining code and doing some work by hand supports learning.
 incidents: []
+glossary_optout: [leader]
 related: [what-senior-means, code-review, coding-agents, influence-without-authority, promotion, technical-writing, skill-atrophy]
 ---
 

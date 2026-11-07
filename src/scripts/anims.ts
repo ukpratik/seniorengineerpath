@@ -2,7 +2,7 @@
 // unit-tested; these views only draw them. Nothing plays by itself: the reader
 // moves sliders and switches, so reduced-motion users get the same experience.
 import { simulateStampede, summary } from './sims/cache-stampede.ts';
-import { simulateRead } from './sims/replication-lag.ts';
+import { simulateRead, lanePosition } from './sims/replication-lag.ts';
 import { simulateRollout } from './sims/rollout.ts';
 import { simulateBucket, burstTraffic } from './sims/token-bucket.ts';
 import { modN, ring, keys, nodeNames, movedShare, loadShare } from './sims/hash-ring.ts';
@@ -127,14 +127,16 @@ function replicationLag(body: HTMLElement, used: () => void): void {
   const res = result();
   const draw = () => {
     const r = simulateRead({ lagMs: lag.value(), readAfterMs: after.value(), readYourWrites: ryw.on(), rywWindowMs: 1000 });
-    const at = (ms: number) => Math.min(100, (ms / 2000) * 100);
-    // The marker sits at its time (left: X%). The label shifts left by X% of its own
-    // width, so it always fits in the lane and events keep their order (BUG-016, QA2-02).
-    const pos = (ms: number) => `left:${at(ms)}%;transform:translateX(-${at(ms)}%)`;
+    // A tick marks the exact time of each event; the label moves to fit in the lane
+    // but always covers its tick (BUG-016, BUG-051 / QA2-02).
+    const ev = (ms: number, cls: string, text: string) => {
+      const p = lanePosition(ms, 2000);
+      return `<b class="tick ${cls}" style="${p.tick}" aria-hidden="true"></b><i class="ev ${cls}" style="${p.label}">${text}</i>`;
+    };
     lanes.innerHTML = `
-      <div class="lane"><span class="who">Leader</span><div class="tl"><i class="ev w" style="left:0%">write: name = "Asha"</i></div></div>
-      <div class="lane"><span class="who">Follower</span><div class="tl"><i class="ev a" style="${pos(lag.value())}">gets the write</i></div></div>
-      <div class="lane"><span class="who">You</span><div class="tl"><i class="ev r ${r.stale ? 'bad' : 'ok'}" style="${pos(after.value())}">read from ${r.readFrom}</i></div></div>`;
+      <div class="lane"><span class="who">Leader</span><div class="tl">${ev(0, 'w', 'write: name = "Asha"')}</div></div>
+      <div class="lane"><span class="who">Follower</span><div class="tl">${ev(lag.value(), 'a', 'gets the write')}</div></div>
+      <div class="lane"><span class="who">You</span><div class="tl">${ev(after.value(), `r ${r.stale ? 'bad' : 'ok'}`, `read from ${r.readFrom}`)}</div></div>`;
     res.textContent = r.stale
       ? `Stale read: the follower still shows the old name. You just changed it, so it looks like your change was lost.`
       : `Fresh read from the ${r.readFrom}: you see "Asha".`;

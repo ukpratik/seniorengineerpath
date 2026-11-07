@@ -78,6 +78,30 @@ test('replication lag: labels stay inside their lanes at any setting (BUG-016)',
   }
 });
 
+test('replication lag: each tick sits at its time and its label covers it (BUG-051, QA2-02)', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/learn/database-replication');
+  const w = page.locator('[data-anim="replication-lag"]');
+  for (const [lag, after] of [['1400', '600'], ['1200', '1200'], ['1000', '1100'], ['2000', '0']]) {
+    await w.getByLabel(/Replication lag/).fill(lag);
+    await w.getByLabel(/You read again after/).fill(after);
+    const lanes = await w.evaluate((host) =>
+      [...host.querySelectorAll('.lane')].slice(1).map((lane) => {
+        const tl = lane.querySelector('.tl')!.getBoundingClientRect();
+        const tick = lane.querySelector('.tick')!.getBoundingClientRect();
+        const ev = lane.querySelector('.ev')!.getBoundingClientRect();
+        const x = tick.left + tick.width / 2;
+        return { frac: (x - tl.left - 1) / (tl.width - 2), covered: ev.left <= x + 0.5 && ev.right >= x - 0.5 };
+      }),
+    );
+    for (const [i, ms] of [lag, after].entries()) {
+      expect(lanes[i].frac).toBeCloseTo(Number(ms) / 2000, 1);
+      expect(lanes[i].covered).toBe(true);
+    }
+    if (Number(lag) > Number(after)) expect(lanes[0].frac).toBeGreaterThan(lanes[1].frac);
+  }
+});
+
 test('raft election: a majority elects a new leader; a minority cannot', async ({ page }) => {
   await page.goto('/learn/consensus-and-raft');
   const w = page.locator('[data-anim="raft-election"]');

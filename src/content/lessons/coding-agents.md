@@ -193,7 +193,7 @@ Keep it short. The docs suggest under 200 lines. [@cc-features] For each line, a
 
 - **The change is faster to type than to explain.**
 - **You are learning something new.** Doing it yourself first builds the skill. See "With AI" below.
-- **The action touches live systems.** Checkpoints undo edits made with the agent's file-edit tools. They do not undo shell commands, or changes to databases, APIs or deployments. Use git as well. [@cc-best] Run those live steps yourself, on purpose.
+- **The action touches live systems.** Checkpoints undo edits made with the agent's file-edit tools. They do not undo shell commands. Use git as well. [@cc-best] They also cannot undo changes to remote systems, such as databases, APIs or deployments. [@cc-how] Run those live steps yourself, on purpose.
 - **You cannot check the result.** The guide says it plainly: if you can't verify it, don't ship it. [@cc-best]
 
 ### What the evidence says

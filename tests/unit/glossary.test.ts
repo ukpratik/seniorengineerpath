@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { toString } from 'mdast-util-to-string';
 import { visit } from 'unist-util-visit';
+import { readFileSync } from 'node:fs';
+import { parse } from 'yaml';
 import { parseMarkdown } from '../../src/content-tools/markdown.ts';
 import { linkGlossary, type GlossaryTerm } from '../../src/content-tools/remark-glossary.ts';
 
@@ -41,5 +43,15 @@ describe('linkGlossary', () => {
   it('respects opt-outs and word boundaries', () => {
     expect(links('A retry here.', ['retry']).used).toEqual([]);
     expect(links('The retrying loop.').used).toEqual([]);
+  });
+
+  it('the real FIFO entry links the whole phrase, never "first in" alone (BUG-055, QA2-06)', () => {
+    const fifo = parse(readFileSync(new URL('../../src/content/glossary/fifo.yaml', import.meta.url), 'utf8')) as GlossaryTerm;
+    expect(fifo.forms).toEqual(['first in, first out']);
+    const tree = parseMarkdown('Order of service, such as first in, first out (FIFO). The first in line waits.');
+    linkGlossary(tree, [fifo], []);
+    const found: string[] = [];
+    visit(tree, 'link', (l: { url: string }) => void found.push(toString(l as never)));
+    expect(found).toEqual(['first in, first out']);
   });
 });

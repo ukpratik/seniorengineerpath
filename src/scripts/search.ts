@@ -36,6 +36,17 @@ export function weakMatch(excerpt: string, q: string): boolean {
   return longest > 3 && marks.length > 0 && marks.every((m) => m.length <= 2);
 }
 
+// Each search gets a ticket. A ticket is current only until the next search starts,
+// so a slow answer for an old query can never replace what the box shows now
+// (BUG-052, QA2-03).
+export function latestOnly(): () => () => boolean {
+  let last = 0;
+  return () => {
+    const mine = ++last;
+    return () => mine === last;
+  };
+}
+
 function bucket(n: number): string {
   return n === 0 ? '0' : n <= 3 ? '1-3' : n <= 10 ? '4-10' : '11+';
 }
@@ -52,6 +63,7 @@ export function initSearch(): void {
   const empty = out.innerHTML;
   let pf: Pagefind | null = null;
   let loading: Promise<Pagefind | null> | null = null;
+  const nextSearch = latestOnly();
 
   const load = () =>
     (loading ??= import(/* @vite-ignore */ '/pagefind/pagefind.js' as string)
@@ -70,7 +82,9 @@ export function initSearch(): void {
   };
 
   const render = async (q: string) => {
+    const current = nextSearch();
     if (q.trim().length < 2) {
+      out.removeAttribute('aria-busy');
       out.innerHTML = empty;
       bindSugg();
       live.textContent = '';
@@ -79,6 +93,7 @@ export function initSearch(): void {
     if (!pf) out.innerHTML = '<div class="skel"></div><div class="skel"></div><div class="skel"></div>';
     out.setAttribute('aria-busy', 'true');
     const m = await load();
+    if (!current()) return; // a newer query replaced this one
     out.removeAttribute('aria-busy');
     if (!m) {
       out.innerHTML = '<div class="notice warn">' + icon('alert') + '<p>Search could not load. Check your connection, or browse the <a href="/map">map</a>.</p></div>';
@@ -86,9 +101,10 @@ export function initSearch(): void {
     }
     out.setAttribute('aria-busy', 'true');
     const res = await m.debouncedSearch(q, {}, 200);
-    if (!res) return; // a newer query replaced this one
-    out.removeAttribute('aria-busy');
+    if (!res || !current()) return; // a newer query replaced this one
     const data = (await Promise.all(res.results.slice(0, 30).map((r) => r.data()))).filter((d) => !weakMatch(d.excerpt, q));
+    if (!current()) return;
+    out.removeAttribute('aria-busy');
     if (!data.length) {
       showNone(q);
       return;

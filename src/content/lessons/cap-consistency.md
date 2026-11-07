@@ -149,7 +149,7 @@ Step through the shoe sale with one item left. Use Next and Back, or the ← and
 
 The words in CAP are narrow. Consistency means linearizability: the system must act as if there is one copy and each operation happens at one instant. [@gilbert-lynch] [@abadi] It is not the C in ACID. [@brewer-2012]
 
-Availability means every request that reaches a working node gets an answer. Not "most requests", and not "some node answers". [@gilbert-lynch] [@kleppmann-cap]
+Availability means every request that reaches a working node gets an answer that is not an error. Not "most requests", and not "some node answers". [@gilbert-lynch] [@kleppmann-cap]
 
 With these strict meanings, many real databases are neither CP nor AP. Kleppmann gives an example: one leader with async followers. A client cut off from the leader cannot write, so it is not available. Reads from a lagging follower can be stale, so it is not linearizable either. [@kleppmann-cap] So do not label a whole database. Ask what each operation does during a partition.
 

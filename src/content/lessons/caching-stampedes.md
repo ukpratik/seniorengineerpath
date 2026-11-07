@@ -154,7 +154,7 @@ Now try it yourself. Turn request coalescing on and off, and change the traffic.
 
 **3. Refresh early, with randomness.** Refresh a hot key a little before it expires, so it never goes missing. If every server refreshes at the same moment, you get a smaller stampede. So each request decides at random, and the chance rises as expiry gets closer. [@xfetch] Also add jitter to TTLs, so keys loaded together do not all expire together.
 
-**4. Serve stale while you refresh.** Keep the old value a little longer and return it while a refresh runs in the background. Serving stale data does not by itself limit the refresh to one request. Add coalescing or a lock, so only one request fetches the new value. HTTP has a header for this: `stale-while-revalidate`. With `max-age=600, stale-while-revalidate=30`, a response is fresh for 600 seconds. A cache may then serve it stale for 30 more seconds while it checks for a new copy. [@rfc5861] AWS describes a similar idea: refresh after a "soft" TTL, and keep using the old value until a "hard" TTL if the source fails. [@aws-caching]
+**4. Serve stale while you refresh.** Keep the old value a little longer and return it while a refresh runs in the background. Serving stale data does not by itself limit the refresh to one request. Add coalescing or a lock, so only one request fetches the new value. HTTP has a header for serving stale data: `stale-while-revalidate`. With `max-age=600, stale-while-revalidate=30`, a response is fresh for 600 seconds. A cache may then serve it stale for 30 more seconds while it checks for a new copy. [@rfc5861] AWS describes a similar idea: refresh after a "soft" TTL, and keep using the old value until a "hard" TTL if the source fails. [@aws-caching]
 
 ## Trade-offs
 

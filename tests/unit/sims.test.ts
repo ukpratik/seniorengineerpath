@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { simulateStampede, summary } from '../../src/scripts/sims/cache-stampede.ts';
-import { simulateRead } from '../../src/scripts/sims/replication-lag.ts';
+import { simulateRead, lanePosition } from '../../src/scripts/sims/replication-lag.ts';
 import { simulateRollout } from '../../src/scripts/sims/rollout.ts';
 import { simulateBucket, burstTraffic } from '../../src/scripts/sims/token-bucket.ts';
 import { modN, ring, keys, nodeNames, movedShare, loadShare } from '../../src/scripts/sims/hash-ring.ts';
@@ -40,6 +40,34 @@ describe('replication lag (SPEC § replication-lag)', () => {
 
   it('read-your-writes sends the writer to the leader inside the window', () => {
     expect(simulateRead({ lagMs: 500, readAfterMs: 100, readYourWrites: true, rywWindowMs: 1000 })).toEqual({ readFrom: 'leader', value: 'new', stale: false });
+  });
+
+  it('draws each event at its exact time, so the order is never reversed (BUG-051, QA2-02)', () => {
+    // QA2-02: lag 1400, read 600. The follower gets the write at 70 %, the read is at 30 %.
+    expect(lanePosition(1400, 2000).pct).toBe(70);
+    expect(lanePosition(600, 2000).pct).toBe(30);
+    // The same time is drawn at the same place.
+    expect(lanePosition(1200, 2000).tick).toBe(lanePosition(1200, 2000).tick);
+    // Later is always further right, and the value stays inside the lane.
+    const pcts = [0, 100, 600, 1000, 1100, 1200, 1400, 2000, 2500].map((ms) => lanePosition(ms, 2000).pct);
+    expect(pcts).toEqual([...pcts].sort((a, b) => a - b));
+    expect(Math.min(...pcts)).toBe(0);
+    expect(Math.max(...pcts)).toBe(100);
+  });
+
+  it('the label stays inside the lane and covers its tick, for any label width (BUG-016, BUG-051)', () => {
+    const lane = 260;
+    for (const ms of [0, 600, 1000, 1400, 2000]) {
+      const p = lanePosition(ms, 2000).pct / 100;
+      for (const w of [40, 120, 255]) {
+        const left = p * lane - p * w; // left: p, then translateX(-p of own width)
+        const right = left + w;
+        expect(left).toBeGreaterThanOrEqual(0);
+        expect(right).toBeLessThanOrEqual(lane + 1e-9);
+        expect(left).toBeLessThanOrEqual(p * lane);
+        expect(right).toBeGreaterThanOrEqual(p * lane);
+      }
+    }
   });
 });
 

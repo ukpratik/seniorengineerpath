@@ -12,6 +12,23 @@ test('QA1-02: search shows the exact glossary term first', async ({ page }) => {
   }
 });
 
+test('QA2-03: a slow answer for an old query never replaces the suggestions (BUG-052)', async ({ page }) => {
+  await page.goto('/search');
+  const box = page.getByRole('searchbox');
+  // Load the index first, so the race is between two searches.
+  await box.fill('cache');
+  await expect(page.locator('.rgroup').first()).toBeVisible();
+  for (const [from, to] of [['lea', 'l'], ['cache', '']]) {
+    await box.fill(from);
+    await box.fill(to);
+    await page.waitForTimeout(800); // longer than the 200 ms debounce
+    await expect(page.locator('[data-sugg]').first()).toBeVisible();
+    await expect(page.locator('.rgroup')).toHaveCount(0);
+    await expect(page.locator('#s-live')).toHaveText('');
+    await expect(page.locator('#out')).not.toHaveAttribute('aria-busy', 'true');
+  }
+});
+
 test('QA1-03: AI-track lessons say they are reviewed every quarter', async ({ page }) => {
   await page.goto('/learn/working-with-coding-agents');
   await expect(page.locator('.review')).toContainText('review this lesson every quarter');

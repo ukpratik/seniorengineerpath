@@ -144,9 +144,9 @@ Where does the slowness come from? The paper lists shared machines, background d
 
 Little's law links three long-run averages for any stable queue or system: **L = λW**. L is the number of items inside, λ (lambda) is the arrival rate, and W is the time each item spends inside. [@little] It does not depend on the order of service, such as first in, first out (FIFO) or last in, first out (LIFO). [@little]
 
-For a server, it means: requests in flight = requests per second × seconds per request. At 2,000 requests a second and 50 ms each, about 100 requests are in flight at any moment.
+For a server, it means: requests in progress = requests per second × seconds per request. At 2,000 requests a second and 50 ms each, about 100 requests are in progress at any moment.
 
-Use it both ways. If latency doubles at the same traffic, the number of requests in flight doubles too. That means twice the threads, connections and memory. This is how a slow database can use up an app server's connection pool.
+Use it both ways. If latency doubles at the same traffic, the number of requests in progress doubles too. That means twice the threads, connections and memory. This is how a slow database can use up an app server's connection pool.
 
 ### Busy servers make long queues
 
@@ -210,7 +210,7 @@ Pass the remaining time down the call chain. Each server should check it before 
 
 - Ask for p50, p99 and p99.9, never only the average. Ask: **"p99 of what, over what time window?"**
 - Draw the fan-out of a request. Count how many calls it waits for, and work out how often at least one of them is slow.
-- Use Little's law to size pools: requests per second × latency = requests in flight. Size threads and connections from it.
+- Use Little's law to size pools: requests per second × latency = requests in progress. Size threads and connections from it.
 - Set alerts on queue length and the age of the oldest item, not only on CPU.
 - Set a timeout on every outbound call, below the caller's own deadline.
 - In load tests, push on purpose past the point where latency starts to rise steeply. Write down the load where latency jumps.

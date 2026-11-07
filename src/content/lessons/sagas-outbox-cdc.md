@@ -156,7 +156,7 @@ A relay then moves outbox rows to the broker. There are two common ways. [@ms-ou
 
 ### Change data capture
 
-Log tailing is a kind of **change data capture**, or CDC. Most databases keep a log of changes so it can recover from a crash. In Postgres this is the WAL. The Debezium Postgres connector reads it through logical decoding and a replication slot. Logical decoding turns the WAL into plain row changes. A slot is a stream of those changes that Postgres keeps until the reader has them [@pg-logical]. After a restart, it carries on from where it stopped. [@dbz-pg]
+Log tailing is a kind of **change data capture**, or CDC. Most databases keep a log of changes so it can recover from a crash. In Postgres this is the WAL. The Debezium Postgres connector reads it through logical decoding and a replication slot. Logical decoding turns the WAL into plain row changes. A slot is a stream of those changes that Postgres keeps until the reader has them [@pg-logical]. After a restart, the connector carries on from where it stopped. [@dbz-pg]
 
 Debezium lists the benefits over polling. It captures every change, with very low delay. It needs no "last updated" column. It can also see deletes. [@dbz-features] With CDC, you can even delete each outbox row right after you insert it. The insert is already in the log, so the table stays empty. [@dbz-blog]
 

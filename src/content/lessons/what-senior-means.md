@@ -97,6 +97,7 @@ quiz:
     answer: 2
     why: When code is cheap to produce, the scarce skill is judgement about what to build and whether it is correct.
 incidents: []
+glossary_optout: [leader]
 related: [idempotency-retries]
 ---
 

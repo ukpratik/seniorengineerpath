@@ -1,4 +1,4 @@
 id: connection-pool
 term: connection pool
 forms: [connection pools, connection pooler, connection poolers]
-short: A set of open database connections that an app reuses, so it does not open a new connection for every request.
+short: A set of open database connections that are reused, so a new connection is not opened for every request. The pool can live inside the app. Or a separate program, a connection pooler such as PgBouncer, can keep one pool that many apps share.

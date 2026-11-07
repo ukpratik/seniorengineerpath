@@ -1,0 +1,1 @@
+10 new lessons: OS essentials, data models, requirements and non-functional needs, reconciliation, prompt and context engineering, fan-out on write vs read, design deep dives, mechanical sympathy, stream processing, and complexity and deep modules. 65 new glossary terms.

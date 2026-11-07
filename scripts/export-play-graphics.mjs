@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 
-const OUT = join(process.cwd(), 'android/fastlane/metadata/android/en-US/images');
+const OUT = join(process.cwd(), 'fastlane/metadata/android/en-US/images');
 const FONT = join(process.cwd(), 'src/og/PlusJakartaSans-wght.ttf');
 const MARK = (s) =>
   `<path d="M${8 * s} ${22 * s} ${14 * s} ${14 * s}l${5 * s} ${4 * s} ${5 * s}-${8 * s}" fill="none" stroke="#fff" stroke-width="${2.6 * s}" stroke-linecap="round" stroke-linejoin="round"/>` +

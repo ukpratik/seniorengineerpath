@@ -26,6 +26,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -165,7 +166,7 @@ private fun Browse(data: Loaded, go: SearchTargets, onSuggestion: (String) -> Un
             modifier = Modifier.padding(horizontal = 16.dp),
         )
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (s in SUGGESTIONS) AssistChip(onClick = { onSuggestion(s) }, label = { Text(s) })
+            for (s in SUGGESTIONS) AssistChip(onClick = { onSuggestion(s) }, label = { Text(s) }, modifier = Modifier.minimumInteractiveComponentSize())
         }
         Text(
             stringResource(R.string.search_browse),

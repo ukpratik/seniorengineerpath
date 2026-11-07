@@ -107,6 +107,9 @@
     <string name="lesson_on_path">“%1$s” · lesson %2$d of %3$d</string>
     <string name="lesson_prev">Previous: %1$s</string>
     <string name="lesson_next">Next: %1$s</string>
+    <string name="lesson_share">Share this lesson</string>
+    <string name="lesson_report">Report a mistake</string>
+    <string name="no_browser">No web browser on this phone to open the link.</string>
     <string name="done_mark">Mark as done</string>
     <string name="done_undo">Done ✓ (undo)</string>
     <string name="done_toast">Marked as done.</string>

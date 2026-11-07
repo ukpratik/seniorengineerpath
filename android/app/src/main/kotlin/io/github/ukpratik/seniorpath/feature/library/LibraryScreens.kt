@@ -25,6 +25,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -151,8 +152,8 @@ private fun <T> Library(
                     Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()),
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    FilterChip(selected = tag == null, onClick = { tag = null }, label = { Text(stringResource(R.string.library_all)) })
-                    for (t in allTags) FilterChip(selected = tag == t, onClick = { tag = if (tag == t) null else t }, label = { Text(t) })
+                    FilterChip(selected = tag == null, onClick = { tag = null }, label = { Text(stringResource(R.string.library_all)) }, modifier = Modifier.minimumInteractiveComponentSize())
+                    for (t in allTags) FilterChip(selected = tag == t, onClick = { tag = if (tag == t) null else t }, label = { Text(t) }, modifier = Modifier.minimumInteractiveComponentSize())
                 }
             }
             item(key = "count") {

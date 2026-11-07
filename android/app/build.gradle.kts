@@ -3,6 +3,7 @@ plugins {
     id("seniorpath.android.compose")
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.aboutlibraries.android)
+    alias(libs.plugins.baselineprofile)
 }
 
 android {
@@ -13,6 +14,9 @@ android {
         // versionCode = MAJOR × 10000 + MINOR × 100 + PATCH, as in the other apps.
         versionCode = 700
         versionName = "0.7.0"
+        // Lesson share links and "Report a mistake" (src/config.ts SITE.url and SITE.repo).
+        buildConfigField("String", "SITE_URL", "\"https://seniorpath.dev\"")
+        buildConfigField("String", "REPO", "\"ukpratik/seniorengineerpath\"")
     }
 
     // Keys live in ~/.android-keys/, passwords in ~/.gradle/gradle.properties, never in the repo.
@@ -57,6 +61,11 @@ val checkContent = tasks.register("checkContentExport") {
 }
 tasks.named("preBuild") { dependsOn(checkContent) }
 
+// A8: the start-up Baseline Profile (generated on a device by :baselineprofile) ships in the APK.
+baselineProfile {
+    mergeIntoMain = true
+}
+
 // Licence screen data, generated offline at build time. Strict mode fails the build on any licence outside the allowlist.
 aboutLibraries {
     offlineMode = true
@@ -85,6 +94,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidsvg)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.profileinstaller)
+    baselineProfile(project(":baselineprofile"))
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
 

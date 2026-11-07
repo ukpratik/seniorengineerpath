@@ -19,3 +19,4 @@ rootProject.name = "seniorpath-android"
 
 include(":content")
 include(":app")
+include(":baselineprofile")

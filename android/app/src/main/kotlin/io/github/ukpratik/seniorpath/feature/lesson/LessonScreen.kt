@@ -71,6 +71,11 @@ import io.github.ukpratik.seniorpath.ui.components.levelLabel
 import io.github.ukpratik.seniorpath.ui.components.rememberLoaded
 import io.github.ukpratik.seniorpath.ui.components.rememberProgress
 import kotlinx.coroutines.launch
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.platform.LocalContext
+import io.github.ukpratik.seniorpath.ui.links.issueUrl
+import io.github.ukpratik.seniorpath.ui.links.lessonUrl
+import io.github.ukpratik.seniorpath.ui.links.shareLesson
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Button
 import androidx.compose.material3.SnackbarDuration
@@ -159,6 +164,13 @@ fun LessonScreen(container: AppContainer, id: String, onLesson: (String) -> Unit
     Box(Modifier.fillMaxSize()) {
     Column(Modifier.fillMaxSize()) {
         BackBar(null, onBack) {
+            loaded?.getOrNull()?.let { d ->
+                val context = LocalContext.current
+                val chooser = stringResource(R.string.lesson_share)
+                IconButton(onClick = { shareLesson(context, d.lesson.title, d.manifest.topics[d.lesson.id]?.slug ?: d.lesson.slug, chooser) }) {
+                    Icon(painterResource(R.drawable.ic_upload), contentDescription = chooser)
+                }
+            }
             if (loaded?.isSuccess == true) {
                 IconButton(onClick = { contents = true }) {
                     Icon(painterResource(R.drawable.ic_list), contentDescription = stringResource(R.string.lesson_contents))
@@ -286,12 +298,21 @@ private fun DoneButton(
                 }
             }
         }
+        val uri = LocalUriHandler.current
         val icon = @Composable { Icon(painterResource(if (done) R.drawable.ic_check else R.drawable.ic_check_circle), null, modifier = Modifier.size(20.dp)) }
         val text = @Composable { Text(label, modifier = Modifier.padding(start = 8.dp)) }
         if (done) {
             OutlinedButton(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) { icon(); text() }
         } else {
             Button(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 52.dp)) { icon(); text() }
+        }
+        // US-014: the site's "Report a mistake", the same GitHub issue form.
+        TextButton(
+            onClick = { uri.openUri(issueUrl(lesson.id, lessonUrl(manifest.topics[lesson.id]?.slug ?: lesson.slug))) },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Icon(painterResource(R.drawable.ic_flag), null, modifier = Modifier.size(18.dp))
+            Text(stringResource(R.string.lesson_report), modifier = Modifier.padding(start = 8.dp))
         }
     }
 }

@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -166,8 +167,8 @@ private fun Rollout() {
     var detect by rememberSaveable { mutableIntStateOf(5) }
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        FilterChip(selected = !staged, onClick = { staged = false }, label = { Text("Everywhere at once") })
-        FilterChip(selected = staged, onClick = { staged = true }, label = { Text("In stages: 1%, 10%, 50%, 100%") })
+        FilterChip(selected = !staged, onClick = { staged = false }, label = { Text("Everywhere at once") }, modifier = Modifier.minimumInteractiveComponentSize())
+        FilterChip(selected = staged, onClick = { staged = true }, label = { Text("In stages: 1%, 10%, 50%, 100%") }, modifier = Modifier.minimumInteractiveComponentSize())
     }
     SimSlider("Alerts notice errors after:", detect, 1..30, 1, "min") { detect = it }
     val r = simulateRollout(RolloutParams(staged, listOf(1, 10, 50, 100), 10, detect, 5, 60))
@@ -250,7 +251,7 @@ private fun RaftElection() {
     val name = { i: Int -> "S${i + 1}" }
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (size in listOf(3, 5)) FilterChip(selected = nodes == size, onClick = { nodes = size; stoppedCount = 0 }, label = { Text("$size servers") })
+        for (size in listOf(3, 5)) FilterChip(selected = nodes == size, onClick = { nodes = size; stoppedCount = 0 }, label = { Text("$size servers") }, modifier = Modifier.minimumInteractiveComponentSize())
     }
     @OptIn(ExperimentalLayoutApi::class)
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {

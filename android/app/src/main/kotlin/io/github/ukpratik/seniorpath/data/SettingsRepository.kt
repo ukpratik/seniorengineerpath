@@ -37,6 +37,10 @@ class SettingsRepository(private val context: Context) {
         if (p.size == 3) ReadingSpot(p[0], p[1].toIntOrNull() ?: 0, p[2].toIntOrNull() ?: 0) else null
     }
 
+    suspend fun clearReadingSpot() {
+        context.settingsStore.edit { it.remove(spotKey) }
+    }
+
     suspend fun setReadingSpot(spot: ReadingSpot) {
         context.settingsStore.edit { it[spotKey] = "${spot.lesson}|${spot.index}|${spot.offset}" }
     }

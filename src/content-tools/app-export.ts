@@ -251,6 +251,8 @@ export function quizInlines(s: string): Inline[] {
     .map((p) => (/^`[^`]+`$/.test(p) ? { t: 'code', v: p.slice(1, -1) } : { t: 'text', v: p }));
 }
 
+const INLINE = new Set(['text', 'strong', 'em', 'code', 'link', 'term']);
+
 export function plainText(x: Inline[] | Block[] | Section[]): string {
   const parts: string[] = [];
   const walk = (v: unknown): void => {
@@ -259,11 +261,14 @@ export function plainText(x: Inline[] | Block[] | Section[]): string {
     const o = v as Record<string, unknown>;
     if (o.t === 'cite') return;
     if (typeof o.v === 'string') parts.push(o.v);
+    if (o.mark === 'yes' || o.mark === 'no') parts.push(o.mark === 'yes' ? 'Yes' : 'No'); // the site's Yes / No cell marks
     for (const k of ['c', 'blocks', 'items', 'head', 'rows', 'cols'] as const) walk(o[k]);
     if (Array.isArray(o.title)) walk(o.title);
+    // Inline runs join as written ("Raft" + ". Prefer"); blocks, cells and line breaks are separated by a space.
+    if (!INLINE.has(o.t as string)) parts.push(' ');
   };
   walk(x);
-  return parts.join(' ').replace(/\s+/g, ' ').trim();
+  return parts.join('').replace(/\s+/g, ' ').trim();
 }
 
 // ---------- Diagrams ----------

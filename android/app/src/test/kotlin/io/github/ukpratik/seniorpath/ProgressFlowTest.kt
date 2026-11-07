@@ -39,6 +39,7 @@ class ProgressFlowTest {
     @Before fun clean() = runBlocking {
         container.progress.replace(ProgressState())
         container.settings.markLessonsSeen(manifest.lessons)
+        container.settings.clearReadingSpot()
     }
 
     private fun back() = rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }

@@ -38,6 +38,7 @@ import io.github.ukpratik.seniorpath.content.Inline
 import io.github.ukpratik.seniorpath.feature.diagram.DiagramRenderer
 import io.github.ukpratik.seniorpath.feature.diagram.DiagramView
 import io.github.ukpratik.seniorpath.ui.components.SpCard
+import io.github.ukpratik.seniorpath.feature.sims.SimView
 import androidx.compose.runtime.staticCompositionLocalOf
 
 /** The diagram renderer for lesson screens; null draws diagrams as numbered text. */
@@ -90,10 +91,7 @@ fun LessonBlock(block: Block, diagram: (String) -> Diagram?, modifier: Modifier 
             val renderer = LocalDiagramRenderer.current
             if (d != null && renderer != null) DiagramView(d, renderer, modifier) else DiagramSteps(d, modifier)
         }
-        is Block.Anim -> SpCard(modifier) {
-            Text(stringResource(R.string.lesson_anim_title), style = MaterialTheme.typography.titleMedium)
-            Text(stringResource(R.string.lesson_anim_soon), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        }
+        is Block.Anim -> SimView(block.id, modifier)
         is Block.Prompt -> SelectionContainer(modifier) {
             Text(
                 rememberInlines(block.c),

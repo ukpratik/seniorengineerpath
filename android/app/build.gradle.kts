@@ -11,8 +11,8 @@ android {
     defaultConfig {
         applicationId = "io.github.ukpratik.seniorpath" // permanent after the first Play upload (D-040)
         // versionCode = MAJOR × 10000 + MINOR × 100 + PATCH, as in the other apps.
-        versionCode = 600
-        versionName = "0.6.0"
+        versionCode = 700
+        versionName = "0.7.0"
     }
 
     // Keys live in ~/.android-keys/, passwords in ~/.gradle/gradle.properties, never in the repo.

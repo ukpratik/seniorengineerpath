@@ -124,7 +124,13 @@
     <string name="diagram_close">Close</string>
     <string name="diagram_share">Share this step</string>
     <string name="diagram_failed">This picture can’t be drawn on this phone. The steps below explain it.</string>
-    <string name="lesson_anim_title">Interactive animation</string>
+    <string name="sim_eyebrow">Try it</string>
+    <string name="sim_title_stampede">What happens when a hot key expires</string>
+    <string name="sim_title_lag">Read from a follower that is behind</string>
+    <string name="sim_title_rollout">Push a bad config everywhere, or in stages</string>
+    <string name="sim_title_bucket">Send a burst into a token bucket</string>
+    <string name="sim_title_ring">Add a server and see how many keys move</string>
+    <string name="sim_title_raft">Stop the leader and watch the cluster elect a new one</string>
     <string name="lesson_anim_soon">This lesson has an animation you can play with on the website. It comes to the app in a later build.</string>
     <string name="mark_yes">Yes</string>
     <string name="mark_no">No</string>

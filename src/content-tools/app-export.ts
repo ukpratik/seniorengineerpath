@@ -129,11 +129,12 @@ function inlines(nodes: PhrasingContent[], lesson: string): Inline[] {
   return out;
 }
 
-function tableCell(cell: TableCell, lesson: string): Cell {
+function tableCell(cell: TableCell, col: number, lesson: string): Cell {
   const c = inlines(cell.children, lesson);
-  // "Yes …" / "No …" cells get a mark, as on the site (decorateTable).
+  // "Yes …" / "No …" cells in data columns get a mark, as on the site (decorateTable): the app draws the icon and
+  // the word, so the word comes out of the text. The first column is the row label and is left alone.
   const first = c[0];
-  if (first?.t === 'text') {
+  if (col > 0 && first?.t === 'text') {
     const m = /^(Yes|No)\b[.:]?\s*/.exec(first.v);
     if (m) {
       first.v = first.v.slice(m[0].length);
@@ -165,7 +166,7 @@ function block(n: RootContent, lesson: string): Block {
       return {
         t: 'table',
         head: head.children.map((c) => inlines(c.children, lesson)),
-        rows: rows.map((r) => r.children.map((c) => tableCell(c, lesson))),
+        rows: rows.map((r) => r.children.map((c, col) => tableCell(c, col, lesson))),
       };
     }
     case 'blockquote': {

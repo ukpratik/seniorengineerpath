@@ -80,9 +80,27 @@
     <string name="path_steps_heading">Lessons in order</string>
 
     <!-- Lesson -->
-    <string name="lesson_meta">%1$s · %2$d min read</string>
-    <string name="lesson_soon">The full lesson reader comes in the next test build.</string>
-
+    <string name="lesson_minutes">%1$d min read</string>
+    <string name="lesson_illustrative">A made-up story to show a common failure. Not about a real company.</string>
+    <string name="lesson_section_chip">%1$d / %2$d</string>
+    <string name="lesson_contents">Contents</string>
+    <string name="lesson_glossary">Glossary</string>
+    <string name="lesson_sources">Sources</string>
+    <string name="lesson_related">Related topics</string>
+    <string name="lesson_incidents">Real incidents</string>
+    <string name="lesson_cases">Case studies</string>
+    <string name="lesson_on_path">“%1$s” · lesson %2$d of %3$d</string>
+    <string name="lesson_prev">Previous: %1$s</string>
+    <string name="lesson_next">Next: %1$s</string>
+    <string name="lesson_diagram_label">Diagram, step by step</string>
+    <string name="lesson_diagram_soon">The drawn, step-through diagram comes in the next test build.</string>
+    <string name="lesson_anim_title">Interactive animation</string>
+    <string name="lesson_anim_soon">This lesson has an animation you can play with on the website. It comes to the app in a later build.</string>
+    <string name="mark_yes">Yes</string>
+    <string name="mark_no">No</string>
+    <string name="quiz_question">Question %1$d</string>
+    <string name="quiz_right">Right.</string>
+    <string name="quiz_wrong">Not quite.</string>
     <!-- Search -->
     <string name="search_title">Search</string>
     <string name="search_soon">Search across lessons, the glossary and the libraries comes in a later build.</string>

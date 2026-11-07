@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -48,9 +50,9 @@ fun ScreenTitle(text: String, modifier: Modifier = Modifier) {
     )
 }
 
-/** Top bar for screens stacked above the tabs: back arrow and an optional title. */
+/** Top bar for screens stacked above the tabs: back arrow, an optional title and optional actions on the right. */
 @Composable
-fun BackBar(title: String?, onBack: () -> Unit) {
+fun BackBar(title: String?, onBack: () -> Unit, actions: @Composable RowScope.() -> Unit = {}) {
     Row(Modifier.fillMaxWidth().heightIn(min = 64.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = onBack) {
             Icon(painterResource(R.drawable.ic_arrow_left), contentDescription = stringResource(R.string.back))
@@ -62,6 +64,8 @@ fun BackBar(title: String?, onBack: () -> Unit) {
                 modifier = Modifier.padding(start = 4.dp).semantics { heading() },
             )
         }
+        Spacer(Modifier.weight(1f))
+        actions()
     }
 }
 

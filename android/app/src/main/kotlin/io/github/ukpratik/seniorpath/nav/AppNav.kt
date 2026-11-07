@@ -92,7 +92,12 @@ fun AppNav(container: AppContainer) {
             composable<LicencesRoute> { LicencesScreen(onBack = back) }
             composable<PathsRoute> { PathsScreen(container, onPath = path, onBack = back) }
             composable<PathRoute> { PathScreen(container, it.toRoute<PathRoute>().id, onLesson = lesson, onBack = back) }
-            composable<LessonRoute> { LessonScreen(container, it.toRoute<LessonRoute>().id, onBack = back) }
+            composable<LessonRoute> {
+                // Previous / Next and related topics replace the lesson on screen, so Back returns to where reading began.
+                LessonScreen(container, it.toRoute<LessonRoute>().id, onLesson = { id ->
+                    nav.navigate(LessonRoute(id)) { popUpTo<LessonRoute> { inclusive = true } }
+                }, onBack = back)
+            }
         }
     }
 }

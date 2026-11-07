@@ -1,0 +1,4 @@
+id: state-backend
+term: state backend
+forms: [state backends]
+short: The part of a stream processor that stores its state. In Flink, the default keeps state in memory on the Java heap; the RocksDB backend keeps it on local disk.

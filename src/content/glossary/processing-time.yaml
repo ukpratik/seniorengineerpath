@@ -1,0 +1,4 @@
+id: processing-time
+term: processing time
+forms: [processing-time]
+short: The time on the clock of the machine that handles an event. It is simple and fast to use, but results change if events arrive late or a job catches up on a backlog.

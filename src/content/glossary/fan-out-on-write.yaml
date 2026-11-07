@@ -1,0 +1,4 @@
+id: fan-out-on-write
+term: fan-out on write
+forms: [fan-out-on-write]
+short: When something new is created, the system copies it (or its ID) at once into a ready-made list for every reader, such as every follower's feed. Reads are fast, but one item for a huge audience means millions of writes.

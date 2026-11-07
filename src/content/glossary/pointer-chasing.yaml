@@ -1,0 +1,4 @@
+id: pointer-chasing
+term: pointer chasing
+forms: [chasing pointers]
+short: Walking a linked structure, such as a linked list or tree, where each step must load a node to find the address of the next one. The CPU cannot fetch ahead, so each step may wait for memory.

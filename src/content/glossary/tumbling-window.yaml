@@ -1,0 +1,4 @@
+id: tumbling-window
+term: tumbling window
+forms: [tumbling windows]
+short: A time window of fixed size that does not overlap with the next one, like each minute. Every event belongs to exactly one tumbling window.

@@ -1,0 +1,4 @@
+id: watermark
+term: watermark
+forms: [watermarks]
+short: In stream processing, a marker that says event time has reached a given point. It tells the engine when a window can be closed. An event whose time is already behind the watermark is late.

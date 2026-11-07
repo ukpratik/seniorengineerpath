@@ -1,0 +1,4 @@
+id: session-window
+term: session window
+forms: [session windows]
+short: A window that groups the events of one key, such as one user, and closes after a gap with no events, for example 30 minutes. Its length depends on the data.

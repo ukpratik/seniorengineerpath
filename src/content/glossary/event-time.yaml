@@ -1,0 +1,4 @@
+id: event-time
+term: event time
+forms: [event-time]
+short: The time an event really happened, on the device that produced it. Stream processors use it to put events in the right window, even when they arrive late.

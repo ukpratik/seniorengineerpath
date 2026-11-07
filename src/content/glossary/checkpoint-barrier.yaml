@@ -1,0 +1,4 @@
+id: checkpoint-barrier
+term: checkpoint barrier
+forms: [checkpoint barriers]
+short: A marker a stream processor puts into the data stream. When the barrier has arrived from all of an operator's inputs, the operator saves its state, so all saved states match one point in the input.

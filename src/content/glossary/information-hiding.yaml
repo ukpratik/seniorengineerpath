@@ -1,0 +1,3 @@
+id: information-hiding
+term: information hiding
+short: Giving one module sole knowledge of a design decision, such as a data format, so other modules do not depend on it. David Parnas made it famous in a 1972 paper.

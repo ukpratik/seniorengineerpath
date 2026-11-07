@@ -1,0 +1,4 @@
+id: side-output
+term: side output
+forms: [side outputs]
+short: An extra output stream from a stream processing step. Flink can send events that arrive too late for their window there, so they are not lost silently.

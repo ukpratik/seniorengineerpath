@@ -1,0 +1,4 @@
+id: pass-through-method
+term: pass-through method
+forms: [pass-through methods]
+short: A method that only calls another method with the same arguments and adds nothing. It is a sign of a shallow layer.

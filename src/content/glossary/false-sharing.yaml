@@ -1,0 +1,4 @@
+id: false-sharing
+term: false sharing
+forms: []
+short: When threads on different cores write to different variables that sit in the same cache line. The cores keep taking the line from each other, so the code slows down even though no data is shared.

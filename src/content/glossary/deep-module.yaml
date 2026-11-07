@@ -1,0 +1,4 @@
+id: deep-module
+term: deep module
+forms: [deep modules, deep class, deep classes]
+short: A module with a small, simple interface that hides a lot of work behind it. Unix file I/O is the classic example.

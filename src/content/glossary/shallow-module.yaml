@@ -1,0 +1,4 @@
+id: shallow-module
+term: shallow module
+forms: [shallow modules, shallow class, shallow classes]
+short: A module whose interface is complex, or that does little work. Calling it is not much easier than writing its code yourself.

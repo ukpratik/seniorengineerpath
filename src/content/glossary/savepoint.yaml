@@ -1,0 +1,4 @@
+id: savepoint
+term: savepoint
+forms: [savepoints]
+short: In Flink, a checkpoint you trigger by hand. You use it to stop a job, deploy new code or change parallelism, then resume from the same state.

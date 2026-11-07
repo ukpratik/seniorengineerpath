@@ -1,0 +1,4 @@
+id: fan-out-on-read
+term: fan-out on read
+forms: [fan-out-on-read]
+short: The system stores each new item once. When a reader asks, it fetches recent items from every source they follow and merges them, as in a feed. Writes are cheap, but every read does more work.

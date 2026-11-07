@@ -1,0 +1,4 @@
+id: hardware-prefetching
+term: hardware prefetching
+forms: [hardware prefetcher, hardware prefetchers, hardware prefetch]
+short: The CPU notices a pattern in your memory reads, such as walking an array, and loads the next cache lines before your code asks for them.

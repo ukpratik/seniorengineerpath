@@ -1,0 +1,4 @@
+id: home-timeline
+term: home timeline
+forms: [home timelines, home feed, home feeds]
+short: The main feed a user sees when they open a social app, made of posts from the accounts they follow, and sometimes recommended posts.

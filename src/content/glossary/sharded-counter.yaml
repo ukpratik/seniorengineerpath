@@ -1,0 +1,4 @@
+id: sharded-counter
+term: sharded counter
+forms: [sharded counters, distributed counter, distributed counters]
+short: One count split across many rows. Each write adds to a random row, so no single row gets all the writes. To read the total, you add up all the rows.

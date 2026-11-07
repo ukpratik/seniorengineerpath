@@ -1,0 +1,4 @@
+id: celebrity-problem
+term: celebrity problem
+forms: []
+short: One account with millions of followers overloads the system. With fan-out on write, each of its posts must be copied into millions of feeds.

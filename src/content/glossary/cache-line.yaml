@@ -1,0 +1,4 @@
+id: cache-line
+term: cache line
+forms: [cache lines]
+short: The fixed-size block that a CPU cache moves to and from memory, usually 64 bytes. When you read one byte, the CPU loads the whole line that holds it.

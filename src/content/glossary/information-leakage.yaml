@@ -1,0 +1,4 @@
+id: information-leakage
+term: information leakage
+forms: [leaked design decision, leaked design decisions]
+short: When one design decision, such as a file format, is known by several modules. If it changes, all of them must change.

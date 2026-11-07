@@ -1,0 +1,3 @@
+id: change-amplification
+term: change amplification
+short: When a simple change needs edits in many places in the code. It is a sign that a design decision is spread across modules.

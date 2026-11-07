@@ -1,0 +1,4 @@
+id: keyed-state
+term: keyed state
+forms: []
+short: Data a stream processor remembers between events, split by key, such as a running count per city. Each key's state lives with the task that handles that key.

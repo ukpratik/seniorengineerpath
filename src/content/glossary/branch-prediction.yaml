@@ -1,0 +1,4 @@
+id: branch-prediction
+term: branch prediction
+forms: [branch predictor, branch predictors, branch misprediction, branch mispredictions, mispredicted branch]
+short: The CPU guesses which way an if or a loop will go and starts work on that path early. A wrong guess throws that work away and costs time.

@@ -1,0 +1,4 @@
+id: numa
+term: NUMA
+forms: [non-uniform memory access]
+short: Non-uniform memory access. In a server with several CPU sockets, each socket has its own memory. Reading memory attached to another socket is slower than reading local memory.

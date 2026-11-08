@@ -1,0 +1,4 @@
+id: usage-based-pricing
+term: usage-based pricing
+forms: [usage-based billing, metered billing]
+short: Charging customers for what they actually use, such as API calls, messages or tokens, instead of only a fixed monthly fee.

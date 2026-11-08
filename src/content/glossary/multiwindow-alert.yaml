@@ -1,0 +1,4 @@
+id: multiwindow-alert
+term: multiwindow alert
+forms: [multiwindow alerts, multiwindow, multi-burn-rate alert, multi-burn-rate alerts]
+short: "A burn-rate alert that fires only when a long window (for example 1 hour) and a short window (for example 5 minutes) both pass the same threshold. Teams run several such rules with different burn rates: fast ones page, slow ones open a ticket."

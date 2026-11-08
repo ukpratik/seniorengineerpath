@@ -1,0 +1,4 @@
+id: runbook
+term: runbook
+forms: [runbooks, run book, run books]
+short: A short written guide for one alert or task. It says what the problem means, how to check it and what steps fix it.

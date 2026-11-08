@@ -1,0 +1,4 @@
+id: tiered-pricing
+term: tiered pricing
+forms: [graduated pricing, price tiers]
+short: A price plan where the unit price changes with volume. In the graduated form, each tier's units are charged at that tier's price.

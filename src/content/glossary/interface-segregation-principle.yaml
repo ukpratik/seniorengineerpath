@@ -1,0 +1,4 @@
+id: interface-segregation-principle
+term: interface segregation principle
+forms: [interface segregation]
+short: The "I" in SOLID. Keep interfaces small, so a caller does not depend on methods it never uses.

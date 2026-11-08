@@ -1,0 +1,19 @@
+id: usage-dedupe-late
+title: "A duplicate and two late usage events on their way to the November invoice"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="456"/><line class="life" x1="170" y1="54" x2="170" y2="456"/><line class="life" x1="285" y1="54" x2="285" y2="456"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Usage log</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Dedupe</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Nov total</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="90" x2="166" y2="90"/><text class="lb" x="112" y="81">e7 · 300 calls</text><text class="sub" x="112" y="107">time 30 Nov 14:02</text><line class="ln" x1="172" y1="90" x2="281" y2="90"/><text class="lb" x="227" y="81">new id</text><rect class="rec" x="240" y="98" width="90" height="26" rx="7"/><text class="rec-t" x="285" y="115">300</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="57" y1="160" x2="166" y2="160"/><text class="lb" x="112" y="151">e7 again</text><text class="sub" x="112" y="177">a retry</text><path class="xm" d="M163 185l14 14M177 185l-14 14"/><text class="sub badt" x="227" y="164">seen: drop</text><rect class="rec" x="240" y="172" width="90" height="26" rx="7"/><text class="rec-t" x="285" y="189">300</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="57" y1="232" x2="166" y2="232"/><text class="lb" x="112" y="223">e9 · 200 calls</text><text class="sub" x="112" y="249">time 23:58 · in 00:20</text><line class="ln" x1="172" y1="232" x2="281" y2="232"/><text class="lb" x="227" y="223">new id</text><rect class="rec" x="240" y="240" width="90" height="26" rx="7"/><text class="rec-t" x="285" y="257">500</text><rect class="note" x="122" y="258" width="96" height="24" rx="7"/><text class="note-t" x="170" y="274">in 1 h grace</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="190" y="300" width="140" height="30" rx="8"/><text class="ok-t" x="260" y="320">✓ invoice: 500</text><text class="sub" x="260" y="346">final at 01:00</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="57" y1="384" x2="166" y2="384"/><text class="lb" x="112" y="375">e10 · 50 calls</text><text class="sub" x="112" y="401">time 23:59 · in 03:00</text><path class="xm" d="M163 409l14 14M177 409l-14 14"/><rect class="note" x="8" y="420" width="150" height="26" rx="7"/><text class="note-t" x="83" y="437">kept · sent to recon</text><text class="sub badt" x="260" y="437">too late for invoice</text></g>
+captions:
+  - "Event e7 says customer A made 300 API calls at 14:02 on 30 November. Its id is new, so the 300 calls go into November's total."
+  - "The sender did not get an answer, so it sends e7 again. Dedupe has seen the id e7 before and drops the copy. The total stays at 300."
+  - "Event e9 happened at 23:58 but arrives at 00:20 on 1 December. It is late, but inside the one-hour grace period, so it still counts for November."
+  - "At 01:00 the grace period ends. The November invoice is final with 500 calls. It will not change again."
+  - "Event e10 happened at 23:59 but arrives at 03:00. It is too late for the invoice. You keep it in the log and flag it for reconciliation, so a person or a rule decides what to do."

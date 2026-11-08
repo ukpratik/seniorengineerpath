@@ -1,0 +1,4 @@
+id: open-closed-principle
+term: open-closed principle
+forms: [open-closed]
+short: The "O" in SOLID. A module should be open for extension and closed for modification, so new behaviour comes from new code, not edits to working code.

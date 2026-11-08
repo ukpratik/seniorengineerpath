@@ -1,0 +1,4 @@
+id: dependency-inversion-principle
+term: dependency inversion principle
+forms: [dependency inversion]
+short: The "D" in SOLID. High-level business code should not depend on low-level details. Both depend on an interface shaped by the high-level code.

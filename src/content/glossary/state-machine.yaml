@@ -1,0 +1,4 @@
+id: state-machine
+term: state machine
+forms: [state machines, finite state machine, finite state machines]
+short: A model where a thing is always in exactly one named state, and only listed moves (transitions) can change that state. For example, an order can go from confirmed to shipped, but not from cancelled to shipped.

@@ -1,0 +1,4 @@
+id: liskov-substitution-principle
+term: Liskov substitution principle
+forms: [Liskov substitution]
+short: The "L" in SOLID. A subtype must behave the way its supertype promises, so code written for the supertype still works. Matching method types is not enough.

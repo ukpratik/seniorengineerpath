@@ -1,0 +1,3 @@
+id: coupling
+term: coupling
+short: How strongly one module depends on another. With strong coupling, a change in one module forces changes in the other. Stevens, Myers and Constantine described it in a 1974 paper.

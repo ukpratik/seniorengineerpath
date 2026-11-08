@@ -1,0 +1,4 @@
+id: cohesion
+term: cohesion
+forms: [cohesiveness]
+short: How strongly the parts inside one module belong together. High cohesion means the parts serve one purpose and tend to change together.

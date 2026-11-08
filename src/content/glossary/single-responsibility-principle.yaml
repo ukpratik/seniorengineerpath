@@ -1,0 +1,4 @@
+id: single-responsibility-principle
+term: single responsibility principle
+forms: [single responsibility]
+short: The "S" in SOLID. A module should have one reason to change, meaning one group of people who ask for its changes. It does not mean "one method per class".

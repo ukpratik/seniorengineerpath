@@ -1,0 +1,3 @@
+id: dependency-injection
+term: dependency injection
+short: Passing an object the things it needs, for example through its constructor, instead of letting it create them. It is about wiring, not design direction.

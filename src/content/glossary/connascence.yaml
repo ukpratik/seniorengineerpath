@@ -1,0 +1,3 @@
+id: connascence
+term: connascence
+short: A vocabulary for kinds of coupling. For example, two functions that must agree on the order of values in a list are connascent by position.

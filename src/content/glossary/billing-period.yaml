@@ -1,0 +1,4 @@
+id: billing-period
+term: billing period
+forms: [billing periods]
+short: The stretch of time one invoice covers, for example 1 to 30 November. Usage counts toward the period in which it happened.

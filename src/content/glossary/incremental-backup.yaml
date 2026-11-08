@@ -1,0 +1,4 @@
+id: incremental-backup
+term: incremental backup
+forms: [incremental backups]
+short: A backup that holds only what changed since the previous backup. To restore, you need it and every earlier backup it builds on.

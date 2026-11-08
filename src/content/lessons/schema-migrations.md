@@ -3,6 +3,7 @@ topic: schema-migrations
 subtitle: Change a live database schema in small steps that old and new code can both survive, with a way back at every step.
 status: published
 illustrative_story: false
+glossary_optout: [batching]
 sources:
   - id: gocardless
     title: "Chris Sinjakli, “Zero-downtime Postgres migrations: the hard parts”, GoCardless blog"

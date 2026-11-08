@@ -1,0 +1,4 @@
+id: singleton
+term: singleton
+forms: [singletons, Singleton pattern]
+short: A class that allows only one instance and gives global access to it, often through getInstance(). Used as global state, it hides dependencies and can leak state between tests.

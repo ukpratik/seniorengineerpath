@@ -1,0 +1,4 @@
+id: design-pattern
+term: design pattern
+forms: [design patterns]
+short: A named, well-known answer to a design problem that keeps coming back in a certain situation. It gives a team a shared word and a list of trade-offs, not ready-made code.

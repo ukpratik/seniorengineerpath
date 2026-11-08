@@ -1,0 +1,4 @@
+id: immutable-backup
+term: immutable backup
+forms: [immutable backups, immutable storage]
+short: A backup that cannot be changed or deleted until a set retention time ends. In its strictest mode, not even an admin can delete it.

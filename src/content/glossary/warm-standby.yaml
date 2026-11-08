@@ -1,0 +1,4 @@
+id: warm-standby
+term: warm standby
+forms: [warm-standby]
+short: A disaster recovery (DR) strategy where a smaller but working copy of production always runs at a second site, ready to scale up and take traffic.

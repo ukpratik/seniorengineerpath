@@ -1,0 +1,4 @@
+id: differential-backup
+term: differential backup
+forms: [differential backups]
+short: A backup that holds everything that changed since the last full backup. To restore, you need that full backup plus the newest differential.

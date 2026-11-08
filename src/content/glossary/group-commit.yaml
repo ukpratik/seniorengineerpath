@@ -1,0 +1,4 @@
+id: group-commit
+term: group commit
+forms: [group commits]
+short: When a database writes the commit records of several transactions to disk with one flush, so they share the cost of that flush.

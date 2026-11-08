@@ -1,0 +1,4 @@
+id: anti-pattern
+term: anti-pattern
+forms: [anti-patterns, antipattern, antipatterns]
+short: A common answer to a problem that looks like a solution but makes things worse. The term was coined by Andrew Koenig.

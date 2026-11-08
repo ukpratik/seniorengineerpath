@@ -1,0 +1,4 @@
+id: retry-amplification
+term: retry amplification
+forms: [retry storm, retry storms]
+short: When retries turn one request into many calls. They multiply when several layers each retry. Three layers that each try 4 times can send 64 calls to the bottom layer.

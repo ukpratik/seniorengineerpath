@@ -1,0 +1,4 @@
+id: three-two-one-rule
+term: 3-2-1 rule
+forms: [3-2-1 backup rule, 3-2-1 rule of backups]
+short: Keep 3 copies of important data (1 primary and 2 backups), on 2 different types of storage, with 1 copy in another place.

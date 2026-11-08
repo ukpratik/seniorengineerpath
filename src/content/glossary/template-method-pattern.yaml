@@ -1,0 +1,4 @@
+id: template-method-pattern
+term: Template Method pattern
+forms: [Template Method]
+short: A design pattern where a base class fixes the order of steps and subclasses fill in the steps that differ. Passing the changing step in as a function is often simpler.

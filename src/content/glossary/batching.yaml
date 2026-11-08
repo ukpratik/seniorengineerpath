@@ -1,0 +1,4 @@
+id: batching
+term: batching
+forms: [batched]
+short: Grouping many items into one operation, such as one network call or one disk write, so they share its fixed cost. It raises throughput but an item may wait for others to join.

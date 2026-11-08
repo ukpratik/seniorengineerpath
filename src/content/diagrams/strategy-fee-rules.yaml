@@ -1,0 +1,16 @@
+id: strategy-fee-rules
+title: "A delivery fee switch that grows with every city, replaced by a map of small fee rules"
+viewBox: 0 0 340 470
+svg: |
+  <text class="lb" x="170" y="16">A · One function with a switch</text>
+  <line class="life" x1="5" y1="216" x2="335" y2="216"/>
+  <text class="lb" x="170" y="238">B · A map of fee rules (Strategy)</text>
+  <g class="f" data-f="1"><rect class="box" x="60" y="28" width="220" height="96" rx="8"/><text class="bt" x="170" y="48">deliveryFee(order)</text><text class="sub" x="170" y="70">case blr: 30</text><text class="sub" x="170" y="88">case pune: 20 + 5 × km</text><text class="sub" x="170" y="106">case delhi: …</text></g>
+  <g class="f" data-f="2"><rect class="note" x="60" y="134" width="220" height="30" rx="8"/><text class="note-t" x="170" y="154">+ 6 cities, rain, late night</text><text class="sub badt" x="170" y="184">300 lines in one function</text><text class="sub badt" x="170" y="202">a Pune edit breaks Delhi</text></g>
+  <g class="f" data-f="3"><rect class="box" x="10" y="250" width="140" height="34" rx="8"/><text class="bt" x="80" y="272">deliveryFee</text><line class="ln" x1="152" y1="267" x2="184" y2="267"/><rect class="rec" x="190" y="250" width="140" height="34" rx="8"/><text class="rec-t" x="260" y="272">rules[city]</text><rect class="box" x="190" y="294" width="140" height="26" rx="6"/><text class="bt" x="260" y="311">blr: () =&gt; 30</text><rect class="box" x="190" y="326" width="140" height="26" rx="6"/><text class="bt" x="260" y="343">pune: km rule</text><rect class="box" x="190" y="358" width="140" height="26" rx="6"/><text class="bt" x="260" y="375">delhi: …</text><text class="sub" x="80" y="310">one lookup,</text><text class="sub" x="80" y="326">one call</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="190" y="390" width="140" height="26" rx="6"/><text class="ok-t" x="260" y="407">goa: new rule</text><rect class="okb" x="50" y="428" width="240" height="30" rx="8"/><text class="ok-t" x="170" y="448">✓ deliveryFee unchanged</text></g>
+captions:
+  - "Design A. One function decides the fee for every city with a switch. With three cities, this is short and easy to read."
+  - "Two years later, the same function holds nine cities and extra rules. The cases share variables, so a change for one city can break another."
+  - "Design B. Each city's rule is a small function in a map. deliveryFee looks up the rule for the order's city and calls it. Each rule can be tested alone."
+  - "A new city is one new entry in the map. deliveryFee does not change, and no other city's rule is touched. No new classes were needed."

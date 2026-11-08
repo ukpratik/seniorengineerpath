@@ -1,0 +1,4 @@
+id: pilot-light
+term: pilot light
+forms: [pilot-light]
+short: A disaster recovery setup where data is copied to a second site all the time, but the app servers there stay off until you need them.

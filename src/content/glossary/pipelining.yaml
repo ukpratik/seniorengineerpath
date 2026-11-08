@@ -1,0 +1,4 @@
+id: pipelining
+term: pipelining
+forms: [pipelined]
+short: Sending the next request on a connection before the reply to the last one arrives, so you pay the round trip once for many requests, not once each.

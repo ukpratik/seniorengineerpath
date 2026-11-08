@@ -1,0 +1,3 @@
+id: middleware
+term: middleware
+short: In web frameworks, a chain of functions that run in turn before a request handler, for example to log or check access. Each one either ends the request or passes control to the next.

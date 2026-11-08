@@ -1,0 +1,4 @@
+id: first-class-function
+term: first-class function
+forms: [first-class functions]
+short: A function you can treat like any other value. You can store it in a variable, pass it to another function or return it.

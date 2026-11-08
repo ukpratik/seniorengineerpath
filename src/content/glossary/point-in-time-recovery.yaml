@@ -1,0 +1,4 @@
+id: point-in-time-recovery
+term: point-in-time recovery
+forms: [PITR, point in time recovery]
+short: Restoring a database to its exact state at a chosen moment, by loading a base backup and then replaying the saved change log up to that moment.

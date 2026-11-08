@@ -1,0 +1,18 @@
+id: pitr-before-delete
+title: "Point-in-time recovery: restore Sunday's base backup, then replay the log up to just before a bad DELETE"
+viewBox: 0 0 340 440
+svg: |
+  <line class="life" x1="20" y1="70" x2="320" y2="70"/>
+  <text class="sub" x="50" y="20">Sun 02:00</text>
+  <text class="sub" x="290" y="20">Tue</text>
+  <g class="f" data-f="1"><rect class="rec" x="20" y="50" width="60" height="40" rx="6"/><text class="rec-t" x="50" y="74">base</text><rect class="note" x="86" y="100" width="234" height="26" rx="6"/><text class="note-t" x="203" y="118">WAL files, archived as they fill</text><text class="sub" x="203" y="144">every change since Sunday is kept</text></g>
+  <g class="f" data-f="2"><line class="xm" x1="240" y1="32" x2="240" y2="132"/><text class="sub badt" x="240" y="44">14:05 DELETE</text><rect class="box" x="20" y="158" width="300" height="44" rx="8"/><text class="bt" x="170" y="177">Replica</text><text class="sub badt" x="170" y="194">the DELETE is copied here too</text></g>
+  <g class="f" data-f="3"><rect class="box" x="20" y="218" width="300" height="44" rx="8"/><text class="bt" x="170" y="237">New server</text><text class="sub" x="170" y="254">load Sunday's base backup</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="20" y="278" width="210" height="30" rx="6"/><text class="ok-t" x="125" y="298">replay WAL to 14:04:59</text><rect class="box lost" x="236" y="278" width="84" height="30" rx="6"/><text class="sub" x="278" y="298">skip</text></g>
+  <g class="f" data-f="5"><rect class="note" x="20" y="324" width="300" height="50" rx="8"/><text class="note-t" x="170" y="344">Data at risk: writes after 14:05</text><text class="note-t" x="170" y="363">Downtime: 14:05 until the app is back</text><rect class="okb" x="70" y="388" width="200" height="30" rx="8"/><text class="ok-t" x="170" y="408">✓ deleted rows are back</text></g>
+captions:
+  - "A full base backup runs every Sunday at 02:00. After it, the database keeps every write-ahead log (WAL) file in an archive. Together they hold every change since Sunday."
+  - "On Tuesday at 14:05, a script runs a DELETE without the right WHERE clause. The replica copies the DELETE a moment later. Replication cannot help you here."
+  - "You start a new, empty server and load Sunday's base backup into it. You do not touch the broken primary yet. It may still hold good writes you need."
+  - "You tell Postgres to replay the archived WAL and stop at 14:04:59. Every change up to that moment comes back. The DELETE, and everything after it, is skipped."
+  - "The rows are back. Good writes made after 14:05 are only on the old primary, so you copy them over by hand. The downtime runs until the app uses the new server. Compare both with your RPO and RTO."

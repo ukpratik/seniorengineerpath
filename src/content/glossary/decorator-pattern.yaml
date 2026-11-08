@@ -1,0 +1,3 @@
+id: decorator-pattern
+term: Decorator pattern
+short: A design pattern that wraps a function or object to add a step, such as logging or timing, and keeps the same interface. Callers and the wrapped code do not change.

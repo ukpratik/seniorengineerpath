@@ -1,0 +1,4 @@
+id: nagles-algorithm
+term: Nagle's algorithm
+forms: [Nagle algorithm]
+short: A TCP rule that holds small writes while earlier data is still unacknowledged, then sends them together. Applications can turn it off with TCP_NODELAY.

@@ -1,0 +1,4 @@
+id: delayed-replica
+term: delayed replica
+forms: [delayed replicas, time-delayed replica]
+short: A replica that applies changes on purpose some time after the primary, for example 1 hour later, so you can stop it before a bad change arrives.

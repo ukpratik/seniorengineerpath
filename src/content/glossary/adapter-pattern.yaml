@@ -1,0 +1,3 @@
+id: adapter-pattern
+term: Adapter pattern
+short: A design pattern where a small class implements the interface your code expects by calling another API, often a vendor's. Vendor details stay inside it.

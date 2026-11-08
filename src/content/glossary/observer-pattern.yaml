@@ -1,0 +1,3 @@
+id: observer-pattern
+term: Observer pattern
+short: A design pattern where an object tells a list of listeners when something changes, without knowing who they are. Event listeners and event emitters are common forms of it.

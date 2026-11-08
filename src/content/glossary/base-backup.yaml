@@ -1,0 +1,4 @@
+id: base-backup
+term: base backup
+forms: [base backups]
+short: A full copy of a database's data files, taken while it runs. Point-in-time recovery starts from it and replays the change log on top.

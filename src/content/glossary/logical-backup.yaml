@@ -1,0 +1,4 @@
+id: logical-backup
+term: logical backup
+forms: [logical backups, logical dump, logical dumps]
+short: A backup written as SQL statements or rows, for example by pg_dump. It is portable, but it cannot be combined with the change log for point-in-time recovery.

@@ -67,7 +67,7 @@ test('incidents: tag filter and deep link', async ({ page }) => {
 
 test('glossary filter narrows the list', async ({ page }) => {
   await page.goto('/glossary');
-  await page.getByPlaceholder('Filter terms').fill('jitter');
+  await page.getByPlaceholder('Filter terms').fill('full jitter');
   await expect(page.locator('.gentry:visible')).toHaveCount(1);
 });
 

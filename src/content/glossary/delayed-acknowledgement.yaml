@@ -1,0 +1,4 @@
+id: delayed-acknowledgement
+term: delayed acknowledgement
+forms: [delayed acknowledgements, delayed ACK, delayed ACKs]
+short: When a TCP receiver waits a short time before confirming data, so it can send fewer confirmations. RFC 9293 limits the wait to under 0.5 seconds.

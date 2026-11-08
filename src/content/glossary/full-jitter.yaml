@@ -1,0 +1,4 @@
+id: full-jitter
+term: full jitter
+forms: []
+short: A backoff rule where each wait is a random time between zero and the capped backoff, min(cap, base × 2^n). It spreads retries evenly over that whole window.

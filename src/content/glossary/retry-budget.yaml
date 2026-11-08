@@ -1,0 +1,4 @@
+id: retry-budget
+term: retry budget
+forms: [retry budgets, retry quota, retry quotas]
+short: A limit on how many retries a client may send, such as retries under 10% of its requests. When the budget is used up, the client fails the request instead of retrying.

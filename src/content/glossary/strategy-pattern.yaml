@@ -1,0 +1,3 @@
+id: strategy-pattern
+term: Strategy pattern
+short: A design pattern that puts each variant of one decision, such as how to price an order, behind the same shape so you can swap them. In modern languages it is often just a function you pass in.

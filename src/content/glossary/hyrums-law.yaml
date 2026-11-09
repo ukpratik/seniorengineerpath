@@ -1,0 +1,4 @@
+id: hyrums-law
+term: Hyrum's law
+forms: ["Hyrum’s law", "Hyrum's Law"]
+short: The observation that, with enough users, every visible behaviour of an API is relied on by someone, even behaviour the docs never promised.

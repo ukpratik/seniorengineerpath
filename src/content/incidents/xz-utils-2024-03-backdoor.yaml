@@ -1,0 +1,11 @@
+id: xz-utils-2024-03-backdoor
+title: "xz/liblzma: a backdoor hidden in release tarballs reached the SSH server"
+date: 2024-03-29
+company: "xz-utils (open source)"
+broke: "xz versions 5.6.0 and 5.6.1 carried a backdoor in liblzma. On some Linux distributions it was loaded into the SSH server and made logins slow, which is how a developer found it."
+why: "The release tarballs held a build-script line that was not in Git. It ran a hidden script at build time that pulled code from test files. OpenSSH loaded liblzma indirectly, through a systemd patch."
+lesson: "Check that what you install was built from the source you reviewed, and remember that a dependency of a dependency runs with your full power."
+url: https://www.openwall.com/lists/oss-security/2024/03/29/4
+tags: [security, supply-chain]
+lessons: []
+verified: true

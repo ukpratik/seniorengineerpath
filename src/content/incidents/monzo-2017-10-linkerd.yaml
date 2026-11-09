@@ -1,0 +1,11 @@
+id: monzo-2017-10-linkerd
+title: "Monzo outage: stale proxy routes, then a restart of every proxy"
+date: 2017-10-27
+company: "Monzo"
+broke: "Current account payments failed for about 80 minutes, and for the last 18 minutes the whole platform, including the app, was down."
+why: "A Kubernetes and etcd client bug stopped linkerd from getting routing updates. Restarting every linkerd proxy then hit a parsing bug on an empty service, and no traffic flowed."
+lesson: "A proxy layer on every call can fail everything at once, so never restart all of it at the same time."
+url: https://community.monzo.com/t/resolved-current-account-payments-may-fail-major-outage-27-10-2017/26296/95
+tags: [service-mesh, networking, dependencies]
+lessons: []
+verified: true

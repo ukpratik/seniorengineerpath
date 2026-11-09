@@ -1,0 +1,4 @@
+id: workload-identity
+term: workload identity
+forms: [workload identities]
+short: A name for a running service, proven by a certificate or token, so other services can check who is calling. In Istio it comes from the Kubernetes service account.

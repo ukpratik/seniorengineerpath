@@ -1,0 +1,4 @@
+id: extensible-enum
+term: extensible enum
+forms: [extensible enums]
+short: A list of allowed values that the API owner says may grow later, so clients must handle values they do not know yet.

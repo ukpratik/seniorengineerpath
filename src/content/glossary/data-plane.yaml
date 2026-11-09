@@ -1,0 +1,4 @@
+id: data-plane
+term: data plane
+forms: [data planes]
+short: The part of a system that carries the real traffic, request by request, such as the proxies in a service mesh. It follows rules set by the control plane.

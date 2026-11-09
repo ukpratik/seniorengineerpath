@@ -1,0 +1,4 @@
+id: event-loop
+term: event loop
+forms: [event loops]
+short: A loop on one thread that waits for events, such as data on a socket, a timer or a click, and runs a short handler for each, one at a time. A handler that blocks stalls everything else. Node.js, browsers and Redis work this way.

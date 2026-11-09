@@ -1,0 +1,4 @@
+id: hash-slot
+term: hash slot
+forms: [hash slots]
+short: One of the 16,384 buckets that Redis Cluster splits keys into. Each key maps to one slot, and each slot belongs to one primary node.

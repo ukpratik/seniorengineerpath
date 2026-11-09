@@ -1,0 +1,4 @@
+id: hyperloglog
+term: HyperLogLog
+forms: [HyperLogLogs]
+short: A small data structure that estimates how many different items you have seen, such as unique visitors, with a small error and a small, capped amount of memory (at most 12 KB in Redis).

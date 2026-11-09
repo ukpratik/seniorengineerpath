@@ -1,0 +1,4 @@
+id: slsa
+term: SLSA
+forms: []
+short: Supply-chain Levels for Software Artifacts, a framework that grades how hard it is to tamper with your builds, from Build L0 (nothing) to Build L3 (hardened builds).

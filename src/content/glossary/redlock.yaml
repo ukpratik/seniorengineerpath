@@ -1,0 +1,4 @@
+id: redlock
+term: Redlock
+forms: []
+short: A distributed lock algorithm for Redis. A client takes the same lock on a majority of several independent Redis primaries, for a limited time.

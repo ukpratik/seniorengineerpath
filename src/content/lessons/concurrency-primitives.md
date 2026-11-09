@@ -211,7 +211,7 @@ A mutex works only inside one process. When many servers share one job, you need
 
 Leases have a trap. Martin Kleppmann describes a client that pauses for garbage collection. Its lease expires, another client takes the lock, and then the first client wakes up and writes anyway. [@kleppmann]
 
-His fix is a **fencing token**: a number that grows each time the lock is given out. The storage rejects any write with an older token than one it has already seen. [@kleppmann] He also asks: is the lock for efficiency or for correctness? If two nodes doing the same work only costs a little, a simple lock on one Redis node is enough. [@kleppmann] See [leader election and leases](/learn/leader-election-and-leases) and [Raft](/learn/consensus-and-raft).
+His fix is a **fencing token**: a number that grows each time the lock is given out. The storage rejects any write with an older token than one it has already seen. [@kleppmann] He also asks: is the lock for efficiency or for correctness? If two nodes doing the same work only costs a little, a simple lock on one Redis node is enough. [@kleppmann] [Redis in depth](/learn/redis-in-depth) covers Redlock and the debate about it. See [leader election and leases](/learn/leader-election-and-leases) and [Raft](/learn/consensus-and-raft).
 
 ### Prefer higher-level tools
 

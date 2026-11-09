@@ -1,0 +1,4 @@
+id: bounded-queue
+term: bounded queue
+forms: [bounded queues]
+short: A queue with a fixed maximum size. When it is full, a new item must wait, be rejected or replace another item, so the queue cannot use up all memory.

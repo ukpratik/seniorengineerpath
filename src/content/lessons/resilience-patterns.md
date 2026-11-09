@@ -221,7 +221,7 @@ The Turnstile kill switch shows the trade: users kept moving, but tokens could b
 ### Where these live
 
 - **In your code, as a library.** Resilience4j is one Java library for this. Hystrix is in maintenance mode, and Netflix suggests resilience4j for new projects. [@hystrix-readme]
-- **In a proxy next to each service**, as in a service mesh. Envoy calls its per-cluster limits "circuit breaking": maximum connections, pending requests, requests and active retries. [@envoy-cb] These act like bulkheads, and you write no app code. Removing hosts that fail more than their peers is a separate Envoy feature, outlier detection. [@envoy-outlier]
+- **In a proxy next to each service**, as in a [service mesh](/learn/service-mesh-and-sidecars). Envoy calls its per-cluster limits "circuit breaking": maximum connections, pending requests, requests and active retries. [@envoy-cb] These act like bulkheads, and you write no app code. Removing hosts that fail more than their peers is a separate Envoy feature, outlier detection. [@envoy-outlier]
 - **At the [gateway](/learn/api-gateway-and-edge)**, to guard your services from outside traffic.
 
 The server can protect itself too, by rejecting work it cannot finish in time. That is load shedding, the topic of [load shedding and graceful degradation](/learn/load-shedding-graceful-degradation).

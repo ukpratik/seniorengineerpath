@@ -291,4 +291,4 @@ TLS protects one hop. Often it ends at the [load balancer](/learn/load-balancing
 - [HTTP/1.1, HTTP/2 and HTTP/3](/learn/http-1-2-3-and-quic): ALPN, and TLS inside QUIC.
 - [Authentication and authorization](/learn/authentication-and-authorization): who the user is, which TLS does not tell you.
 - [Secrets and key management](/learn/secrets-and-key-management): where private keys should live.
-- [Service mesh and sidecars](/learn/service-mesh-and-sidecars) (coming soon): mTLS for every service.
+- [Service mesh and sidecars](/learn/service-mesh-and-sidecars): mTLS for every service.

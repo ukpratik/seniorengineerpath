@@ -1,0 +1,4 @@
+id: dependency-confusion
+term: dependency confusion
+forms: []
+short: An attack where someone publishes a package on a public index with the same name as your private one, so your installer picks the public, harmful package.

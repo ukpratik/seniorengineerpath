@@ -1,0 +1,4 @@
+id: control-plane
+term: control plane
+forms: [control planes]
+short: The part of a system that decides and configures, such as which routes and certificates proxies use. It is not on the path of each request.

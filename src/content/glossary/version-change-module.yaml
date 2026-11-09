@@ -1,0 +1,4 @@
+id: version-change-module
+term: version change module
+forms: [version change modules]
+short: Stripe's name for one small piece of code that describes a single breaking change and turns a new response back into the older shape.

@@ -1,0 +1,4 @@
+id: append-only-file
+term: append-only file
+forms: [AOF, append-only files]
+short: Redis's log of every write command. On restart Redis replays it to rebuild its data. How much you can lose depends on how often it calls fsync.

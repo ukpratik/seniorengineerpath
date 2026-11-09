@@ -1,0 +1,4 @@
+id: ambient-mode
+term: ambient mode
+forms: [ambient mesh]
+short: An Istio mode with no proxy in each pod. A shared proxy per node does mTLS, and optional waypoint proxies do HTTP features like routing.

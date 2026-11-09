@@ -1,0 +1,4 @@
+id: sorted-set
+term: sorted set
+forms: [sorted sets]
+short: A Redis data type that keeps unique members ordered by a number called a score. You can add, update and rank members quickly, so it suits leaderboards.

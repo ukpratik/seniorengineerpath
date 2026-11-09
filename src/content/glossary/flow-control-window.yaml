@@ -1,0 +1,4 @@
+id: flow-control-window
+term: flow-control window
+forms: [flow-control windows]
+short: The amount of data a receiver says it can accept right now. The sender may send only that much, then must wait until the receiver opens the window again.

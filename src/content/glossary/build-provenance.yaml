@@ -1,0 +1,4 @@
+id: build-provenance
+term: build provenance
+forms: [provenance]
+short: A record of how a build artifact was made, such as which source, which build platform and which inputs. When the build platform signs it, you can check it before you install.

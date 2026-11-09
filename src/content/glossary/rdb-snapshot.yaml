@@ -1,0 +1,4 @@
+id: rdb-snapshot
+term: RDB snapshot
+forms: [RDB snapshots, RDB]
+short: A compact file with a point-in-time copy of all Redis data, written by a forked child process. If it is your only persistence, a crash loses the writes made since the last snapshot.

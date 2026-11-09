@@ -1,0 +1,4 @@
+id: transitive-dependency
+term: transitive dependency
+forms: [transitive dependencies]
+short: A package you did not add yourself, but that one of your dependencies needs. Most of the code in a typical app arrives this way.

@@ -1,0 +1,4 @@
+id: sidecar-proxy
+term: sidecar proxy
+forms: [sidecar proxies]
+short: A proxy that runs next to one app, in the same pod, and handles its network traffic. The app talks to it as if it were the network.

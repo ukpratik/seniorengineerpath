@@ -1,0 +1,11 @@
+id: discord-2026-03-voice-outage
+title: "Discord voice and video outage: message queues grew faster than they drained"
+date: 2026-03-25
+company: "Discord"
+broke: "From 12:13 to 15:30 PDT, voice and video were badly degraded. Most users could not start or join calls and saw \"Awaiting Endpoint\"."
+why: "A config change stopped 17% of sessions without a clean handoff. The reconnect flood passed a rate limit that had not been re-tuned, gateway nodes in one zone began to run out of memory, and process mailboxes in the voice syncers grew until their health reports to etcd stopped arriving and they dropped out of service discovery."
+lesson: "Every queue needs a limit and an owner. Retune the limits that provide backpressure after any migration, and watch queue length."
+url: https://discord.com/blog/behind-the-scenes-of-the-3-25-26-voice-outage
+tags: [queues, overload, backpressure]
+lessons: []
+verified: true

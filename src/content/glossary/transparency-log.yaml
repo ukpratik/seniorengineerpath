@@ -1,0 +1,4 @@
+id: transparency-log
+term: transparency log
+forms: [transparency logs]
+short: A public, append-only record of events such as signatures or certificates. Anyone can check it, and nobody can quietly change past entries.

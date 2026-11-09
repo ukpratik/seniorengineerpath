@@ -205,7 +205,7 @@ Cassandra chose not to support transactions across partitions, distributed joins
 
 MongoDB has multi-document transactions. Its docs warn that a distributed transaction costs more than a single-document write, and that it does not replace a good schema. [@mongo-txn]
 
-Redis keeps data in memory. If you turn on its append-only file, the default policy syncs to disk once per second. A crash can then lose about 1 second of writes. With snapshots only, you can lose minutes. [@redis-persist] That may be fine for a cache, but usually not for money.
+Redis keeps data in memory ([Redis in depth](/learn/redis-in-depth) goes further). If you turn on its append-only file, the default policy syncs to disk once per second. A crash can then lose about 1 second of writes. With snapshots only, you can lose minutes. [@redis-persist] That may be fine for a cache, but usually not for money.
 
 Elasticsearch makes a new document searchable within about 1 second, not at once. [@es-nrt] So keep the real data in your main database, and copy it into the search index.
 

@@ -1,0 +1,4 @@
+id: additive-change
+term: additive change
+forms: [additive changes]
+short: An API change that only adds something new, such as an optional field or a new endpoint, and leaves everything old working as before.

@@ -1,0 +1,22 @@
+id: supply-chain-attack-points
+title: "Every hand-off between source code and your app is a place to tamper"
+viewBox: 0 0 340 410
+svg: |
+  <rect class="box" x="4" y="28" width="70" height="36" rx="8"/><text class="bt" x="39" y="51">Source</text>
+  <rect class="box" x="92" y="28" width="70" height="36" rx="8"/><text class="bt" x="127" y="51">Build</text>
+  <rect class="box" x="180" y="28" width="70" height="36" rx="8"/><text class="bt" x="215" y="51">Registry</text>
+  <rect class="box" x="268" y="28" width="70" height="36" rx="8"/><text class="bt" x="303" y="51">Your app</text>
+  <line class="ln" x1="76" y1="46" x2="90" y2="46"/>
+  <line class="ln" x1="164" y1="46" x2="178" y2="46"/>
+  <line class="ln" x1="252" y1="46" x2="266" y2="46"/>
+  <g class="f" data-f="1"><text class="sub" x="170" y="90">You read the source.</text><text class="sub" x="170" y="106">You run what the registry sends.</text></g>
+  <g class="f" data-f="2"><text class="lb" x="170" y="136">xz 5.6.0 and 5.6.1</text><text class="sub badt" x="170" y="154">release tarball ≠ git</text><text class="sub" x="170" y="170">extra code ran at build time</text></g>
+  <g class="f" data-f="3"><text class="lb" x="170" y="200">Dependency confusion</text><text class="sub" x="170" y="218">private index: torchtriton</text><text class="sub badt" x="170" y="234">public index: torchtriton (fake)</text><text class="sub" x="170" y="250">pip installed the public one</text></g>
+  <g class="f" data-f="4"><text class="lb" x="170" y="280">Moved tag</text><text class="sub badt" x="170" y="298">@v44.5.1 → attacker's commit</text><text class="sub" x="170" y="314">same name, new code in CI</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="20" y="332" width="300" height="22" rx="8"/><text class="ok-t" x="170" y="347">✓ lockfile: exact version + hash</text><rect class="okb" x="20" y="358" width="300" height="22" rx="8"/><text class="ok-t" x="170" y="373">✓ provenance: which source, which build</text><rect class="okb" x="20" y="384" width="300" height="22" rx="8"/><text class="ok-t" x="170" y="399">✓ actions pinned to a commit SHA</text></g>
+captions:
+  - "Code you depend on passes through several hands. You review the source, but you install a built package from a registry. Each arrow is a hand-off an attacker can use."
+  - "Source to build: the xz release tarballs held a line that was not in git. It ran a hidden script while the package was built."
+  - "Registry: PyTorch nightly used a package called torchtriton from its own index. Someone put a package with the same name on PyPI, and pip installed that one instead."
+  - "Build: a CI action is code too. In March 2025, attackers moved tags of tj-actions/changed-files to point to a malicious commit. Workflows that used the tag ran it."
+  - "Defenses, one per hand-off. A lockfile fixes the exact version and its hash. Provenance says which source and build made a package. A commit SHA cannot be moved like a tag."

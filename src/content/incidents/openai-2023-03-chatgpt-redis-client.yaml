@@ -1,0 +1,11 @@
+id: openai-2023-03-chatgpt-redis-client
+title: "ChatGPT: a Redis client bug showed some users other users' data"
+date: 2023-03-20
+company: "OpenAI"
+broke: "Some ChatGPT users saw chat titles from other active users, so ChatGPT was taken offline. Later checks found some Plus users' payment details (no full card numbers) may also have been visible to others."
+why: "In the asyncio redis-py client, a request cancelled after it was sent left its reply on a pooled connection. A server change caused a spike in cancellations, and later requests read other users' cached data."
+lesson: "A shared connection that gets out of step returns the wrong data, so drop it on cancel and check that cached data belongs to the caller."
+url: https://openai.com/index/march-20-chatgpt-outage/
+tags: [cache, redis, privacy]
+lessons: []
+verified: true

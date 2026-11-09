@@ -1,0 +1,17 @@
+id: version-translation-walkback
+title: "One codebase, many versions: build the newest response, then undo each change back to the client's version"
+viewBox: 0 0 340 430
+svg: |
+  <rect class="box" x="6" y="10" width="130" height="40" rx="10"/><text class="bt" x="71" y="35">Old client</text>
+  <rect class="box" x="204" y="10" width="130" height="40" rx="10"/><text class="bt" x="269" y="35">API</text>
+  <g class="f" data-f="1"><line class="ln" x1="138" y1="30" x2="200" y2="30"/><text class="lb" x="170" y="72">pinned to 2024-01-15</text><text class="sub" x="170" y="90">GET /customers/42</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="40" y="104" width="260" height="52" rx="8"/><text class="rec-t" x="170" y="125">newest shape (2025-03-01)</text><text class="rec-t" x="170" y="145">status: "verified", emails: [ … ]</text></g>
+  <g class="f" data-f="3"><rect class="note" x="40" y="172" width="260" height="26" rx="7"/><text class="note-t" x="170" y="189">undo 2025-03-01: emails → email</text><rect class="rec" x="40" y="206" width="260" height="28" rx="8"/><text class="rec-t" x="170" y="225">status: "verified", email: "a@x.in"</text></g>
+  <g class="f" data-f="4"><rect class="note" x="40" y="250" width="260" height="26" rx="7"/><text class="note-t" x="170" y="267">undo 2024-06-01: status → verified</text><rect class="rec" x="40" y="284" width="260" height="28" rx="8"/><text class="rec-t" x="170" y="303">verified: true, email: "a@x.in"</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="200" y1="44" x2="138" y2="44"/><rect class="okb" x="40" y="330" width="260" height="28" rx="8"/><text class="ok-t" x="170" y="349">✓ old client sees the 2024 shape</text><text class="sub" x="170" y="380">A client on 2025-03-01 skips both steps.</text><text class="sub" x="170" y="400">Old rules live in two small modules,</text><text class="sub" x="170" y="418">not in if-statements all over the code.</text></g>
+captions:
+  - "An old client calls the API. Its account was pinned to version 2024-01-15 on its first request, so every call is served in that version."
+  - "The API code only knows one shape: the newest. It builds the response the way a client on 2025-03-01 would see it."
+  - "A translation layer walks back in time. The 2025-03-01 change turned one email into a list, so this step turns the list back into one email."
+  - "The 2024-06-01 change replaced the verified true/false field with a status text. This step turns the status back into true or false."
+  - "The old client gets exactly the shape it was written for. A newer client skips the steps it does not need. Each old rule lives in one place."

@@ -1,0 +1,22 @@
+id: backpressure-hops
+title: "A full bounded queue slows every hop back to the client; an unbounded queue hides the problem until memory runs out"
+viewBox: 0 0 340 410
+svg: |
+  <text class="lb" x="170" y="16">A · Bounded queue (limit: 4 jobs)</text>
+  <text class="sub" x="170" y="33">example numbers · the worker does 100 jobs/s</text>
+  <rect class="box" x="4" y="44" width="58" height="34" rx="8"/><text class="bt" x="33" y="65">Client</text>
+  <rect class="box" x="94" y="44" width="58" height="34" rx="8"/><text class="bt" x="123" y="65">API</text>
+  <rect class="box" x="184" y="44" width="58" height="34" rx="8"/><text class="bt" x="213" y="65">Queue</text>
+  <rect class="box" x="276" y="44" width="58" height="34" rx="8"/><text class="bt" x="305" y="65">Worker</text>
+  <line class="ln" x1="64" y1="61" x2="90" y2="61"/><line class="ln" x1="154" y1="61" x2="180" y2="61"/><line class="ln" x1="244" y1="61" x2="272" y2="61"/>
+  <g class="f" data-f="1"><text class="sub" x="170" y="100">150 jobs/s arrive · 100 jobs/s leave</text><text class="sub badt" x="170" y="118">the queue holds 4/4 in a moment</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="80" y="130" width="180" height="26" rx="8"/><text class="rec-t" x="170" y="148">full → API's put() waits</text><text class="sub" x="170" y="176">API handlers stop taking new requests</text></g>
+  <g class="f" data-f="3"><text class="sub" x="170" y="198">its connections fill · the client waits</text><rect class="okb" x="40" y="208" width="260" height="26" rx="8"/><text class="ok-t" x="170" y="226">✓ the client slows to 100 jobs/s</text></g>
+  <g class="f" data-f="4"><text class="lb" x="170" y="258">B · Same, but the queue has no limit</text><rect class="box" x="4" y="268" width="58" height="34" rx="8"/><text class="bt" x="33" y="289">Client</text><rect class="box" x="94" y="268" width="58" height="34" rx="8"/><text class="bt" x="123" y="289">API</text><rect class="box" x="184" y="268" width="58" height="34" rx="8"/><text class="bt" x="213" y="289">No limit</text><rect class="box" x="276" y="268" width="58" height="34" rx="8"/><text class="bt" x="305" y="289">Worker</text><line class="ln" x1="64" y1="285" x2="90" y2="285"/><line class="ln" x1="154" y1="285" x2="180" y2="285"/><line class="ln" x1="244" y1="285" x2="272" y2="285"/><text class="sub badt" x="170" y="322">API says "OK" at once · client never slows</text><text class="sub badt" x="170" y="340">+50 jobs every second · memory grows</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="20" y="354" width="300" height="26" rx="8"/><text class="ok-t" x="170" y="372">✓ fix: set a limit · when full, wait or reject</text><text class="sub" x="170" y="398">reject = 503 + Retry-After, as in load shedding</text></g>
+captions:
+  - "A client sends jobs through an API to a queue with room for 4 jobs. 150 jobs a second arrive, but the worker finishes only 100. The queue is full almost at once."
+  - "The queue is full, so each API handler's put() call waits for a free slot. A waiting handler does not take the next request."
+  - "Requests now wait in the API's connections, so the client waits too. A client with a fixed number of requests in flight now sends only as fast as the worker finishes. The slow-down travelled back, hop by hop."
+  - "Now the queue has no limit. The API adds every job and answers at once, so the client never slows down. The queue grows by 50 jobs every second, and so does memory, until something crashes."
+  - "The fix: give every queue a limit. When it is full, either wait, which slows the sender, or reject with 503 and Retry-After, which is load shedding."

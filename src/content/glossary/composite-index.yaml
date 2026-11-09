@@ -1,0 +1,4 @@
+id: composite-index
+term: composite index
+forms: [composite indexes, multicolumn index, multicolumn indexes]
+short: An index on several columns, sorted by the first column, then by the second inside it, like a phone book. It helps queries that filter on its leading columns.

@@ -35,6 +35,14 @@ describe('linkGlossary', () => {
     expect(r.found[0].text).toBe('idempotency keys');
   });
 
+  it('does not match a term inside a dotted token like p99.9 or retry.js', () => {
+    const r = links('Watch retry.js and then one retry.');
+    expect(r.found).toEqual([{ url: '/glossary#retry', text: 'retry' }]);
+    expect(r.text.indexOf('retry.js')).toBe(6);
+    const s = links('A retry. Then more.');
+    expect(s.found).toEqual([{ url: '/glossary#retry', text: 'retry' }]);
+  });
+
   it('skips headings, code, links and quotes', () => {
     const r = links('## Retry\n\n`retry()` and [retry](https://x.dev)\n\n> retry here\n\nNow a retry.');
     expect(r.found.filter((f) => f.url.startsWith('/glossary'))).toEqual([{ url: '/glossary#retry', text: 'retry' }]);

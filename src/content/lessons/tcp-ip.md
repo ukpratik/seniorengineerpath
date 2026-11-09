@@ -170,7 +170,7 @@ Step through the life of one TCP connection. Use Next and Back, or the ‚Üê and ‚
 
 ### Why a new connection costs a round trip
 
-Your app cannot send the request until the handshake ends. That is one full round trip with no useful data. If a round trip to the server takes 150 ms, you wait about 150 ms before the request even leaves. [TLS](/learn/tls-and-secure-connections) (coming soon) then runs its own handshake on top. See [Latency numbers](/learn/latency-numbers-and-estimation) for typical round-trip times.
+Your app cannot send the request until the handshake ends. That is one full round trip with no useful data. If a round trip to the server takes 150 ms, you wait about 150 ms before the request even leaves. [TLS](/learn/tls-and-secure-connections) then runs its own handshake on top. See [Latency numbers](/learn/latency-numbers-and-estimation) for typical round-trip times.
 
 This is why **connection reuse** matters. MDN explains it for HTTP/1.x. A short-lived connection does a TCP handshake before each request. A **persistent** (keep-alive) connection stays open and serves many requests, with no new handshake [@mdn-conn]. Idle connections are still closed after some time [@mdn-conn]. A **pool** keeps a few open connections ready for many callers.
 
@@ -180,7 +180,7 @@ TCP gives bytes to your app only in order [@rfc9293]. If one packet is lost, eve
 
 HTTP/2 sends many requests over one TCP connection. But TCP cannot see those requests. So one lost or reordered packet stalls all of them, even ones the loss did not touch [@rfc9114]. This is **head-of-line blocking**.
 
-HTTP/3 fixes this by moving to **QUIC**. QUIC runs over UDP and builds its own reliable streams. A lost packet blocks only the streams with data in it [@rfc9000]. QUIC also includes the TLS handshake inside its own handshake [@rfc9000]. It uses UDP to make it easier to deploy on existing networks [@rfc9000]. [HTTP/1.1, HTTP/2 and HTTP/3](/learn/http-1-2-3-and-quic) (coming soon) goes deeper.
+HTTP/3 fixes this by moving to **QUIC**. QUIC runs over UDP and builds its own reliable streams. A lost packet blocks only the streams with data in it [@rfc9000]. QUIC also includes the TLS handshake inside its own handshake [@rfc9000]. It uses UDP to make it easier to deploy on existing networks [@rfc9000]. [HTTP/1.1, HTTP/2 and HTTP/3](/learn/http-1-2-3-and-quic) goes deeper.
 
 ### Reading the three common errors
 
@@ -220,7 +220,7 @@ Some addresses are private: `10.0.0.0/8`, `172.16.0.0/12` and `192.168.0.0/16`. 
 - Count new connections per request in a trace. A new TLS connection to a far region on every call is a common, hidden cost.
 - Set a connect timeout and a read timeout on every client. Retry only [idempotent](/glossary#idempotent) calls, with backoff.
 - When two teams blame each other, capture packets on both sides with `tcpdump`. Packets end the argument.
-- See [Load balancing](/learn/load-balancing) for layer 4 and layer 7 balancers, and [DNS and service discovery](/learn/dns-and-service-discovery) (coming soon) for how a name becomes an address.
+- See [Load balancing](/learn/load-balancing) for layer 4 and layer 7 balancers, and [DNS and service discovery](/learn/dns-and-service-discovery) for how a name becomes an address.
 
 ## With AI
 
@@ -244,7 +244,7 @@ Some addresses are private: `10.0.0.0/8`, `172.16.0.0/12` and `192.168.0.0/16`. 
 
 ## Go deeper
 
-- [TLS and secure connections](/learn/tls-and-secure-connections) (coming soon): the handshake that runs on top of TCP.
-- [HTTP/1.1, HTTP/2 and HTTP/3](/learn/http-1-2-3-and-quic) (coming soon): multiplexing, and why QUIC exists.
+- [TLS and secure connections](/learn/tls-and-secure-connections): the handshake that runs on top of TCP.
+- [HTTP/1.1, HTTP/2 and HTTP/3](/learn/http-1-2-3-and-quic): multiplexing, and why QUIC exists.
 - [WebSockets, SSE and long polling](/learn/websockets-sse-long-polling): keeping one connection open for a long time.
 - [CDNs and HTTP caching](/learn/cdn-and-http-caching): moving content closer, so round trips get shorter.

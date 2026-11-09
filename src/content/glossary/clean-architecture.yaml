@@ -1,0 +1,4 @@
+id: clean-architecture
+term: Clean Architecture
+forms: [the clean architecture]
+short: Robert C. Martin's name for designs that put business rules in the centre and frameworks, databases and the UI at the edge, with all source code dependencies pointing inward.

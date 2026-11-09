@@ -1,0 +1,3 @@
+id: dependency-rule
+term: dependency rule
+short: The main rule of Clean Architecture. Source code dependencies point only inward, so business rules never import the web framework or the database code.

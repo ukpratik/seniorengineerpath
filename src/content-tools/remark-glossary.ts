@@ -25,7 +25,7 @@ export function buildMatcher(terms: GlossaryTerm[]): { re: RegExp; idFor: Map<st
   }
   if (!idFor.size) return null;
   const alts = [...idFor.keys()].sort((a, b) => b.length - a.length).map(escapeRe);
-  return { re: new RegExp(`(?<![\\w-])(${alts.join('|')})(?![\\w-])`, 'gi'), idFor };
+  return { re: new RegExp(`(?<![\\w-])(${alts.join('|')})(?![\\w-]|\\.\\w)`, 'gi'), idFor };
 }
 
 export function linkGlossary(tree: Root, terms: GlossaryTerm[], optOut: string[] = []): string[] {

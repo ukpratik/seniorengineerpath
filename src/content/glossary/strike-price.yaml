@@ -1,0 +1,4 @@
+id: strike-price
+term: strike price
+forms: [strike prices, exercise price]
+short: "The fixed price per share at which a stock option lets you buy shares. It is set when the option is granted."

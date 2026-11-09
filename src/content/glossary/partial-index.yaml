@@ -1,0 +1,4 @@
+id: partial-index
+term: partial index
+forms: [partial indexes]
+short: An index that holds only the rows matching a condition, such as unbilled orders. It is smaller, but only queries with a matching condition can use it.

@@ -1,0 +1,17 @@
+id: ports-adapters-order
+title: "Placing an order: an HTTP adapter drives the core, a Postgres adapter plugs into its port, and tests swap in an in-memory adapter"
+viewBox: 0 0 340 440
+svg: |
+  <text class="lb" x="170" y="16">Driving side (calls the core)</text>
+  <text class="lb" x="170" y="424">Driven side (the core calls it)</text>
+  <g class="f" data-f="1"><rect class="rec" x="20" y="120" width="300" height="160" rx="12"/><text class="rec-t" x="170" y="140">Core: no framework, no SQL</text><rect class="box" x="50" y="154" width="240" height="34" rx="8"/><text class="bt" x="170" y="176">PlaceOrder use case</text><line class="ln" x1="170" y1="190" x2="170" y2="220"/><rect class="note" x="50" y="226" width="240" height="34" rx="8"/><text class="note-t" x="170" y="248">OrderRepository (port)</text></g>
+  <g class="f" data-f="2"><rect class="box" x="20" y="30" width="140" height="34" rx="8"/><text class="bt" x="90" y="52">HTTP adapter</text><line class="ln" x1="90" y1="66" x2="120" y2="150"/><text class="sub" x="90" y="84">JSON in, JSON out</text></g>
+  <g class="f" data-f="3"><rect class="box" x="20" y="340" width="140" height="34" rx="8"/><text class="bt" x="90" y="362">Postgres adapter</text><line class="ln" x1="60" y1="338" x2="60" y2="262"/><text class="sub" x="90" y="394">implements the port</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="180" y="30" width="140" height="34" rx="8"/><text class="ok-t" x="250" y="52">Unit test</text><line class="ln" x1="250" y1="66" x2="220" y2="150"/><rect class="okb" x="180" y="340" width="140" height="34" rx="8"/><text class="ok-t" x="250" y="362">In-memory adapter</text><line class="ln" x1="280" y1="338" x2="280" y2="262"/><text class="sub" x="250" y="394">an array, no database</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="70" y="292" width="200" height="30" rx="8"/><text class="ok-t" x="170" y="312">✓ every arrow points in</text></g>
+captions:
+  - "The core holds the business rules. PlaceOrder is a use case. It needs to save orders, so it owns a small interface, OrderRepository. That interface is a port. The core imports no web framework and no SQL driver."
+  - "A driving adapter starts the work. The HTTP adapter turns a JSON request into a call to PlaceOrder, and turns the result back into JSON. The core does not know HTTP exists."
+  - "A driven adapter is called by the core. The Postgres adapter implements OrderRepository with SQL. Its source code depends on the port, so the arrow points into the core."
+  - "In a test, a unit test drives PlaceOrder directly. An in-memory adapter, built on a plain array, implements the same port. The test needs no server and no database, so it runs fast."
+  - "Look at the arrows. The adapters know the core. The core knows only its own interfaces. This is the dependency rule: source code dependencies point inward."

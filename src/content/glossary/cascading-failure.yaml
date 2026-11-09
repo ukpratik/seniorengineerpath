@@ -1,0 +1,4 @@
+id: cascading-failure
+term: cascading failure
+forms: [cascading failures]
+short: A failure that spreads. One part fails or gets slow, its callers run out of threads or connections, and then their callers fail too.

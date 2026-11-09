@@ -1,0 +1,4 @@
+id: hexagonal-architecture
+term: hexagonal architecture
+forms: [ports and adapters, ports-and-adapters architecture]
+short: A design by Alistair Cockburn. Business code sits in the middle and talks to the outside world only through interfaces it owns (ports). Small adapters connect each port to a real tool, such as a database.

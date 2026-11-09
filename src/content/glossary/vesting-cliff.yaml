@@ -1,0 +1,4 @@
+id: vesting-cliff
+term: vesting cliff
+forms: [1-year cliff, one-year cliff]
+short: "A first period, often one year, in which no equity vests. At the end of it, the whole period's share vests at once. Leave before it ends and you get none."

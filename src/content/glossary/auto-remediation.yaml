@@ -1,0 +1,4 @@
+id: auto-remediation
+term: auto-remediation
+forms: [automatic remediation]
+short: "Automation that fixes a known problem by itself when an alert fires, with no human in the loop. Good auto-remediation has limits: it stops and calls a person when something looks unsafe."

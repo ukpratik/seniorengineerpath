@@ -1,0 +1,4 @@
+id: vesting
+term: vesting
+forms: [vesting schedule, vesting schedules]
+short: "The schedule by which granted equity, such as RSUs or stock options, becomes yours over time, for example over four years. Parts that have not vested are usually lost when you leave."

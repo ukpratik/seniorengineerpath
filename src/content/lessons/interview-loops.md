@@ -223,4 +223,4 @@ Seniors also sit on the other side of the table. The same ideas apply there.
 
 ## Go deeper
 
-Before this: [what senior really means](/learn/what-senior-really-means). For the design round: [the system design interview method](/learn/system-design-interview-method), [design deep dives](/learn/design-deep-dives-trade-offs) and [requirements and non-functional needs](/learn/requirements-and-non-functional-needs). Next: behavioural interviews, and negotiation.
+Before this: [what senior really means](/learn/what-senior-really-means). For the design round: [the system design interview method](/learn/system-design-interview-method), [design deep dives](/learn/design-deep-dives-trade-offs) and [requirements and non-functional needs](/learn/requirements-and-non-functional-needs). Next: [behavioural interviews and STAR stories](/learn/behavioural-interviews-star) and [negotiation and compensation](/learn/negotiation-and-compensation).

@@ -1,0 +1,4 @@
+id: half-open-state
+term: half-open state
+forms: [half-open]
+short: The test state of a circuit breaker. After a wait, it lets a few trial calls through. If they work, it closes again. If they fail, it opens again.

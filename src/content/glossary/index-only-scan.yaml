@@ -1,0 +1,4 @@
+id: index-only-scan
+term: index-only scan
+forms: [index-only scans, Index Only Scan]
+short: A query plan step that reads the answer from the index alone and skips the table rows. In PostgreSQL it skips the table only for pages marked all-visible.

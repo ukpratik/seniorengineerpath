@@ -204,7 +204,7 @@ Retries must fit inside the caller's time limit. Pass the time left down the cha
 - Tell callers how to behave when you are overloaded: a 503 with `Retry-After` to say when to come back, or a "don't retry" error so upper layers do not retry.
 - Add jitter to cron jobs, cache TTLs, reconnect loops and restarts, not just to request retries.
 - Watch the retry rate on a dashboard. A rising retry rate is an early warning of overload.
-- Pair retries with circuit breakers, which stop calls to a failing service for a while.
+- Pair retries with circuit breakers, which stop calls to a failing service for a while. See [circuit breakers, bulkheads and fallbacks](/learn/circuit-breakers-and-bulkheads).
 
 ## With AI
 

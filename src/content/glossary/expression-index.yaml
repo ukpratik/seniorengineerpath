@@ -1,0 +1,4 @@
+id: expression-index
+term: expression index
+forms: [expression indexes, index on an expression, indexes on expressions]
+short: An index on the result of an expression, such as lower(email), instead of a plain column. A query must use the same expression to use it.

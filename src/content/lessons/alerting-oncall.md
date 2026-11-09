@@ -198,7 +198,7 @@ Pay for it. Google gives time off or cash for on-call hours, capped at a share o
 - Count two numbers every week: pages per 12-hour on-call period, and pages per real incident. A week-long rota has 14 such periods. Compare them with Google's numbers: fewer than 2 pages per shift, and close to 1 alert per incident [@sre-oncall].
 - Hold a short review after each shift. For each page ask: was it real, did it need a human, was the runbook right? Then fix, downgrade or delete the alert.
 - Delete alerts and dashboards nobody uses. Google says rarely used alerting is "up for removal" [@sre-monitoring].
-- Turn repeat noise into work. PagerDuty says an alert that keeps firing for a preventable non-issue, like a disk filling up, should become a fix task [@pd-oncall]. Many teams call this toil. A coming lesson on runbooks and toil covers it.
+- Turn repeat noise into work. PagerDuty says an alert that keeps firing for a preventable non-issue, like a disk filling up, should become a fix task [@pd-oncall]. Many teams call this toil. [Runbooks and reducing toil](/learn/runbooks-and-reducing-toil) covers it.
 - Monitor your monitoring. Prometheus suggests alerts on Alertmanager itself and an outside blackbox check [@prom-alerting]. At GitLab in 2017, backup failures were sent only by email. The emails were rejected because of an email setting (DMARC), so nobody knew the backups were failing [@gitlab].
 - Give the person who was up all night the morning off.
 
@@ -224,6 +224,6 @@ Pay for it. Google gives time off or cash for on-call hours, capped at a share o
 
 Before this: [Observability and SLOs](/learn/observability-slos-error-budgets) explains SLIs, error budgets and burn rate.
 
-Next: [Incident response](/learn/incident-response-and-postmortems) covers what to do after the page. Runbooks and toil (coming soon) covers how to write runbooks and remove repeat work.
+Next: [Incident response](/learn/incident-response-and-postmortems) covers what to do after the page. [Runbooks and reducing toil](/learn/runbooks-and-reducing-toil) covers how to write runbooks and remove repeat work.
 
 Related: [Debugging production](/learn/debugging-production) goes from a symptom to a cause. [Safe deploys](/learn/safe-deploys-config-changes) shows how to watch alerts during a rollout.

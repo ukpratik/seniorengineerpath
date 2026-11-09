@@ -1,0 +1,4 @@
+id: bulkhead
+term: bulkhead
+forms: [bulkheads]
+short: A separate, limited pool of threads or call slots for one dependency. If that dependency gets slow, it can fill only its own pool, and the rest of the service keeps working.

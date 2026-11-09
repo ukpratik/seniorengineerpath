@@ -1,0 +1,18 @@
+id: option-vesting-cliff
+title: "A grant of 4,800 stock options vests over 4 years, with a 1-year cliff"
+viewBox: 0 0 340 320
+svg: |
+  <line class="life" x1="30" y1="240" x2="334" y2="240"/>
+  <text class="sub" x="40" y="258">0</text><text class="sub" x="110" y="258">12</text><text class="sub" x="180" y="258">24</text><text class="sub" x="250" y="258">36</text><text class="sub" x="320" y="258">48</text>
+  <text class="sub" x="180" y="276">months since you joined</text>
+  <g class="f" data-f="1"><rect class="box" x="20" y="8" width="300" height="32" rx="8"/><text class="bt" x="170" y="29">Granted: 4,800 options · vested: 0</text></g>
+  <g class="f" data-f="2"><text class="sub badt" x="70" y="150">leave at month 11:</text><text class="sub badt" x="70" y="166">you get 0</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="98" y="200" width="24" height="40" rx="3"/><text class="sub" x="110" y="194">1,200</text><text class="lb" x="170" y="62">Month 12: 1,200 vest at once</text></g>
+  <g class="f" data-f="4"><rect class="rec" x="168" y="160" width="24" height="80" rx="3"/><text class="sub" x="180" y="154">2,400</text><text class="lb" x="170" y="84">Then 100 more every month</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="238" y="120" width="24" height="120" rx="3"/><text class="sub" x="250" y="114">3,600</text><rect class="rec" x="308" y="80" width="24" height="160" rx="3"/><text class="sub" x="320" y="74">4,800</text><rect class="okb" x="40" y="286" width="260" height="28" rx="8"/><text class="ok-t" x="170" y="305">✓ All 4,800 vested at month 48</text></g>
+captions:
+  - "This example is made up. On your first day, the company grants you 4,800 stock options that vest over 4 years. None of them are yours yet."
+  - "The grant has a 1-year cliff. Nothing vests month by month in year one. If you leave at month 11, you leave with zero."
+  - "At month 12 the cliff ends. A full year's share, 1,200 options or 25%, vests at once."
+  - "After the cliff, 100 options vest each month. That is 36 months × 100 = 3,600 more. At month 24 you have 2,400, which is half."
+  - "At month 36 you have 3,600. At month 48 you have all 4,800: 1,200 from the cliff plus 3,600 monthly. Options that have not vested when you leave are usually lost."

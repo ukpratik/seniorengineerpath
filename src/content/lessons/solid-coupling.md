@@ -272,4 +272,4 @@ In 2020, Martin answered a reader who cited North's views on SOLID. He wrote tha
 
 ## Go deeper
 
-Before this: [complexity and deep modules](/learn/complexity-and-deep-modules). Next: [testing strategy](/learn/testing-strategy), where these seams make tests fast. Later lessons on design patterns, clean and hexagonal architecture, and low-level object-oriented design build on this one. Related: [managing technical debt](/learn/technical-debt-management) and [reviewing code written by humans and AI](/learn/reviewing-human-and-ai-code).
+Before this: [complexity and deep modules](/learn/complexity-and-deep-modules). Next: [testing strategy](/learn/testing-strategy), where these seams make tests fast. [Design patterns that still matter](/learn/design-patterns-that-matter) and [clean and hexagonal architecture](/learn/clean-and-hexagonal-architecture) build on this one, and so will a later lesson on low-level object-oriented design. Related: [managing technical debt](/learn/technical-debt-management) and [reviewing code written by humans and AI](/learn/reviewing-human-and-ai-code).

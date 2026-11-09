@@ -1,0 +1,17 @@
+id: circuit-breaker-states
+title: "A circuit breaker in front of a ratings service: closed, open, half-open, closed again"
+viewBox: 0 0 340 470
+svg: |
+  <text class="lb" x="170" y="16">Shop API → breaker → Ratings service</text>
+  <text class="sub" x="170" y="33">example: open at 50% failures of the last 20 calls</text>
+  <g class="f" data-f="1"><rect class="okb" x="6" y="48" width="96" height="30" rx="8"/><text class="ok-t" x="54" y="68">CLOSED</text><line class="ln" x1="110" y1="63" x2="330" y2="63"/><text class="lb" x="220" y="55">call → 200 OK, 40 ms</text><text class="sub" x="220" y="82">every call goes through</text><text class="sub" x="220" y="98">the breaker counts results</text></g>
+  <g class="f" data-f="2"><rect class="okb" x="6" y="132" width="96" height="30" rx="8"/><text class="ok-t" x="54" y="152">CLOSED</text><line class="ln lost" x1="110" y1="147" x2="330" y2="147"/><text class="lb" x="220" y="139">call → no answer in 1 s</text><text class="sub badt" x="220" y="166">12 of last 20 failed = 60%</text><text class="sub" x="220" y="182">60% ≥ 50%, so it trips</text></g>
+  <g class="f" data-f="3"><rect class="note" x="6" y="216" width="96" height="30" rx="8"/><text class="note-t" x="54" y="236">OPEN</text><line class="ln" x1="110" y1="231" x2="170" y2="231"/><path class="xm" d="M176 224l14 14M190 224l-14 14"/><text class="lb" x="262" y="235">error at once</text><text class="sub" x="220" y="262">no call is sent · page hides ratings</text><text class="sub" x="220" y="278">wait 30 s</text></g>
+  <g class="f" data-f="4"><rect class="rec" x="6" y="312" width="96" height="30" rx="8"/><text class="rec-t" x="54" y="332">HALF-OPEN</text><line class="ln" x1="110" y1="327" x2="330" y2="327"/><text class="lb" x="220" y="319">3 trial calls</text><text class="sub" x="220" y="346">other calls still get an error</text><text class="sub" x="220" y="362">3 of 3 trial calls work</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="6" y="396" width="96" height="30" rx="8"/><text class="ok-t" x="54" y="416">CLOSED</text><line class="ln" x1="110" y1="411" x2="330" y2="411"/><text class="lb" x="220" y="403">normal traffic again</text><text class="sub" x="220" y="430">ratings are back on the page</text><text class="sub" x="220" y="446">counting starts again</text></g>
+captions:
+  - "Closed is the normal state. Every call from the Shop API goes through to the Ratings service. The breaker records whether each call worked."
+  - "The Ratings service gets slow. Calls hit their 1-second timeout, and each timeout counts as a failure. When 12 of the last 20 calls have failed, the failure rate is 60%. That is over the 50% threshold, so the breaker trips."
+  - "Open: the breaker returns an error at once, without calling the service. The Shop API's threads are free again, and the slow service gets no new load. The page shows without ratings. The breaker waits 30 seconds."
+  - "Half-open: after the wait, the breaker lets 3 trial calls through. All 3 work. If they had failed, the breaker would go back to open and wait again."
+  - "Closed again: all calls go through, and the breaker starts counting from fresh. These numbers are an example. Pick yours from your own traffic."

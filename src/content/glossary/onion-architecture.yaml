@@ -1,0 +1,3 @@
+id: onion-architecture
+term: Onion Architecture
+short: Jeffrey Palermo's 2008 design. The domain model is the centre, layers wrap around it, and code may depend only on layers closer to the centre. The database is an outer layer.

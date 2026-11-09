@@ -1,0 +1,4 @@
+id: vertical-slice-architecture
+term: vertical slice architecture
+forms: [vertical slices, vertical slice]
+short: A way to organise code by feature or request instead of by layer. Each slice holds everything one request needs, from the endpoint to the data access.

@@ -1,0 +1,4 @@
+id: covering-index
+term: covering index
+forms: [covering indexes]
+short: An index that holds every column a query needs, so the database can answer from the index without reading the table rows.

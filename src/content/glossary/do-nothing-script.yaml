@@ -1,0 +1,4 @@
+id: do-nothing-script
+term: do-nothing script
+forms: [do-nothing scripts, do-nothing scripting]
+short: A script that prints each step of a manual task and waits for a person to do it. Later, you replace one step at a time with real code.

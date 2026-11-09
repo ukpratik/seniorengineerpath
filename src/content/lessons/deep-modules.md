@@ -238,4 +238,4 @@ So "deep" is a judgment, not a metric. Parnas also noted a cost. If each functio
 
 ## Go deeper
 
-Next: [error handling and defensive design](/learn/error-handling-defensive-design). Later lessons on SOLID, coupling and cohesion and on functional programming ideas build on this one. Related: [managing technical debt](/learn/technical-debt-management), [reviewing code written by humans and AI](/learn/reviewing-human-and-ai-code) and [REST API design](/learn/rest-api-design).
+Next: [error handling and defensive design](/learn/error-handling-defensive-design). [SOLID, coupling and cohesion](/learn/solid-coupling-and-cohesion) builds on this one, and so will a later lesson on functional programming ideas. Related: [managing technical debt](/learn/technical-debt-management), [reviewing code written by humans and AI](/learn/reviewing-human-and-ai-code) and [REST API design](/learn/rest-api-design).

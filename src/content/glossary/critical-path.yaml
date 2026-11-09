@@ -1,0 +1,4 @@
+id: critical-path
+term: critical path
+forms: [critical paths]
+short: The longest chain of steps that must happen one after another. It sets the total time, so making any other step faster does not help.

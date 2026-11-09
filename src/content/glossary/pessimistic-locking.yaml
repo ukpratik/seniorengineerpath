@@ -1,0 +1,4 @@
+id: pessimistic-locking
+term: pessimistic locking
+forms: [pessimistic lock, pessimistic locks]
+short: You lock a row before you read and change it, for example with SELECT ... FOR UPDATE. Others who want to change it wait until you commit.

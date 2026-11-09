@@ -1,0 +1,18 @@
+id: parking-lot-design
+title: "A parking lot design grows one step at a time, and one atomic step stops two gates taking the same spot"
+viewBox: 0 0 340 480
+svg: |
+  <text class="lb" x="170" y="16">Parking lot: classes and who owns what</text>
+  <g class="f" data-f="1"><rect class="box" x="10" y="30" width="140" height="40" rx="8"/><text class="bt" x="80" y="55">ParkingLot</text><rect class="box" x="190" y="30" width="140" height="40" rx="8"/><text class="bt" x="260" y="55">Spot</text><rect class="box" x="10" y="100" width="140" height="40" rx="8"/><text class="bt" x="80" y="125">Ticket</text><rect class="rec" x="190" y="100" width="140" height="40" rx="8"/><text class="rec-t" x="260" y="118">Vehicle</text><text class="sub" x="260" y="134">data: plate, size</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="152" y1="50" x2="186" y2="50"/><text class="lb" x="170" y="44">has</text><line class="ln" x1="152" y1="112" x2="196" y2="74"/><text class="lb" x="166" y="86">refers to</text><line class="ln" x1="152" y1="128" x2="186" y2="128"/></g>
+  <g class="f" data-f="3"><text class="sub" x="85" y="168">Vehicle → Car, Bike, Truck</text><path class="xm" d="M20 160l14 14M34 160l-14 14"/><text class="sub" x="85" y="188">no behaviour differs</text><rect class="okb" x="180" y="160" width="150" height="30" rx="8"/><text class="ok-t" x="255" y="180">✓ size: S / M / L</text></g>
+  <g class="f" data-f="4"><rect class="note" x="10" y="212" width="320" height="28" rx="7"/><text class="note-t" x="170" y="231">"Trucks pay more" → a real change</text><rect class="box" x="10" y="254" width="140" height="40" rx="8"/><text class="bt" x="80" y="272">PricingPolicy</text><text class="sub" x="80" y="288">ParkingLot calls it</text><rect class="box" x="190" y="254" width="140" height="40" rx="8"/><text class="bt" x="260" y="272">HourlyPricing</text><text class="sub" x="260" y="288">SizePricing</text><line class="ln" x1="188" y1="274" x2="154" y2="274"/></g>
+  <g class="f" data-f="5"><rect class="box" x="10" y="318" width="90" height="34" rx="8"/><text class="bt" x="55" y="340">Gate A</text><rect class="box" x="240" y="318" width="90" height="34" rx="8"/><text class="bt" x="285" y="340">Gate B</text><rect class="rec" x="125" y="318" width="90" height="34" rx="8"/><text class="rec-t" x="170" y="340">Spot 14</text><line class="ln" x1="102" y1="335" x2="122" y2="335"/><line class="ln" x1="238" y1="335" x2="218" y2="335"/><text class="sub" x="170" y="374">both check "free?", then take it</text></g>
+  <g class="f" data-f="6"><rect class="okb" x="10" y="388" width="150" height="30" rx="8"/><text class="ok-t" x="85" y="408">✓ A: true, ticket</text><rect class="note" x="180" y="388" width="150" height="30" rx="8"/><text class="note-t" x="255" y="408">B: false → next spot</text><text class="sub" x="170" y="444">check and take = one compareAndSet</text><text class="sub" x="170" y="464">one spot, one ticket</text></g>
+captions:
+  - "Start from the nouns in your requirements. Four objects matter. Vehicle has no behaviour, so it is just data: a plate and a size."
+  - "Draw who owns what. The lot has its spots: that is composition. A ticket only refers to a spot and a vehicle: that is association."
+  - "Do not make Car, Bike and Truck subclasses. They differ only in the spot size they need, so a size field is enough."
+  - "The interviewer asks for higher prices for trucks. Now pricing has a real reason to change, so the lot calls a small PricingPolicy interface."
+  - "Two gates want spot 14 at the same moment. If each first checks 'is it free?' and then takes it, both can win."
+  - "Spot.tryTake uses compareAndSet, so the check and the take are one atomic step. Gate A wins. Gate B gets false and tries the next spot."

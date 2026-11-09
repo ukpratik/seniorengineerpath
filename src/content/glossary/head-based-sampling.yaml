@@ -1,0 +1,4 @@
+id: head-based-sampling
+term: head-based sampling
+forms: [head sampling]
+short: Deciding whether to keep a trace when the request starts, before you know if it will be slow or fail. Cheap and simple.

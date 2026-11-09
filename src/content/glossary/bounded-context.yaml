@@ -1,0 +1,4 @@
+id: bounded-context
+term: bounded context
+forms: [bounded contexts]
+short: In domain-driven design, a clear boundary, often one subsystem or one team's work, inside which one model applies and each word has one meaning. The same word can mean something else in another bounded context.

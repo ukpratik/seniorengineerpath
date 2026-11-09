@@ -1,0 +1,20 @@
+id: optimistic-version-race
+title: "Optimistic locking: two edits race on a version column, one wins and one retries"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="380"/><line class="life" x1="170" y1="54" x2="170" y2="380"/><line class="life" x1="285" y1="54" x2="285" y2="380"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Agent A</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">ticket row</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Agent B</text>
+  <rect class="rec" x="120" y="62" width="100" height="24" rx="7"/><text class="rec-t" x="170" y="78">version = 3</text>
+  <g class="f" data-f="1"><line class="ln" x1="166" y1="112" x2="59" y2="112"/><text class="lb" x="112" y="104">read: v3</text><line class="ln" x1="174" y1="142" x2="281" y2="142"/><text class="lb" x="227" y="134">read: v3</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="59" y1="182" x2="166" y2="182"/><text class="lb" x="112" y="174">UPDATE v=3</text><text class="sub" x="55" y="202">1 row ✓</text><rect class="rec" x="120" y="192" width="100" height="24" rx="7"/><text class="rec-t" x="170" y="208">version = 4</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="281" y1="240" x2="174" y2="240"/><text class="lb" x="227" y="232">UPDATE v=3</text><path class="xm" d="M278 250l14 14M292 250l-14 14"/><text class="sub badt" x="285" y="282">0 rows</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="174" y1="306" x2="281" y2="306"/><text class="lb" x="227" y="298">reload: v4</text><text class="sub" x="285" y="324">sees A's edit</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="281" y1="352" x2="174" y2="352"/><text class="lb" x="227" y="344">UPDATE v=4</text><rect class="rec" x="120" y="362" width="100" height="24" rx="7"/><text class="rec-t" x="170" y="378">version = 5</text><text class="sub" x="285" y="372">1 row ✓</text><rect class="okb" x="10" y="400" width="320" height="28" rx="8"/><text class="ok-t" x="170" y="419">✓ both edits kept, none lost</text><text class="sub" x="170" y="452">No lock was held while they typed.</text></g>
+captions:
+  - "Two support agents open the same ticket. Both read the row and get version 3. No lock is taken."
+  - "Agent A saves first: UPDATE … WHERE id = 7 AND version = 3. The row still has version 3, so 1 row changes. The version becomes 4."
+  - "Agent B saves with the same condition, version = 3. The row now has version 4, so nothing matches. The database reports 0 rows. This is not an error, so B's code must check the count."
+  - "B's code treats 0 rows as a conflict. It reads the row again and gets version 4, with A's change in it."
+  - "B merges or re-applies the edit and saves with version = 4. This time 1 row changes. Both edits survive, and nobody waited on a lock."

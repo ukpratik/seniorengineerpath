@@ -1,0 +1,4 @@
+id: context-map
+term: context map
+forms: [context maps]
+short: A picture of all the bounded contexts in a system, how they connect, and which team depends on which.

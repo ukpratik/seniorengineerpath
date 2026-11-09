@@ -1,0 +1,4 @@
+id: anti-corruption-layer
+term: anti-corruption layer
+forms: [anticorruption layer, anti-corruption layers]
+short: Code at the edge of your system that translates another system's model into your own words, so that the other design does not leak into yours.

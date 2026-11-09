@@ -1,0 +1,4 @@
+id: tail-based-sampling
+term: tail-based sampling
+forms: [tail sampling]
+short: Deciding whether to keep a trace after it has finished, so you can keep every slow or failed one. Needs servers that hold spans in memory until the trace ends.

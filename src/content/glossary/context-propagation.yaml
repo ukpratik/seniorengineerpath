@@ -1,0 +1,3 @@
+id: context-propagation
+term: context propagation
+short: Passing the trace ID and the current span ID along with a call or a message, so the next service can add its spans to the same trace.

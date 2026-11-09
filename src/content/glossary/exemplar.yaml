@@ -1,0 +1,4 @@
+id: exemplar
+term: exemplar
+forms: [exemplars]
+short: One sample measurement stored with a metric, usually together with the trace ID of the request that produced it. It lets you jump from a graph to a real trace.

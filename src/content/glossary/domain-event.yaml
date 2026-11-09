@@ -1,0 +1,4 @@
+id: domain-event
+term: domain event
+forms: [domain events]
+short: A record of something that happened in the business that experts care about, such as "order placed". It does not change after it is created.

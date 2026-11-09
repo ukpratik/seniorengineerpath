@@ -283,4 +283,4 @@ It has a cost too. Bogard says it assumes "your team understands code smells and
 
 ## Go deeper
 
-Before this: [SOLID, coupling and cohesion](/learn/solid-coupling-and-cohesion). Related: [complexity and deep modules](/learn/complexity-and-deep-modules), [design patterns that still matter](/learn/design-patterns-that-matter), [testing strategy](/learn/testing-strategy) and [monolith, modular monolith or microservices](/learn/monolith-modular-monolith-microservices). A later lesson on domain-driven design builds on this one.
+Before this: [SOLID, coupling and cohesion](/learn/solid-coupling-and-cohesion). Related: [complexity and deep modules](/learn/complexity-and-deep-modules), [design patterns that still matter](/learn/design-patterns-that-matter), [testing strategy](/learn/testing-strategy) and [monolith, modular monolith or microservices](/learn/monolith-modular-monolith-microservices). [Domain-driven design](/learn/domain-driven-design) builds on this one.

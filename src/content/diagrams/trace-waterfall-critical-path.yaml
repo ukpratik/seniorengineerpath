@@ -1,0 +1,19 @@
+id: trace-waterfall-critical-path
+title: "One checkout request as a trace waterfall: find the critical path, then shorten it"
+viewBox: 0 0 340 420
+svg: |
+  <text x="110" y="14">0</text><text x="280" y="14">400 ms</text>
+  <line class="life" x1="110" y1="20" x2="110" y2="170"/><line class="life" x1="330" y1="20" x2="330" y2="170"/>
+  <g class="f" data-f="1"><text x="6" y="40">gateway</text><rect class="box" x="110" y="28" width="220" height="16" rx="3"/><text class="sub" x="170" y="190">traceparent: 00-4bf9…4736-…-01</text><text class="sub" x="170" y="208">same trace ID in every span below</text></g>
+  <g class="f" data-f="2"><text x="6" y="64">cart</text><rect class="box" x="116" y="52" width="27" height="16" rx="3"/><text x="6" y="88">pricing</text><rect class="box" x="143" y="76" width="132" height="16" rx="3"/><text x="6" y="136">→ stock call</text><rect class="box" x="275" y="124" width="44" height="16" rx="3"/></g>
+  <g class="f" data-f="3"><text x="6" y="112">db × 5</text><rect class="box" x="149" y="100" width="21" height="16" rx="3"/><rect class="box" x="171" y="100" width="21" height="16" rx="3"/><rect class="box" x="193" y="100" width="21" height="16" rx="3"/><rect class="box" x="215" y="100" width="21" height="16" rx="3"/><rect class="box" x="237" y="100" width="21" height="16" rx="3"/><rect class="note" x="20" y="222" width="300" height="26" rx="7"/><text class="note-t" x="170" y="239">N+1: same query, once per item</text></g>
+  <g class="f" data-f="4"><text x="6" y="160">stock svc</text><line class="lost ln" x1="276" y1="156" x2="294" y2="156"/><rect class="box" x="297" y="148" width="22" height="16" rx="3"/><rect class="note" x="20" y="256" width="300" height="26" rx="7"/><text class="note-t" x="170" y="273">40 ms gap: queue wait, not traced</text></g>
+  <g class="f" data-f="5"><rect class="rec" x="116" y="52" width="27" height="16" rx="3"/><rect class="rec" x="143" y="76" width="132" height="16" rx="3"/><rect class="rec" x="275" y="124" width="44" height="16" rx="3"/><text class="sub badt" x="170" y="300">critical path: cart → pricing → stock</text><text class="sub" x="170" y="318">pricing alone: 240 of the 400 ms</text></g>
+  <g class="f" data-f="6"><line class="life" x1="8" y1="332" x2="332" y2="332"/><text x="6" y="356">pricing</text><rect class="box" x="143" y="344" width="44" height="16" rx="3"/><text x="6" y="380">stock</text><rect class="box" x="143" y="368" width="49" height="16" rx="3"/><rect class="okb" x="70" y="390" width="200" height="26" rx="8"/><text class="ok-t" x="170" y="408">✓ about 150 ms in total</text></g>
+captions:
+  - "A user taps Pay. The gateway starts a trace and creates the root span. It sends the trace ID to each service it calls, in the traceparent header. The bar shows the whole request: 400 ms."
+  - "The gateway calls cart, then pricing, then stock, one after the other. Each call is a child span of the root. Pricing and stock both need only the cart, so they did not have to wait for each other."
+  - "Open the pricing span. It runs the same database query five times, once per item in the cart. That is the N+1 pattern: many small calls in a row where one batched call would do."
+  - "The gateway's call to stock starts at 300 ms. The stock service's own span starts at 340 ms. Nothing is recorded in between. A gap like this often means waiting in a queue or code that has no spans."
+  - "The critical path is the chain of spans that sets the total time. Here it is cart, then pricing, then stock, because each call waits for the one before. Pricing takes 240 of the 400 ms, so start there."
+  - "The fix: load all prices in one query, and call pricing and stock in parallel. The new waterfall is about 150 ms, because the two calls now overlap."

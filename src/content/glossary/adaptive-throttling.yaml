@@ -1,0 +1,4 @@
+id: adaptive-throttling
+term: adaptive throttling
+forms: []
+short: A client watches how many of its recent requests the backend accepted. When too many are rejected, it drops some new requests itself, before sending them.

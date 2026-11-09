@@ -1,0 +1,4 @@
+id: undo-log
+term: undo log
+forms: [undo logs]
+short: In MySQL InnoDB, a record of how a row looked before a change. It is used to roll back and to show older versions to readers.

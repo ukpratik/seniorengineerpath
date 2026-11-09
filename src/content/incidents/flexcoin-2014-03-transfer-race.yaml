@@ -1,0 +1,11 @@
+id: flexcoin-2014-03-transfer-race
+title: "Flexcoin: a race in balance transfers emptied the hot wallet"
+date: 2014-03-02
+company: "Flexcoin"
+broke: "An attacker took 896 BTC, all the coins in Flexcoin's hot wallet, and the exchange closed the next day."
+why: "Thousands of transfer requests sent at the same moment moved coins out of an account before its balance was updated, so the account went overdrawn."
+lesson: "A balance check and the write that follows must be one atomic step, or the row must be locked between them."
+url: http://web.archive.org/web/20140305154222/http://www.flexcoin.com/
+tags: [database, concurrency, money]
+lessons: []
+verified: true

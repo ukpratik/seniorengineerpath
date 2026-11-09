@@ -1,0 +1,4 @@
+id: value-object
+term: value object
+forms: [value objects]
+short: An object defined only by its values, such as an amount of money. It has no ID and does not change. Two value objects with the same values are equal.

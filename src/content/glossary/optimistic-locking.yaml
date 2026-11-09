@@ -1,0 +1,4 @@
+id: optimistic-locking
+term: optimistic locking
+forms: [optimistic lock, optimistic locks, optimistic concurrency control]
+short: You read without a lock, then write only if the row has not changed since you read it, often by checking a version number. If it changed, you retry.

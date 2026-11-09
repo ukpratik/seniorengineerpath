@@ -1,0 +1,4 @@
+id: aggregate-root
+term: aggregate root
+forms: [aggregate roots]
+short: The one entity at the top of a domain-driven design aggregate. Outside code may hold a reference only to the root, and the root checks the aggregate's rules.

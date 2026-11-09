@@ -1,0 +1,4 @@
+id: anemic-domain-model
+term: anemic domain model
+forms: ["anaemic domain model", "anemic domain models", "anaemic domain models"]
+short: "A design where objects only hold data, with getters and setters, and all the rules live in separate service classes. Fowler calls it an anti-pattern."

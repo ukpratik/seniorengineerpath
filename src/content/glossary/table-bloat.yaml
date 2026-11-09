@@ -1,0 +1,4 @@
+id: table-bloat
+term: table bloat
+forms: []
+short: A table that takes much more disk space than its live rows need, because it is full of old, dead row versions or empty space.

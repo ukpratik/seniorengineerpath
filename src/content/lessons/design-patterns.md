@@ -294,4 +294,4 @@ An anti-pattern is the result. Andrew Koenig, quoted by Fowler, calls it "someth
 
 ## Go deeper
 
-Before this: [SOLID, coupling and cohesion](/learn/solid-coupling-and-cohesion). Related: [complexity and deep modules](/learn/complexity-and-deep-modules). Next: [testing strategy](/learn/testing-strategy). A later lesson on low-level and object-oriented design builds on this one.
+Before this: [SOLID, coupling and cohesion](/learn/solid-coupling-and-cohesion). Related: [complexity and deep modules](/learn/complexity-and-deep-modules). Next: [testing strategy](/learn/testing-strategy). [Low-level and object-oriented design](/learn/low-level-object-oriented-design) builds on this one.

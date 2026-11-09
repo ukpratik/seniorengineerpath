@@ -1,0 +1,4 @@
+id: god-class
+term: god class
+forms: ["god classes", "god object", "god objects"]
+short: "One class that knows and does too much, such as a manager with dozens of methods. Almost every change touches it, so it is hard to change safely."

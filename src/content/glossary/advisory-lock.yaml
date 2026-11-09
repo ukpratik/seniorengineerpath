@@ -1,0 +1,4 @@
+id: advisory-lock
+term: advisory lock
+forms: [advisory locks]
+short: A database lock on a number or name your app chooses, not on a row. The database does not enforce it. It only works if all your code asks for it.

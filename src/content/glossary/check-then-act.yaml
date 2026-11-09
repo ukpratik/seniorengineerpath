@@ -1,0 +1,4 @@
+id: check-then-act
+term: check-then-act
+forms: ["check then act"]
+short: "A race where code checks a condition, such as 'is the seat free?', and then acts on it in a separate step. Another thread can change the state in between."

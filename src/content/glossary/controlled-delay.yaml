@@ -1,0 +1,4 @@
+id: controlled-delay
+term: controlled delay
+forms: [CoDel]
+short: A queue rule, first made for network routers (CoDel), that limits how long items may wait. When a queue stays full for a while, new items get a very short wait limit, so a standing queue cannot form.

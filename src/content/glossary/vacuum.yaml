@@ -1,0 +1,4 @@
+id: vacuum
+term: VACUUM
+forms: [vacuuming, autovacuum]
+short: The PostgreSQL job that removes old row versions no transaction can see any more, so their space can be reused. Autovacuum runs it for you.

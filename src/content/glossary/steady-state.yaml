@@ -1,0 +1,3 @@
+id: steady-state
+term: steady state
+short: In a chaos experiment, a measurable output that shows the system is working normally, such as orders per second or p99 latency. You compare it with and without the fault.

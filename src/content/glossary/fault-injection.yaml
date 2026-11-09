@@ -1,0 +1,3 @@
+id: fault-injection
+term: fault injection
+short: Adding a failure on purpose, such as delay, errors or a stopped server, to see how the rest of the system reacts.

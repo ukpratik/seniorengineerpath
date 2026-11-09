@@ -1,0 +1,4 @@
+id: relation-tuple
+term: relation tuple
+forms: [relation tuples, relationship tuple, relationship tuples]
+short: One stored fact in a Zanzibar-style system, in the form object, relation, user. For example, "doc:plan#owner@user:ravi" means Ravi owns doc:plan.

@@ -1,0 +1,4 @@
+id: data-encryption-key
+term: data encryption key
+forms: [data encryption keys, DEK, DEKs]
+short: The key that encrypts your data itself in envelope encryption. You store it only in encrypted (wrapped) form, next to the data.

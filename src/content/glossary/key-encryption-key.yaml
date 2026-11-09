@@ -1,0 +1,4 @@
+id: key-encryption-key
+term: key encryption key
+forms: [key encryption keys, KEK, KEKs]
+short: A key that encrypts other keys, not data. In envelope encryption it stays inside the key management service and wraps each data encryption key.

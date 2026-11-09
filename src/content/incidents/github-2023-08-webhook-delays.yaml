@@ -1,0 +1,11 @@
+id: github-2023-08-webhook-delays
+title: "GitHub webhooks delayed by up to 4.5 hours"
+date: 2023-08-15
+company: "GitHub"
+broke: "For about four and a half hours, webhook deliveries waited in an internal job queue. Some customers got their webhooks up to 4.5 hours late."
+why: "A large, sustained spike in webhook deliveries backed up the internal job queue used to process webhooks."
+lesson: "Webhooks can arrive hours late, so receivers need a way to catch up, and senders need to stop one load source from slowing everyone."
+url: https://github.blog/news-insights/company-news/github-availability-report-august-2023/
+tags: [webhooks, queues, overload]
+lessons: []
+verified: true

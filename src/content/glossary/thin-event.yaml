@@ -1,0 +1,4 @@
+id: thin-event
+term: thin event
+forms: [thin events, thin payload, thin payloads]
+short: An event that only says what changed and which object it was, with an id. The receiver calls the API to get the object's current data.

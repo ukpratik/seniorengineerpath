@@ -1,0 +1,20 @@
+id: rebac-check-walk
+title: "A Zanzibar-style check walks stored relationships until it finds the user"
+viewBox: 0 0 340 444
+svg: |
+  <text class="lb" x="170" y="18">Check: may Asha view doc:plan?</text>
+  <rect class="box" x="20" y="34" width="150" height="36" rx="8"/><text class="bt" x="95" y="57">doc:plan</text>
+  <rect class="box" x="20" y="134" width="150" height="36" rx="8"/><text class="bt" x="95" y="157">folder:q3</text>
+  <rect class="box" x="20" y="234" width="150" height="36" rx="8"/><text class="bt" x="95" y="257">group:ops</text>
+  <rect class="box" x="20" y="334" width="150" height="36" rx="8"/><text class="bt" x="95" y="357">user:asha</text>
+  <g class="f" data-f="1"><text class="sub badt" x="255" y="50">viewer/editor tuples:</text><text class="sub badt" x="255" y="66">none for asha</text><text class="sub" x="255" y="92">rule: viewer also</text><text class="sub" x="255" y="108">from parent folder</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="95" y1="72" x2="95" y2="130"/><text class="lb" x="135" y="106">parent</text><rect class="rec" x="186" y="120" width="148" height="26" rx="7"/><text class="rec-t" x="260" y="137">viewer of folder:q3?</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="95" y1="172" x2="95" y2="230"/><text class="lb" x="135" y="206">viewer</text><text class="sub" x="255" y="196">tuple: group:ops</text><text class="sub" x="255" y="212">members are viewers</text><rect class="rec" x="186" y="220" width="148" height="26" rx="7"/><text class="rec-t" x="260" y="237">is asha a member?</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="95" y1="272" x2="95" y2="330"/><text class="lb" x="140" y="306">member</text><text class="sub" x="255" y="300">tuple found:</text><text class="sub" x="255" y="316">group:ops#member@user:asha</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="20" y="384" width="300" height="28" rx="8"/><text class="ok-t" x="170" y="403">✓ allowed via folder and group</text><text class="sub" x="170" y="432">Delete one tuple and the path breaks.</text></g>
+captions:
+  - "The API asks one question: is Asha a viewer of doc:plan? No stored tuple names Asha as a viewer or editor of the doc. But the schema says viewers of the parent folder are also viewers."
+  - "So the check follows the parent tuple, doc:plan#parent@folder:q3. Now the question is: is Asha a viewer of folder:q3?"
+  - "The folder has a tuple that says members of group:ops are viewers. The check does not list all members. It asks one smaller question: is Asha a member of group:ops?"
+  - "Yes. The tuple group:ops#member@user:asha exists. Each step was one small lookup. Nested groups and folders just add more steps."
+  - "The answer is allowed, and the path explains why. Nobody stored 'Asha may view doc:plan'. Remove her from the group, or move the doc, and the next check says no."

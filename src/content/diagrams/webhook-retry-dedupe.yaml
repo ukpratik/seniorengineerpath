@@ -1,0 +1,19 @@
+id: webhook-retry-dedupe
+title: "A webhook times out, comes again, and the event id stops double work"
+viewBox: 0 0 340 470
+svg: |
+  <line class="life" x1="55" y1="54" x2="55" y2="456"/><line class="life" x1="170" y1="54" x2="170" y2="456"/><line class="life" x1="285" y1="54" x2="285" y2="456"/>
+  <rect class="box" x="5" y="10" width="100" height="44" rx="10"/><text class="bt" x="55" y="37">Sender</text>
+  <rect class="box" x="120" y="10" width="100" height="44" rx="10"/><text class="bt" x="170" y="37">Your endpoint</text>
+  <rect class="box" x="235" y="10" width="100" height="44" rx="10"/><text class="bt" x="285" y="37">Seen event ids</text>
+  <g class="f" data-f="1"><line class="ln" x1="57" y1="95" x2="166" y2="95"/><text class="lb" x="112" y="86">POST invoice.paid</text><text class="sub" x="112" y="112">id evt_42 · signed</text></g>
+  <g class="f" data-f="2"><rect class="rec" x="122" y="130" width="96" height="26" rx="7"/><text class="rec-t" x="170" y="147">mark paid · 12 s</text><line class="ln" x1="172" y1="176" x2="281" y2="176"/><text class="lb" x="227" y="168">save evt_42</text><rect class="rec" x="245" y="186" width="80" height="26" rx="7"/><text class="rec-t" x="285" y="203">evt_42</text></g>
+  <g class="f" data-f="3"><line class="ln lost" x1="168" y1="240" x2="59" y2="240"/><text class="lb" x="112" y="231">200 OK</text><path class="xm" d="M105 233l14 14M119 233l-14 14"/><rect class="note" x="8" y="256" width="94" height="26" rx="7"/><text class="note-t" x="55" y="273">timeout · failed</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="57" y1="320" x2="166" y2="320"/><text class="lb" x="112" y="311">retry, later</text><text class="sub" x="112" y="337">same id evt_42</text></g>
+  <g class="f" data-f="5"><line class="ln" x1="172" y1="364" x2="281" y2="364"/><text class="lb" x="227" y="356">evt_42 seen?</text><line class="ln" x1="283" y1="392" x2="174" y2="392"/><text class="lb" x="227" y="384">yes</text><line class="ln" x1="168" y1="426" x2="59" y2="426"/><text class="lb" x="112" y="417">200 OK</text><text class="sub" x="112" y="443">skip the work</text><rect class="okb" x="190" y="414" width="140" height="30" rx="8"/><text class="ok-t" x="260" y="434">✓ done once</text></g>
+captions:
+  - "The sender posts an invoice.paid event to your endpoint. The event has an id, evt_42, and a signature."
+  - "Your endpoint checks the signature and does the work inline. It takes 12 seconds. When it finishes, it saves evt_42 as seen. This is the slow pattern from step 3. It shows why the id check still matters."
+  - "The sender stopped waiting before your answer came. It marks the delivery as failed. It cannot know that the work happened."
+  - "After a backoff, the sender tries again. The body has the same event id, evt_42. With Stripe, the timestamp and signature are new."
+  - "Your endpoint finds evt_42 in the seen list. It answers 200 and skips the work. The invoice is marked paid once."

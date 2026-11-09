@@ -228,7 +228,7 @@ The server can protect itself too, by rejecting work it cannot finish in time. T
 
 ### Test them
 
-A breaker or fallback that never ran is like any rare code path: it may not work. Make a dependency slow in a test environment. Check that the breaker opens, the bulkhead rejects and the page still renders. The coming lesson *Chaos engineering and game days* shows how to do this safely in production.
+A breaker or fallback that never ran is like any rare code path: it may not work. Make a dependency slow in a test environment. Check that the breaker opens, the bulkhead rejects and the page still renders. [Chaos engineering and game days](/learn/chaos-engineering-game-days) shows how to do this safely in production.
 
 ## Trade-offs
 

@@ -204,7 +204,7 @@ When you must break something, release a new version and deprecate the old one s
 
 - **gRPC**: calls a method on another server as if it were local, with Protocol Buffers as the contract. It suits calls between your own services. [@grpc]
 - **GraphQL**: the client asks for exactly the fields it needs, often in one request. It suits screens that need data from many resources. [@graphql]
-- **Webhooks**: the server pushes events to your HTTPS endpoint when they happen. It retries failed deliveries, and the same event can arrive twice, so handle duplicates. [@stripe-webhooks]
+- **Webhooks**: the server pushes events to your HTTPS endpoint when they happen. It retries failed deliveries, and the same event can arrive twice, so handle duplicates. [@stripe-webhooks] See [webhooks and async APIs](/learn/webhooks-and-async-apis).
 
 ## Trade-offs
 

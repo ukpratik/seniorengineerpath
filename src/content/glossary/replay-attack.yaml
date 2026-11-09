@@ -1,0 +1,4 @@
+id: replay-attack
+term: replay attack
+forms: [replay attacks]
+short: An attacker copies a real, correctly signed message and sends it again later, so the receiver acts on it twice.

@@ -1,0 +1,4 @@
+id: key-management-service
+term: KMS
+forms: [key management service, key management services]
+short: A cloud service, such as AWS KMS or Google Cloud KMS, that creates and stores encryption keys and uses them for you. You call its API; the main keys never leave it unencrypted.

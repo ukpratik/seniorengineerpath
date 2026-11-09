@@ -1,0 +1,11 @@
+id: circleci-2023-01-security-incident
+title: "CircleCI security incident: customer secrets stolen from production"
+date: 2023-01-04
+company: "CircleCI"
+broke: "An attacker copied customers' environment variables, keys and tokens from CircleCI's production systems, and CircleCI told every customer to rotate all their secrets."
+why: "Malware on one engineer's laptop stole a valid single sign-on session. That engineer could create production access tokens, and the attacker took encryption keys from a running process, which could let them read the encrypted data."
+lesson: "Keep long-lived secrets out of shared stores where you can, prefer short-lived credentials, and be ready to rotate everything fast."
+url: https://circleci.com/blog/jan-4-2023-incident-report/
+tags: [security, secrets, ci-cd]
+lessons: []
+verified: true

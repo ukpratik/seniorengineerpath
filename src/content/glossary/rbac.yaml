@@ -1,0 +1,4 @@
+id: rbac
+term: role-based access control
+forms: [RBAC]
+short: An authorization model where permissions belong to roles, such as "editor", and users get permissions by being given roles.

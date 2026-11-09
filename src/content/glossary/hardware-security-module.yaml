@@ -1,0 +1,4 @@
+id: hardware-security-module
+term: hardware security module
+forms: [hardware security modules, HSM, HSMs]
+short: A tamper-resistant device that creates and stores keys and does crypto inside itself, so the keys never leave it in plain form.

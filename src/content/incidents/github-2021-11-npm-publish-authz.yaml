@@ -1,0 +1,11 @@
+id: github-2021-11-npm-publish-authz
+title: "npm: a publish was authorized for one package and applied to another"
+date: 2021-11-02
+company: "GitHub (npm)"
+broke: "A bug bounty report showed that an attacker could publish new versions of any npm package from an account without proper authorization. GitHub patched it within six hours."
+why: "The authorization service checked the package named in the request URL, but the publishing service chose the package from the contents of the uploaded file."
+lesson: "Check permission on the same object the action will change, not on a second copy of the request that may disagree."
+url: https://github.blog/open-source/githubs-commitment-to-npm-ecosystem-security/
+tags: [security, authorization]
+lessons: []
+verified: true

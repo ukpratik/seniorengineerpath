@@ -1,0 +1,4 @@
+id: rebac
+term: relationship-based access control
+forms: [ReBAC]
+short: An authorization model where access comes from relationships between users and objects, such as "owner of this doc" or "member of a group that can view this folder".

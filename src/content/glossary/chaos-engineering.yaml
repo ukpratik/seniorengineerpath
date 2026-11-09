@@ -1,0 +1,3 @@
+id: chaos-engineering
+term: chaos engineering
+short: Causing failures on purpose, in a small and controlled way, to learn whether a system keeps working when real failures happen.

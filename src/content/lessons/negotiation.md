@@ -222,7 +222,7 @@ As of 2026, Colorado's Equal Pay for Equal Work Act requires employers to disclo
 
 ### Raises and promotions inside your company
 
-Internal pay follows your company's levels and review cycle. The later lesson on career ladders covers it.
+Internal pay follows your company's levels and review cycle. [Career ladders and level expectations](/learn/career-ladders-level-expectations) covers it.
 
 ## Trade-offs
 
@@ -260,4 +260,4 @@ Internal pay follows your company's levels and review cycle. The later lesson on
 
 ## Go deeper
 
-Before this: [big-tech interview loops](/learn/big-tech-interview-loops) and [behavioural interviews](/learn/behavioural-interviews-star). Also: [what senior really means](/learn/what-senior-really-means). Next: career ladders.
+Before this: [big-tech interview loops](/learn/big-tech-interview-loops) and [behavioural interviews](/learn/behavioural-interviews-star). Also: [what senior really means](/learn/what-senior-really-means). Next: [career ladders](/learn/career-ladders-level-expectations).

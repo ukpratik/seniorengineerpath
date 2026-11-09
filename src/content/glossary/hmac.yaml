@@ -1,0 +1,4 @@
+id: hmac
+term: HMAC
+forms: [HMACs]
+short: A short code made from a message and a shared secret key. Only someone with the key can make the right code, so it proves the message came from someone who has the key and that nobody changed it.

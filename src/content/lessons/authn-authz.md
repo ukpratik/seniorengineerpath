@@ -218,7 +218,7 @@ Broken object level authorization (BOLA) happens when an API takes an object ID 
 
 Give each user, service and token only the access it needs. OWASP asks for least privilege. [@owasp-authz] RFC 9700 says OAuth access tokens should get the minimum privileges for the use case. [@rfc9700]
 
-Roles, like "admin" and "viewer", are a good start. Larger products need richer rules. Google's Zanzibar, for example, serves hundreds of services from one shared permission model. [@zanzibar] See [Authorization models: RBAC, ABAC and ReBAC](/learn/rbac-abac-rebac) (coming soon).
+Roles, like "admin" and "viewer", are a good start. Larger products need richer rules. Google's Zanzibar, for example, serves hundreds of services from one shared permission model. [@zanzibar] See [Authorization models: RBAC, ABAC and ReBAC](/learn/rbac-abac-rebac).
 
 ## Trade-offs
 

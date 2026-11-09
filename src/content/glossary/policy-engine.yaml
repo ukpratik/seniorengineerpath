@@ -1,0 +1,4 @@
+id: policy-engine
+term: policy engine
+forms: [policy engines]
+short: A library or service that answers "is this request allowed?" by evaluating authorization rules written as code, kept apart from the application's own code.

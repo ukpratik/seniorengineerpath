@@ -1,0 +1,4 @@
+id: abac
+term: attribute-based access control
+forms: [ABAC]
+short: An authorization model where a policy decides each request from attributes of the user, the resource, the action and the environment, such as department, owner or time of day.

@@ -1,0 +1,20 @@
+id: chaos-experiment-abort
+title: "One chaos experiment: inject latency for 1% of users, stop at the line, keep the finding"
+viewBox: 0 0 340 446
+svg: |
+  <text class="lb" x="170" y="16">Checkout p99 latency, 1% group</text>
+  <line class="life" x1="30" y1="28" x2="30" y2="168"/>
+  <line class="life" x1="30" y1="168" x2="330" y2="168"/>
+  <line class="life" x1="30" y1="70" x2="330" y2="70"/>
+  <text class="sub badt" x="282" y="62">stop line: 1.5 s</text>
+  <g class="f" data-f="1"><path class="ln" d="M32 140 H108"/><text class="sub" x="70" y="158">≈ 300 ms</text><rect class="box" x="20" y="180" width="300" height="46" rx="10"/><text class="bt" x="170" y="199">1 · Steady state + hypothesis</text><text class="sub" x="170" y="217">"ratings slow → p99 stays under 1.5 s"</text></g>
+  <g class="f" data-f="2"><text class="sub" x="110" y="44">▼ inject</text><path class="ln" d="M110 140 L168 116"/><rect class="rec" x="20" y="232" width="300" height="46" rx="10"/><text class="rec-t" x="170" y="251">2 · +3 s on ratings, 1% of users</text><text class="sub" x="170" y="269">the other 99% are the control group</text></g>
+  <g class="f" data-f="3"><path class="ln" d="M170 115 L212 66"/><path class="xm" d="M206 62l12 12M218 62l-12 12"/><rect class="note" x="20" y="284" width="300" height="46" rx="10"/><text class="note-t" x="170" y="303">3 · p99 crosses 1.5 s</text><text class="sub" x="170" y="321">the stop condition fires by itself</text></g>
+  <g class="f" data-f="4"><path class="ln" d="M220 74 L246 140 H326"/><rect class="box" x="20" y="336" width="300" height="46" rx="10"/><text class="bt" x="170" y="355">4 · Fault removed</text><text class="sub" x="170" y="373">p99 back to ≈ 300 ms in a minute</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="20" y="388" width="300" height="50" rx="10"/><text class="ok-t" x="170" y="408">✓ Found before a real outage</text><text class="sub" x="170" y="427">ratings timeout was 10 s, not 1 s</text></g>
+captions:
+  - "First, measure normal. Checkout's p99 latency is about 300 ms. The hypothesis: if the ratings service gets slow, the 1 s timeout and the circuit breaker keep checkout's p99 under 1.5 s. The dashed line at 1.5 s is the stop line."
+  - "Add 3 seconds of delay to ratings calls, but only for 1% of users. They are the experiment group. Everyone else is the control group, so you can compare the two."
+  - "The experiment group's p99 climbs toward about 3.3 s and passes 1.5 s. The hypothesis is wrong. An alarm on that metric is the stop condition, so the tool ends the experiment without waiting for a person."
+  - "The delay is removed and the 1% group is back to normal within a minute. Only 1% of users saw slow pages, for a few minutes, while the team watched."
+  - "The finding: the ratings client used a 10 s default timeout, not the 1 s in the design doc, so a 3 s call never timed out and the breaker never opened. Fix the config, then run the same experiment again."

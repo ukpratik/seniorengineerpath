@@ -1,0 +1,4 @@
+id: envelope-encryption
+term: envelope encryption
+forms: []
+short: Encrypting data with a data key, then encrypting that data key with a second key that stays in a key service. You store the encrypted data key next to the data.

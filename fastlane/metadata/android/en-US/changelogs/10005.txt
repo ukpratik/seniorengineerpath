@@ -1,0 +1,1 @@
+15 new lessons: low-level design, domain-driven design, locking and MVCC, distributed tracing, load shedding, chaos engineering, webhooks, career ladders, secrets and key management, authorization models, service mesh, supply-chain security, backpressure, API versioning, and Redis in depth. 65 new glossary terms.

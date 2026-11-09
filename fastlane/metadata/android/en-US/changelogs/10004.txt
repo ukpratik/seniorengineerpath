@@ -1,0 +1,1 @@
+15 new lessons: interview loops, behavioural interviews, negotiation, checkout and orders, billing and metering, SOLID and coupling, design patterns, clean and hexagonal architecture, alerting and on-call, runbooks and toil, backoff and jitter, circuit breakers and bulkheads, batching and pipelining, secondary indexes, and disaster recovery. 77 new glossary terms.

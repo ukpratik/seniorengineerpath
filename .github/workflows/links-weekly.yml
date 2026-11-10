@@ -1,4 +1,6 @@
 # Weekly check of every external link in the content (US-016). Opens an issue on failure.
+# Internal links (/learn/..., /glossary#...) are checked by the content gate on every build, so they are skipped here:
+# --root-dir lets lychee resolve them to file:// URLs, and --exclude drops those. Known false alarms live in .lycheeignore.
 name: links-weekly
 on:
   schedule:
@@ -16,11 +18,13 @@ jobs:
         id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --no-progress --max-retries 3 --accept 200,206,403,429 --exclude-path node_modules 'src/content/**/*.md' 'src/content/**/*.yaml'
+          args: --no-progress --max-retries 3 --accept 200,206,403,429 --root-dir ${{ github.workspace }} --exclude '^file://' --exclude-path node_modules 'src/content/**/*.md' 'src/content/**/*.yaml'
           output: lychee-report.md
           fail: false
       - name: Open an issue if links are broken
         if: steps.lychee.outputs.exit_code != 0
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh issue create --title "Broken links found ($(date -u +%F))" --body-file lychee-report.md --label links
+        run: |
+          gh label create links --color d93f0b --description "Broken external links" --force
+          gh issue create --title "Broken links found ($(date -u +%F))" --body-file lychee-report.md --label links

@@ -1,0 +1,6 @@
+# Links the weekly check can't verify, though they work in a browser (checked 2026-11-10).
+# The server sends an incomplete TLS certificate chain; browsers fill the gap, lychee doesn't.
+^https://dsf\.berkeley\.edu/
+^https://db-engines\.com/
+# Uber's blog answers automated clients with 406 Not Acceptable.
+^https://www\.uber\.com/blog/

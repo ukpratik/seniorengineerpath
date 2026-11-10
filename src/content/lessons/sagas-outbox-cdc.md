@@ -24,11 +24,11 @@ sources:
     note: The outbox table, the message relay, and why the relay can publish a message more than once.
   - id: aws-orch
     title: "AWS Prescriptive Guidance, “Saga orchestration pattern”"
-    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html
+    url: https://web.archive.org/web/20261101141451/https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html
     note: Why 2PC does not fit a database-per-service design, an order-inventory-payment example, and a Step Functions version.
   - id: aws-chor
     title: "AWS Prescriptive Guidance, “Saga choreography pattern”"
-    url: https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-choreography.html
+    url: https://web.archive.org/web/20261011152620/https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-choreography.html
     note: Event-driven sagas, and their costs - harder tracking, cyclic dependencies and the dual-write issue.
   - id: dbz-blog
     title: "Gunnar Morling, “Reliable Microservices Data Exchange With the Outbox Pattern”, Debezium blog (2019)"

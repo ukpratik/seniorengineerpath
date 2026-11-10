@@ -1,0 +1,4 @@
+id: saml
+term: SAML
+forms: [SAML 2.0]
+short: Security Assertion Markup Language. An XML standard for single sign-on. The company's identity provider sends the app a signed XML assertion that says who logged in.

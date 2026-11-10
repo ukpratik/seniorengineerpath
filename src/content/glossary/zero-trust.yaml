@@ -1,0 +1,4 @@
+id: zero-trust
+term: zero trust
+forms: [zero-trust]
+short: A security approach where no user, device or service is trusted because of its network location. Every request proves its identity and is checked against policy.

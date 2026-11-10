@@ -262,4 +262,4 @@ In 1985, Fischer, Lynch and Paterson studied consensus in an asynchronous system
 
 ## Go deeper
 
-Before this: [database replication](/learn/database-replication) and [leader election and leases](/learn/leader-election-and-leases). Next: [ZooKeeper, etcd and coordination](/learn/zookeeper-etcd-coordination), and [CAP and consistency models](/learn/cap-pacelc-consistency-models).
+Before this: [database replication](/learn/database-replication), [failure detection and membership](/learn/failure-detection-and-membership) and [leader election and leases](/learn/leader-election-and-leases). Next: [ZooKeeper, etcd and coordination](/learn/zookeeper-etcd-coordination), and [CAP and consistency models](/learn/cap-pacelc-consistency-models).

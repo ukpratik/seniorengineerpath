@@ -1,0 +1,4 @@
+id: identity-provider
+term: identity provider
+forms: [identity providers, IdP, IdPs]
+short: The system that logs users in and vouches for who they are to other apps, such as Okta or Microsoft Entra ID. Often called the IdP.

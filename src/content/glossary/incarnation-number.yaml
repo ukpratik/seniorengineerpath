@@ -1,0 +1,4 @@
+id: incarnation-number
+term: incarnation number
+forms: [incarnation numbers]
+short: A counter that only a node itself can raise, sent with news about it. When a node hears it is suspected, it raises the number, so its "I am alive" message beats the old suspicion.

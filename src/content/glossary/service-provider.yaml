@@ -1,0 +1,4 @@
+id: service-provider
+term: service provider
+forms: [service providers]
+short: In SAML, the app that receives the identity provider's signed assertion and logs the user in. Often called the SP.

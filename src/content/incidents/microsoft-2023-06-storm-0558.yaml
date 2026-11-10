@@ -1,0 +1,11 @@
+id: microsoft-2023-06-storm-0558
+title: "Storm-0558: a consumer signing key opened enterprise mailboxes"
+date: 2023-06-16
+company: "Microsoft"
+broke: "An attacker read Exchange Online mail at 22 organizations and 503 personal accounts with forged tokens, including about 60,000 emails from the US State Department."
+why: "The tokens were signed with a stolen 2016 consumer key. A shared key endpoint listed consumer and enterprise keys together, and token-checking libraries did not tell them apart, so enterprise mail accepted consumer-signed tokens. How the key was stolen is still unknown."
+lesson: "Mark the trust boundary between systems that share key or login infrastructure, and check on every request that a token was issued for this side."
+url: https://www.cisa.gov/sites/default/files/2025-03/CSRBReviewOfTheSummer2023MEOIntrusion508.pdf
+tags: [security, identity, threat-modelling]
+lessons: []
+verified: true

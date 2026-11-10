@@ -1,0 +1,4 @@
+id: flapping
+term: flapping
+forms: [flaps, flapped, flap]
+short: When a check, an alert or a node keeps switching between two states, such as healthy and failed, again and again. Each switch can move traffic or data or page someone, so flapping can do more harm than a clean failure.

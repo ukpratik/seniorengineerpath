@@ -1,0 +1,4 @@
+id: merkle-tree
+term: Merkle tree
+forms: [Merkle trees, merkle tree, merkle trees, hash tree]
+short: "A tree of hashes. Each leaf is the hash of some data, and each parent is the hash of its children. Equal roots mean equal data."

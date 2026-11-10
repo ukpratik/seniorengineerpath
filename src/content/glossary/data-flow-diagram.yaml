@@ -1,0 +1,4 @@
+id: data-flow-diagram
+term: data flow diagram
+forms: [data flow diagrams, data-flow diagram, data-flow diagrams]
+short: A drawing of a system that shows where data comes from, where it goes, where it is stored, and which trust boundaries it crosses. The usual starting point for a threat model.

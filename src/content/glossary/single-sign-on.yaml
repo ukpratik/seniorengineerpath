@@ -1,0 +1,4 @@
+id: single-sign-on
+term: single sign-on
+forms: [SSO]
+short: Logging in once with one account, often a company account, and then using many apps without a separate password for each.

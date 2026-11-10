@@ -1,0 +1,4 @@
+id: near-cache
+term: near cache
+forms: [near caches, near-cache]
+short: A small cache inside each app server's own memory, in front of a shared cache. It answers the hottest keys with no network call.

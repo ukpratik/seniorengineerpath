@@ -1,0 +1,4 @@
+id: swim-protocol
+term: SWIM
+forms: [SWIM protocol]
+short: A membership protocol where each node pings one random member per round, asks others to ping it when there is no reply, and spreads the result by gossip. HashiCorp memberlist is based on it.

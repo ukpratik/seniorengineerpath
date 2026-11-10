@@ -1,0 +1,4 @@
+id: xml-signature-wrapping
+term: XML signature wrapping
+forms: [signature wrapping]
+short: An attack on signed XML, such as SAML. The attacker keeps the signed part valid and adds an unsigned part that the app reads by mistake.

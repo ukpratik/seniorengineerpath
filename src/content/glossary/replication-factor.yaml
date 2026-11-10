@@ -1,0 +1,4 @@
+id: replication-factor
+term: replication factor
+forms: [replication factors]
+short: "How many copies of each piece of data a database keeps, on different nodes. Often written RF or N."

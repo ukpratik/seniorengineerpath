@@ -1,0 +1,3 @@
+id: read-repair
+term: read repair
+short: "During a read, the node that asked several replicas sends the newest value to any replica that returned an older one."

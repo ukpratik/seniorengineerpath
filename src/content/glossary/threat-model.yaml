@@ -1,0 +1,4 @@
+id: threat-model
+term: threat model
+forms: [threat models, threat modelling, threat modeling]
+short: A structured look at a design to find what could go wrong with its security and privacy, and to decide what to do about each risk. Best done during design and updated as the design changes.

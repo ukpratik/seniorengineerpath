@@ -1,0 +1,4 @@
+id: consistency-level
+term: consistency level
+forms: [consistency levels]
+short: "In Cassandra and ScyllaDB, the number of replicas that must answer a read or write before it counts, such as ONE, QUORUM or ALL."

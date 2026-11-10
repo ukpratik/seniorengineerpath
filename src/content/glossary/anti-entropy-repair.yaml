@@ -1,0 +1,4 @@
+id: anti-entropy-repair
+term: anti-entropy repair
+forms: [anti-entropy]
+short: "A background job that compares replicas, finds data that differs, and copies the missing changes. Cassandra calls it repair and uses Merkle trees to compare."

@@ -1,0 +1,4 @@
+id: relying-party
+term: relying party
+forms: [relying parties]
+short: In OpenID Connect and WebAuthn, the app that relies on the provider's ID token to know who the user is. It plays the same part as the SAML service provider.

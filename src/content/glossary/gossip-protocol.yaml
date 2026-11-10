@@ -1,0 +1,4 @@
+id: gossip-protocol
+term: gossip protocol
+forms: [gossip protocols]
+short: A way to spread news in a cluster. Each node passes what it knows to a few random nodes, and they pass it on, so the news reaches everyone quickly without a central server.

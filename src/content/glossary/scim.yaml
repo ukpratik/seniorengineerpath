@@ -1,0 +1,4 @@
+id: scim
+term: SCIM
+forms: [SCIM 2.0]
+short: System for Cross-domain Identity Management. A REST API standard that lets a company's identity provider create, update and deactivate users and groups in a SaaS app.

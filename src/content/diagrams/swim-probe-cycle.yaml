@@ -1,0 +1,19 @@
+id: swim-probe-cycle
+title: "One SWIM probe: direct ping, indirect pings, then suspicion"
+viewBox: 0 0 340 400
+svg: |
+  <rect class="box" x="10" y="70" width="60" height="36" rx="8"/><text class="bt" x="40" y="93">A</text>
+  <rect class="box" x="270" y="70" width="60" height="36" rx="8"/><text class="bt" x="300" y="93">B</text>
+  <rect class="box" x="140" y="8" width="60" height="36" rx="8"/><text class="bt" x="170" y="31">C</text>
+  <rect class="box" x="140" y="132" width="60" height="36" rx="8"/><text class="bt" x="170" y="155">D</text>
+  <g class="f" data-f="1"><line class="ln lost" x1="72" y1="88" x2="200" y2="88"/><path class="xm" d="M206 81l14 14M220 81l-14 14"/><text class="lb" x="130" y="80">ping</text><text class="sub" x="170" y="196">A pings B. No ack before the timeout.</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="72" y1="78" x2="138" y2="34"/><line class="ln" x1="72" y1="98" x2="138" y2="144"/><text class="lb" x="88" y="44">ping-req</text><text class="lb" x="88" y="140">ping-req</text><text class="sub" x="170" y="216">A asks C and D: "please ping B for me"</text></g>
+  <g class="f" data-f="3"><line class="ln lost" x1="202" y1="30" x2="268" y2="76"/><line class="ln lost" x1="202" y1="150" x2="268" y2="100"/><text class="sub badt" x="170" y="236">No ack comes back on any path</text></g>
+  <g class="f" data-f="4"><rect class="note" x="40" y="252" width="260" height="28" rx="8"/><text class="note-t" x="170" y="271">A marks B: suspect (incarnation 1)</text><text class="sub" x="170" y="298">The news rides on the next pings and acks</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="40" y="314" width="260" height="28" rx="8"/><text class="ok-t" x="170" y="333">B: "alive, incarnation 2"</text><text class="sub" x="170" y="362">No reply before the suspicion timeout?</text><text class="sub badt" x="170" y="382">Then: confirm, B is dead</text></g>
+captions:
+  - "Each protocol period, A picks one member at random, here B, and pings it. No ack comes back within the timeout. Maybe B is dead. Maybe the path from A to B is congested."
+  - "A does not decide alone. It sends a ping-req to a few other members, here C and D. Each one pings B and passes any ack back to A. These paths do not use the link between A and B."
+  - "Nobody gets an ack from B. Now A has better evidence than one lost packet. But B could still be paused or overloaded."
+  - "A marks B as suspect, not dead. It adds the message to the pings and acks it already sends. No extra messages are needed to spread it, and other members learn it like an infection."
+  - "If B hears that it is suspected, it answers with a higher incarnation number. That Alive message cancels the suspicion. If no Alive message comes before the suspicion timeout, B is confirmed dead and removed."

@@ -1,0 +1,4 @@
+id: sloppy-quorum
+term: sloppy quorum
+forms: [sloppy quorums]
+short: "A quorum that counts the first healthy nodes it can reach, even if they are not the key's usual replicas. It keeps writes working during failures, but reads may miss them."

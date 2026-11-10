@@ -1,0 +1,4 @@
+id: jit-provisioning
+term: JIT provisioning
+forms: [just-in-time provisioning, Just-in-time (JIT) provisioning]
+short: Creating a user account at the moment of their first single sign-on login, from the attributes in the login assertion. It does not remove users who leave.

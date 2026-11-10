@@ -1,0 +1,20 @@
+id: receipt-threat-model
+title: "A small threat model: draw the flow, mark trust boundaries, walk STRIDE"
+viewBox: 0 0 340 370
+svg: |
+  <rect class="box" x="6" y="40" width="70" height="36" rx="8"/><text class="bt" x="41" y="63">Browser</text>
+  <rect class="box" x="134" y="40" width="70" height="36" rx="8"/><text class="bt" x="169" y="63">API</text>
+  <rect class="box" x="258" y="40" width="76" height="36" rx="8"/><text class="bt" x="296" y="63">Bucket</text>
+  <rect class="box" x="134" y="130" width="70" height="36" rx="8"/><text class="bt" x="169" y="153">DB</text>
+  <rect class="box" x="258" y="130" width="76" height="36" rx="8"/><text class="bt" x="296" y="153">Worker</text>
+  <g class="f" data-f="1"><line class="ln" x1="78" y1="58" x2="130" y2="58"/><text class="lb" x="104" y="30">upload</text><line class="ln" x1="206" y1="58" x2="254" y2="58"/><text class="lb" x="230" y="30">store</text><line class="ln" x1="296" y1="78" x2="296" y2="126"/><text class="lb" x="318" y="116">read</text><line class="ln" x1="256" y1="148" x2="208" y2="148"/><text class="lb" x="231" y="182">save</text></g>
+  <g class="f" data-f="2"><line class="life" x1="105" y1="38" x2="105" y2="176"/><text class="sub badt" x="105" y="194">TB1</text><line class="life" x1="236" y1="100" x2="338" y2="100"/><text class="sub badt" x="258" y="94">TB2</text></g>
+  <g class="f" data-f="3"><rect class="note" x="10" y="208" width="320" height="30" rx="8"/><text class="note-t" x="170" y="228">TB1 · S: fake user, or edited userId</text></g>
+  <g class="f" data-f="4"><rect class="note" x="10" y="248" width="320" height="30" rx="8"/><text class="note-t" x="170" y="268">I: public bucket · E: evil file in parser</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="10" y="292" width="320" height="30" rx="8"/><text class="ok-t" x="170" y="312">✓ every call proves who it is</text><text class="sub" x="170" y="342">API and worker: own workload identity</text><text class="sub" x="170" y="360">No call is trusted for coming from inside</text></g>
+captions:
+  - "What are we working on? A user uploads a receipt to the API. The API stores the file in a bucket. A worker reads it and saves the totals in the database."
+  - "Mark the trust boundaries. TB1: requests arrive from the internet. TB2: the file's content was written by the user, so the worker must treat it as hostile input."
+  - "Walk STRIDE where data crosses TB1. Spoofing: a caller pretends to be another user, or the request body names someone else's userId. Take the user from the verified session instead."
+  - "Now the bucket and TB2. Information disclosure: the bucket is public, or its links never expire. Elevation of privilege: a crafted file attacks the parser in a worker that holds database admin rights."
+  - "Zero trust adds one rule. The API and the worker each prove their own identity, and every call is checked. Being inside the network grants nothing."

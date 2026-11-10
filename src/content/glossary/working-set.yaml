@@ -1,0 +1,4 @@
+id: working-set
+term: working set
+forms: [working sets]
+short: The data a system actually reads in a given time, such as one day. A cache that can hold the working set rarely has to go to the database.

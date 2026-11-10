@@ -1,0 +1,4 @@
+id: failure-detector
+term: failure detector
+forms: [failure detectors]
+short: The part of a distributed system that decides whether another node is still alive, usually from heartbeats or pings and a timeout. It can only guess, so it sometimes calls a slow node dead.

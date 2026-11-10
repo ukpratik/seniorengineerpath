@@ -1,0 +1,11 @@
+id: slack-2022-02-cache-cascade
+title: "Slack: emptied cache nodes turned each miss into a query on every database shard"
+date: 2022-02-22
+company: "Slack"
+broke: "Many users could not connect to Slack, because client boot requests failed under heavy database load."
+why: "A Consul agent upgrade made Memcached nodes leave service discovery, so the cache control plane swapped in empty nodes and the hit rate dropped. Each miss on group DM membership queried every database shard, those queries timed out, and the cache could not refill."
+lesson: "A cache that empties faster than it can refill can push the database into overload, so limit cache churn and make misses cheap."
+url: https://slack.engineering/slacks-incident-on-2-22-22/
+tags: [cache, memcached, database, cascading-failure]
+lessons: []
+verified: true

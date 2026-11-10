@@ -1,0 +1,3 @@
+id: hinted-handoff
+term: hinted handoff
+short: "When a replica is down, another node keeps its writes with a note (a hint) saying who they belong to. It hands them over when the replica comes back."

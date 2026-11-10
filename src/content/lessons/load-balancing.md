@@ -227,4 +227,4 @@ To spread users across regions, you balance before traffic reaches any one data 
 
 ## Go deeper
 
-Related lessons: [DNS and service discovery](/learn/dns-and-service-discovery), [API gateways](/learn/api-gateway-and-edge), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Multi-region](/learn/multi-region-and-data-locality).
+Related lessons: [DNS and service discovery](/learn/dns-and-service-discovery), [API gateways](/learn/api-gateway-and-edge), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Multi-region](/learn/multi-region-and-data-locality). How a cluster decides a node is dead, beyond simple health checks: [Failure detection and membership](/learn/failure-detection-and-membership).

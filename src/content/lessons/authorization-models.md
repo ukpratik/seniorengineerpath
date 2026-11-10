@@ -302,4 +302,4 @@ Write unit and integration tests for authorization logic. Log decisions, but not
 
 - [OWASP Top 10 and secure coding](/learn/owasp-top-10-secure-coding): broken access control in the wider list.
 - [Scaling reads](/learn/scaling-reads): when the check service gets most of your traffic.
-- Coming later: Enterprise SSO and SCIM, which feed users and groups into these models.
+- [Enterprise SSO and SCIM](/learn/enterprise-sso-and-scim): how users and groups get fed into these models from a customer's identity provider.

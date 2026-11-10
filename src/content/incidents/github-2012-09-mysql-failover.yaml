@@ -1,0 +1,11 @@
+id: github-2012-09-mysql-failover
+title: "GitHub outage: health checks failed a busy database over, then back"
+date: 2012-09-10
+company: "GitHub"
+broke: "GitHub's main MySQL database role moved between servers twice in one day, and the site was slow until the new server's cache warmed up."
+why: "A database migration put unusual load on the primary, so the cluster manager's health checks failed on it. The automatic failover picked a server with a cold cache, whose health checks then failed too."
+lesson: "A health check that fails under load can move work onto a weaker server. Treat busy and dead as different things before you fail over a database."
+url: https://github.blog/2012-09-14-github-availability-this-week/
+tags: [database, failover, health-checks]
+lessons: []
+verified: true

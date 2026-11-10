@@ -278,4 +278,4 @@ Give each service the smallest access it needs. Equifax's attackers jumped to 48
 ## Go deeper
 
 - [Authentication and authorization](/learn/authentication-and-authorization): A01 and A07 in depth.
-- Coming next on this line: [Secrets and key management](/learn/secrets-and-key-management), [Dependency and supply-chain security](/learn/dependency-supply-chain-security) and [Threat modelling and zero trust](/learn/threat-modelling-zero-trust).
+- More on this line: [Secrets and key management](/learn/secrets-and-key-management), [Dependency and supply-chain security](/learn/dependency-supply-chain-security) and [Threat modelling and zero trust](/learn/threat-modelling-zero-trust).

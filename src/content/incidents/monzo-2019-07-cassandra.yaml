@@ -1,0 +1,11 @@
+id: monzo-2019-07-cassandra
+title: "Monzo outage: new Cassandra servers answered reads with no data"
+date: 2019-07-29
+company: "Monzo"
+broke: "From about 13:10, some customers could not log in, make payments or see correct balances. Most were fixed by 15:08, and all by 23:00."
+why: "Six new Cassandra servers joined with auto_bootstrap set to false. They took ownership of some data before any of it was copied to them, so some data appeared to be missing when it was read."
+lesson: "A quorum only helps if the replicas in it hold the data. Test topology changes at the same scale as production."
+url: https://monzo.com/blog/2019/09/08/why-monzo-wasnt-working-on-july-29th/
+tags: [database, replication]
+lessons: []
+verified: true

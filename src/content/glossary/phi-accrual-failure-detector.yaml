@@ -1,0 +1,4 @@
+id: phi-accrual-failure-detector
+term: phi accrual failure detector
+forms: [phi accrual failure detectors, phi accrual detector, phi accrual detectors]
+short: A failure detector that gives a suspicion score (phi) instead of yes or no. The score grows the longer a heartbeat is late, compared with how heartbeats usually arrive. Cassandra and Akka use it.

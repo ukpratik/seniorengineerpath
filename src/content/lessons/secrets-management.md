@@ -262,4 +262,5 @@ Then ask OWASP's questions: who had access, when was it used, and when was it la
 
 - [Authentication and authorization](/learn/authentication-and-authorization): tokens, sessions and least privilege.
 - [OWASP Top 10 and secure coding](/learn/owasp-top-10-secure-coding): where secrets fit among the common flaws.
-- [Dependency and supply-chain security](/learn/dependency-supply-chain-security): trusting the code you did not write. Coming next on this line: Threat modelling and zero trust.
+- [Dependency and supply-chain security](/learn/dependency-supply-chain-security): trusting the code you did not write.
+- [Threat modelling and zero trust](/learn/threat-modelling-zero-trust): finding what an attacker would target before you build it.

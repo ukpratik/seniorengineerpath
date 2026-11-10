@@ -1,0 +1,11 @@
+id: github-2025-03-ruby-saml
+title: "ruby-saml: two XML parsers disagreed, so anyone could sign in as anyone"
+date: 2025-03-12
+company: "ruby-saml (open source), GitLab"
+broke: "Critical bugs in ruby-saml up to 1.17.0 let an attacker with one valid signed SAML document forge an assertion for any user and log in as them. GitHub's researchers found an exploitable instance in GitLab, which shipped a critical patch."
+why: "Signature checking used two different XML parsers. A crafted document made them pick different signature elements, so the check passed on content that was never really signed."
+lesson: "Read the user only from the exact element whose signature you verified, use a maintained SAML library, and patch it fast."
+url: https://github.blog/security/sign-in-as-anyone-bypassing-saml-sso-authentication-with-parser-differentials/
+tags: [security, authentication]
+lessons: []
+verified: true

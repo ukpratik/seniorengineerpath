@@ -1,0 +1,1 @@
+5 new lessons: threat modelling and zero trust, enterprise SSO and SCIM, quorums and leaderless replication, failure detection and membership, and distributed caches. 26 new glossary terms, and updated sources in the sagas lesson.

@@ -1,0 +1,1 @@
+5 new lessons: CQRS and read models, database connection pooling, DynamoDB in depth, Cassandra in depth, and Kafka internals. 16 new glossary terms.

@@ -1,0 +1,4 @@
+id: global-table
+term: global table
+forms: [global tables]
+short: "A DynamoDB table with replicas in several AWS Regions that copy each other's writes. By default the copying is asynchronous and conflicts are settled by last writer wins."

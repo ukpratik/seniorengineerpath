@@ -1,0 +1,4 @@
+id: in-sync-replica
+term: in-sync replica
+forms: [in-sync replicas, ISR]
+short: "In Kafka, a copy of a partition that is up to date with the leader. The leader includes itself. A write is committed once every in-sync replica has it."

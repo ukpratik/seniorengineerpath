@@ -273,4 +273,4 @@ Also, the first change to a page after a checkpoint writes the whole page to the
 
 ## Go deeper
 
-Next: [Secondary, composite and special indexes](/learn/secondary-and-composite-indexes). It builds on the B-tree pages you saw here.
+Next: [Secondary, composite and special indexes](/learn/secondary-and-composite-indexes). It builds on the B-tree pages you saw here. For an LSM database in production, see [Cassandra in depth](/learn/cassandra-in-depth).

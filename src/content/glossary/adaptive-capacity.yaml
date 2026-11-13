@@ -1,0 +1,4 @@
+id: adaptive-capacity
+term: adaptive capacity
+forms: []
+short: "A DynamoDB feature that gives a busy partition more of the table's unused throughput, and can move hot items to their own partitions, so uneven traffic is throttled less."

@@ -1,0 +1,11 @@
+id: github-2026-04-code-search-stale
+title: "GitHub code search down, then hours out of date"
+date: 2026-04-01
+company: "GitHub"
+broke: "Code search failed every query from 14:40 to 17:00 UTC. It came back with results that missed repository changes made after about 07:00 UTC, and was fully current at 23:45 UTC."
+why: "An automated change during a messaging-system upgrade broke coordination between internal services and halted search indexing. An unintended deployment during recovery then cleared internal routing state."
+lesson: "A search index is a derived copy. Nothing in Git was lost, so the fix was to reset the index to a point before the problem and index again from there."
+url: https://github.blog/news-insights/company-news/github-availability-report-april-2026/
+tags: [search, read-models, indexing]
+lessons: []
+verified: true

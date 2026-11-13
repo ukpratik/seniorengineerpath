@@ -1,0 +1,4 @@
+id: local-secondary-index
+term: local secondary index
+forms: [local secondary indexes, LSI, LSIs]
+short: "A DynamoDB index with the same partition key as its table but a different sort key. It allows strongly consistent reads, must be created with the table, and limits each partition key value to 10 GB."

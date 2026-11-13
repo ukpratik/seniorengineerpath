@@ -228,4 +228,4 @@ With N = 3 replicas. The failure counts are our arithmetic.
 
 ## Go deeper
 
-Before this: [Replication](/learn/database-replication) and [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing), which explains the ring that decides where each key lives. Related: [CAP, PACELC and consistency models](/learn/cap-pacelc-consistency-models) and [Time, clocks and ordering](/learn/time-clocks-and-ordering). Next: Cassandra in depth, and CRDTs and coordination avoidance.
+Before this: [Replication](/learn/database-replication) and [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing), which explains the ring that decides where each key lives. Related: [CAP, PACELC and consistency models](/learn/cap-pacelc-consistency-models) and [Time, clocks and ordering](/learn/time-clocks-and-ordering). Next: [Cassandra in depth](/learn/cassandra-in-depth), and CRDTs and coordination avoidance.

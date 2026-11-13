@@ -1,0 +1,11 @@
+id: github-2026-10-connection-pool-exhaustion
+title: "GitHub requests fail when a shared database connection pool runs out"
+date: 2026-10-30
+company: "GitHub"
+broke: "Some github.com requests hung for up to about 10 seconds and then failed. At the worst point, about 43% of pull request merge attempts failed, and about 3.5% of API calls."
+why: "A database connection pool shared by many services was already near its limit. Some update requests began a write, then ran a lookup that could take several seconds, holding their connections unused. The pool ran out, and new requests failed when the connection timeout expired."
+lesson: "Hold a pooled connection only while you use it. Do slow work before you borrow one, and watch how long connections stay checked out."
+url: https://github.blog/news-insights/company-news/github-availability-report-october-2026/
+tags: [databases, connection-pooling, overload]
+lessons: []
+verified: true

@@ -217,7 +217,7 @@ Verraes also asks whether this counts as deletion under GDPR. An update to his p
 
 ### Read models
 
-Replaying a stream on every query is slow, so you build read models (projections) that are updated from the events. They lag behind writes. [@ms-es] The next lesson, *CQRS and read models*, covers them.
+Replaying a stream on every query is slow, so you build read models (projections) that are updated from the events. They lag behind writes. [@ms-es] The next lesson, [CQRS and read models](/learn/cqrs-and-read-models), covers them.
 
 ## Trade-offs
 
@@ -262,4 +262,4 @@ Microsoft's summary: for most systems, and most parts of a system, plain data st
 
 ## Go deeper
 
-Before this: [queues vs logs](/learn/queues-vs-logs-delivery-guarantees). Related: [sagas, outbox and CDC](/learn/sagas-outbox-and-cdc), [domain-driven design](/learn/domain-driven-design) for aggregates and domain events, [schema evolution and encoding](/learn/schema-evolution-and-encoding), and [money and double-entry ledgers](/learn/money-and-double-entry-ledgers). Next: CQRS and read models.
+Before this: [queues vs logs](/learn/queues-vs-logs-delivery-guarantees). Related: [sagas, outbox and CDC](/learn/sagas-outbox-and-cdc), [domain-driven design](/learn/domain-driven-design) for aggregates and domain events, [schema evolution and encoding](/learn/schema-evolution-and-encoding), and [money and double-entry ledgers](/learn/money-and-double-entry-ledgers). Next: [CQRS and read models](/learn/cqrs-and-read-models).

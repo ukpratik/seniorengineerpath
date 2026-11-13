@@ -1,0 +1,11 @@
+id: aws-2015-09-dynamodb-metadata
+title: "AWS DynamoDB outage: storage servers could not get their partition lists"
+date: 2015-09-20
+company: "Amazon Web Services"
+broke: "DynamoDB in US-East returned errors for about five hours, with errors settling at about 55% of requests, and SQS, EC2 Auto Scaling, CloudWatch and the AWS Console were hit too."
+why: "Global secondary indexes had made each storage server's partition list much bigger. After a short network blip, many servers asked the metadata service for their lists at once, timed out, dropped out and retried."
+lesson: "Watch the size of internal data that grows with your features, and have a way to stop retries so an overloaded dependency can recover."
+url: https://aws.amazon.com/message/5467D2/
+tags: [retries, capacity, dependencies]
+lessons: []
+verified: true

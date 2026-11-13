@@ -1,0 +1,4 @@
+id: unclean-leader-election
+term: unclean leader election
+forms: []
+short: "In Kafka, making a replica that is not in sync the new leader when no in-sync replica is left. The partition comes back sooner, but committed messages can be lost. It is off by default."

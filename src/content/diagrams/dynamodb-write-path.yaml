@@ -1,0 +1,22 @@
+id: dynamodb-write-path
+title: "One DynamoDB write: router, partition leader, and a quorum of replicas"
+viewBox: 0 0 340 360
+svg: |
+  <rect class="box" x="6" y="20" width="80" height="36" rx="8"/><text class="bt" x="46" y="43">Your app</text>
+  <rect class="box" x="126" y="20" width="88" height="36" rx="8"/><text class="bt" x="170" y="43">Router</text>
+  <rect class="box" x="254" y="20" width="80" height="36" rx="8"/><text class="bt" x="294" y="43">Metadata</text>
+  <rect class="box" x="6" y="150" width="96" height="44" rx="8"/><text class="bt" x="54" y="171">Replica</text><text class="sub" x="54" y="187">zone B</text>
+  <rect class="box" x="122" y="150" width="96" height="44" rx="8"/><text class="bt" x="170" y="171">Leader</text><text class="sub" x="170" y="187">zone A</text>
+  <rect class="box" x="238" y="150" width="96" height="44" rx="8"/><text class="bt" x="286" y="171">Replica</text><text class="sub" x="286" y="187">zone C</text>
+  <text class="lb" x="170" y="140">one partition = one replica group</text>
+  <g class="f" data-f="1"><line class="ln" x1="88" y1="38" x2="122" y2="38"/><line class="ln" x1="216" y1="38" x2="250" y2="38"/><text class="sub" x="170" y="80">Check who you are.</text><text class="sub" x="170" y="98">Hash the key: which partition?</text></g>
+  <g class="f" data-f="2"><line class="ln" x1="170" y1="58" x2="170" y2="122"/><text class="lb" x="200" y="114">PutItem</text></g>
+  <g class="f" data-f="3"><line class="ln" x1="120" y1="172" x2="106" y2="172"/><line class="ln" x1="220" y1="172" x2="234" y2="172"/><text class="sub" x="170" y="222">Leader writes a log record</text><text class="sub" x="170" y="240">and sends it to both peers</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="50" y="252" width="240" height="28" rx="8"/><text class="ok-t" x="170" y="271">✓ 2 of 3 logged it: write is OK</text></g>
+  <g class="f" data-f="5"><text class="sub" x="170" y="304">Strongly consistent read: leader only</text><text class="sub badt" x="170" y="324">Eventually consistent read: any replica.</text><text class="sub badt" x="170" y="342">It may miss the newest write.</text></g>
+captions:
+  - "Your request first reaches a request router. It checks who you are, then looks up which partition holds this key. That map comes from the metadata service and is cached."
+  - "Each partition is a small group of replicas in different Availability Zones. The router sends the write to the group's leader."
+  - "The leader writes a log record and sends it to its peers. The group uses Multi-Paxos to agree on a leader and on each write."
+  - "Once a quorum, two of the three replicas, has saved the record, the write is acknowledged. One slow zone does not block it."
+  - "A strongly consistent read must go to the leader. An eventually consistent read can go to any replica, so it can be a little behind. It also costs half as much."

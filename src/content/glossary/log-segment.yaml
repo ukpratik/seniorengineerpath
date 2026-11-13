@@ -1,0 +1,4 @@
+id: log-segment
+term: log segment
+forms: [log segments]
+short: "One file in the series of files that stores a Kafka partition. Kafka writes to the newest segment and deletes old data one whole segment at a time."

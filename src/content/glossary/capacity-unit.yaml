@@ -1,0 +1,4 @@
+id: capacity-unit
+term: capacity unit
+forms: [capacity units, read capacity unit, read capacity units, write capacity unit, write capacity units, RCU, RCUs, WCU, WCUs]
+short: "DynamoDB's unit of throughput. One read capacity unit is one strongly consistent read per second of up to 4 KB. One write capacity unit is one write per second of up to 1 KB."

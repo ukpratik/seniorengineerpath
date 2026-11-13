@@ -1,0 +1,4 @@
+id: conditional-write
+term: conditional write
+forms: [conditional writes, conditional update, conditional updates]
+short: "A write that the database applies only if a condition on the current item or row is true, such as \"version is still 7\". If the condition is false, nothing changes: DynamoDB returns an error, and SQL updates zero rows."

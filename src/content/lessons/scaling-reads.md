@@ -170,7 +170,7 @@ Step through one read falling through the layers. Use Next and Back, or the ← 
 
 ### Step 5: read models fed by change data capture
 
-When one database cannot serve every kind of read, build separate read models. This is the idea behind CQRS: one model for updates and a different model for reads, maybe in a different database. [@fowler-cqrs] In this lesson, a feed table, a search index and a cache can all count as read models.
+When one database cannot serve every kind of read, build separate read models. This is the idea behind CQRS: one model for updates and a different model for reads, maybe in a different database. [@fowler-cqrs] In this lesson, a feed table, a search index and a cache can all count as read models. [CQRS and read models](/learn/cqrs-and-read-models) goes deeper.
 
 Feed them from the database's change log, with change data capture (CDC). The [sagas, outbox and CDC lesson](/learn/sagas-outbox-and-cdc) shows how. Facebook used a similar idea to keep its caches correct. Daemons read the SQL that each database committed and sent the cache deletes to every frontend cluster in the region. Lost deletes could be replayed from that reliable log. [@fb-memcache]
 

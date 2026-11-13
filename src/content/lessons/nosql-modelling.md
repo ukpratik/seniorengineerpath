@@ -272,4 +272,4 @@ Habits that go with it:
 
 - Before this: [Data models](/learn/data-models-and-query-languages), [Sharding](/learn/sharding-and-consistent-hashing) and [Secondary and composite indexes](/learn/secondary-and-composite-indexes).
 - [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication) explains how Cassandra reads and writes replicas of each partition.
-- Next: "DynamoDB in depth" and "Cassandra in depth" go deeper on each store.
+- Next: [DynamoDB in depth](/learn/dynamodb-in-depth) and [Cassandra in depth](/learn/cassandra-in-depth) go deeper on each store.

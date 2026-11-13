@@ -282,4 +282,5 @@ So a change of unit or meaning is a new field, with a new name and a new number.
 - [Queues vs logs](/learn/queues-vs-logs-delivery-guarantees): why old messages stay around to be read again.
 - [Webhooks and async APIs](/learn/webhooks-and-async-apis): JSON events that your customers decode with code you cannot update.
 - [Safe deploys and config changes](/learn/safe-deploys-config-changes): rolling out content and config as carefully as code.
-- Coming later: RPC and gRPC, contract and integration tests, and Kafka internals.
+- [Kafka internals](/learn/kafka-internals): how the messages you encode are stored and replicated.
+- Coming later: RPC and gRPC, and contract and integration tests.

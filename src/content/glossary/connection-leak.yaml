@@ -1,0 +1,4 @@
+id: connection-leak
+term: connection leak
+forms: [connection leaks, leaked connection, leaked connections]
+short: A connection borrowed from a pool that is never given back, often because an error skipped the return. Each leak makes the pool one smaller, until no connections are left.

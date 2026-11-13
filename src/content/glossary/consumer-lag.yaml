@@ -1,0 +1,4 @@
+id: consumer-lag
+term: consumer lag
+forms: []
+short: "How far a consumer is behind the newest message in a log, such as a Kafka partition. Lag that keeps growing means the consumer cannot keep up."

@@ -1,0 +1,4 @@
+id: projection
+term: projection
+forms: [projections]
+short: A read model kept up to date by applying events or data changes one by one. The word also names the code that does this. You can throw it away and rebuild it from the source data.

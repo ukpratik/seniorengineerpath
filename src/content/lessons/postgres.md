@@ -283,7 +283,7 @@ Both can use a replication slot. A slot that nobody reads can keep WAL until the
 
 ### One process per connection
 
-Postgres starts a new backend process for every connection. [@pg-connect] The default `max_connections` is about 100. Raising it allocates more shared memory. [@pg-conn-config] So thousands of app connections usually go through a pooler like PgBouncer. The connection pooling lesson, coming later, covers this.
+Postgres starts a new backend process for every connection. [@pg-connect] The default `max_connections` is about 100. Raising it allocates more shared memory. [@pg-conn-config] So thousands of app connections usually go through a pooler like PgBouncer. [Database connection pooling](/learn/database-connection-pooling) covers this.
 
 ## Trade-offs
 
@@ -332,4 +332,4 @@ Postgres starts a new backend process for every connection. [@pg-connect] The de
 
 ## Go deeper
 
-Before this: [Transactions and isolation levels](/learn/transactions-and-isolation-levels) and [Replication](/learn/database-replication). Related: [Concurrency control in practice](/learn/locking-and-mvcc-in-practice), [Secondary and composite indexes](/learn/secondary-and-composite-indexes) and [B-trees and LSM-trees](/learn/btree-vs-lsm-tree). Coming later: connection pooling.
+Before this: [Transactions and isolation levels](/learn/transactions-and-isolation-levels) and [Replication](/learn/database-replication). Related: [Concurrency control in practice](/learn/locking-and-mvcc-in-practice), [Secondary and composite indexes](/learn/secondary-and-composite-indexes) and [B-trees and LSM-trees](/learn/btree-vs-lsm-tree). Next: [Database connection pooling](/learn/database-connection-pooling).

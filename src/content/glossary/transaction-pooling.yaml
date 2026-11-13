@@ -1,0 +1,4 @@
+id: transaction-pooling
+term: transaction pooling
+forms: [transaction pooling mode, transaction mode]
+short: A pooler mode, as in PgBouncer, where a client gets a database connection only for one transaction. Many clients can share a few connections, but session state such as SET or LISTEN does not carry over.

@@ -1,0 +1,4 @@
+id: high-watermark
+term: high watermark
+forms: [high watermarks]
+short: "In Kafka, the end of the committed part of a partition's log. Consumers can read only up to it."

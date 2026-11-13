@@ -234,4 +234,4 @@ Postgres had its own form of this in 2016. Uber wrote that every index pointed t
 
 ## Go deeper
 
-Before this: [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Queues vs logs](/learn/queues-vs-logs-delivery-guarantees). For the read side of hot keys, see [Distributed caches](/learn/distributed-caches). DynamoDB and Cassandra in depth are planned as their own lessons.
+Before this: [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Queues vs logs](/learn/queues-vs-logs-delivery-guarantees). For the read side of hot keys, see [Distributed caches](/learn/distributed-caches). Each store in depth: [DynamoDB](/learn/dynamodb-in-depth) and [Cassandra](/learn/cassandra-in-depth).

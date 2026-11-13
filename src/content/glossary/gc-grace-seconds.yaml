@@ -1,0 +1,4 @@
+id: gc-grace-seconds
+term: gc_grace_seconds
+forms: [gc_grace]
+short: "A Cassandra table setting: how long a tombstone must be kept before compaction may drop it. The default is 10 days. Repair must reach every replica within it."

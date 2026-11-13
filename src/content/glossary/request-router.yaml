@@ -1,0 +1,4 @@
+id: request-router
+term: request router
+forms: [request routers]
+short: "The front door of a distributed database such as DynamoDB. It checks who sent each request, finds which partition holds the key, and forwards the request there."

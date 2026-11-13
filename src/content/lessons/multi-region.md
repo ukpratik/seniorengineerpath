@@ -241,4 +241,4 @@ Shared data can do the same. In June 2025, Google Cloud's Service Control ran in
 
 Before this: [Database replication](/learn/database-replication) and [CAP, PACELC and consistency models](/learn/cap-pacelc-consistency-models).
 
-Related lessons: [Disaster recovery and backups](/learn/disaster-recovery-and-backups), [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication), [DNS and service discovery](/learn/dns-and-service-discovery) and [CDN and HTTP caching](/learn/cdn-and-http-caching). Case study: the [Cloudflare outage](/incidents#cloudflare-2023-11-control-plane).
+Related lessons: [Disaster recovery and backups](/learn/disaster-recovery-and-backups), [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication), [DNS and service discovery](/learn/dns-and-service-discovery) and [CDN and HTTP caching](/learn/cdn-and-http-caching). DynamoDB global tables in more detail: [DynamoDB in depth](/learn/dynamodb-in-depth). Case study: the [Cloudflare outage](/incidents#cloudflare-2023-11-control-plane).

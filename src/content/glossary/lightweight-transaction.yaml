@@ -1,0 +1,4 @@
+id: lightweight-transaction
+term: lightweight transaction
+forms: [lightweight transactions, LWT, LWTs]
+short: "A Cassandra write with an IF condition, such as IF NOT EXISTS. Replicas agree on it with Paxos inside one partition, so it costs more round trips than a plain write."

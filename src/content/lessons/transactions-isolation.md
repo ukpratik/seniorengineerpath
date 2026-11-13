@@ -190,4 +190,4 @@ This is write skew. Repeatable Read does not stop it, in Postgres or in MySQL. S
 
 ## Go deeper
 
-Before this: [Replication](/learn/database-replication), which adds stale reads on top of these bugs. Next on this line: [Concurrency control in practice](/learn/locking-and-mvcc-in-practice).
+Before this: [Replication](/learn/database-replication), which adds stale reads on top of these bugs. Next on this line: [Concurrency control in practice](/learn/locking-and-mvcc-in-practice). Across machines: [Distributed transactions and two-phase commit](/learn/distributed-transactions-two-phase-commit).

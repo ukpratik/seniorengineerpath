@@ -1,0 +1,4 @@
+id: end-to-end-argument
+term: end-to-end argument
+forms: [end-to-end arguments]
+short: A design rule from a 1981 paper by Saltzer, Reed and Clark (journal version 1984). Some functions, like suppressing duplicates, can only be done fully with the application's help at the ends. Lower layers can help only as a speed-up.

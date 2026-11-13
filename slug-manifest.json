@@ -35,12 +35,15 @@
   "disaster-recovery-and-backups",
   "distributed-caches",
   "distributed-tracing",
+  "distributed-transactions-two-phase-commit",
   "dns-and-service-discovery",
   "domain-driven-design",
   "enterprise-sso-and-scim",
   "error-handling-defensive-design",
   "estimation-planning-uncertainty",
   "evals-for-llm-systems",
+  "event-driven-architecture-event-sourcing",
+  "exactly-once-and-effectively-once",
   "failure-detection-and-membership",
   "fan-out-on-write-vs-read",
   "feature-flags-and-entitlements",
@@ -68,6 +71,7 @@
   "os-essentials-for-backend",
   "owasp-top-10-secure-coding",
   "payment-lifecycle",
+  "postgresql-in-depth",
   "presence-and-real-time-fan-out",
   "project-memory-claude-md",
   "prompt-and-context-engineering",
@@ -112,5 +116,6 @@
   "what-senior-really-means",
   "why-distributed-systems-are-hard",
   "working-with-coding-agents",
-  "working-with-pms-and-the-business"
+  "working-with-pms-and-the-business",
+  "zookeeper-etcd-coordination"
 ]

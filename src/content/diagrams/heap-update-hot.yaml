@@ -1,0 +1,18 @@
+id: heap-update-hot
+title: "An UPDATE in Postgres writes a new row version; VACUUM frees the old one later"
+viewBox: 0 0 340 356
+svg: |
+  <rect class="box" x="110" y="6" width="120" height="30" rx="8"/><text class="bt" x="170" y="26">index: id 7</text>
+  <rect class="box" x="8" y="60" width="324" height="130" rx="8"/>
+  <rect class="rec" x="20" y="70" width="300" height="30" rx="6"/><text class="rec-t" x="170" y="90">v1 · status=new · xmin 100</text>
+  <g class="f" data-f="1"><line class="ln" x1="170" y1="36" x2="170" y2="66"/><text class="sub" x="250" y="54">points to v1</text></g>
+  <g class="f" data-f="2"><text class="sub badt" x="170" y="116">v1 gets xmax 205</text><rect class="rec" x="20" y="124" width="300" height="30" rx="6"/><text class="rec-t" x="170" y="144">v2 · status=paid · xmin 205</text><rect class="box" x="60" y="162" width="220" height="24" rx="6"/><text class="bt" x="170" y="179">same page, no new index entry</text></g>
+  <g class="f" data-f="3"><rect class="note" x="20" y="200" width="300" height="30" rx="6"/><text class="note-t" x="170" y="220">a report that began earlier still reads v1</text></g>
+  <g class="f" data-f="4"><rect class="okb" x="20" y="70" width="300" height="30" rx="6"/><text class="ok-t" x="170" y="90">v1 removed: free space on the page</text><rect class="okb" x="20" y="200" width="300" height="30" rx="6"/><text class="ok-t" x="170" y="220">report done: nobody needs v1</text></g>
+  <g class="f" data-f="5"><text class="lb" x="170" y="256">Update changes an indexed column?</text><rect class="box" x="20" y="268" width="140" height="30" rx="6"/><text class="bt" x="90" y="288">new version</text><rect class="note" x="180" y="268" width="140" height="30" rx="6"/><text class="note-t" x="250" y="288">+1 entry per index</text><text class="sub badt" x="170" y="322">not HOT: every index grows</text><text class="sub" x="170" y="342">and VACUUM must clean each index too</text></g>
+captions:
+  - "Order 7 lives in the table's heap as row version v1. Transaction 100 created it, so its xmin is 100. The index points to it."
+  - "Transaction 205 sets status to paid. Postgres does not change v1. It marks v1 with xmax 205 and writes v2. No indexed column changed and the page had room, so this is a HOT update."
+  - "v1 is not garbage yet. A report that started before the update must still see status=new. Postgres keeps v1 for it."
+  - "The report ends. Now no snapshot can see v1. It is a dead tuple. VACUUM, or page pruning during a later read or write, frees its space for new row versions on this page."
+  - "If the update changes an indexed column, or the page is full, it is not HOT. Every index on the table gets a new entry, and VACUUM must later clean the old entries."

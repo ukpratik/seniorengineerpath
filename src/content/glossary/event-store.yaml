@@ -1,0 +1,4 @@
+id: event-store
+term: event store
+forms: [event stores]
+short: The database that holds the events in an event-sourced system. It is the source of truth, and it can check the expected version when you append.

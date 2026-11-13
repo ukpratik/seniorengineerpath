@@ -1,0 +1,4 @@
+id: dead-tuple
+term: dead tuple
+forms: [dead tuples]
+short: In PostgreSQL, an old row version left behind by an UPDATE or DELETE that no transaction can see any more. VACUUM frees its space.

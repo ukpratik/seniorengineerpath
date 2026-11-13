@@ -1,0 +1,4 @@
+id: kraft
+term: KRaft
+forms: [KRaft mode]
+short: "Kafka's built-in metadata quorum, based on Raft. It replaced ZooKeeper, which Kafka used to need for its cluster metadata."

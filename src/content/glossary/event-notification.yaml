@@ -1,0 +1,4 @@
+id: event-notification
+term: event notification
+forms: [event notifications]
+short: Fowler's name for the pattern where a service sends an event to say that something changed and does not expect a reply. Its events are often thin; a receiver that needs details calls the sender.

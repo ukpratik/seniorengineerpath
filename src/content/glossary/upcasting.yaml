@@ -1,0 +1,4 @@
+id: upcasting
+term: upcasting
+forms: [upcaster, upcasters]
+short: Converting an old version of a stored event to the current shape when it is read. The stored event itself is not changed.

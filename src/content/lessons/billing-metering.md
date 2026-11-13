@@ -3,6 +3,7 @@ topic: billing-metering
 subtitle: Count every unit of usage once, put it in the right billing period, and turn it into an invoice you can prove.
 status: published
 illustrative_story: true
+glossary_optout: [event-store]
 sources:
   - id: stripe-meter-event
     title: "Stripe API reference, “Create a billing meter event”"

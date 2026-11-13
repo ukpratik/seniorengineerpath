@@ -1,0 +1,4 @@
+id: two-generals-problem
+term: two generals problem
+forms: [two generals]
+short: A thought experiment. Two sides talk over a link that can lose messages. However many acknowledgements they exchange, neither can be certain the other got the last one.

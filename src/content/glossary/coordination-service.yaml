@@ -1,0 +1,4 @@
+id: coordination-service
+term: coordination service
+forms: [coordination services]
+short: "A small, strongly consistent store, such as ZooKeeper, etcd or Consul, that a cluster uses for leaders, locks, membership and config."

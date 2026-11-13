@@ -247,4 +247,4 @@ When a sink is slow, buffers fill and the slowness spreads back to the source. B
 
 ## Go deeper
 
-Before this: [Queues vs logs](/learn/queues-vs-logs-delivery-guarantees). Related: [Time, clocks and ordering](/learn/time-clocks-and-ordering), [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts), [Sagas, the outbox pattern and CDC](/learn/sagas-outbox-and-cdc), and [LinkedIn's case on the log](/cases#linkedin-the-log). Coming later: counting and top-k at scale, fraud and risk systems, and ML platforms with feature stores.
+Before this: [Queues vs logs](/learn/queues-vs-logs-delivery-guarantees). Related: [Time, clocks and ordering](/learn/time-clocks-and-ordering), [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts), [Sagas, the outbox pattern and CDC](/learn/sagas-outbox-and-cdc), [Exactly-once and effectively-once](/learn/exactly-once-and-effectively-once), and [LinkedIn's case on the log](/cases#linkedin-the-log). Coming later: counting and top-k at scale, fraud and risk systems, and ML platforms with feature stores.

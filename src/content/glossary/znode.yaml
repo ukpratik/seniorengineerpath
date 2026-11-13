@@ -1,0 +1,4 @@
+id: znode
+term: znode
+forms: [znodes]
+short: "One entry in ZooKeeper's tree of paths, such as /app/config. It holds a small piece of data and can have child znodes."

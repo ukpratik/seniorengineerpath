@@ -1,0 +1,12 @@
+id: ezypay-2023-05-duplicate-direct-debits
+title: "Ezypay charged some direct debit customers two or four times"
+# Status page updates (16 May, 20:51 AEST, "processed today, 16th May") support 16 May; the postmortem says 17 May, which conflicts with its own timeline.
+date: 2023-05-16
+company: "Ezypay"
+broke: "Some Australian customers' regular direct debit payments were processed twice, and some four times. Ezypay reversed each duplicate within 24 hours."
+why: "A batch billing service must run as one instance. During a rolling deploy, a badly handled exception while taking its lock let two instances run, and a batch file with duplicated debits slipped past a skipped reconciliation check."
+lesson: "A lock that tries to make work start once is not enough. Check at the end that each payment happens once, and reconcile every file before it leaves."
+url: https://status.ezypay.com/incidents/pk2dkcrr0m8c
+tags: [payments, duplicates, batch, deploys]
+lessons: []
+verified: true

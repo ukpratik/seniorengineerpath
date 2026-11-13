@@ -1,0 +1,4 @@
+id: event-sourcing
+term: event sourcing
+forms: [event-sourced, event-source]
+short: Storing every change to your data as an event that is never edited. The current state is rebuilt by replaying the events in order.

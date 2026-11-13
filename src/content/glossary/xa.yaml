@@ -1,0 +1,4 @@
+id: xa
+term: XA
+forms: [XA transactions]
+short: An X/Open standard for two-phase commit. A transaction manager coordinates several resource managers, such as database servers, in one global transaction.

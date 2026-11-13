@@ -232,4 +232,4 @@ One cost needs a warning. Some accounts, like the platform's own fee account, ap
 
 Next on this line: [Reconciliation](/learn/reconciliation) and [The payment lifecycle](/learn/payment-lifecycle).
 
-If you have not read it yet: [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts).
+If you have not read it yet: [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts). For a ledger stored as a stream of events, see [Event-driven architecture and event sourcing](/learn/event-driven-architecture-event-sourcing).

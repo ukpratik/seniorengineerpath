@@ -1,0 +1,4 @@
+id: event-carried-state-transfer
+term: event-carried state transfer
+forms: []
+short: Events that carry the changed data, so receivers can keep their own copy and never need to call the sender.

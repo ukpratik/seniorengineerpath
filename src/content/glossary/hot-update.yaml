@@ -1,0 +1,4 @@
+id: hot-update
+term: HOT update
+forms: [HOT updates, heap-only tuple, heap-only tuples]
+short: A PostgreSQL update that changes no indexed column (BRIN aside) and fits the new row version on the same page, so no index needs a new entry.

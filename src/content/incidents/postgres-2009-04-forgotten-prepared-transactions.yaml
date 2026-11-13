@@ -1,0 +1,11 @@
+id: postgres-2009-04-forgotten-prepared-transactions
+title: "Forgotten prepared transactions stop a PostgreSQL server"
+date: 2009-04-20
+company: "PostgreSQL user (pgsql-admin mailing list)"
+broke: "A PostgreSQL 8.2.9 test server with 315 databases refused all commands to avoid transaction ID wraparound, and VACUUM did not fix it."
+why: "Prepared transactions from two-phase commit had been left open since July 2008. The admin did not know they existed, and they blocked VACUUM. What created them was never confirmed."
+lesson: "A prepared transaction lives until someone commits or rolls it back. Disable the feature unless a transaction manager owns it, and alert on old ones."
+url: https://www.postgresql.org/message-id/flat/49EF0315.4010905%40nasa.gov
+tags: [database, postgres, two-phase-commit, transactions]
+lessons: []
+verified: true

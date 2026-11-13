@@ -240,4 +240,4 @@ Also ask what the lease is really measuring. At Cloudflare, the databases were f
 
 ## Go deeper
 
-Before this: [failure detection and membership](/learn/failure-detection-and-membership). Related: [Consensus and Raft](/learn/consensus-and-raft), [Database replication](/learn/database-replication), [Time, clocks and ordering](/learn/time-clocks-and-ordering), [Locks, atomics and deadlocks](/learn/locks-atomics-and-deadlocks) and [Redis in depth](/learn/redis-in-depth). Next: ZooKeeper, etcd and coordination. See [the Cloudflare incident page](/incidents#cloudflare-2020-11-etcd-failover).
+Before this: [failure detection and membership](/learn/failure-detection-and-membership). Related: [Consensus and Raft](/learn/consensus-and-raft), [Database replication](/learn/database-replication), [Time, clocks and ordering](/learn/time-clocks-and-ordering), [Locks, atomics and deadlocks](/learn/locks-atomics-and-deadlocks) and [Redis in depth](/learn/redis-in-depth). Next: [ZooKeeper, etcd and coordination](/learn/zookeeper-etcd-coordination). See [the Cloudflare incident page](/incidents#cloudflare-2020-11-etcd-failover).

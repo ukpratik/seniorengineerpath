@@ -1,0 +1,4 @@
+id: replication-slot
+term: replication slot
+forms: [replication slots]
+short: A PostgreSQL record of how far one replica or reader has got. The primary keeps the change log until that reader has received it, so a forgotten slot can fill the disk.

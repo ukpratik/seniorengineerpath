@@ -1,0 +1,4 @@
+id: serializable-read
+term: serializable read
+forms: [serializable reads]
+short: "In etcd, a read that one member answers from its own copy without asking the others. It is faster, but it may return stale data."

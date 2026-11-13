@@ -212,4 +212,4 @@ Order matters too. By default, Debezium uses the outbox row's aggregate ID as th
 
 ## Go deeper
 
-Before this: [queues vs logs](/learn/queues-vs-logs-delivery-guarantees) and [idempotency, retries and timeouts](/learn/idempotency-retries-timeouts). Next: [checkout and the order state machine](/learn/checkout-and-order-state-machine).
+Before this: [queues vs logs](/learn/queues-vs-logs-delivery-guarantees) and [idempotency, retries and timeouts](/learn/idempotency-retries-timeouts). Next: [checkout and the order state machine](/learn/checkout-and-order-state-machine). Related: [event-driven architecture and event sourcing](/learn/event-driven-architecture-event-sourcing), [exactly-once and effectively-once](/learn/exactly-once-and-effectively-once), and [distributed transactions and two-phase commit](/learn/distributed-transactions-two-phase-commit), the approach sagas replace across services.

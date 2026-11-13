@@ -1,0 +1,4 @@
+id: transaction-id-wraparound
+term: transaction ID wraparound
+forms: [XID wraparound]
+short: PostgreSQL numbers transactions with a 32-bit counter that wraps around. VACUUM must freeze old rows in time, or Postgres stops new writes to keep old data from looking like it is in the future.

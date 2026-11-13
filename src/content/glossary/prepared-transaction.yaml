@@ -1,0 +1,4 @@
+id: prepared-transaction
+term: prepared transaction
+forms: [prepared transactions]
+short: A transaction that has voted yes in two-phase commit. It is saved on disk and keeps its locks until someone commits or rolls it back, even after a restart.

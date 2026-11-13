@@ -187,4 +187,4 @@ GitHub chose to keep user data correct over coming back fast. The site was degra
 
 ## Go deeper
 
-Next: [Transactions and isolation levels](/learn/transactions-and-isolation-levels). It covers bugs inside one database, even with no copies at all.
+Next: [Transactions and isolation levels](/learn/transactions-and-isolation-levels). It covers bugs inside one database, even with no copies at all. For how one database does this in practice, see [PostgreSQL in depth](/learn/postgresql-in-depth).

@@ -1,0 +1,19 @@
+id: event-sourcing-append
+title: "Rebuild an account from its events, and append with an expected version"
+viewBox: 0 0 340 420
+svg: |
+  <text class="lb" x="170" y="16">stream: account-42</text>
+  <rect class="rec" x="8" y="26" width="104" height="28" rx="7"/><text class="rec-t" x="60" y="45">1 · Opened</text>
+  <rect class="rec" x="118" y="26" width="104" height="28" rx="7"/><text class="rec-t" x="170" y="45">2 · +₹500</text>
+  <rect class="rec" x="228" y="26" width="104" height="28" rx="7"/><text class="rec-t" x="280" y="45">3 · −₹200</text>
+  <g class="f" data-f="1"><text class="sub" x="170" y="112">replay in order, from version 1</text><rect class="note" x="70" y="122" width="200" height="28" rx="8"/><text class="note-t" x="170" y="141">balance ₹300 · version 3</text></g>
+  <g class="f" data-f="2"><rect class="box" x="10" y="170" width="140" height="38" rx="10"/><text class="bt" x="80" y="194">Writer A</text><rect class="box" x="190" y="170" width="140" height="38" rx="10"/><text class="bt" x="260" y="194">Writer B</text><text class="sub" x="80" y="226">read: v3, ₹300</text><text class="sub" x="260" y="226">read: v3, ₹300</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="8" y="62" width="104" height="28" rx="7"/><text class="rec-t" x="60" y="81">4 · −₹250</text><line class="ln" x1="80" y1="166" x2="62" y2="96"/><rect class="okb" x="10" y="238" width="140" height="26" rx="8"/><text class="ok-t" x="80" y="256">✓ expected 3: ok</text></g>
+  <g class="f" data-f="4"><line class="ln lost" x1="260" y1="166" x2="122" y2="80"/><path class="xm" d="M163 100l14 14M177 100l-14 14"/><text class="sub badt" x="260" y="252">✗ expected 3,</text><text class="sub badt" x="260" y="267">stream is at 4</text><text class="sub" x="260" y="290">reload: ₹50, refuse</text></g>
+  <g class="f" data-f="5"><line class="life" x1="8" y1="308" x2="332" y2="308"/><rect class="rec" x="40" y="320" width="260" height="28" rx="7"/><text class="rec-t" x="170" y="339">snapshot at v4: ₹50</text><text class="sub" x="170" y="370">next load: snapshot + events after 4</text><rect class="okb" x="40" y="382" width="260" height="28" rx="8"/><text class="ok-t" x="170" y="401">✓ only a few events to replay</text></g>
+captions:
+  - "The account is a stream of events, numbered 1, 2, 3. To get the balance, you start from zero and apply each event in order. That gives ₹300 at version 3."
+  - "Two requests to withdraw ₹250 arrive at the same time. Writer A and Writer B both load the stream. Both see ₹300 at version 3, so both rules pass."
+  - "Writer A appends a Withdrawn event and says: I expect the stream to be at version 3. It is, so the event is saved as version 4."
+  - "Writer B also says it expects version 3. The stream is now at 4, so the store rejects the append. B reloads, sees ₹50, and refuses the withdrawal."
+  - "Long streams get slow to replay. Save a snapshot of the state at version 4. Next time, load the snapshot and replay only the events after it."

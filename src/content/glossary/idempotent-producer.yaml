@@ -1,0 +1,4 @@
+id: idempotent-producer
+term: idempotent producer
+forms: [idempotent producers]
+short: A Kafka producer setting. The broker gives the producer an ID and drops retried copies of a message by sequence number, so a retry does not write a duplicate. It holds only within one producer session.

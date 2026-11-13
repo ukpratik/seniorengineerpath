@@ -1,0 +1,4 @@
+id: crypto-shredding
+term: crypto-shredding
+forms: []
+short: Encrypting each person's data with their own key, then deleting the key to make that data unreadable in the store and its backups.

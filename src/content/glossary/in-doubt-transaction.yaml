@@ -1,0 +1,4 @@
+id: in-doubt-transaction
+term: in-doubt transaction
+forms: [in-doubt transactions]
+short: A prepared transaction whose participant does not know the final decision, usually because the coordinator failed. It cannot commit or abort on its own, so it keeps its locks.

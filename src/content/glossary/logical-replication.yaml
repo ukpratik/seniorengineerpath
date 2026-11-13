@@ -1,0 +1,4 @@
+id: logical-replication
+term: logical replication
+forms: []
+short: Copying row changes (inserts, updates, deletes) by table and key, not by disk block. In PostgreSQL it can copy chosen tables between different major versions.

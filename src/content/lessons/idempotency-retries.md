@@ -131,4 +131,4 @@ Two details matter in real systems. If a second request with the same key arrive
 
 ## Go deeper
 
-Coming next on this line: [Backoff, jitter and retry budgets](/learn/backoff-jitter-retry-budgets).
+Coming next on this line: [Backoff, jitter and retry budgets](/learn/backoff-jitter-retry-budgets). For messages from a queue, see [Exactly-once and effectively-once](/learn/exactly-once-and-effectively-once).

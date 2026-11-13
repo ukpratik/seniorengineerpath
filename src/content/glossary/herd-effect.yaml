@@ -1,0 +1,4 @@
+id: herd-effect
+term: herd effect
+forms: []
+short: "Many clients act on the same event at the same moment, such as one change notice or one restart, and all hit the same resource together. Often only one of them needed to act."

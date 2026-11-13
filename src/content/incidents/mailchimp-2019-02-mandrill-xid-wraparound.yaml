@@ -1,0 +1,11 @@
+id: mailchimp-2019-02-mandrill-xid-wraparound
+title: "Mandrill outage: one Postgres shard stopped writes to avoid transaction ID wraparound"
+date: 2019-02-04
+company: "Mailchimp (Mandrill)"
+broke: "Mandrill, Mailchimp's transactional email service, sent only about 80% of queued email for about 40 hours, and its queues were back to normal about 43 hours after the start."
+why: "Autovacuum on one busy Postgres shard fell behind or failed, the transaction IDs reached their limit, and the database went into safety shutdown mode. A vacuum of the shard, whose two largest tables were terabytes in size, was estimated to take up to 40 days."
+lesson: "Monitor transaction ID age on every Postgres database and alert long before the limit, and know which large tables you could truncate in an emergency."
+url: https://mailchimp.com/what-we-learned-from-the-recent-mandrill-outage/
+tags: [database, postgres, vacuum]
+lessons: []
+verified: true

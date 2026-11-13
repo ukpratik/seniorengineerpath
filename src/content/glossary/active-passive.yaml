@@ -1,0 +1,4 @@
+id: active-passive
+term: active-passive
+forms: [active/passive]
+short: A setup where one site or region serves all users while another keeps a copy and waits. On failure, you fail over to the waiting one.

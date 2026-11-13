@@ -1,0 +1,4 @@
+id: forward-compatibility
+term: forward compatibility
+forms: [forward compatible, forward-compatible, forwards compatibility, forwards compatible]
+short: Old code can still read data written by new code, usually by skipping fields it does not know.

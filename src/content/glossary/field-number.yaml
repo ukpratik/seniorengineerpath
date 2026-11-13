@@ -1,0 +1,4 @@
+id: field-number
+term: field number
+forms: [field numbers]
+short: In Protocol Buffers, the number given to each field. It is written on the wire instead of the name, so it must never change or be reused.

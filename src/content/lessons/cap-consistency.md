@@ -232,4 +232,4 @@ Causal consistency and read-your-writes can stay available during a partition, i
 
 ## Go deeper
 
-Before this: [Replication](/learn/database-replication) explains replication lag and read-your-writes in detail. Next: [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication).
+Before this: [Replication](/learn/database-replication) explains replication lag and read-your-writes in detail. Next: [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication), and [Multi-region systems and data locality](/learn/multi-region-and-data-locality) for what these choices cost across regions.

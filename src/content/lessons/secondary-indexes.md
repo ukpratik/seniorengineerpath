@@ -344,3 +344,4 @@ A **global secondary index** (GSI) can use any key. It is updated asynchronously
 
 - [API pagination and filtering](/learn/api-pagination-and-filtering): keyset pagination needs a composite index that matches the sort.
 - [Data models and query languages](/learn/data-models-and-query-languages): how the planner picks a plan.
+- [Data modelling for NoSQL](/learn/data-modelling-for-nosql): global secondary indexes in DynamoDB-style stores.

@@ -1,0 +1,23 @@
+id: lease-fencing-token
+title: "A paused leader wakes up; the fencing token stops its late write"
+viewBox: 0 0 340 400
+svg: |
+  <rect class="box" x="10" y="8" width="60" height="36" rx="8"/><text class="bt" x="40" y="31">A</text>
+  <rect class="box" x="100" y="8" width="60" height="36" rx="8"/><text class="bt" x="130" y="31">Lease</text>
+  <rect class="box" x="185" y="8" width="60" height="36" rx="8"/><text class="bt" x="215" y="31">B</text>
+  <rect class="box" x="270" y="8" width="60" height="36" rx="8"/><text class="bt" x="300" y="31">Storage</text>
+  <line class="life" x1="40" y1="46" x2="40" y2="336"/>
+  <line class="life" x1="130" y1="46" x2="130" y2="336"/>
+  <line class="life" x1="215" y1="46" x2="215" y2="336"/>
+  <line class="life" x1="300" y1="46" x2="300" y2="336"/>
+  <g class="f" data-f="1"><line class="ln" x1="128" y1="72" x2="44" y2="72"/><text class="lb" x="85" y="66">token 33</text><line class="ln" x1="42" y1="102" x2="296" y2="102"/><text class="lb" x="170" y="96">write · 33</text><text class="sub" x="300" y="120">max: 33</text></g>
+  <g class="f" data-f="2"><rect class="note" x="6" y="132" width="68" height="26" rx="8"/><text class="note-t" x="40" y="150">GC pause</text><line class="ln lost" x1="42" y1="178" x2="104" y2="178"/><path class="xm" d="M108 171l14 14M122 171l-14 14"/><text class="lb" x="72" y="172">renew</text></g>
+  <g class="f" data-f="3"><text class="lb" x="130" y="204">15 s: expired</text><line class="ln" x1="132" y1="226" x2="211" y2="226"/><text class="lb" x="172" y="220">token 34</text><line class="ln" x1="217" y1="252" x2="296" y2="252"/><text class="lb" x="257" y="246">write · 34</text><text class="sub" x="300" y="270">max: 34</text></g>
+  <g class="f" data-f="4"><line class="ln lost" x1="42" y1="300" x2="270" y2="300"/><path class="xm" d="M276 293l14 14M290 293l-14 14"/><text class="lb" x="150" y="294">write · 33</text><text class="sub badt" x="170" y="326">33 &lt; 34: rejected</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="10" y="346" width="320" height="28" rx="8"/><text class="ok-t" x="170" y="365">✓ A learns it lost the lease and stops</text><text class="sub" x="170" y="392">B's newer data is never overwritten</text></g>
+captions:
+  - "Node A gets the lease with fencing token 33. It writes to the storage and sends the token with the write. The storage remembers the biggest token it has seen: 33."
+  - "A stops in a long garbage collection pause. Its renewals never reach the lease service. From the outside, A looks dead. Inside A, nothing has changed."
+  - "After the lease duration, here 15 seconds, the lease expires. Node B gets it with token 34 and writes. The storage now remembers 34."
+  - "A wakes up. It still believes it is the leader and sends a write with token 33. The storage has already seen 34, so it rejects the write."
+  - "The rejection tells A it is no longer the leader. A stops leader work. The lease alone could not stop the late write. The check in the storage did."

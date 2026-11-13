@@ -210,6 +210,6 @@ AWS lists four strategies in order of rising cost and complexity, and falling RP
 
 ## Go deeper
 
-Before this: [Database replication](/learn/database-replication), to see how followers copy every change.
+Before this: [Database replication](/learn/database-replication), to see how followers copy every change. Next: [Multi-region systems and data locality](/learn/multi-region-and-data-locality), for running in more than one region every day, not only after a disaster.
 
 Related lessons: [Incident response and postmortems](/learn/incident-response-and-postmortems), [Safe deploys and config changes](/learn/safe-deploys-config-changes) and [Requirements and non-functional needs](/learn/requirements-and-non-functional-needs). Case study: the [GitLab incident](/incidents#gitlab-2017-01-database).

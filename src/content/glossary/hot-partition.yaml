@@ -1,0 +1,4 @@
+id: hot-partition
+term: hot partition
+forms: [hot partitions]
+short: A partition or shard that gets far more reads or writes than the others. It hits its limit while the rest of the cluster has spare capacity.

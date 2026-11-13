@@ -1,0 +1,4 @@
+id: adjacency-list
+term: adjacency list
+forms: [adjacency lists, adjacency list pattern]
+short: "In graph code, a list of each node's neighbours. In DynamoDB, a pattern for many-to-many links: each entity is a partition, and each link is an item in it whose sort key is the linked entity's ID."

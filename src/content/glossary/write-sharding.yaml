@@ -1,0 +1,4 @@
+id: write-sharding
+term: write sharding
+forms: []
+short: Spreading the writes for one busy key over many keys by adding a suffix, such as post42#7. To read everything for the key, you must fetch every suffix and combine the results.

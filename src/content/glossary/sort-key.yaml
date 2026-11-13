@@ -1,0 +1,4 @@
+id: sort-key
+term: sort key
+forms: [sort keys, clustering key, clustering keys, clustering column, clustering columns]
+short: "The second part of a primary key in DynamoDB or Cassandra. It sorts the items inside one partition, so you can read a range of them in order. Cassandra calls it a clustering key."

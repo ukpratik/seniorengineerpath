@@ -5,6 +5,7 @@ status: published
 reviewed_by: ai-factcheck
 reviewed_on: 2026-10-22
 illustrative_story: true
+glossary_optout: [sort-key]
 sources:
   - id: rfc9562
     title: "K. Davis, B. Peabody, P. Leach, RFC 9562, “Universally Unique IDentifiers (UUIDs)”, IETF, May 2024"

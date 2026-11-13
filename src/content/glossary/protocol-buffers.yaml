@@ -1,0 +1,4 @@
+id: protocol-buffers
+term: Protocol Buffers
+forms: [Protobuf, protobuf]
+short: A compact binary format from Google. You describe messages in a .proto file, and each field has a number that is written on the wire instead of its name.

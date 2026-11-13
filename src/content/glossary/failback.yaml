@@ -1,0 +1,4 @@
+id: failback
+term: failing back
+forms: [failback, fail back, fails back]
+short: Moving work back to the original site or region after a failover, once it is healthy and has caught up. It is best done as a planned, separate step.

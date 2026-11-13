@@ -222,4 +222,4 @@ If producers are faster than consumers, the backlog grows. Kafka consumers pull 
 
 ## Go deeper
 
-Before this: [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts). Next: [Kafka internals](/learn/kafka-internals), and [sagas, the outbox pattern and CDC](/learn/sagas-outbox-and-cdc) for writing to a database and a queue together.
+Before this: [Idempotency, retries and timeouts](/learn/idempotency-retries-timeouts). Next: [Kafka internals](/learn/kafka-internals), and [sagas, the outbox pattern and CDC](/learn/sagas-outbox-and-cdc) for writing to a database and a queue together. [Schema evolution and encoding](/learn/schema-evolution-and-encoding) covers changing the format of messages that are already in the log.

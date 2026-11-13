@@ -296,4 +296,4 @@ Sources: [@redis-persistence] and, for the empty-primary trap, [@redis-replicati
 
 ## Go deeper
 
-Before this: [Caching stampedes](/learn/caching-and-cache-stampedes), [Rate limiting](/learn/rate-limiting) and [Locking and MVCC in practice](/learn/locking-and-mvcc-in-practice). Related: [Batching and pipelining](/learn/batching-and-pipelining), [Database replication](/learn/database-replication), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Consensus and Raft](/learn/consensus-and-raft). Coming later: Leaderboards and live ops, Leader election and leases.
+Before this: [Caching stampedes](/learn/caching-and-cache-stampedes), [Rate limiting](/learn/rate-limiting) and [Locking and MVCC in practice](/learn/locking-and-mvcc-in-practice). Related: [Batching and pipelining](/learn/batching-and-pipelining), [Database replication](/learn/database-replication), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing) and [Consensus and Raft](/learn/consensus-and-raft). See also [Leader election and leases](/learn/leader-election-and-leases). Coming later: Leaderboards and live ops.

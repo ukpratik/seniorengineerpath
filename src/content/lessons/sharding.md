@@ -203,4 +203,4 @@ DynamoDB's global secondary indexes work this way. The docs say updates usually 
 
 ## Go deeper
 
-Before this: [Replication](/learn/database-replication). Each shard is usually replicated too. Next: [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication), which builds on the Dynamo ring, and [Distributed caches](/learn/distributed-caches), which spread a cache across nodes the same way.
+Before this: [Replication](/learn/database-replication). Each shard is usually replicated too. Next: [Quorums and leaderless replication](/learn/quorums-and-leaderless-replication), which builds on the Dynamo ring, and [Distributed caches](/learn/distributed-caches), which spread a cache across nodes the same way. For writes that pile onto one key, see [Scaling writes and hot keys](/learn/scaling-writes-and-hot-keys); for designing tables around one shard key, see [Data modelling for NoSQL](/learn/data-modelling-for-nosql).

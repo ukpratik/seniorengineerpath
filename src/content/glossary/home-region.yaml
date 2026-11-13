@@ -1,0 +1,4 @@
+id: home-region
+term: home region
+forms: [home regions]
+short: The one region that owns a user's or tenant's data and takes all of its writes. Other regions may hold read-only copies.

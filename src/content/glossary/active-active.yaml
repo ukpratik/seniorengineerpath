@@ -1,0 +1,4 @@
+id: active-active
+term: active-active
+forms: [active/active]
+short: A setup where every site or region serves real users at the same time. If one fails, the others take its share of the traffic.

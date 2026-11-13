@@ -1,0 +1,4 @@
+id: single-table-design
+term: single-table design
+forms: [single table design]
+short: "A DynamoDB pattern that stores several kinds of item, such as users and orders, in one table, so related items can be read with one request."

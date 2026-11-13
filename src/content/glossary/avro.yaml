@@ -1,0 +1,4 @@
+id: avro
+term: Avro
+forms: [Apache Avro]
+short: A compact binary data format from the Apache project. The data has no field names or numbers, so a reader needs the schema it was written with.

@@ -1,0 +1,4 @@
+id: schema-registry
+term: schema registry
+forms: [schema registries]
+short: A service that stores every version of a data schema under an id, so readers can look up how a message was written. It can also reject changes that break compatibility.

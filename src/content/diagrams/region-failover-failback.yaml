@@ -1,0 +1,20 @@
+id: region-failover-failback
+title: "Failing over from one region to another, and failing back"
+viewBox: 0 0 340 450
+svg: |
+  <rect class="box" x="120" y="8" width="100" height="34" rx="8"/><text class="bt" x="170" y="30">Users</text>
+  <rect class="box" x="8" y="78" width="140" height="62" rx="10"/><text class="bt" x="78" y="100">Mumbai</text>
+  <rect class="box" x="192" y="78" width="140" height="62" rx="10"/><text class="bt" x="262" y="100">Singapore</text>
+  <g class="f" data-f="1"><line class="ln" x1="150" y1="42" x2="96" y2="76"/><text class="sub" x="78" y="124">writer</text><text class="sub" x="262" y="124">read-only copy</text><line class="ln lost" x1="150" y1="109" x2="188" y2="109"/><text class="lb" x="170" y="162">async copy, about 1 s behind</text></g>
+  <g class="f" data-f="2"><line class="xm" x1="20" y1="84" x2="136" y2="136"/><line class="xm" x1="136" y1="84" x2="20" y2="136"/><text class="sub badt" x="170" y="190">✗ Mumbai region is down</text><text class="sub" x="170" y="208">its last 1 s of writes was never copied</text></g>
+  <g class="f" data-f="3"><rect class="rec" x="30" y="222" width="280" height="26" rx="7"/><text class="rec-t" x="170" y="240">1 · fence Mumbai: it must not take writes</text><rect class="rec" x="30" y="254" width="280" height="26" rx="7"/><text class="rec-t" x="170" y="272">2 · promote Singapore to writer</text></g>
+  <g class="f" data-f="4"><line class="ln" x1="190" y1="42" x2="244" y2="76"/><rect class="rec" x="30" y="290" width="280" height="26" rx="7"/><text class="rec-t" x="170" y="308">3 · DNS sends users to Singapore</text><rect class="note" x="50" y="322" width="240" height="24" rx="7"/><text class="note-t" x="170" y="339">full load + a burst of retries</text></g>
+  <g class="f" data-f="5"><rect class="okb" x="30" y="358" width="280" height="26" rx="8"/><text class="ok-t" x="170" y="376">Mumbai back: rebuild it as a copy</text><text class="sub" x="170" y="400">look for the lost writes in its old data</text></g>
+  <g class="f" data-f="6"><rect class="okb" x="30" y="412" width="280" height="28" rx="8"/><text class="ok-t" x="170" y="431">✓ 4 · fail back later, by plan</text></g>
+captions:
+  - "Active-passive. All writes go to Mumbai. Singapore keeps a copy that is about one second behind, and serves only reads."
+  - "The Mumbai region fails. The writes from its last second never reached Singapore. If you fail over now, those writes are missing."
+  - "First stop the old writer from taking writes. This is fencing. Then promote Singapore to be the writer. Skip the fence, and you risk split-brain."
+  - "Point DNS at Singapore. Clients that cached the old answer move later. Singapore must now carry all the load, plus a flood of retries."
+  - "When Mumbai comes back, do not trust its data as it is. Rebuild it as a copy of Singapore. Then look in its old data for writes that never got copied."
+  - "Failing back is a separate, planned move. Wait until Mumbai has fully caught up, then switch roles at a quiet hour, with no data lost."

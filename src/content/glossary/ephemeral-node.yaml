@@ -1,0 +1,4 @@
+id: ephemeral-node
+term: ephemeral node
+forms: [ephemeral nodes, ephemeral znode, ephemeral znodes]
+short: "A ZooKeeper entry that lives only while the session that created it is alive. If the client's session ends, ZooKeeper deletes it."

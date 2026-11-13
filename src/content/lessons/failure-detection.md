@@ -229,4 +229,4 @@ Removing a slow node is not free. The work it held lands on the nodes that are l
 
 ## Go deeper
 
-Next: leader election and leases, which use failure detection to pick one leader. Related: [Consensus and Raft](/learn/consensus-and-raft), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing), and [Circuit breakers and bulkheads](/learn/circuit-breakers-and-bulkheads). See [the GitHub incident page](/incidents#github-2012-09-mysql-failover).
+Next: [leader election and leases](/learn/leader-election-and-leases), which use failure detection to pick one leader. Related: [Consensus and Raft](/learn/consensus-and-raft), [Sharding and consistent hashing](/learn/sharding-and-consistent-hashing), and [Circuit breakers and bulkheads](/learn/circuit-breakers-and-bulkheads). See [the GitHub incident page](/incidents#github-2012-09-mysql-failover).

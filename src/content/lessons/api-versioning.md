@@ -266,4 +266,5 @@ Our advice: email the owners of the remaining clients by name, not only a mailin
 - [Schema migrations](/learn/schema-migrations-zero-downtime): expand and contract, one layer down in the database.
 - [API gateway](/learn/api-gateway-and-edge): routing `/v1` and `/v2` at the edge.
 - [Webhooks and async APIs](/learn/webhooks-and-async-apis): events your API pushes, which need versions too.
-- Coming later: schema evolution and encoding, and contract and integration tests.
+- [Schema evolution and encoding](/learn/schema-evolution-and-encoding): how JSON, Protobuf and Avro let old and new code read each other's data.
+- Coming later: contract and integration tests.

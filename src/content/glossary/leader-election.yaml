@@ -1,0 +1,4 @@
+id: leader-election
+term: leader election
+forms: [leader elections]
+short: "The way a group of nodes picks one node to do a job alone, such as taking writes or running a scheduler, and picks a new one when it fails."

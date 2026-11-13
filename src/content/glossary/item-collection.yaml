@@ -1,0 +1,4 @@
+id: item-collection
+term: item collection
+forms: [item collections]
+short: "In DynamoDB, all the items that share one partition key value. They are stored together and sorted by sort key, so one Query can read them."

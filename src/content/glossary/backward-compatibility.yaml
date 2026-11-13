@@ -1,0 +1,4 @@
+id: backward-compatibility
+term: backward compatibility
+forms: [backward compatible, backward-compatible, backwards compatibility, backwards compatible]
+short: A change is backward compatible when things built for the old version keep working. New code reads old data, or a new API version still serves old clients.

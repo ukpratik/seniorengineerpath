@@ -1,0 +1,11 @@
+id: cloudflare-2020-11-etcd-failover
+title: "Cloudflare outage: a half-broken switch stalled etcd and set off database promotions"
+date: 2020-11-02
+company: "Cloudflare"
+broke: "For 6 hours and 33 minutes, the Cloudflare API and dashboard were degraded. API success fell as low as 75%, and the dashboard was up to 80 times slower."
+why: "A partly failed switch cut one etcd node off from the leader. Repeated elections made etcd read-only, so two database clusters could not confirm their primary and promoted a replica. A bug then forced a rebuild of all replicas."
+lesson: "Automatic failover should not fire just because the coordination service is sick, and a promotion must not leave the new primary alone under full load."
+url: https://blog.cloudflare.com/a-byzantine-failure-in-the-real-world/
+tags: [consensus, database, networking]
+lessons: []
+verified: true

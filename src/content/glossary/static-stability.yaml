@@ -1,0 +1,4 @@
+id: static-stability
+term: statically stable
+forms: [static stability]
+short: A system that keeps working through a failure without needing control plane changes, such as launching new servers or creating DNS records. Recovery uses only what is already running.

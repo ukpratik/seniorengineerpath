@@ -1,0 +1,1 @@
+5 new lessons: ZooKeeper and etcd, event-driven architecture and event sourcing, exactly-once and effectively-once, PostgreSQL in depth, and distributed transactions and two-phase commit. 22 new glossary terms.

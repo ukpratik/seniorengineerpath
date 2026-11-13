@@ -1,0 +1,1 @@
+5 new lessons: leader election and leases, multi-region systems and data locality, scaling writes and hot keys, schema evolution and encoding, and data modelling for NoSQL. 20 new glossary terms.

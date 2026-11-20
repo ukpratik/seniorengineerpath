@@ -10,7 +10,7 @@ android {
     namespace = "io.github.ukpratik.seniorpath"
 
     defaultConfig {
-        applicationId = "io.github.ukpratik.seniorpath" // F-Droid and sideload; the Play build adds ".play" (D-041)
+        applicationId = "io.github.ukpratik.seniorpath" // F-Droid and sideload; the Play build adds ".play" (D-042)
         // versionCode = MAJOR × 10000 + MINOR × 100 + PATCH, as in the other apps.
         versionCode = 10010
         versionName = "1.0.10"
@@ -31,7 +31,7 @@ android {
                 keyPassword = providers.gradleProperty("seniorpath.upload.keyPassword").get()
             }
         }
-        // Google Play has its own package name and upload key, so it never collides with the F-Droid build (D-041).
+        // Google Play has its own package name and upload key, so it never collides with the F-Droid build (D-042).
         val playStoreFile = providers.gradleProperty("seniorpath.play.storeFile").orNull
         if (playStoreFile != null) {
             create("play") {

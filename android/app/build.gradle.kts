@@ -10,10 +10,10 @@ android {
     namespace = "io.github.ukpratik.seniorpath"
 
     defaultConfig {
-        applicationId = "io.github.ukpratik.seniorpath" // permanent after the first Play upload (D-040)
+        applicationId = "io.github.ukpratik.seniorpath" // F-Droid and sideload; the Play build adds ".play" (D-041)
         // versionCode = MAJOR × 10000 + MINOR × 100 + PATCH, as in the other apps.
-        versionCode = 10009
-        versionName = "1.0.9"
+        versionCode = 10010
+        versionName = "1.0.10"
         // Lesson share links and "Report a mistake" (src/config.ts SITE.url and SITE.repo).
         buildConfigField("String", "SITE_URL", "\"https://seniorpath.dev\"")
         buildConfigField("String", "REPO", "\"ukpratik/seniorengineerpath\"")
@@ -31,6 +31,16 @@ android {
                 keyPassword = providers.gradleProperty("seniorpath.upload.keyPassword").get()
             }
         }
+        // Google Play has its own package name and upload key, so it never collides with the F-Droid build (D-041).
+        val playStoreFile = providers.gradleProperty("seniorpath.play.storeFile").orNull
+        if (playStoreFile != null) {
+            create("play") {
+                storeFile = file(playStoreFile)
+                storePassword = providers.gradleProperty("seniorpath.play.storePassword").get()
+                keyAlias = providers.gradleProperty("seniorpath.play.keyAlias").get()
+                keyPassword = providers.gradleProperty("seniorpath.play.keyPassword").get()
+            }
+        }
     }
 
     buildTypes {
@@ -42,6 +52,14 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             signingConfigs.findByName("upload")?.let { signingConfig = it }
+        }
+        // Google Play build: `./gradlew :app:bundlePlay`. Same code and content as release, separate package name
+        // (io.github.ukpratik.seniorpath.play) and key, so the F-Droid build (assembleRelease) is unchanged.
+        create("play") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".play"
+            matchingFallbacks += "release"
+            signingConfig = signingConfigs.findByName("play")
         }
     }
 

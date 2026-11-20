@@ -1,0 +1,1 @@
+No changes to the lessons (still 124). This release adds a separate build for Google Play with its own package name, so the Play and F-Droid versions can sit side by side.

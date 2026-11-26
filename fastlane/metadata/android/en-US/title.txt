@@ -1,1 +1,1 @@
-SeniorPath
+SeniorPath: System Design

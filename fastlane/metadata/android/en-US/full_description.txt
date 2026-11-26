@@ -1,22 +1,42 @@
-SeniorPath helps software engineers with 2 to 3 years of experience grow into senior engineers and architects. It explains how real systems are built, how they break, and how teams fix them, in simple English.
+SeniorPath is a free course for software engineers with 2 to 3 years of experience who want to work like senior engineers. It explains system design, distributed systems and software architecture the way they show up at work: how real systems are built, how they break, and how teams fix them. In plain English.
 
-Every lesson has the same eight parts: a real incident or story, the idea in plain words, a step-by-step diagram, the trade-offs, how it works at scale, how to use AI tools on it, a short quiz, and sources to go deeper.
+Every lesson has the same eight parts:
+• What broke: a real outage or story
+• The idea in simple words
+• How it works, as a diagram you step through
+• Trade-offs
+• At work: how a senior engineer uses it
+• With AI: how to use coding assistants on it, and where they go wrong
+• A short quiz
+• Sources to go deeper
 
 WHAT YOU GET
-• 124 full lessons on a map of 225 topics, with more lessons in each update. Tracks: foundations, data, distributed systems, building at scale, reliability and security, domains like payments, e-commerce, SaaS and games, the senior engineer's craft, and AI-native engineering.
-• Step-through diagrams. Go one step at a time, swipe, pinch to zoom, and share a step as a picture.
-• Six interactive animations: a cache stampede, replication lag, a staged rollout, a token bucket, a hash ring and a Raft election. Move the sliders and see what happens.
-• Real incidents and case studies from companies' own postmortems and engineering blogs, with a link to each.
-• A glossary built into the text. Tap any underlined term to see what it means.
-• Learning paths that put the lessons in a good order, with your next lesson always one tap away.
-• Search across lessons, terms, incidents and case studies.
+• 124 full lessons on a map of 225 topics, with more in each update.
+• Foundations: REST API design, HTTP/2 and HTTP/3, TCP/IP, DNS, TLS, WebSockets, testing, SOLID and clean architecture.
+• Data: PostgreSQL, Redis, Kafka, Cassandra and DynamoDB in depth, transactions and isolation levels, indexes, replication, sharding and consistent hashing.
+• Distributed systems: idempotency and retries, the outbox pattern and sagas, CAP and consistency, Raft consensus, event sourcing and CQRS, rate limiting, circuit breakers, stream processing.
+• Building at scale: caching and cache stampedes, load balancing, CDNs, microservices or a modular monolith, scaling from zero to millions of users.
+• Reliability and security: SLOs and error budgets, incident response and postmortems, safe deploys, OWASP Top 10, authentication and authorization.
+• Domains: payments and double-entry ledgers, checkout and inventory, SaaS billing and multi-tenancy, game networking, low-latency systems.
+• The senior engineer's craft: design docs, estimation, technical debt, working with product managers, mentoring, system design and behavioural interviews.
+• AI-native engineering: LLM basics, prompt and context engineering, RAG, evals, coding agents and reviewing AI-written code.
+
+LEARN BY SEEING IT
+• Step-through diagrams: go one step at a time, pinch to zoom, share a step as a picture.
+• Six interactive simulations: a cache stampede, replication lag, a staged rollout, a token bucket, a hash ring and a Raft leader election.
+• 45 real outages and 56 case studies from companies' own postmortems and engineering blogs, each linked to the original.
+• A glossary of 784 terms built into the text: tap any underlined word.
+• Learning paths, including "Senior at work" and "Senior interview in 8 weeks", with your next lesson one tap away.
+• Search across lessons, terms, outages and case studies.
 
 MADE TO RESPECT YOU
-• Everything works offline. The app has no internet permission.
+• Works fully offline. The app has no internet permission.
 • No account, no ads, no tracking. Your progress stays on your phone.
-• Move your progress between the app and the website (ukpratik.github.io/seniorengineerpath) with one small file.
-• Light and dark themes, large text, and screen reader support.
+• Light and dark themes, large text and screen reader support.
 
-Every lesson is checked against its sources, and every claim links to where it came from. Spotted a mistake? "Report a mistake" at the end of each lesson opens a short form.
+HONEST ABOUT SOURCES
+Every lesson cites its sources and every claim links to where it came from. The lessons are written with help from AI tools and checked against those sources. Spotted a mistake? "Report a mistake" at the end of each lesson opens a short form.
 
-The lessons and diagrams are free to share under Creative Commons BY-NC-SA 4.0. The app's code is open source (MIT).
+The lessons and diagrams are shared under Creative Commons BY-NC-SA 4.0. The app is open source (MIT) and also on F-Droid.
+
+Read the same lessons on the web at ukpratik.github.io/seniorengineerpath.

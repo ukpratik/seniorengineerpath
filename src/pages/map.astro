@@ -5,12 +5,32 @@ import TopBar from '../components/TopBar.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import { siteData, LEVEL_LABEL } from '../lib/site-data.ts';
+import { SITE, absUrl } from '../config.ts';
 
 const d = await siteData();
 const total = d.topics.length;
 const firstWritten = d.defaultPath.topics.find((t) => t.written);
+// The curriculum as a schema.org Course: each track is part of it, each written lesson is listed.
+const jsonLd = [
+  {
+    '@type': 'Course',
+    '@id': absUrl('/map#course'),
+    name: `${SITE.name}: from mid-level to senior software engineer`,
+    description: `A free curriculum for software engineers: ${d.tracks.length} tracks and ${total} topics, from foundations and distributed systems to domain tracks and AI-native engineering. ${d.writtenCount} lessons are written so far.`,
+    url: absUrl('/map'),
+    inLanguage: 'en',
+    isAccessibleForFree: true,
+    provider: { '@id': absUrl('/#publisher') },
+    author: { '@type': 'Person', name: SITE.author, url: absUrl('/about') },
+    license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+    educationalLevel: 'Intermediate',
+    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', courseWorkload: `PT${d.writtenCount * 15}M` },
+    offers: { '@type': 'Offer', price: 0, priceCurrency: 'USD', category: 'Free' },
+    hasPart: d.tracks.map((t) => ({ '@type': 'Course', name: t.title, url: absUrl(`/map#${t.id}`) })),
+  },
+];
 ---
-<Base title="Curriculum map" description={`The full SeniorPath curriculum for software engineers: ${d.tracks.length} tracks and ${total} topics, from foundations and distributed systems to domain tracks and AI-native engineering.`} current="map">
+<Base title="Curriculum map" description={`The full SeniorPath curriculum for software engineers: ${d.tracks.length} tracks and ${total} topics, from foundations and distributed systems to domain tracks and AI-native engineering.`} current="map" jsonLd={jsonLd}>
   <TopBar />
   <main id="main" class="page">
     <div class="top">
@@ -87,6 +107,7 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
   </main>
   <script>
     import { initUi, store, icon } from '../scripts/ui.ts';
+    import { url } from '../scripts/base.ts';
     import { track } from '../scripts/analytics.ts';
     import { manifest } from '../scripts/manifest.ts';
     initUi();
@@ -107,7 +128,6 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
       store.setMapAll(!on);
       track('map_filter_toggle', { value: on ? 'written' : 'all' });
       live.textContent = on ? `Showing the ${written} written lessons only.` : `Showing all ${total} topics. Coming-soon topics are marked.`;
-    import { url } from '../scripts/base.ts';
     });
     const ex = document.querySelector<HTMLButtonElement>('[data-expand]')!;
     ex.addEventListener('click', () => {

@@ -5,13 +5,25 @@ import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import { siteData } from '../lib/site-data.ts';
 import { formatDay } from '../lib/lesson-parts.ts';
+import { SITE, absUrl } from '../config.ts';
 
 const d = await siteData();
 const first = d.defaultPath.topics.find((t) => t.written);
 const lineFor = (i: number) => ['var(--accent)', 'var(--t2)', 'var(--t4)'][i] ?? 'var(--t6)';
 const featured = d.incidents.slice(0, 3);
+const jsonLd = [
+  {
+    '@type': 'WebSite',
+    '@id': absUrl('/#website'),
+    name: SITE.name,
+    url: absUrl('/'),
+    inLanguage: 'en',
+    publisher: { '@id': absUrl('/#publisher') },
+    potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: `${absUrl('/search')}?q={search_term_string}` }, 'query-input': 'required name=search_term_string' },
+  },
+];
 ---
-<Base title="From mid-level to senior" description="SeniorPath helps software engineers grow from mid-level to senior: how real systems are built, broken and fixed, in simple English. Free lessons with step-through diagrams and real incidents." current="home">
+<Base title="From mid-level to senior" description="SeniorPath helps software engineers grow from mid-level to senior: how real systems are built, broken and fixed, in simple English. Free lessons with step-through diagrams and real incidents." current="home" jsonLd={jsonLd}>
   <TopBar />
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-h">
@@ -103,6 +115,7 @@ const featured = d.incidents.slice(0, 3);
   </main>
   <script>
     import { initUi, store } from '../scripts/ui.ts';
+    import { url } from '../scripts/base.ts';
     import { manifest, LEVEL } from '../scripts/manifest.ts';
     initUi();
     const s = store.load();
@@ -115,7 +128,6 @@ const featured = d.incidents.slice(0, 3);
           const p = m.paths[card.dataset.pathCard!];
           const n = doneIn(p.steps);
           if (!n) return;
-    import { url } from '../scripts/base.ts';
           card.querySelector('[data-p-count]')!.textContent = `${n} of ${p.steps.length} done`;
           card.querySelector<HTMLElement>('.bar > i')!.style.width = `${Math.round((n / p.steps.length) * 100)}%`;
         });

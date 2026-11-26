@@ -2,18 +2,29 @@
 import '../styles/tokens.css';
 import '../styles/app.css';
 import '../styles/pages.css';
-import { SITE, UMAMI } from '../config.ts';
+import { SITE, UMAMI, BASE_PATH, absUrl } from '../config.ts';
 import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
+  /** Search-result title when it should differ from the on-page title (kept under ~60 characters). */
+  seoTitle?: string;
   description: string;
   noindex?: boolean;
   current?: 'home' | 'map' | 'search' | 'progress' | 'none';
   ogImage?: string;
+  ogType?: 'website' | 'article';
+  published?: string;
+  modified?: string;
+  /** schema.org JSON-LD for this page; publisher and site entities are added here. */
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description, noindex = false, current = 'none', ogImage } = Astro.props;
-const canonical = new URL(Astro.url.pathname.replace(/\.html$/, ''), Astro.site);
+const { title, seoTitle, description, noindex = false, current = 'none', ogImage = '/og/site.png', ogType = 'website', published, modified, jsonLd = [] } = Astro.props;
+// Route path without the base ('/learn/x'); every absolute URL is built from it with absUrl().
+const route = (BASE_PATH && Astro.url.pathname.startsWith(BASE_PATH) ? Astro.url.pathname.slice(BASE_PATH.length) : Astro.url.pathname).replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const isHome = route === '/';
+const canonical = absUrl(route);
+const image = absUrl(ogImage);
 const totalLessons = (await getCollection('lessons', (l) => l.data.status === 'published')).length;
 const tabs = [
   { id: 'home', href: '/', label: 'Home', icon: 'home' },
@@ -21,7 +32,12 @@ const tabs = [
   { id: 'search', href: '/search', label: 'Search', icon: 'search' },
   { id: 'progress', href: '/progress', label: 'Progress', icon: 'chart' },
 ];
-const fullTitle = `${title} · ${SITE.name} ${SITE.tagline}`;
+// Short titles: the brand promise only on the home page (search shows ~60 characters).
+const fullTitle = isHome ? `${SITE.name}: from mid-level to senior software engineer` : `${seoTitle ?? title} | ${SITE.name}`;
+const publisher = { '@type': 'Organization', '@id': absUrl('/#publisher'), name: SITE.publisher, url: SITE.moreApps, logo: { '@type': 'ImageObject', url: absUrl('/og/site.png') } };
+const ld = jsonLd.length
+  ? JSON.stringify({ '@context': 'https://schema.org', '@graph': [publisher, ...jsonLd] }).replace(/</g, '\\u003c')
+  : '';
 ---
 <!doctype html>
 <html lang="en">
@@ -34,13 +50,23 @@ const fullTitle = `${title} · ${SITE.name} ${SITE.tagline}`;
     {noindex && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#F5F7FA" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0B1020" media="(prefers-color-scheme: dark)" />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={seoTitle ?? title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en" />
+    {ogType === 'article' && <meta name="author" content={SITE.author} />}
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seoTitle ?? title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    {ld && <script type="application/ld+json" set:html={ld} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="alternate" type="application/rss+xml" title="SeniorPath lessons" href="/rss.xml" />

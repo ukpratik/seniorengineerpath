@@ -2,7 +2,7 @@
 // One route for every topic: a written lesson (US-005) or a coming-soon page (US-004).
 import { getCollection, getEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { SITE, issueUrl } from '../../config.ts';
+import { SITE, issueUrl, absUrl } from '../../config.ts';
 import { incidentsHtml, quizHtml, deeperHtml, fillSlots, readingMinutes, formatDay } from '../../lib/lesson-parts.ts';
 import { LESSON_SECTIONS } from '../../content-tools/markdown.ts';
 
@@ -50,7 +50,7 @@ if (lesson) {
     const t = topicById.get(id)!;
     return { title: t.title, slug: t.slug, written: written.has(id) };
   });
-  const pageUrl = new URL(`/learn/${topic.slug}`, Astro.site).toString();
+  const pageUrl = absUrl(`/learn/${topic.slug}`);
   html = fillSlots(lesson.rendered?.html ?? '', {
     incidents: incidentsHtml(incidents),
     quiz: quizHtml(lesson.data.quiz, issueUrl(topicId, pageUrl)),
@@ -73,10 +73,56 @@ const reviewLabel =
     ? 'Reviewed by the author'
     : 'Fact-checked by AI against cited sources · Human review pending';
 const prereqs = topic.prereqs.map((id) => topicById.get(id)!).filter(Boolean);
+
+// Search titles: "<topic> explained" when it still fits in ~60 characters with the brand.
+const seoTitle = lesson && `${topic.title} explained | ${SITE.name}`.length <= 60 ? `${topic.title} explained` : undefined;
+const published = lesson?.data.reviewed_on;
+const modified = lesson?.data.major_revised_on ?? published;
+const lessonUrl = absUrl(`/learn/${topic.slug}`);
+const jsonLd = lesson
+  ? [
+      {
+        '@type': ['Article', 'LearningResource'],
+        '@id': `${lessonUrl}#lesson`,
+        headline: topic.title,
+        name: topic.title,
+        description: lesson.data.subtitle,
+        url: lessonUrl,
+        mainEntityOfPage: lessonUrl,
+        image: absUrl(`/og/${topicId}.png`),
+        ...(published && { datePublished: published }),
+        ...(modified && { dateModified: modified }),
+        inLanguage: 'en',
+        author: { '@type': 'Person', name: SITE.author, url: absUrl('/about') },
+        publisher: { '@id': absUrl('/#publisher') },
+        license: 'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+        isAccessibleForFree: true,
+        learningResourceType: 'Lesson',
+        educationalLevel: levelLabel,
+        timeRequired: `PT${minutes}M`,
+        teaches: topic.oneLiner,
+        isPartOf: { '@type': 'Course', name: track.title, url: absUrl(`/map#${track.id}`) },
+        citation: lesson.data.sources.flatMap((x) => (x.url ? [x.url] : [])),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Map', item: absUrl('/map') },
+          { '@type': 'ListItem', position: 2, name: track.title, item: absUrl(`/map#${track.id}`) },
+          { '@type': 'ListItem', position: 3, name: topic.title },
+        ],
+      },
+    ]
+  : [];
 ---
 <Base
   title={topic.title}
-  description={lesson ? `A SeniorPath lesson for software engineers: ${lesson.data.subtitle}` : `${topic.oneLiner} (Coming soon on SeniorPath.)`}
+  seoTitle={seoTitle}
+  description={lesson ? lesson.data.subtitle : `${topic.oneLiner} (Coming soon on SeniorPath.)`}
+  ogType={lesson ? 'article' : 'website'}
+  published={published}
+  modified={modified}
+  jsonLd={jsonLd}
   noindex={!lesson}
   current="map"
   ogImage={lesson ? `/og/${topicId}.png` : undefined}

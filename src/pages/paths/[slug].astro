@@ -5,6 +5,7 @@ import TopBar from '../../components/TopBar.astro';
 import Footer from '../../components/Footer.astro';
 import Icon from '../../components/Icon.astro';
 import { siteData, LEVEL_LABEL } from '../../lib/site-data.ts';
+import { absUrl } from '../../config.ts';
 
 export async function getStaticPaths() {
   const d = await siteData();
@@ -14,8 +15,26 @@ const d = await siteData();
 const path = d.paths.find((p) => p.id === Astro.props.id)!;
 const w = path.topics.filter((t) => t.written).length;
 const first = path.topics.find((t) => t.written);
+const jsonLd = [
+  {
+    '@type': 'Course',
+    name: path.title,
+    description: path.description,
+    url: absUrl(`/paths/${path.slug}`),
+    inLanguage: 'en',
+    isAccessibleForFree: true,
+    provider: { '@id': absUrl('/#publisher') },
+    isPartOf: { '@id': absUrl('/map#course') },
+    hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' },
+  },
+  {
+    '@type': 'ItemList',
+    name: `${path.title}: lessons in order`,
+    itemListElement: path.topics.filter((t) => t.written).map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.title, url: absUrl(`/learn/${t.slug}`) })),
+  },
+];
 ---
-<Base title={path.title} description={`${path.title}: a SeniorPath learning path for software engineers. ${path.description}`} current="map">
+<Base title={path.title} description={`${path.title}: a SeniorPath learning path for software engineers. ${path.description}`} current="map" jsonLd={jsonLd}>
   <TopBar />
   <main id="main" class="page" data-path={path.id} data-default={String(path.default)}>
     <div class="phead">

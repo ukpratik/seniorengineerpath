@@ -14,7 +14,7 @@ WHAT YOU GET
 MADE TO RESPECT YOU
 • Everything works offline. The app has no internet permission.
 • No account, no ads, no tracking. Your progress stays on your phone.
-• Move your progress between the app and the website (seniorpath.dev) with one small file.
+• Move your progress between the app and the website (ukpratik.github.io/seniorengineerpath) with one small file.
 • Light and dark themes, large text, and screen reader support.
 
 Every lesson is checked against its sources, and every claim links to where it came from. Spotted a mistake? "Report a mistake" at the end of each lesson opens a short form.

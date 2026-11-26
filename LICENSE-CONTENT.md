@@ -6,7 +6,7 @@ The content of SeniorPath (everything in `src/content/`: lessons, diagrams, glos
 
 In short (the legal code is what counts):
 - **Share and adapt** the content in any medium or format.
-- **Attribution:** credit "SeniorPath (seniorpath.dev)", link to the licence and say if you made changes.
+- **Attribution:** credit "SeniorPath (https://ukpratik.github.io/seniorengineerpath/)", link to the licence and say if you made changes.
 - **NonCommercial:** not for commercial purposes.
 - **ShareAlike:** if you remix or build on it, share your version under the same licence.
 

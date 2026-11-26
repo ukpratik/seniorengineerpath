@@ -3,6 +3,7 @@ import { Resvg } from '@resvg/resvg-js';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { escapeHtml } from './html.ts';
+import { SITE_HOST } from '../config.ts';
 
 // Resolved from the project root: the build bundles this module elsewhere, so a
 // path relative to import.meta.url breaks and resvg silently drops all text (BUG-001).
@@ -41,7 +42,7 @@ export function ogSvg(o: { title: string; subtitle: string; track: string; level
 <text x="152" y="116" font-size="34" font-weight="800" fill="#0F172A">SeniorPath</text>
 <text x="1120" y="116" font-size="26" font-weight="700" fill="#3730A3" text-anchor="end">${escapeHtml(o.track)} · ${escapeHtml(o.level)}</text>
 ${t}${s}
-<text x="80" y="580" font-size="26" font-weight="700" fill="#475569">Free lessons for software engineers · seniorpath.dev</text>
+<text x="80" y="580" font-size="26" font-weight="700" fill="#475569">Free lessons for software engineers · ${escapeHtml(SITE_HOST)}</text>
 </svg>`;
 }
 

@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { readdirSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-// Every built page (NFR-005).
+// Every built page (NFR-005). Redirect stubs (meta refresh, for hosts without _redirects) are skipped.
 function pages(dir = 'dist'): string[] {
   return readdirSync(dir).flatMap((f) => {
     const p = join(dir, f);
     if (statSync(p).isDirectory()) return f === '_astro' || f === 'pagefind' ? [] : pages(p);
+    if (f.endsWith('.html') && readFileSync(p, 'utf8').includes('http-equiv="refresh"')) return [];
     return f.endsWith('.html') ? ['/' + relative('dist', p).replace(/index\.html$/, '').replace(/\.html$/, '')] : [];
   });
 }

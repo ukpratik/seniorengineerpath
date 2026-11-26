@@ -1,4 +1,5 @@
 // Loads /data/topics.json once, only on pages that need titles for stored ids.
+import { url } from './base.ts';
 export interface Manifest {
   topics: Record<string, { t: string; s: string; tr: string; ti: number; l: 'L1' | 'L2' | 'L3'; w: 0 | 1 }>;
   paths: Record<string, { t: string; s: string; steps: string[] }>;
@@ -7,7 +8,7 @@ export interface Manifest {
 }
 let p: Promise<Manifest | null> | null = null;
 export function manifest(): Promise<Manifest | null> {
-  return (p ??= fetch('/data/topics.json')
+  return (p ??= fetch(url('/data/topics.json'))
     .then((r) => (r.ok ? (r.json() as Promise<Manifest>) : null))
     .catch(() => null));
 }

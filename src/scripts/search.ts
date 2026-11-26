@@ -1,10 +1,12 @@
 // Search UI on top of Pagefind (ADR-005). The index loads on first focus.
 import { icon } from './ui.ts';
 import { track } from './analytics.ts';
+import { url } from './base.ts';
 
 interface SubResult { url: string; title: string; excerpt: string }
 interface ResultData { url: string; meta: { title?: string }; excerpt: string; filters: { type?: string[] }; sub_results?: SubResult[] }
 interface Pagefind {
+  options: (o: { baseUrl?: string }) => Promise<void>;
   init: () => Promise<void>;
   debouncedSearch: (q: string, opts?: object, ms?: number) => Promise<{ results: { data: () => Promise<ResultData> }[] } | null>;
 }
@@ -66,8 +68,9 @@ export function initSearch(): void {
   const nextSearch = latestOnly();
 
   const load = () =>
-    (loading ??= import(/* @vite-ignore */ '/pagefind/pagefind.js' as string)
+    (loading ??= import(/* @vite-ignore */ url('/pagefind/pagefind.js'))
       .then(async (m: Pagefind) => {
+        await m.options({ baseUrl: url('/') }); // result URLs carry the base path
         await m.init();
         pf = m;
         return m;
@@ -77,7 +80,7 @@ export function initSearch(): void {
   const showNone = (q: string) => {
     track('search', { result_count_bucket: '0' });
     live.textContent = 'No results.';
-    out.innerHTML = '<div class="none-box"><p><strong></strong></p><p class="small">Try a shorter word, or browse the <a href="/map">map</a> and the <a href="/glossary">glossary</a>.</p></div>';
+    out.innerHTML = '<div class="none-box"><p><strong></strong></p><p class="small">Try a shorter word, or browse the <a href="' + url('/map') + '">map</a> and the <a href="' + url('/glossary') + '">glossary</a>.</p></div>';
     out.querySelector('strong')!.textContent = `No results for “${q}”.`;
   };
 
@@ -96,7 +99,7 @@ export function initSearch(): void {
     if (!current()) return; // a newer query replaced this one
     out.removeAttribute('aria-busy');
     if (!m) {
-      out.innerHTML = '<div class="notice warn">' + icon('alert') + '<p>Search could not load. Check your connection, or browse the <a href="/map">map</a>.</p></div>';
+      out.innerHTML = '<div class="notice warn">' + icon('alert') + '<p>Search could not load. Check your connection, or browse the <a href="' + url('/map') + '">map</a>.</p></div>';
       return;
     }
     out.setAttribute('aria-busy', 'true');

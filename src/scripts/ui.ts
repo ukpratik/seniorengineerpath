@@ -1,11 +1,12 @@
 // Shared behaviour on every page: theme, dialogs (bottom sheets), toast,
 // glossary sheet and the progress box in the desktop rail.
 import { createStore } from './store.ts';
+import { url } from './base.ts';
 
 export const store = createStore();
 
 export function icon(name: string, small = false): string {
-  return `<svg class="i${small ? ' sm' : ''}" aria-hidden="true"><use href="/icons.svg#i-${name}"/></svg>`;
+  return `<svg class="i${small ? ' sm' : ''}" aria-hidden="true"><use href="${url('/icons.svg')}#i-${name}"/></svg>`;
 }
 
 // ---- Theme ----
@@ -73,7 +74,7 @@ function openTerm(a: HTMLAnchorElement): boolean {
   if (!d || !tpl) return false;
   d.querySelector('.g-title')!.textContent = tpl.dataset.title ?? '';
   d.querySelector('.g-def')!.textContent = tpl.content.textContent?.trim() ?? '';
-  d.querySelector<HTMLAnchorElement>('.more')!.href = a.getAttribute('href') ?? '/glossary';
+  d.querySelector<HTMLAnchorElement>('.more')!.href = a.getAttribute('href') ?? url('/glossary');
   openDialog(d, a);
   return true;
 }

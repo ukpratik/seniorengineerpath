@@ -1,11 +1,12 @@
 {
   "ci": {
     "collect": {
-      "staticDistDir": "./dist",
+      "startServerCommand": "node scripts/serve.mjs 4323",
+      "startServerReadyPattern": "serving dist",
       "url": [
-        "http://localhost/index.html",
-        "http://localhost/map.html",
-        "http://localhost/learn/idempotency-retries-timeouts.html"
+        "http://127.0.0.1:4323/",
+        "http://127.0.0.1:4323/map",
+        "http://127.0.0.1:4323/learn/idempotency-retries-timeouts"
       ],
       "numberOfRuns": 3,
       "settings": { "onlyCategories": ["performance", "accessibility"], "formFactor": "mobile", "throttlingMethod": "simulate" }

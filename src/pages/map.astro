@@ -107,6 +107,7 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
       store.setMapAll(!on);
       track('map_filter_toggle', { value: on ? 'written' : 'all' });
       live.textContent = on ? `Showing the ${written} written lessons only.` : `Showing all ${total} topics. Coming-soon topics are marked.`;
+    import { url } from '../scripts/base.ts';
     });
     const ex = document.querySelector<HTMLButtonElement>('[data-expand]')!;
     ex.addEventListener('click', () => {
@@ -153,7 +154,7 @@ const firstWritten = d.defaultPath.topics.find((t) => t.written);
             const path = m.paths[s.activePath && m.paths[s.activePath] ? s.activePath : m.defaultPath];
             const nextId = path.steps.find((id) => m.topics[id]?.w && !s.done[id]);
             if (!nextId) return;
-            link.href = `/learn/${m.topics[nextId].s}`;
+            link.href = url(`/learn/${m.topics[nextId].s}`);
             link.querySelector('span')!.textContent = `Next: ${m.topics[nextId].t}`;
           });
         }

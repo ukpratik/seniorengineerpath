@@ -62,7 +62,7 @@ test('QA1-06: glossary terms that start with a digit have an entry', async ({ pa
 test('QA1-07: incident cards link back to the lessons that cite them', async ({ page }) => {
   await page.goto('/incidents');
   const card = page.locator('li.inc', { has: page.locator('#aws-2021-12-us-east-1') });
-  await expect(card.locator('a[href="/learn/idempotency-retries-timeouts"]')).toHaveCount(1);
+  await expect(card.locator('a[href$="/learn/idempotency-retries-timeouts"]')).toHaveCount(1);
 });
 
 test('QA1-08: an unknown last-opened lesson falls back to the normal start', async ({ page }) => {

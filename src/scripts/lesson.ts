@@ -5,6 +5,7 @@ import { initStepper } from './stepthrough.ts';
 import { track } from './analytics.ts';
 import { nthBucket } from './store.ts';
 import { manifest } from './manifest.ts';
+import { url } from './base.ts';
 
 initUi();
 
@@ -40,7 +41,7 @@ if (page) {
         const t = tid ? m.topics[tid] : undefined;
         if (!t) return '<span></span>';
         const a = document.createElement('a');
-        a.href = `/learn/${t.s}`;
+        a.href = url(`/learn/${t.s}`);
         a.innerHTML = `<small>${label}</small>`;
         a.append(t.t);
         return a.outerHTML;

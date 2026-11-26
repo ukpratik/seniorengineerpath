@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { AstroIntegration } from 'astro';
-import { UMAMI } from '../config.ts';
+import { UMAMI, BASE_PATH } from '../config.ts';
 import { loadContent } from './load.ts';
 import { runGate, formatIssues, publishedLessons } from './gate.ts';
 
@@ -21,34 +21,47 @@ export function gateNow(): { ok: boolean; report: string } {
   return { ok: r.errors.length === 0, report: formatIssues(r) };
 }
 
-function htmlFiles(dir: string): string[] {
+function walk(dir: string, ext: string): string[] {
   return readdirSync(dir).flatMap((f) => {
     const p = join(dir, f);
-    return statSync(p).isDirectory() ? htmlFiles(p) : f.endsWith('.html') ? [p] : [];
+    return statSync(p).isDirectory() ? walk(p, ext) : f.endsWith(ext) ? [p] : [];
   });
 }
+const htmlFiles = (dir: string) => walk(dir, '.html');
 
-// Content Security Policy with a hash for every inline script in the build (NFR-011).
-export function securityHeaders(distDir: string): string {
-  const hashes = new Set<string>();
-  for (const f of htmlFiles(distDir)) {
-    for (const m of readFileSync(f, 'utf8').matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)) {
-      if (m[1].trim()) hashes.add(`'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`);
-    }
+// Inline scripts that run. JSON-LD (type="application/ld+json") is data, never executed, so it needs no hash.
+const INLINE_SCRIPT = /<script(?![^>]*\b(?:src=|type="application\/ld\+json"))[^>]*>([\s\S]*?)<\/script>/g;
+
+function scriptHashes(html: string, into = new Set<string>()): Set<string> {
+  for (const m of html.matchAll(INLINE_SCRIPT)) {
+    if (m[1].trim()) into.add(`'sha256-${createHash('sha256').update(m[1]).digest('base64')}'`);
   }
+  return into;
+}
+
+function cspFor(hashes: Set<string>, opts: { meta?: boolean } = {}): string {
   const umami = UMAMI.websiteId ? new URL(UMAMI.src).origin : '';
-  const csp = [
+  return [
     "default-src 'self'",
     `script-src 'self' ${[...hashes].join(' ')} ${umami} 'wasm-unsafe-eval'`.replace(/\s+/g, ' ').trim(),
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data:",
     "font-src 'self'",
     `connect-src 'self' ${umami}`.trim(),
-    "frame-ancestors 'none'",
+    // Browsers ignore frame-ancestors in a <meta> CSP (and warn), so only the header carries it.
+    ...(opts.meta ? [] : ["frame-ancestors 'none'"]),
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
   ].join('; ');
+}
+
+// Content Security Policy with a hash for every inline script in the build (NFR-011).
+// Written to _headers for hosts that read it (Cloudflare Pages).
+export function securityHeaders(distDir: string): string {
+  const hashes = new Set<string>();
+  for (const f of htmlFiles(distDir)) scriptHashes(readFileSync(f, 'utf8'), hashes);
+  const csp = cspFor(hashes);
   return `/*
   Content-Security-Policy: ${csp}
   Referrer-Policy: strict-origin-when-cross-origin
@@ -62,6 +75,51 @@ export function securityHeaders(distDir: string): string {
 /icons.svg
   Cache-Control: public, max-age=86400
 `;
+}
+
+// GitHub Pages sends no custom headers, so each page also carries its CSP in a <meta> tag,
+// with the hashes of only that page's inline scripts (D-043).
+export function addMetaCsp(html: string): string {
+  const tag = `<meta http-equiv="Content-Security-Policy" content="${cspFor(scriptHashes(html), { meta: true })}">`;
+  return html.replace(/<meta charset="utf-8"\s*\/?>/i, (m) => `${m}${tag}`);
+}
+
+// The site is written with root-relative links ('/learn/x', '/icons.svg#i-map', and the same in
+// lesson Markdown, which the Android export reads too). When the site is served under a path
+// (GitHub Pages: /seniorengineerpath), prefix every root-relative URL in HTML attributes and CSS.
+// Script bodies are left alone; client scripts use url() from src/scripts/base.ts.
+export function prefixBase(text: string, base: string, kind: 'html' | 'css'): string {
+  if (!base) return text;
+  const skip = (p: string) => p.startsWith('//') || p === base || p.startsWith(`${base}/`) || p.startsWith(`${base}#`) || p.startsWith(`${base}?`);
+  if (kind === 'css') return text.replace(/url\((["']?)(\/[^"')]*)\1\)/g, (m, q, p) => (skip(p) ? m : `url(${q}${base}${p}${q})`));
+  const parts = text.split(/(<script\b[\s\S]*?<\/script>)/i);
+  return parts
+    .map((part, i) =>
+      i % 2 === 1 && !/^<script\b[^>]*\bsrc=/i.test(part)
+        ? part
+        : part.replace(/(\s(?:href|src|action|poster|xlink:href)=)(["'])(\/[^"']*)\2/g, (m, attr, q, p) => (skip(p) ? m : `${attr}${q}${base}${p}${q}`)),
+    )
+    .join('');
+}
+
+// Hosts without _redirects support (GitHub Pages) get a small HTML page per redirect instead.
+export function redirectPage(to: string): string {
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="${to}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${to}"></head><body><p>This page moved to <a href="${to}">${to}</a>.</p></body></html>\n`;
+}
+
+function writeRedirectPages(dist: string, base: string): number {
+  const file = join(dist, '_redirects');
+  if (!existsSync(file)) return 0;
+  let n = 0;
+  for (const line of readFileSync(file, 'utf8').split('\n')) {
+    const m = line.trim().match(/^(\/[^\s#]+)\s+(\/\S*)\s+30[12]$/);
+    if (!m) continue;
+    const page = join(dist, `${m[1].replace(/^\//, '')}.html`);
+    if (existsSync(page)) continue; // a real page wins
+    writeFileSync(page, redirectPage(`${base}${m[2]}`));
+    n++;
+  }
+  return n;
 }
 
 export function contentGate(): AstroIntegration {
@@ -98,8 +156,12 @@ export function contentGate(): AstroIntegration {
           if (got !== want) missing.push(`${l.id}: ${want} citations in the lesson, ${got} on the page`);
         }
         if (missing.length) throw new Error(`Lesson text was dropped while rendering:\n  ${missing.join('\n  ')}`);
-        writeFileSync(join(fileURLToPath(dir), '_headers'), securityHeaders(fileURLToPath(dir)));
-        logger.info('wrote _headers with CSP hashes for inline scripts');
+        const dist = fileURLToPath(dir);
+        const moved = writeRedirectPages(dist, BASE_PATH);
+        for (const f of walk(dist, '.css')) writeFileSync(f, prefixBase(readFileSync(f, 'utf8'), BASE_PATH, 'css'));
+        for (const f of htmlFiles(dist)) writeFileSync(f, addMetaCsp(prefixBase(readFileSync(f, 'utf8'), BASE_PATH, 'html')));
+        writeFileSync(join(dist, '_headers'), securityHeaders(dist));
+        logger.info(`base path '${BASE_PATH || '/'}' applied; ${moved} redirect pages; CSP in _headers and in each page's <meta>`);
       },
     },
   };

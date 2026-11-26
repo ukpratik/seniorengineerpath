@@ -22,7 +22,7 @@ export function renderStepper(d: Diagram): string {
   const tid = `dg-${d.id}-title`;
   const dots = Array.from({ length: n }, () => '<i></i>').join('');
   return `<figure class="stepper" id="dg-${d.id}" data-stepper tabindex="0" aria-roledescription="step-through diagram" aria-labelledby="${tid}">
-<svg class="dg" viewBox="${escapeHtml(d.viewBox)}" role="img" aria-labelledby="${tid}"><title id="${tid}">${escapeHtml(d.title)}</title>${d.svg}<text class="site" x="99%" y="99%" text-anchor="end">seniorpath.dev</text></svg>
+<svg class="dg" viewBox="${escapeHtml(d.viewBox)}" role="img" aria-labelledby="${tid}"><title id="${tid}">${escapeHtml(d.title)}</title>${d.svg}<text class="site" x="99%" y="99%" text-anchor="end">SeniorPath</text></svg>
 <ol class="caps-nojs">${d.captions.map((c) => `<li>${escapeHtml(c)}</li>`).join('')}</ol>
 <div class="ctrls no-js-hide">
 <button type="button" class="btn btn-secondary" data-prev><svg class="i" aria-hidden="true"><use href="/icons.svg#i-chev-left"/></svg>Back</button>

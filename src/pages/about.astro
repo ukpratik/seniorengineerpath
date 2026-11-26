@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 import TopBar from '../components/TopBar.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
-import { SITE } from '../config.ts';
+import { SITE, APP } from '../config.ts';
 ---
 <Base title="About, content checks and privacy" description="Who makes SeniorPath, how every lesson is fact-checked, what data the site stores (almost nothing) and how you may reuse the content." current="none">
   <TopBar />
@@ -49,7 +49,7 @@ import { SITE } from '../config.ts';
       </ul>
       <p>To delete your progress, clear this site’s data in your browser settings.</p>
       <h3 id="privacy-app">The Android app</h3>
-      <p>The SeniorPath app for Android collects nothing. It has no analytics, no ads, no account and no internet permission: every lesson is inside the app.</p>
+      <p>The SeniorPath app for Android collects nothing. It has no analytics, no ads, no account and no internet permission: every lesson is inside the app. Get it on <a href={APP.play} rel="noopener">Google Play</a> or <a href={APP.fdroid} rel="noopener">F-Droid</a>.</p>
       <ul>
         <li><strong>Your progress stays on your phone:</strong> lessons marked done, the last lesson and where you were in it, your path and your theme. Exporting a progress file is up to you, and the file goes only where you save it.</li>
         <li><strong>Android backup.</strong> If backup is on in your phone’s settings, Android may copy the app’s progress to your own Google account, encrypted. The app never uploads anything itself, and we can’t see it.</li>

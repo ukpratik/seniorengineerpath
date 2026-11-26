@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../config.ts';
+import { SITE, APP } from '../config.ts';
 ---
 <nav class="foot" aria-label="Footer">
   <a href="/about">About</a>
@@ -8,4 +8,7 @@ import { SITE } from '../config.ts';
   <a href="/about#licence">Licence: CC BY-NC-SA 4.0</a>
   <a href="/rss.xml">RSS</a>
   <a href={`https://github.com/${SITE.repo}`}>GitHub</a>
+  <a href={APP.play} rel="noopener">Android app on Google Play</a>
+  <a href={APP.fdroid} rel="noopener">Android app on F-Droid</a>
+  <a href={SITE.moreApps} rel="noopener">More apps from {SITE.publisher}</a>
 </nav>

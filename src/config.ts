@@ -10,6 +10,7 @@ export const SITE = {
   author: 'Pratik Ukey',
   publisher: 'UK Group',
   moreApps: 'https://ukpratik.github.io/awesomeaiapplications/',
+  sponsor: 'https://github.com/sponsors/ukpratik',
 };
 
 /** Path prefix the site is served under: '' on a root domain, '/seniorengineerpath' on GitHub Pages. */

@@ -41,6 +41,10 @@ The site is static and deployed to GitHub Pages by `.github/workflows/pages.yml`
 
 More apps from UK Group: https://ukpratik.github.io/awesomeaiapplications/
 
+## Support
+
+SeniorPath is free, with no ads and no tracking. If it's useful to you, you can support its development on [GitHub Sponsors](https://github.com/sponsors/ukpratik). Starring the repo or telling a friend about it helps too.
+
 ## Licence
 - Content (lessons, diagrams, glossary, incident cards): [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
 - Code: [MIT](LICENSE).

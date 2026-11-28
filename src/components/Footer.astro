@@ -1,6 +1,14 @@
 ---
 import { SITE, APP } from '../config.ts';
 ---
+<aside data-sponsor class="support" aria-labelledby="support-title">
+    <span class="support-heart"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 14s-6-3.9-6-8a3.5 3.5 0 0 1 6-2.45A3.5 3.5 0 0 1 14 6c0 4.1-6 8-6 8z"/></svg></span>
+    <div class="support-text">
+      <h2 id="support-title">Like SeniorPath? Help keep it free.</h2>
+      <p>Every lesson is free, with no ads, no tracking and no paywall. Sponsoring on GitHub pays for the time to write, check and update lessons.</p>
+    </div>
+    <a class="btn-sponsor" href={SITE.sponsor} rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 14s-6-3.9-6-8a3.5 3.5 0 0 1 6-2.45A3.5 3.5 0 0 1 14 6c0 4.1-6 8-6 8z"/></svg><span>Sponsor on GitHub</span></a>
+  </aside>
 <nav class="foot" aria-label="Footer">
   <a href="/about">About</a>
   <a href="/about#checks">How we check content</a>
@@ -10,6 +18,5 @@ import { SITE, APP } from '../config.ts';
   <a href={`https://github.com/${SITE.repo}`}>GitHub</a>
   <a href={APP.play} rel="noopener">Android app on Google Play</a>
   <a href={APP.fdroid} rel="noopener">Android app on F-Droid</a>
-  <a href={SITE.sponsor} rel="noopener">Support SeniorPath</a>
   <a href={SITE.moreApps} rel="noopener">More apps from {SITE.publisher}</a>
 </nav>

@@ -43,7 +43,9 @@ More apps from UK Group: https://ukpratik.github.io/awesomeaiapplications/
 
 ## Support
 
-SeniorPath is free, with no ads and no tracking. If it's useful to you, you can support its development on [GitHub Sponsors](https://github.com/sponsors/ukpratik). Starring the repo or telling a friend about it helps too.
+<a href="https://github.com/sponsors/ukpratik"><img src="https://img.shields.io/badge/Sponsor_on_GitHub-%E2%99%A5-db61a2?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Sponsor on GitHub" height="32"></a>
+
+SeniorPath is free, with no ads and no tracking. If it's useful to you, sponsoring on GitHub pays for test devices and the time to keep it updated. Starring the repo or telling a friend about it helps too.
 
 ## Licence
 - Content (lessons, diagrams, glossary, incident cards): [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
